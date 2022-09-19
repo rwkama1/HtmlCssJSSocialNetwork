@@ -19,10 +19,16 @@
       <link rel="stylesheet" href="../assets/css/uikit.css">
       <link rel="stylesheet" href="../assets/css/style.css">
       <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+
       <style>
          body{
          background-color: #f0f2f5;
          } 
+        #deleteaccountseconddiv
+        { 
+     
+         margin: 0 auto;
+        }
       </style>
       <!-- JS 
          ================================================== --> 
@@ -532,7 +538,7 @@
                               <span class="uk-switch-button"></span>
                               </span>
                            </a>
-                           <a href="form-login.html">
+                           <a href="../register_login/index.html">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                               </svg>
@@ -689,7 +695,8 @@
                            <li id="navliusernamepassword"><a href="#usernamepassword" onclick="showUserNamePasswordDiv()"
                               > <i class="uil-unlock-alt"></i> Username & Password </a></li>
                            <li id="navliavatarcover"><a href="#" onclick="showAvatarCoverDiv()"> <i class="uil-scenery"></i> Avatar & Cover</a></li>
-                           <li id="navlideleteaccount" uk-toggle="target: #create-post-modal"><a href="#" > <i class="uil-trash-alt"></i> Delete account</a></li>
+                           <li id="navlideleteaccount" uk-toggle="target: #create-deleteaccount"><a href="#" > <i class="uil-trash-alt"></i> Delete account</a></li>
+                           
                         </ul>
                      </nav>
                   </div>
@@ -736,7 +743,7 @@
                                  </div>
                               </div>
                               <div class="line">
-                                 <input class="line__input"  name="password" type="text" onkeyup="this.setAttribute('value', this.value);" value="">
+                                 <input class="line__input" id="countryinput"  name="myCountry"  type="text" onkeyup="this.setAttribute('value', this.value);" value="">
                                  <span for="username" class="line__placeholder">Country </span>
                               </div>
                               <div class="line">
@@ -834,7 +841,7 @@
                         <div class="profiles_banner">
                            <img src="../assets/images/avatars/profile-cover.jpg" alt="">
                            <!-- <div class="profile_action absolute bottom-0 right-0 space-x-1.5 p-3 text-sm z-50 hidden lg:flex"> -->
-                            <div class="profile_action absolute bottom-0 right-0 space-x-1.5 p-3 text-sm z-50 hidden lg:flex">
+                            <div class="profile_action absolute bottom-0 right-0 space-x-1.5 p-3 text-sm z-50  lg:flex">
                               <!-- <a href="#" class="flex items-center justify-center h-8 px-3 rounded-md bg-gray-700 bg-opacity-70 text-white space-x-1.5"> 
                                  <ion-icon name="crop-outline" class="text-xl"></ion-icon>
                                  <span> Crop  </span>
@@ -864,8 +871,11 @@
                               </div>
                            </div>
                            <div class="profile_info">
-                              <h1> Josephine Williams </h1>
+                            
                            </div>
+                        </div>
+                        <div class="bg-gray-10 p-16 pt-0 flex justify-center">
+                           <button  class="button bg-blue-700"> Save </button>
                         </div>
                      </div>
                   </div>
@@ -1053,160 +1063,32 @@
             </div>
          </div>
       </div>
-
-      <div id="create-post-modal" class="create-post is-story" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
-  
-          <div class="py-4 border-b flex  justify-between px-6">
-              <h3 class="text-lg font-semibold"> Create Post </h3>
-              <div>
-                  <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
-                      Saved as draft
-                  </div> -->
-                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
-                      type="button" uk-close>
-                      <i class="icon-feather-close"></i>
-                  </button>
-              </div>
-          </div>
-  
-  
-          <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-  
-              <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
-                  <!-- <div class="relative uk-transition-toggle overflow-hidden">
-                      <div
-                          class="bg-gray-100 border-2 border-dashed flex flex-col h-40 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
-                              <path
-                                  d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
-                              <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
-                          </svg>
-                      </div>
-                      <div class="w-full" uk-form-custom>
-                          <input type="file">
-                          <a href="#"
-                              class="bg-gray-200 flex font-medium h-9 items-center justify-center px-5 rounded-b-xl text-blue-600 text-white uk-position-bottom uk-transition-bottom-small">
-                              Choose file</a>
-                      </div>
-                  </div> -->
-  
-                  <!-- <div class="font-semibold text-lg"> Details </div> -->
-                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
-                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                      <input type="text" placeholder="Name" required
-                          class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full">
-                  </div>
-                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
-                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                      <textarea type="text" rows="5" placeholder="What's Your Mind ? Stella!" required
-                          class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
-                  </div>
-                  <!-- <div class="keywords-container"> -->
-                      <!-- <div class="keyword-input-container shadow-none">
-                          <input type="text" class="keyword-input with-border" placeholder="Add Keywords" />
-                          <button type="button" class="keyword-input-button ripple-effect">
-                              <i class="icon-feather-plus"></i></button>
-                      </div> -->
-                      <!-- <div class="keywords-list">
-                          <span class="keyword">
-                              <span class="keyword-remove">Javascript</span> <span class="keyword-text"></span>
-                          </span>
-                          <span class="keyword">
-                              <span class="keyword-remove">Node</span> <span class="keyword-text"></span>
-                          </span>
-                          <span class="keyword">
-                              <span class="keyword-remove">Typescript</span> <span class="keyword-text"></span>
-                          </span>
-                      </div> -->
-                      <!-- <div class="clearfix"></div> -->
-                  <!-- </div> -->
-  
-                  <!-- <div class="px-2 space-y-2">
-                      <div class="font-semibold text-base"> Playlists </div>
-                      <div> Add your video to one or more playlists. Playlists can help viewers discover your content
-                          faster. <a href="#" class="text-blue-500"> Learn more</a> </div>
-                      <select class="selectpicker">
-                          <option data-icon="icon-material-outline-assignment">Assignment</option>
-                          <option data-icon="icon-material-outline-access-alarm">Alarm</option>
-                          <option data-icon="icon-material-outline-account-circle">Account</option>
-                          <option data-icon="icon-material-outline-cake">Cake</option>
-                      </select>
-                  </div> -->
-  
-                  <div class="px-2 space-y-2">
-                      <div class="font-semibold text-base"> Visibilty </div>
-                      <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
-                          the website. </div> -->
-                      <select class="selectpicker">
-                          <option data-icon="uil-bullseye"> Private </option>
-                          <option data-icon="uil-chat-bubble-user">Friends</option>
-                          <option data-icon="uil-globe" selected>Public</option>
-                      </select>
-                  </div>
-  
-                  <!-- <div class="px-2 space-y-2">
-                      <div class="font-semibold text-base"> Age Restrict </div>
-                      <div> Do you want to restrict your video to an adult audience? </div>
-                      <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                          tincidunt utmagna</div>
-                      <div class="flex flex-col">
-                          <div class="radio">
-                              <input id="radio-1" name="radio" type="radio" checked>
-                              <label for="radio-1"><span class="radio-label"></span> Yes, it's made for kids </label>
-                          </div>
-                          <div class="radio">
-                              <input id="radio-2" name="radio" type="radio">
-                              <label for="radio-2"><span class="radio-label"></span>No, it's not made for kids </label>
-                          </div>
-                      </div>
-                  </div> -->
-          <div class="flex items-center w-full justify-between p-3 border-t">
-            <div class="flex items-center space-x-2">
-                <!--       
-                                      <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
-                                      <div> You are successfuly uploaded</div> -->
-                      
-                </div>
-                  <div class="flex space-x-2">
-                    <!-- <a href="#"
-                        class="bg-red-100 flex font-medium h-9 items-center justify-center px-5 rounded-md text-red-600 text-sm">
-                        <svg class="h-5 pr-1 rounded-full text-red-500 w-6 fill-current" id="veiw-more" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="false"
-                            style="">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                        Live </a> -->
-                       
-                    <button type="submit" 
-                        class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium">
-                        Share </button>
+      <!-- Delete Account -->
+     
+      <!--  -->
+      <!-- class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full" -->
+      <div id="create-deleteaccount"  uk-modal tabindex="-1">
+         <div id="deleteaccountseconddiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
+             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+               <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+               type="button" uk-close>
+               <i class="icon-feather-close"></i>
+                </button>
+                 <div class="p-6 text-center">
+                     <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete your account?</h3>
+                     <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                         Yes, I'm sure
+                     </button>
+                     <!-- <button 
+                      type="button" 
                     
-                </div>
-            </div>
-<!--       
-                </form>
-            
-  
-          </div>
-  
-          <div class="flex items-center w-full justify-between p-3 border-t">
-  
-              <div class="flex items-center space-x-2">
-
-                  <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
-                  <div> You are successfuly uploaded</div> -->
-  
-              </div>
-  
-         
-           
-             
-          </div>
-       
-     </div>
+                      class=" text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                      No, cancel</button> -->
+                 </div>
+             </div>
+         </div>
+       </div>
       <!-- Javascript
          ================================================== -->
       <script>
@@ -1272,6 +1154,7 @@
       </script>
       <script src="../assets/js/nightmode.js"></script>
       <script src="../assets/js/jquery-3.6.0.min.js"></script>
+     
       <script src="../assets/js/tippy.all.min.js"></script>
       <script src="../assets/js/uikit.js"></script>
       <script src="../assets/js/simplebar.js"></script>
