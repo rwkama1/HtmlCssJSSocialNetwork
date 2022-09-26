@@ -709,7 +709,7 @@
                          
                             <h1 style="text-align:center"> Josephine Williams </h1>
                           
-                                <p style="text-align:center">About here   <a href="#">  Edit </a></p>
+                                <p style="text-align:center">About here   <a href="" uk-toggle="target: #updatedescriptionmodal">  Edit </a></p>
                           
                          
                         </div>
@@ -758,6 +758,7 @@
                             <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700"  
                               uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
                                   <ul class="space-y-1">
+<!-- 
                                     <li> 
                                         <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                                            <ion-icon name="arrow-redo-outline" class="pr-2 text-xl"></ion-icon> Share Profile
@@ -777,13 +778,18 @@
                                         <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                                           <ion-icon name="star-outline"  class="pr-2 text-xl"></ion-icon>  Add favorites 
                                         </a> 
-                                    </li>
-                                    <li>
+                                    </li> -->
+                                    <!-- <li>
                                       <hr class="-mx-2 my-2 dark:border-gray-800">
+                                    </li> -->
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                          <ion-icon name="stop-circle-outline" class="pr-2 text-xl"></ion-icon>  Unfriend
+                                        </a> 
                                     </li>
                                     <li> 
                                         <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                          <ion-icon name="stop-circle-outline" class="pr-2 text-xl"></ion-icon>  Unfriend
+                                          <ion-icon name="lock-closed-outline" class="pr-2 text-xl"></ion-icon>  Block 
                                         </a> 
                                     </li>
                                   </ul>
@@ -2496,7 +2502,8 @@
                          
                             <div id="morephotos" hidden class="card lg:mx-0 uk-animation-slide-bottom-small">
                                  <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-                                    <img src="https://media.st.dl.eccdnx.com/steam/apps/230290/extras/Chaotic_System.jpg?t=1661363513.gif" class="w-full h-full absolute object-cover inset-0">
+                                    <img src="../assets/images/post/img-4.jpg"
+                                     class="w-full h-full absolute object-cover inset-0">
                                     <!-- overly-->
                                     <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
                                     <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
@@ -3245,7 +3252,7 @@
                 </div>
             </div>
 <!--       
-                </form>
+            
             
   
           </div>
@@ -3259,13 +3266,106 @@
   
               </div>
   
-         
+            </form>
            
              
           </div>
        
-     </div>
+    </div>
     
+    
+    <!-- Update  description modal -->
+    <div id="updatedescriptionmodal" class="create-post is-story" uk-modal>
+
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+  
+          <div class="py-4 border-b flex  justify-between px-6">
+              <h3 class="text-lg font-semibold"> Update Description </h3>
+              <div>
+                  <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+                      Saved as draft
+                  </div> -->
+                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                      type="button" uk-close>
+                      <i class="icon-feather-close"></i>
+                  </button>
+              </div>
+          </div>
+
+
+  
+          <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+            <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+                  <!-- <div class="relative uk-transition-toggle overflow-hidden">
+                      <div
+                          class="bg-gray-100 border-2 border-dashed flex flex-col h-40 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                              <path
+                                  d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+                              <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
+                          </svg>
+                      </div>
+                      <div class="w-full" uk-form-custom>
+                          <input type="file">
+                          <a href="#"
+                              class="bg-gray-200 flex font-medium h-9 items-center justify-center px-5 rounded-b-xl text-blue-600 text-white uk-position-bottom uk-transition-bottom-small">
+                              Choose file</a>
+                      </div>
+                  </div> -->
+  
+                  <!-- <div class="font-semibold text-lg"> Details </div> -->
+                  <!-- <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
+                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
+                      <input type="text" placeholder="Name" required
+                          class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full">
+                  </div> -->
+                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
+                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
+                      <textarea type="text" rows="5" placeholder="What's Your Mind ? " required
+                          class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                  </div>
+                  
+  
+              
+             <div class="flex items-center w-full justify-between p-3 border-t">
+                <div class="flex items-center space-x-2">
+            
+                      
+                </div>
+                  <div class="flex space-x-2">
+                 
+                       
+                    <button type="submit" 
+                        class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium">
+                        Update </button>
+                    
+                </div>
+
+            </div>
+    
+  
+        </div>
+    </form>
+    </div>
+
+          <!-- <div class="flex items-center w-full justify-between p-3 border-t">
+  
+              <div class="flex items-center space-x-2">
+
+                  <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
+                  <div> You are successfuly uploaded</div> -->
+  
+              <!-- </div>
+  
+         
+           
+             
+          </div> --> 
+      
+      
+    </div>
+    
+     
     <!-- Create new album -->
 
     <div id="offcanvas-create" uk-offcanvas="flip: true; overlay: true">
