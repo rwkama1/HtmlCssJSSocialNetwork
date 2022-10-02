@@ -29,22 +29,7 @@
 	<script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
 	<script src="../assets/js/iconify-icon.min.js"></script>
-	<!--  Carosuel Tailwind elements -->
-	<link rel="stylesheet" href="../assets/css/tailwindelement/all.min.css">
-	<link rel="stylesheet" href="../assets/css/tailwindelement/font.googleapis.css">
-	<link rel="stylesheet" href="../assets/css/tailwindelement/index.min.css">
-	<script src="../assets/js/tailwindelement.js"></script>
-	<script>
-	tailwind.config = {
-		theme: {
-			extend: {
-				fontFamily: {
-					sans: ['Inter', 'sans-serif'],
-				},
-			}
-		}
-	}
-	</script>
+	
 </head>
 
 <body>
@@ -1561,21 +1546,30 @@
 									</ul>
 								</nav>
 							</div>
-							<a href="#offcanvas-create" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" title="Create New Album">
-								<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-									<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-								</svg>
-							</a>
+							<div class="uk-switcher" id="photo-tab">
+								<a href="#offcanvas-create" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" title="Create New Album">
+									<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+									</svg>
+								</a>
+								<a href="#offcanvas-create" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" title="Create New Image">
+									<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+									</svg>
+								</a>
+							</div>
+							
 						</div>
-						<!-- Album -->
-						<!-- <div class="uk-switcher lg:mt-8 mt-4" id="photo-tab"> -->
-						<!-- <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-5"> -->
+					
 						<div class="uk-switcher" id="photo-tab">
+
+							<!-- Album -->
                             <div>
+							
 							<div class="uk-child-width-1-2@m" uk-grid>
 							
 								<div>
-									<div class="uk-h3">Pull</div>
+									
 									<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 										<ul class="uk-slideshow-items">
 											<li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
@@ -1587,7 +1581,7 @@
 									</div>
 								</div>
                                 <div>
-									<div class="uk-h3">Pull</div>
+									
 									<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 										<ul class="uk-slideshow-items">
 											<li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
@@ -1599,7 +1593,7 @@
 									</div>
 								</div>
                                 <div>
-									<div class="uk-h3">Pull</div>
+									
 									<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 										<ul class="uk-slideshow-items">
 											<li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
@@ -1611,7 +1605,7 @@
 									</div>
 								</div>
                                 <div>
-									<div class="uk-h3">Pull</div>
+									
 									<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 										<ul class="uk-slideshow-items">
 											<li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
@@ -1623,7 +1617,7 @@
 									</div>
 								</div>
                                 <div hidden id="morealbumimage" >
-									<div class="uk-h3">Pull</div>
+									
 									<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 										<ul class="uk-slideshow-items">
 											<li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
@@ -1651,6 +1645,7 @@
                                 </a>
                             </div>
                             </div>
+								<!-- All Photos -->
 				            <div>
                                 <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-5">
                                     <div>
