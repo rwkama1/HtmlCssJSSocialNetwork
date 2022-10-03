@@ -565,7 +565,7 @@
 			<div class="mcontainer">
 				<!-- Profile cover -->
 				<div class="profile user-profile">
-					<div class="profiles_banner"> <img src="../assets/images/avatars/profile-cover.jpg" alt="">
+					<div  class="profiles_banner"> <img src="../assets/images/avatars/no-image-slide.jpg" alt="">
 						<!-- <div class="profile_action absolute bottom-0 right-0 space-x-1.5 p-3 text-sm z-50 hidden lg:flex">
                           <a href="#" class="flex items-center justify-center h-8 px-3 rounded-md bg-gray-700 bg-opacity-70 text-white space-x-1.5"> 
                               <ion-icon name="crop-outline" class="text-xl"></ion-icon>
@@ -578,7 +578,7 @@
                       </div> --></div>
 					<div class="profiles_content">
 						<div class="profile_avatar">
-							<div class="profile_avatar_holder"> <img src="../assets/images/avatars/avatar-8.jpg" alt=""> </div>
+							<div class="profile_avatar_holder"> <img src="../assets/images/avatars/nouser.jpg" alt=""> </div>
 							<div class="user_status status_online"></div>
 							<div class="icon_change_photo" hidden>
 								<ion-icon name="camera" class="text-xl"></ion-icon>
@@ -2190,6 +2190,57 @@
 				<button class="uk-offcanvas-close absolute" type="button" uk-close></button>
 				<!-- notivication header -->
 				<div class="-mb-1 border-b font-semibold px-5 py-5 text-lg">
+					<h4> Create album image </h4> </div>
+				<div class="p-6 space-y-3 flex-1">
+					<div>
+						<label> Album image name </label>
+						<input type="text" class="with-border" placeholder=""> </div>
+					<!-- <div>
+						<label> Visibilty </label>
+						<select id="" name="" class="shadow-none selectpicker with-border">
+							<option data-icon="uil-bullseye"> Private </option>
+							<option data-icon="uil-chat-bubble-user">My Following</option>
+							<option data-icon="uil-layer-group-slash">Unlisted</option>
+							<option data-icon="uil-globe" selected>Puplic</option>
+						</select>
+					</div> -->
+					<div uk-form-custom class="w-full py-3">
+						<div class="bg-gray-100 border-2 border-dashed flex flex-col h-32 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+								<path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+								<path d="M9 13h2v5a1 1 0 11-2 0v-5z" /> </svg>
+						</div>
+						<input type="file" id="uploadimagealbum" onchange="preview_image();" accept="image/*" multiple >
+					</div>
+					<div>			
+					<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+							<ul class="uk-slideshow-items" id="ulimage_preview">
+
+								<!-- SEE addalbumimage.js -->
+								
+								<!-- <li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
+										
+								<li> <img src="../assets/images/post/img-2.jpg" alt="" uk-cover> </li>
+					
+								<li> <img src="../assets/images/post/img-3.jpg" alt="" uk-cover> </li> -->
+							</ul>
+							<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+							<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+						</div>
+					</div>
+				</div>
+				<div class="p-5">
+					<button type="submit" class="button w-full"> Create Now </button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Create new iamge -->
+		<div id="modalcreateimage" uk-offcanvas="flip: true; overlay: true">
+			<div class="uk-offcanvas-bar lg:w-4/12 w-full dark:bg-gray-700 dark:text-gray-300 p-0 bg-white flex flex-col justify-center">
+				<button class="uk-offcanvas-close absolute" type="button" uk-close></button>
+				<!-- notivication header -->
+				<div class="-mb-1 border-b font-semibold px-5 py-5 text-lg">
 					<h4> Create album </h4> </div>
 				<div class="p-6 space-y-3 flex-1">
 					<div>
@@ -2228,6 +2279,7 @@
 		<script src="../assets/js/custom.js"></script>
 		<script src="../assets/js/bootstrap-select.min.js"></script>
 		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+		<script src="../assets/js/addalbumimage.js"></script>
 </body>
 
 </html>
