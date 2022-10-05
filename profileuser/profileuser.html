@@ -1742,12 +1742,7 @@
                                     <li> 
                                        <img src="../assets/images/post/img-1.jpg" alt="" uk-cover>
                                     </li>
-                                    <!-- Add to all images 
-                                       <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
-                                       <div class="flex justify-center text-xs">
-                                       	<a href="#">  Delete </a> 
-                                        </div>
-                                       </div> -->
+                                   
                                     <li> 
                                        <img src="../assets/images/post/img-2.jpg" alt="" uk-cover> 
                                     </li>
@@ -1758,12 +1753,7 @@
                                  <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
                                  <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
                               </div>
-                              <!-- <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
-                                 <div class="flex justify-around text-xs">
-                                 	<a href="#">  Update </a>
-                                 	<a href="#">  Delete </a> 
-                                  </div>
-                                 </div> -->
+                             
                            </div>
                            <div>
                               <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
@@ -2217,7 +2207,7 @@
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                     <textarea type="text" rows="5" placeholder="What's Your Mind ? Stella!" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea type="text" rows="5" placeholder="What's Your Mind ?" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
                      <div class="font-semibold text-base"> Visibilty </div>
@@ -2253,7 +2243,8 @@
          </div>
       </div>
 	    <!--#endregion CREATE  POST  MODAL -->
-      <!--#region  CREATE  NEW  ALBUM IMAGE  MODAL-->
+
+		<!--#region  CREATE  NEW  ALBUM IMAGE  MODAL-->
 
       <div id="offcanvas-create" uk-offcanvas="flip: true; overlay: true">
 		<div class="uk-offcanvas-bar lg:w-4/12 w-full dark:bg-gray-700 dark:text-gray-300 p-0 bg-white flex flex-col justify-center">
@@ -2264,8 +2255,8 @@
 		   </div>
 		   <div class="p-6 space-y-3 flex-1">
 			  <div>
-				 <label> Album image name </label>
-				 <input type="text" class="with-border" placeholder=""> 
+				
+				 <input type="text" class="with-border" placeholder="Album image name"> 
 			  </div>
 
 			   <!-- Upload Images -->
@@ -2280,6 +2271,7 @@
 				 <input type="file" id="uploadimagealbum" onchange="preview_multiples_images();" accept="image/*" multiple >
 			  </div>
 			  <div>
+				<!--#region  SLIDER IMAGE-->
 				 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
 					<ul class="uk-slideshow-items" id="ulimage_preview">
 					   <!-- SEE previewimage.js -->
@@ -2290,7 +2282,11 @@
 					</ul>
 					<a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
 					<a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+					
+
 				 </div>
+				 	<!--#endregion  SLIDER IMAGE-->
 			  </div>
 		   </div>
 		   <div class="p-5">
@@ -2298,8 +2294,11 @@
 		   </div>
 		</div>
 	 </div>
-<!--#endregion  CREATE  NEW  ALBUM IMAGE  MODAL-->
-      <!--#region CREATE  IMAGE  MODAL -->
+
+	 
+	<!--#endregion  CREATE  NEW  ALBUM IMAGE  MODAL-->
+    
+	<!--#region CREATE  IMAGE  MODAL -->
 
       <div id="create-image-modal" class="create-post is-story" uk-modal>
          <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
@@ -2313,12 +2312,10 @@
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
                <form onsubmit="alert('Image Added')" class="space-y-4 g:w-8/12">
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
-                     <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                     <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                     <input type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
-                     <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                     <textarea type="text" rows="5" placeholder="What's Your Mind ? Stella!" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
                      <div class="font-semibold text-base"> Visibility </div>
@@ -2342,17 +2339,13 @@
 					<input type="file" id="uploadoneimage" onchange="preview_image();" accept="image/*" >
 				 </div>
 				 <div>
-					<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-					   <ul class="uk-slideshow-items" id="ulimage_previewoneimage">
-						  <!-- SEE previewimage.js -->
-						  <!-- <li> <img src="../assets/images/post/img-1.jpg" alt="" uk-cover> </li>
-							 <li> <img src="../assets/images/post/img-2.jpg" alt="" uk-cover> </li>
-							 
-							 <li> <img src="../assets/images/post/img-3.jpg" alt="" uk-cover> </li> -->
-					   </ul>
-					   <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-					   <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+					<div  class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+
+						<img id="upload_one_image_preview" uk-cover>
+					
 					</div>
+					<!-- SEE previewimage.js -->
+					  
 				 </div>
 				 
 			<!-- #endregion UPLOAD IMAGE -->

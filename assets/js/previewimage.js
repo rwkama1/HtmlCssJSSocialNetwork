@@ -13,12 +13,8 @@ function preview_multiples_images()
 function preview_image() 
 {
   var total_file=document.getElementById("uploadoneimage");
-  for(var i=0;i<total_file.files.length;i++)
-  {
-    
-    $('#ulimage_previewoneimage').append(
-      `<li> <img src='${window.URL.createObjectURL(total_file.files[0])}' alt="" 'uk-cover'> </li>`
-    );
+  $('#upload_one_image_preview').attr("src", `${window.URL.createObjectURL(total_file.files[0])}`);
+   
  }
-}
+
 
