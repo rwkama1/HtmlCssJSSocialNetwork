@@ -1,5 +1,4 @@
 
-
   var countries = ["Afghanistan","Albania","Algeria"
   ,"Andorra","Angola","Anguilla","Antigua & Barbuda"
   ,"Argentina","Armenia","Aruba","Australia","Austria"
@@ -32,12 +31,13 @@
   ,"St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland"
   ,"Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago"
   ,"Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates",
-  "United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City",
+  "United Kingdom","USA","Uruguay","Uzbekistan","Vanuatu","Vatican City",
   "Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
   
-  
+
+
 countries.map((country)=> $('#countries').append(
-  `<option value=${country}>`
+  `<option> ${country}</option>`
 ))
 
 
