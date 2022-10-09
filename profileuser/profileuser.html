@@ -722,7 +722,7 @@
 							 <!-- CREATE IMAGE  -->
                       
                            <div class="hover:bg-gray-100 flex items-center p-1.5 rounded-md cursor-pointer" uk-toggle="target: #create-image-modal" >
-                              <svg class="bg-blue-100 h-9 mr-2 p-1.5 rounded-full text-blue-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top" title="Tooltip" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <svg class="bg-blue-100 h-9 mr-2 p-1.5 rounded-full text-blue-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top" title="Upload Image" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                               </svg>
                               Photo 
@@ -730,7 +730,7 @@
 
 						    <!-- CREATE VIDEO  -->
                            <div class="hover:bg-gray-100 flex items-center p-1.5 rounded-md cursor-pointer" uk-toggle="target: #create-video-modal">
-                              <svg class="bg-red-100 h-9 mr-2 p-1.5 rounded-full text-red-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top" title="Tooltip" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <svg class="bg-red-100 h-9 mr-2 p-1.5 rounded-full text-red-600 w-9 -my-0.5 hidden lg:block" data-tippy-placement="top" title="Upload Video" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path>
                               </svg>
                               Video 
@@ -1579,7 +1579,8 @@
 				    <!--#endregion Sidebar -->
                </div>
 			    <!--#endregion TIMELINE -->
-               <!-- Friends  -->
+              
+             <!-- Friends  -->
                <div class="card md:p-6 p-2 max-w-3xl mx-auto">
                   <h2 class="text-xl font-bold"> Friends</h2>
                   <!-- <nav class="responsive-nav border-b">
@@ -1723,7 +1724,7 @@
                         </nav>
                      </div>
                      <div class="uk-switcher" id="photo-tab">
-                        <a href="#offcanvas-create" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" title="Create New Album">
+                        <a href="#create_album_images_modal" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0" data-tippy-placement="left" title="Create New Album">
                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                            </svg>
@@ -2333,7 +2334,7 @@
 		
        <!--#region  CREATE  NEW  ALBUM IMAGE  MODAL-->
 
-      <div id="offcanvas-create" uk-offcanvas="flip: true; overlay: true">
+      <div id="create_album_images_modal" uk-offcanvas="flip: true; overlay: true">
 		<div class="uk-offcanvas-bar lg:w-4/12 w-full dark:bg-gray-700 dark:text-gray-300 p-0 bg-white flex flex-col justify-center">
 		   <button class="uk-offcanvas-close absolute" type="button" uk-close></button>
 		   <!-- notivication header -->
@@ -2562,7 +2563,7 @@
 
          <!--#region  CREATE  NEW  ALBUM VIDEO  MODAL -->
    
-   <div id="offcanvas-create" uk-offcanvas="flip: true; overlay: true">
+    <div id="create-album-video-modal" uk-offcanvas="flip: true; overlay: true">
 		<div class="uk-offcanvas-bar lg:w-4/12 w-full dark:bg-gray-700 dark:text-gray-300 p-0 bg-white flex flex-col justify-center">
 		   <button class="uk-offcanvas-close absolute" type="button" uk-close></button>
 
@@ -2610,7 +2611,7 @@
 			  <button type="submit" class="button w-full"> Create Now </button>
 		   </div>
 		</div>
-	 </div>
+   </div>
    	<!--#endregion CREATE  NEW  ALBUM VIDEO  MODAL-->
 
       <!--#region CREATE  VIDEO  MODAL -->
@@ -2684,9 +2685,7 @@
 
       <!--#endregion CREATE  VIDEO  MODAL -->
 
-<!--#region CREATE  VIDEO  MODAL -->
 
-<!--#endregion CREATE  VIDEO  MODAL -->
 
 
       <!-- Update description modal -->

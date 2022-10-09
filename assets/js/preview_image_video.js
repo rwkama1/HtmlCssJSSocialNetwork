@@ -39,3 +39,30 @@ function preview_image()
   }
  
  
+
+//#region USER PROFILE
+
+  function select_profile_image(){
+    document.getElementById('upload_image_profile').click();
+  
+  } 
+ 
+   function upload_image_profile(){
+    
+      var file=document.getElementById("upload_image_profile");
+      $('#image_profile').attr("src", `${URL.createObjectURL(file.files[0])}`);
+
+
+    } 
+
+
+    function select_cover_image(){
+      document.getElementById('upload_image_cover').click();
+    
+    } 
+    function upload_image_cover(){
+      var file=document.getElementById("upload_image_cover");
+      $('#image_cover').attr("src", `${URL.createObjectURL(file.files[0])}`);
+    
+    } 
+ //#endregion USER PROFILE
