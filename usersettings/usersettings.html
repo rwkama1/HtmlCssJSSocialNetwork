@@ -34,6 +34,7 @@
          ================================================== --> 
       <script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
+   
    </head>
    <body>
       <div id="wrapper">
@@ -576,23 +577,23 @@
                               </div>
                               <div class="line">
                                  <input class="line__input" id="password"  type="url" onkeyup="this.setAttribute('value', this.value);" value="">
-                                 <span for="username" class="line__placeholder">Web Site (optional) </span>
+                                 <span for="username" class="line__placeholder">Web Site  </span>
                               </div>
                               <div class="line">
                                  <input class="line__input" name="password" type="url"  onkeyup="this.setAttribute('value', this.value);" value="">
-                                 <span for="username" class="line__placeholder">Url Facebook  (optional)</span>
+                                 <span for="username" class="line__placeholder">Url Facebook</span>
                               </div>
                               <div class="line">
                                  <input class="line__input"  name="password" type="url" onkeyup="this.setAttribute('value', this.value);" value="">
-                                 <span for="username" class="line__placeholder">Url Instagram (optional) </span>
+                                 <span for="username" class="line__placeholder">Url Instagram  </span>
                               </div>
                               <div class="line">
                                  <input class="line__input"  name="password" type="url" onkeyup="this.setAttribute('value', this.value);" value="">
-                                 <span for="username" class="line__placeholder"> Url Linkedin (optional) </span>
+                                 <span for="username" class="line__placeholder"> Url Linkedin  </span>
                               </div>
                               <div class="line">
                                  <input class="line__input"  name="password" type="url" onkeyup="this.setAttribute('value', this.value);" value="">
-                                 <span for="username" class="line__placeholder"> Url Twitter (optional) </span>
+                                 <span for="username" class="line__placeholder"> Url Twitter  </span>
                               </div>
                               <div class="line h-32">
                                  <textarea class="line__input h-32"  autocomplete="off"  type="text" onkeyup="this.setAttribute('value', this.value);" value=""></textarea>
@@ -634,22 +635,23 @@
                         <!-- form header -->
                         <div class="lg:px-10 lg:py-8 p-6">
                            <h3 class="font-bold mb-2 text-xl"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp Username & Password</h3>
-                           <form onsubmit="validatePassword()" method="post">
+                           <form onsubmit="alert('Added');">
+                            
                               <div class="lg:py-8 lg:px-20 flex-1 space-y-4 p-6">
-                               
+                                  
                                     <div class="line">
                                        <input class="line__input"  autocomplete="off" 
                                         type="text" 
-                                        onkeyup="this.setAttribute('value', this.value);" 
-                                        value="" required>
+                                       
+                                       required>
                                        <span  class="line__placeholder">  Username   </span>
                                     </div>
+                                  
                                     <div class="line">
-                                       <input id="password" 
+                                       <input id="user_password" 
                                    
                                        class="line__input" autocomplete="off"
                                         type="password"
-                                    
                                        required>
                                        <span  class="line__placeholder"> Password </span>
                                     </div>
@@ -657,8 +659,7 @@
                                        <input id="confirm_password"
                                      
                                         class="line__input"
-                                        autocomplete="off"  type="password" 
-                                      
+                                        autocomplete="off"  type="password"                                    
                                        required>
                                        <span  class="line__placeholder"> Confirm Password </span>
                                     </div>
@@ -670,6 +671,7 @@
                               <button type="submit" class="button bg-blue-700"> Update </button>
                            </div>
                         </div>
+
                      </form>
                      </div>
                      <br>

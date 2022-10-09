@@ -83,8 +83,8 @@
                     <input type="text" placeholder="Nick" class="with-border" required>
                 </div>
                 <input type="text" placeholder="User Name" class="with-border" required>
-                <input type="password" placeholder="Password" class="with-border" required>
-                <input type="password" placeholder="Confirm Password" class="with-border" required>
+                <input id="user_password" type="password" placeholder="Password" class="with-border" required>
+                <input id="confirm_password" type="password" placeholder="Confirm Password" class="with-border" required>
                 <input type="email" placeholder="E-mail" class="with-border" required>
                 <div class="grid lg:grid-cols-2 gap-3">
                     <div>
@@ -98,7 +98,7 @@
                     </div>
                     <div>
                         <label class="mb-0"> Country </label>
-                        <input type="text" name="myCountry" list="countries" id="countryinput" class="mt-2 with-border">
+                        <input type="text" name="myCountry" list="countries" id="countryinput" class="mt-2 with-border" required>
                         <datalist id="countries">
                           <!-- See country.js -->
                          </datalist>
@@ -124,6 +124,7 @@
     <script src="../assets/js/uikit.js"></script>
     <script src="../assets/js/simplebar.js"></script>
     <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/confirmpassword.js"></script>
     <script src="../assets/js/bootstrap-select.min.js"></script>
     <script src="../assets/js/country.js"></script>
     <!-- <script src="https://unpkg.com/ionicons@6.0.3/dist/ionicons.js"></script> -->
