@@ -25,11 +25,16 @@ function preview_image()
   {
     
     $('#ul_video_preview').append(
-      `<li> <img src='${URL.createObjectURL(total_file.files[i])}' alt="" 'uk-cover'> </li>`
+      `<li> 
+      <video src='${URL.createObjectURL(total_file.files[i])}' autoplay loop muted playsinline >
+ 
+      </video>
+    
+      </li>`
     );
  }
 }
-
+ 
  function preview_video() 
  {
     document.getElementById("videopreview").style.visibility="visible"
