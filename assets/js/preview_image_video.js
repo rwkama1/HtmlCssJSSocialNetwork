@@ -37,9 +37,9 @@ function preview_image()
  
  function preview_video() 
  {
-    document.getElementById("videopreview").style.visibility="visible"
+    document.getElementById("uploadvideopreview").style.visibility="visible"
    var total_file=document.getElementById("uploadonevideo");
-   $('#videopreview').attr("src", `${URL.createObjectURL(total_file.files[0])}`);
+   $('#uploadvideopreview').attr("src", `${window.URL.createObjectURL(total_file.files[0])}`);
     
   }
  

@@ -48,7 +48,7 @@
             </div>
             <div class="lg:mt-0 lg:w-96 md:w-1/2 sm:w-2/3 mt-10 w-full">
                 <form onsubmit="location.href='../feed/feed.html'; return false;" class="p-6 space-y-4 relative bg-white shadow-lg rounded-lg"  > 
-                    <input type="text" placeholder="User Name" class="with-border" required>
+                    <input type="text" placeholder="User Name" autofocus class="with-border" required>
                     <input type="password" placeholder="Password" class="with-border" required>
                     <button type="submit"  class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full">
                         Log In
@@ -78,13 +78,18 @@
                     This information will be made public, so be careful what you share.</div>
             </div>
             <form onsubmit="location.href='../feed/feed.html'; return false;" method="post" class="p-7 space-y-5">
-                <div class="grid lg:grid-cols-2 gap-5">
+                
                     <input type="text" placeholder="Your Name" class="with-border" required>
-                    <input type="text" placeholder="Nick" class="with-border" required>
-                </div>
+                    
+             
                 <input type="text" placeholder="User Name" class="with-border" required>
+                <div class="grid lg:grid-cols-2 gap-3">
                 <input id="user_password" type="password" placeholder="Password" class="with-border" required>
+
                 <input id="confirm_password" type="password" placeholder="Confirm Password" class="with-border" required>
+                               
+            </div>
+
                 <input type="email" placeholder="E-mail" class="with-border" required>
                 <div class="grid lg:grid-cols-2 gap-3">
                     <div>
