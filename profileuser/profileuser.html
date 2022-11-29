@@ -514,7 +514,7 @@
                      </div>
                      <a href="#"> <img src="../assets/images/avatars/avatar-2.jpg" class="is_avatar" alt=""> </a>
                      <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
-                        <a href="../profileuser/profileuser.html" class="user">
+                        <a href="../profile_login_user/profile_login_user.html" class="user">
                            <div class="user_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> </div>
                            <div class="user_name">
                               <div> Stella Johnson </div>
@@ -717,8 +717,39 @@
                         <ion-icon name="close-outline" class="text-2xl hover:bg-gray-100 p-1 rounded-full mr-2 cursor-pointer" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"></ion-icon>
                      </div>
             
-                    
+                        <!-- more icon -->
+                        <a href="" class="flex items-center justify-center h-10 w-10 rounded-md bg-gray-100">
+                           <ion-icon name="ellipsis-horizontal" class="text-xl"></ion-icon>
+                        </a>
+                        <!-- more drowpdown -->
+                        <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
+                           <ul class="space-y-1">
+                
+                              <li>
+                                 <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                    <ion-icon name="person-add-outline" class="pr-2 text-xl"></ion-icon>
+                                    Add Friend 
+                                 </a>
+                              </li>
+                              <li>
+                                 <hr class="-mx-2 my-2 dark:border-gray-800">
+                              </li>
+                              <li>
+                                 <a href="#" uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                    <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
+                                    Remove Friend 
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#" uk-toggle="target: #blockusermodal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                    <ion-icon name="lock-closed-outline" class="pr-2 text-xl"></ion-icon>
+                                    Block 
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
                   </div>
+                  
                </div>
             </div>
             <div class="uk-switcher lg:mt-8 mt-4" id="timeline-tab">
@@ -842,7 +873,8 @@
                                                   <ul class="space-y-1">
                                                    
                                                      <li>
-                                                        <a href="" uk-toggle="target: #update_comment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                        <a href="" uk-toggle="target: #update_comment_modal"
+                                                         class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                                                             <i class="uil-edit-alt mr-1"></i>
                                                              Edit  </a>
                                                      </li>
@@ -853,11 +885,12 @@
                                                      <li>
                                                         <a href="" uk-toggle="target: #deletecommentmodal" 
                                                         class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                                            <i class="uil-trash-alt mr-1"></i> Delete </a>
+                                                     <i class="uil-trash-alt mr-1"></i> 
+                                                     Delete </a>
                                                      </li>
                                                   </ul>
                                                </div>
-                                            </div>
+                                          </div>
                                        </div>
                                        
                                     </div>
@@ -953,7 +986,7 @@
                                                </div>
                                                <div>
                                                 <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
-                                                  <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                                                  <div id="hovelike" class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
                                                   uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
                                                      <ul class="space-y-1">
                                                        
