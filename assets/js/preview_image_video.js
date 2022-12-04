@@ -6,7 +6,7 @@ function preview_multiples_images()
   {
     
     $('#ulimage_preview').append(
-      `<li> <img src='${URL.createObjectURL(total_file.files[i])}' alt="" 'uk-cover'> </li>`
+      `<li> <img src='${URL.createObjectURL(total_file.files[i])}' alt="" 'uk-responsive'> </li>`
     );
  }
 }
