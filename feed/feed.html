@@ -1761,101 +1761,19 @@
    </div>
    </div>
 
+   <!-- open chat box -->
+   <div uk-toggle="target: #chat_users_modal" class="start-chat">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+      </svg>
+   </div> 
+   
 
 
 
 
    <!--#region MODALS AND OTHERS -->
-        <!-- open chat box -->
-        <div uk-toggle="target: #offcanvas-chat" class="start-chat">
-         <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-         </svg>
-      </div> 
-      <div id="offcanvas-chat" uk-offcanvas="flip: true; overlay: true">
-         <div class="uk-offcanvas-bar bg-white p-0 w-full lg:w-80 shadow-2xl">
-            
-           
-            <nav class="responsive-nav border-b extanded mb-2 -mt-2">
-               <ul uk-switcher="connect: #chats-tab; animation: uk-animation-fade">
-                  <li class="uk-active"><a class="active" href="#0"> Chat </a></li>
-                
-               </ul>
-            </nav>
-            <div class="contact-list px-2 uk-switcher" id="chats-tab">
-               <div class="p-1">
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-8.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
-                     <div class="contact-username">Adrian Mohani </div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
-                     <div class="contact-username"> Jonathan Madano</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-               </div>
-               <div class="p-1">
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> 
-                        <img src="../assets/images/avatars/avatar-8.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
-                     <div class="contact-username">Adrian Mohani </div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
-                     <div class="contact-username"> Jonathan Madano</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-   
+    
 
       <!-- Create post modal -->
       <div id="create-post-modal" class="create-post is-story" uk-modal>
@@ -2299,7 +2217,87 @@
          </div>
        </div>
 
-
+  
+          <!--#region Chat Users-->
+          <div id="chat_users_modal" class="create-post is-story" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+               <div class="py-4 border-b flex  justify-between px-6">
+                  <h3 class="text-lg font-semibold">Chat Users </h3>
+                  <div>
+                     <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+                        Saved as draft
+                        </div> -->
+                     <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                        type="button" uk-close>
+                     <i class="icon-feather-close"></i>
+                     </button>
+                  </div>
+               </div>
+               <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+                  <div class="contact-list my-2 ml-1">
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                           <span class="user_status status_online"></span>
+                        </div>
+                        <div class="contact-username"> Dennis Han</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                           <span class="user_status"></span>
+                        </div>
+                        <div class="contact-username"> Erica Jones</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-7.jpg" alt="">
+                        </div>
+                        <div class="contact-username">Stella Johnson</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+                     <a href="chats-friend.html">
+                        <div class="contact-avatar">
+                           <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                        </div>
+                        <div class="contact-username"> Alex Dolgove</div>
+                     </a>
+    
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--#endregion-->
+     
        <!-- #endregion MODALS AND OTHERS -->
       <!-- Javascript
          ================================================== -->

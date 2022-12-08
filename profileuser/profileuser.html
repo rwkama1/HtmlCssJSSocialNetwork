@@ -593,24 +593,36 @@
                         <!-- more drowpdown -->
                         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700" uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small; offset:5">
                            <ul class="space-y-1">
-                
+                            
                               <li>
-                                 <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                 <a href="" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                    <ion-icon name="logo-rss" class="pr-2 text-xl"></ion-icon>
+                                    Follow
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                                     <ion-icon name="person-add-outline" class="pr-2 text-xl"></ion-icon>
                                     Add Friend 
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="" class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                    <ion-icon name="send-outline" class="pr-2 text-xl"></ion-icon>
+                                    Send Message 
                                  </a>
                               </li>
                               <li>
                                  <hr class="-mx-2 my-2 dark:border-gray-800">
                               </li>
                               <li>
-                                 <a href="#" uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                 <a href="" uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                                     <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
                                     Remove Friend 
                                  </a>
                               </li>
                               <li>
-                                 <a href="#" uk-toggle="target: #blockusermodal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                 <a href="" uk-toggle="target: #blockusermodal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                                     <ion-icon name="lock-closed-outline" class="pr-2 text-xl"></ion-icon>
                                     Block 
                                  </a>
@@ -643,32 +655,7 @@
                                  </div>
                               </div>
                            </div>
-                           <div>
-                              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
-                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
-                                uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
-                                   <ul class="space-y-1">
-                                      <!-- <li> 
-                                         <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                          <i class="uil-share-alt mr-1"></i> Share
-                                         </a> 
-                                         </li> -->
-                                      <li>
-                                         <a href="" uk-toggle="target: #update_post_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                             <i class="uil-edit-alt mr-1"></i>
-                                              Edit  </a>
-                                      </li>
-                                      
-                                      <li>
-                                         <hr class="-mx-2 my-2 dark:border-gray-800">
-                                      </li>
-                                      <li>
-                                         <a href="" uk-toggle="target: #delete_post_modal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                             <i class="uil-trash-alt mr-1"></i> Delete </a>
-                                      </li>
-                                   </ul>
-                                </div>
-                             </div>
+
                         </div>
                         <div class="p-5 pt-0 border-b dark:border-gray-700">
                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -1909,12 +1896,12 @@
                          
                            <li class="flex items-center space-x-2">
                               <ion-icon name="globe" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
-                              From <strong> Cairo , Eygept  </strong> 
+                              From <strong>  Eygept  </strong> 
                            </li>
-                           <!-- <li class="flex items-center space-x-2">
-                              <ion-icon name="heart-sharp" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
-                               <strong> Relationship  </strong> 
-                           </li> -->
+                           <li class="flex items-center space-x-2">
+                              <ion-icon name="logo-rss" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
+                             Followed By  <strong> 3,240 People  </strong> 
+                           </li>
                            <li class="flex items-center space-x-2">
                               <ion-icon name="briefcase" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
                                <strong> Ocupation  </strong> 
@@ -1935,18 +1922,9 @@
                               <ion-icon name="logo-twitter" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
                                <strong> UrlTwitter  </strong> 
                            </li>
-                           <!-- <li class="flex items-center space-x-2"> 
-                              <ion-icon name="logo-rss" class="rounded-full bg-gray-200 text-xl p-1 mr-3"></ion-icon>
-                              Flowwed By <strong> 3,240 People </strong>
-                              </li>                                 -->
+                       
                         </ul>
-                        <!-- <div class="gap-3 grid grid-cols-3 mt-4">
-                           <img src="../assets/images/avatars/avatar-lg-2.jpg" alt="" class="object-cover rounded-lg col-span-full">
-                           <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="rounded-lg">
-                           <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="rounded-lg">
-                           <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-lg"> 
-                           </div>
-                           <a href="#" class="button gray mt-3 w-full"> Edit </a> -->
+                    
                      </div>
                      <!-- Friends  -->
                      <!-- <div class="widget card p-5 border-t">
@@ -2512,95 +2490,12 @@
 
 
       <!-- open chat box -->
-      <div uk-toggle="target: #offcanvas-chat" class="start-chat">
+      <div uk-toggle="target: #chat_users_modal" class="start-chat">
          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
          </svg>
       </div> 
-      <div id="offcanvas-chat" uk-offcanvas="flip: true; overlay: true">
-         <div class="uk-offcanvas-bar bg-white p-0 w-full lg:w-80 shadow-2xl">
-            
-           
-            <nav class="responsive-nav border-b extanded mb-2 -mt-2">
-               <ul uk-switcher="connect: #chats-tab; animation: uk-animation-fade">
-                  <li class="uk-active"><a class="active" href="#0"> Chat </a></li>
-                
-               </ul>
-            </nav>
-            <div class="contact-list px-2 uk-switcher" id="chats-tab">
-               <div class="p-1">
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-8.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
-                     <div class="contact-username">Adrian Mohani </div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
-                     <div class="contact-username"> Jonathan Madano</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-               </div>
-               <div class="p-1">
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> 
-                        <img src="../assets/images/avatars/avatar-8.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
-                     <div class="contact-username">Adrian Mohani </div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
-                     <div class="contact-username"> Jonathan Madano</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-group.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-   
+      
 
        <!-- UNFRIEND  -->
 
@@ -2855,7 +2750,86 @@
              </div>
          </div>
        </div>
-   
+      <!--#region Chat Users-->
+      <div id="chat_users_modal" class="create-post is-story" uk-modal>
+         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+            <div class="py-4 border-b flex  justify-between px-6">
+               <h3 class="text-lg font-semibold">Chat Users </h3>
+               <div>
+                  <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+                     Saved as draft
+                     </div> -->
+                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                     type="button" uk-close>
+                  <i class="icon-feather-close"></i>
+                  </button>
+               </div>
+            </div>
+            <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+               <div class="contact-list my-2 ml-1">
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                        <span class="user_status status_online"></span>
+                     </div>
+                     <div class="contact-username"> Dennis Han</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                        <span class="user_status"></span>
+                     </div>
+                     <div class="contact-username"> Erica Jones</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-7.jpg" alt="">
+                     </div>
+                     <div class="contact-username">Stella Johnson</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+                  <a href="chats-friend.html">
+                     <div class="contact-avatar">
+                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                     </div>
+                     <div class="contact-username"> Alex Dolgove</div>
+                  </a>
+ 
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--#endregion-->
+  
       <!-- Javascript
          ================================================== -->
       <script src="../assets/js/nightmode.js"></script>
