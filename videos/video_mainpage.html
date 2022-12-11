@@ -525,304 +525,488 @@
          <!-- Main Contents -->
          <div class="main_content">
             <div class="mcontainer">
+               
+               <div class="flex justify-between relative md:mb-4 mb-3">
+                  <div class="flex-1">
                <div class="md:mb-4 mb-3">
                   <h2 class="text-2xl font-semibold"> Videos </h2>
                   <nav class="responsive-nav border-b md:m-0 -mx-4">
-                     <ul>
-                        <li class="active">
+                     <ul uk-switcher="connect: #videofilter-tab; animation: uk-animation-fade">
+                        <li>
                            <a href="" class="lg:px-2"> Search </a>
                         </li>
                         <li>
                            <a href="" class="lg:px-2"> Suggestions </a>
                         </li>
                         <li>
-                           <a href="" class="lg:px-2"> Newest  </a>
+                           <a href="" class="lg:px-2"> Newest </a>
                         </li>
                         <li>
-                           <a href="" class="lg:px-2"> More Likes  </a>
+                           <a href="" class="lg:px-2"> More Likes </a>
                         </li>
                         <li>
-                           <a href="" class="lg:px-2"> More Comments  </a>
+                           <a href="" class="lg:px-2"> More Comments </a>
                         </li>
+                        
                      </ul>
+                     
                   </nav>
                </div>
-               <!--  VIDEOS LIST -->
-               <div class="divide-y">
-              
-                <div class="flex items-center space-x-1.5 flex-shrink-0 pr-4 mb-2 justify-left order-1 relative">
-                      <!-- search icon -->
-                      <a href="#" class="flex items-center justify-center h-10 w-10 rounded-md bg-gray-100" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"> 
-                        <ion-icon name="search" class="text-xl"></ion-icon>
-                      </a>
-                      <!-- search dropdown -->
-                      <div class="absolute right-3 bg-white z-10 w-full flex items-center border rounded-md"
-                          id="profile-search" hidden>
-                          <input type="text" placeholder="Search.." class="flex-1">
-                          <ion-icon name="close-outline" class="text-2xl hover:bg-gray-100 p-1 rounded-full mr-2 cursor-pointer" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"></ion-icon>
-                      </div>
-                  </div> 
-                    <!-- VIDEOS -->  
-                  <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                    
-                     <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                        <a href="video-watch.html">
-                           <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+               </div>
+               <a href="#create-video-modal" uk-toggle class="flex items-center justify-center z-10 h-10 w-10 rounded-full bg-blue-600 text-white absolute right-0"
+               data-tippy-placement="left" title="Create New Video">
+                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                 </svg>
+              </a>
+            </div>
+               <div class="uk-switcher lg:mt-8 mt-4" id="videofilter-tab">
+                  <!--#region  SEARCH VIDEO  -->
+                  <div class="divide-y">
+                     <div class="flex items-center space-x-1.5 flex-shrink-0 pr-4 mb-2 justify-left order-1 relative">
+                        <!-- search icon -->
+                        <a href="" class="flex items-center justify-center h-10 w-10 rounded-md bg-gray-100" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small">
+                           <ion-icon name="search" class="text-xl"></ion-icon>
                         </a>
-                     </div>
-                     <div class="flex-1 space-y-2">
-                        <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                        <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                        <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                        <div class="flex items-center justify-between">
-                           <div class="flex space-x-3 items-center text-sm md:pt-3">
-                              <div> 27 weeks ago</div>
-                              <!-- <div class="md:block hidden">·</div> -->
-                              <!-- <div> 156.9K views</div> -->
-                           </div>
+                        <!-- search dropdown -->
+                        <div class="absolute right-3 bg-white z-10 w-full flex items-center border rounded-md" id="profile-search" hidden>
+                           <input type="text" placeholder="Search.." class="flex-1">
+                           <ion-icon name="close-outline" class="text-2xl hover:bg-gray-100 p-1 rounded-full mr-2 cursor-pointer" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"></ion-icon>
                         </div>
                      </div>
-
-                     <!-- ----- -->
-                     
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
                   </div>
-                  <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                    
-                    <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                       <a href="video-watch.html">
-                          <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                       </a>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                       <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                       <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                       <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                       <div class="flex items-center justify-between">
-                          <div class="flex space-x-3 items-center text-sm md:pt-3">
-                             <div> 27 weeks ago</div>
-                             <!-- <div class="md:block hidden">·</div> -->
-                             <!-- <div> 156.9K views</div> -->
-                          </div>
-                       </div>
-                    </div>
-
-                    <!-- ----- -->
-                    
-                 </div>
-                 <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                    
-                    <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                       <a href="video-watch.html">
-                          <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                       </a>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                       <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                       <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                       <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                       <div class="flex items-center justify-between">
-                          <div class="flex space-x-3 items-center text-sm md:pt-3">
-                             <div> 27 weeks ago</div>
-                             <!-- <div class="md:block hidden">·</div> -->
-                             <!-- <div> 156.9K views</div> -->
-                          </div>
-                       </div>
-                    </div>
-
-                    <!-- ----- -->
-                    
-                 </div>
-                 <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                    
-                    <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                       <a href="video-watch.html">
-                          <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline uk-cover></video>
-                       </a>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                       <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                       <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                       <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                       <div class="flex items-center justify-between">
-                          <div class="flex space-x-3 items-center text-sm md:pt-3">
-                             <div> 27 weeks ago</div>
-                             <!-- <div class="md:block hidden">·</div> -->
-                             <!-- <div> 156.9K views</div> -->
-                          </div>
-                       </div>
-                    </div>
-
-                    <!-- ----- -->
-                    
-                 </div>
+                  <!--#endregion  SEARCH VIDEO  -->
+                  <!--#region  SUGGESTIONS  -->
+                  <div class="divide-y">
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                  </div>
+                  <!--#endregion SUGGESTIONS  -->
+                  <div class="divide-y">
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                  </div>
+                  <!--#region  NEWEST  -->
+                  <div class="divide-y">
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                  </div>
+                  <!--#endregion NEWEST  -->
+                  <!--#region  MORE LIKES  -->
+                  <div class="divide-y">
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                  </div>
+                  <!--#endregion MORE LIKES   -->
+                  <!--#region  MORE COMMENTS   -->
+                  <div class="divide-y">
+                     <!-- VIDEOS -->
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                           <a href="video-watch.html">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+                           </a>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                           <div class="flex items-center justify-between">
+                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                 <div> 27 weeks ago</div>
+                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <!-- <div> 156.9K views</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        <!-- ----- -->
+                     </div>
+                  </div>
+                  <!--#endregion MORE COMMENTS  -->
+               </div>
+               
+          
+               
+            </div>
+            <!-- open chat box -->
+            <div uk-toggle="target: #chat_users_modal" class="start-chat">
+               <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+               </svg>
+            </div>
+            <!--#region MODALS AND OTHERS -->
+            <!--#region CREATE  VIDEO  MODAL -->
+            <div id="create-video-modal" class="create-post is-story" uk-modal>
+               <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+                  <div class="py-4 border-b flex  justify-between px-6">
+                     <h3 class="text-lg font-semibold"> Upload Video </h3>
+                     <div>
+                        <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close>
+                           <i class="icon-feather-close"></i>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+                     <form onsubmit="messagenotification('Video Created','success',event)" class="space-y-4 g:w-8/12">
+                        <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
+                           <input type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full">
+                        </div>
+                        <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
+                           <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                        </div>
+                        <div class="px-2 space-y-2">
+                           <div class="font-semibold text-base"> Visibility </div>
+                           <select class="selectpicker">
+                              <option data-icon="uil-bullseye"> Private </option>
+                              <option data-icon="uil-globe" selected>Public</option>
+                           </select>
+                        </div>
+                        <!-- ALBUM VIDEO -->
+                        <div class="px-2 space-y-2">
+                           <div class="font-semibold text-base"> Album Video </div>
+                           <select class="selectpicker">
+                              <option>Album1</option>
+                              <option> Album2 </option>
+                              <option>Album3</option>
+                           </select>
+                        </div>
+                        <!-- #region UPLOAD VIDEO -->
+                        <div uk-form-custom class="w-full py-3">
+                           <div class="bg-gray-100 border-2 border-dashed flex flex-col h-32 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                                 <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+                                 <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
+                              </svg>
+                           </div>
+                           <input type="file" id="uploadonevideo" onchange="preview_video();" required accept="video/*">
+                        </div>
+                        <div>
+                           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+                              <video id="uploadvideopreview" style="visibility:hidden;" frameborder="0" controls uk-video="automute: true" allowfullscreen></video>
+                           </div>
+                           <!-- SEE previewimage.js -->
+                        </div>
+                        <!-- #endregion UPLOAD VIDEO -->
+                        <!-- #region Share Button -->
+                        <div class="flex items-center w-full justify-between p-3 border-t">
+                           <div class="flex items-center space-x-2"></div>
+                           <div class="flex space-x-2">
+                              <button type="submit" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium"> Share </button>
+                           </div>
+                        </div>
+                        <!-- #endregion Share Button -->
+                  </div>
+                  </form>
                </div>
             </div>
-         </div>
-      </div>
-      <!-- open chat box -->
-      <div uk-toggle="target: #chat_users_modal" class="start-chat">
-         <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-         </svg>
-      </div>
-      <!--#region MODALS AND OTHERS -->
-     
-      <!--#region CREATE  VIDEO  MODAL -->
-      <div id="create-video-modal-feed" class="create-post is-story" uk-modal>
-         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
-            <div class="py-4 border-b flex  justify-between px-6">
-               <h3 class="text-lg font-semibold"> Upload Video </h3>
-               <div>
-                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close>
-                     <i class="icon-feather-close"></i>
-                  </button>
-               </div>
-            </div>
-            <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="messagenotification('Video Created','success',event)" class="space-y-4 g:w-8/12">
-                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
-                     <input type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full">
-                  </div>
-                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
-                     <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
-                  </div>
-                  <div class="px-2 space-y-2">
-                     <div class="font-semibold text-base"> Visibility </div>
-                     <select class="selectpicker">
-                        <option data-icon="uil-bullseye"> Private </option>
-                        <option data-icon="uil-globe" selected>Public</option>
-                     </select>
-                  </div>
-                  <!-- ALBUM VIDEO -->
-                  <div class="px-2 space-y-2">
-                     <div class="font-semibold text-base"> Album Video </div>
-                     <select class="selectpicker">
-                        <option>Album1</option>
-                        <option> Album2 </option>
-                        <option>Album3</option>
-                     </select>
-                  </div>
-                  <!-- #region UPLOAD VIDEO -->
-                  <div uk-form-custom class="w-full py-3">
-                     <div class="bg-gray-100 border-2 border-dashed flex flex-col h-32 items-center justify-center relative w-full rounded-lg dark:bg-gray-800 dark:border-gray-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
-                           <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
-                           <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
-                        </svg>
-                     </div>
-                     <input type="file" id="uploadonevideo" onchange="preview_video();" required accept="video/*">
-                  </div>
-                  <div>
-                     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                        <video id="uploadvideopreview" style="visibility:hidden;" frameborder="0" controls uk-video="automute: true" allowfullscreen></video>
-                     </div>
-                     <!-- SEE previewimage.js -->
-                  </div>
-                  <!-- #endregion UPLOAD VIDEO -->
-                  <!-- #region Share Button -->
-                  <div class="flex items-center w-full justify-between p-3 border-t">
-                     <div class="flex items-center space-x-2"></div>
-                     <div class="flex space-x-2">
-                        <button type="submit" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium"> Share </button>
-                     </div>
-                  </div>
-                  <!-- #endregion Share Button -->
-            </div>
-            </form>
-         </div>
-      </div>
-      <!--#endregion CREATE  VIDEO  MODAL -->
-      
-      <!--#region Chat Users-->
-      <div id="chat_users_modal" class="create-post is-story" uk-modal>
-         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
-            <div class="py-4 border-b flex  justify-between px-6">
-               <h3 class="text-lg font-semibold">Chat Users </h3>
-               <div>
-                  <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+            <!--#endregion CREATE  VIDEO  MODAL -->
+            <!--#region Chat Users-->
+            <div id="chat_users_modal" class="create-post is-story" uk-modal>
+               <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+                  <div class="py-4 border-b flex  justify-between px-6">
+                     <h3 class="text-lg font-semibold">Chat Users </h3>
+                     <div>
+                        <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
                         Saved as draft
                         </div> -->
-                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close>
-                     <i class="icon-feather-close"></i>
-                  </button>
+                        <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close>
+                           <i class="icon-feather-close"></i>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+                     <div class="contact-list my-2 ml-1">
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                              <span class="user_status status_online"></span>
+                           </div>
+                           <div class="contact-username"> Dennis Han</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                              <span class="user_status"></span>
+                           </div>
+                           <div class="contact-username"> Erica Jones</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-7.jpg" alt="">
+                           </div>
+                           <div class="contact-username">Stella Johnson</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                        <a href="chats-friend.html">
+                           <div class="contact-avatar">
+                              <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                           </div>
+                           <div class="contact-username"> Alex Dolgove</div>
+                        </a>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <div class="contact-list my-2 ml-1">
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-1.jpg" alt="">
-                        <span class="user_status status_online"></span>
-                     </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-2.jpg" alt="">
-                        <span class="user_status"></span>
-                     </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-7.jpg" alt="">
-                     </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar">
-                        <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                     </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--#endregion-->
-      <!-- #endregion MODALS AND OTHERS -->
-      <!-- Javascript
+            <!--#endregion-->
+            <!-- #endregion MODALS AND OTHERS -->
+            <!-- Javascript
          ================================================== -->
-      <!-- For Night mode -->
-      <script src="../assets/js/nightmode.js"></script>
-      <script src="../assets/js/jquery-3.6.0.min.js"></script>
-      <script src="../assets/js/tippy.all.min.js"></script>
-      <script src="../assets/js/uikit.js"></script>
-      <script src="../assets/js/simplebar.js"></script>
-      <script src="../assets/js/messagenotifications.js"></script>
-      <script src="../assets/js/custom.js"></script>
-      <script src="../assets/js/bootstrap-select.min.js"></script>
-      <script src="../assets/js/preview_image_video.js"></script>
-      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+            <!-- For Night mode -->
+            <script src="../assets/js/nightmode.js"></script>
+            <script src="../assets/js/jquery-3.6.0.min.js"></script>
+            <script src="../assets/js/tippy.all.min.js"></script>
+            <script src="../assets/js/uikit.js"></script>
+            <script src="../assets/js/simplebar.js"></script>
+            <script src="../assets/js/messagenotifications.js"></script>
+            <script src="../assets/js/custom.js"></script>
+            <script src="../assets/js/bootstrap-select.min.js"></script>
+            <script src="../assets/js/preview_image_video.js"></script>
+            <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
    </body>
 </html>
