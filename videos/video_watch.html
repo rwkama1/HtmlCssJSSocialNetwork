@@ -525,313 +525,223 @@
          <!-- Main Contents -->
          <div class="main_content">
             <div class="mcontainer">
-               <div class="md:mb-4 mb-3">
-                  <h2 class="text-2xl font-semibold"> Videos </h2>
-                  <nav class="responsive-nav border-b md:m-0 -mx-4">
-                     <ul uk-switcher="connect: #videofilter-tab; animation: uk-animation-fade">
-                        <li>
-                           <a href="" class="lg:px-2"> Search </a>
-                        </li>
-                        <li>
-                           <a href="" class="lg:px-2"> Suggestions </a>
-                        </li>
-                        <li>
-                           <a href="" class="lg:px-2"> Newest </a>
-                        </li>
-                        <li>
-                           <a href="" class="lg:px-2"> More Likes </a>
-                        </li>
-                        <li>
-                           <a href="" class="lg:px-2"> More Comments </a>
-                        </li>
-                     </ul>
-                  </nav>
-               </div>
-               <div class="uk-switcher lg:mt-8 mt-4" id="videofilter-tab">
-                  <!--#region  SEARCH VIDEO  -->
-                  <div class="divide-y">
-                     <div class="flex items-center space-x-1.5 flex-shrink-0 pr-4 mb-2 justify-left order-1 relative">
-                        <!-- search icon -->
-                        <a href="#" class="flex items-center justify-center h-10 w-10 rounded-md bg-gray-100" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small">
-                           <ion-icon name="search" class="text-xl"></ion-icon>
-                        </a>
-                        <!-- search dropdown -->
-                        <div class="absolute right-3 bg-white z-10 w-full flex items-center border rounded-md" id="profile-search" hidden>
-                           <input type="text" placeholder="Search.." class="flex-1">
-                           <ion-icon name="close-outline" class="text-2xl hover:bg-gray-100 p-1 rounded-full mr-2 cursor-pointer" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"></ion-icon>
-                        </div>
-                     </div>
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
+               <div class="lg:flex lg:space-x-10">
+                      
+                  <div class="lg:w-3/4"> 
+                     
+                      <div class="embed-video rounded">
+                          <video id="video_watch" src="../assets/video/universesize.mp4" 
+                          uk-reponsive muted  autoplay playsinline   controls   >
+
+
+                          </video>
+                       
+                      </div>
+
+                      <div class="py-5 space-y-4">
+
+                          <div>
+                              <h1 class="text-2xl font-semibold line-clamp-1">
+                                  Lorem ipsum dolor sit amet
+                                 </h1>
+                              <!-- <p> 60,723,169 views </p> -->
+                          </div>
+                          
+                          <div class="md:flex items-center justify-between">
+                              <a href="" class="flex items-center space-x-3">
+                                  <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-10 rounded-full">
+                                  <div class="">
+                                      <div class="text-base font-semibold"> Stella Johnson </div>
+                                      <div class="text-xs"> Published on Oct 22, 2022 </div>
+                                      
+                                  </div>
+                              </a>
+                    
+                              <div class="flex items-center space-x-3 md:pt-0 pt-2">
+                                 
+                                  <!-- <div class="flex h-2 w-36 bg-gray-200 rounded-lg overflow-hidden">
+                                      <div class="w-2/3 bg-gradient-to-br from-purple-400 to-blue-400 h-4"></div>
+                                  </div>
+                                  <div class="like-btn" uk-tooltip="I like it">
+                                      <i class="uil-thumbs-up"></i>
+                                      <span class="likes">21</span>
+                                  </div> -->
+                              
+                                  <div class="like-btn relative bottom-0 ml-4" uk-tooltip="Like it">
+                                    <button  class="flex items-center space-x-2 ml-2">
+                                       <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
+                                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
+                                             <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                          </svg>
+                                       </div>
+                                       <div class="ml-6"> 166</div>
+                                    </button>
+                                   
+                                </div>
                               </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
+                          </div>
+                          
+                          <div class="text-lg font-semibold pt-2"> Description </div>
+                          <p> Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna
+                              aliqua.
+                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat.
+                           </p>
+                          
+                          <hr>
+                          <div class="text-lg font-semibold pt-2"> Comments ( 5210 )</div>
+
+
+                          <div class="my-5">
+
+                              <div class="flex gap-x-4 mb-5 relative">
+                                  <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                  <div>
+                                      <h4 class="text-base m-0 font-semibold"> Stella Johnson</h4>
+                                      <span class="text-gray-700 text-sm"> 10th June 2021 </span>
+                                      <p class="mt-3">
+                                          Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam ut laoreet dolore
+                                          magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                                          ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                                      </p>
+                      
+                                      
+                      
+                                  </div>
                               </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
+
+                              <div class="flex gap-x-4 mb-5 relative">
+                                  <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-full shadow w-12 h-12">
+                                  <div>
+                                      <h4 class="text-base m-0 font-semibold">  Adrian Mohani  </h4>
+                                      <span class="text-gray-700 text-sm"> 10th April 2021 </span>
+                                      <p class="mt-3">
+                                           elit, sed diam ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim ipsum dolor sit amet, consectetuer adipiscing elit, sed diam ut laoreet dolore
+                                         </p>
+                      
+                                      
+                      
+                                  </div>
+                              </div>
+                              
+              
+                          </div>
+
+                      </div>
+
+
                   </div>
-                  <!--#endregion  SEARCH VIDEO  -->
-                  <!--#region  SUGGESTIONS  -->
-                  <div class="divide-y">
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
+
+                  <!-- sidebar -->
+                  <div class="lg:w-1/4 w-full"> 
+ 
+                     <h3 class="text-xl font-bold mb-2"> Suggested Videos </h3>
+                     
+                     <div class="py-2 relative">
+                       
+                         <div class="flex-1 pt-3 relative"> 
+                           <div>
+                                <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-responsive></video>
                            </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
                            </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
+                             <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                             <div class="flex space-x-2 items-center text-sm pt-1">
                                  <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
+                                 <div>·</div>
                                  <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
+                             </div>
+                         </div>
+                      </div> 
+                      <div class="py-2 relative">
+                       
+                        <div class="flex-1 pt-3 relative"> 
+                          <div>
+                               <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                             <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-responsive></video>
+                          </a>
+                          </div>
+                            <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                            <div class="flex space-x-2 items-center text-sm pt-1">
+                                <div> 27 weeks ago</div>
+                                <div>·</div>
+                                <!-- <div> 156.9K views</div> -->
+                            </div>
                         </div>
-                        <!-- ----- -->
-                     </div>
+                     </div> 
+                     <div class="py-2 relative">
+                       
+                        <div class="flex-1 pt-3 relative"> 
+                          <div>
+                               <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                             <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-responsive></video>
+                          </a>
+                          </div>
+                            <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                            <div class="flex space-x-2 items-center text-sm pt-1">
+                                <div> 27 weeks ago</div>
+                                <div>·</div>
+                                <!-- <div> 156.9K views</div> -->
+                            </div>
+                        </div>
+                     </div> 
+                     <div class="py-2 relative">
+                       
+                        <div class="flex-1 pt-3 relative"> 
+                          <div>
+                               <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                             <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-responsive></video>
+                          </a>
+                          </div>
+                            <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                            <div class="flex space-x-2 items-center text-sm pt-1">
+                                <div> 27 weeks ago</div>
+                                <div>·</div>
+                                <!-- <div> 156.9K views</div> -->
+                            </div>
+                        </div>
+                     </div> 
+                     <div class="py-2 relative">
+                       
+                        <div class="flex-1 pt-3 relative"> 
+                          <div>
+                               <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                             <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline uk-responsive></video>
+                          </a>
+                          </div>
+                            <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                            <div class="flex space-x-2 items-center text-sm pt-1">
+                                <div> 27 weeks ago</div>
+                                <div>·</div>
+                                <!-- <div> 156.9K views</div> -->
+                            </div>
+                        </div>
+                     </div> 
+                     <div class="py-2 relative">
+                       
+                        <div class="flex-1 pt-3 relative"> 
+                          <div>
+                               <a href="video-watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+                             <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline uk-responsive></video>
+                          </a>
+                          </div>
+                            <a href="video-watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
+                            <div class="flex space-x-2 items-center text-sm pt-1">
+                                <div> 27 weeks ago</div>
+                                <div>·</div>
+                                <!-- <div> 156.9K views</div> -->
+                            </div>
+                        </div>
+                     </div> 
+
                   </div>
-                  <!--#endregion SUGGESTIONS  -->
-                  <div class="divide-y">
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
-                  <!--#region  NEWEST  -->
-                  <div class="divide-y">
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
-                  <!--#endregion NEWEST  -->
-                  <!--#region  MORE LIKES  -->
-                  <div class="divide-y">
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
-                  <!--#endregion MORE LIKES   -->
-                  <!--#region  MORE COMMENTS   -->
-                  <div class="divide-y">
-                     <!-- VIDEOS -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
-                  <!--#endregion MORE COMMENTS  -->
-               </div>
-               
-          
+
+              </div>
+
+      
+          </div>
                
             </div>
+         </div>
             <!-- open chat box -->
             <div uk-toggle="target: #chat_users_modal" class="start-chat">
                <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -985,6 +895,7 @@
             <!-- Javascript
          ================================================== -->
             <!-- For Night mode -->
+     
             <script src="../assets/js/nightmode.js"></script>
             <script src="../assets/js/jquery-3.6.0.min.js"></script>
             <script src="../assets/js/tippy.all.min.js"></script>
