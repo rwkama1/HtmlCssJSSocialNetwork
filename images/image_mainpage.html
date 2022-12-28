@@ -463,7 +463,7 @@
          <div class="sidebar">
             <div class="sidebar_inner" data-simplebar>
                <ul>
-                  <li class="active">
+                  <li >
                      <a href="../feed/feed.html">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-600">
                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -486,6 +486,16 @@
                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
                         </svg>
                         <span> Photos </span>
+                     </a>
+                  </li>
+                  <li id="more-veiw">
+                     <a href="../posts/post_mainpage.html">
+                        <!-- hidden -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-500">
+                           <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                           <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                       </svg>
+                        <span>  Forum </span> 
                      </a>
                   </li>
                </ul>
@@ -535,9 +545,7 @@
                         <li>
                            <a href="" class="lg:px-2"> Search </a>
                         </li>
-                        <li>
-                           <a href="" class="lg:px-2"> Suggestions </a>
-                        </li>
+                       
                         <li>
                            <a href="" class="lg:px-2"> Newest </a>
                         </li>
@@ -547,7 +555,12 @@
                         <li>
                            <a href="" class="lg:px-2"> More Comments </a>
                         </li>
-                        
+                        <li>
+                           <a href="" class="lg:px-2"> Followers </a>
+                        </li>
+                        <li>
+                           <a href="" class="lg:px-2"> Friends </a>
+                        </li>
                      </ul>
                      
                   </nav>
@@ -621,94 +634,8 @@
 
                   <!--#endregion  SEARCH IMAGE  -->
 
-                  <!--#region  SUGGESTIONS  -->
-                  <div class="divide-y">
-                     <!-- IMAGE -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="image_watch.html">
-                              <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="image_watch.html">
-                              <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
-                  <!--#endregion SUGGESTIONS  -->
-                  <div class="divide-y">
-                     <!-- IMAGES -->
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="image_watch.html">
-                              <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="image_watch.html">
-                              <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
-                  </div>
+               
+                
                   <!--#region  NEWEST  -->
                   <div class="divide-y">
                      <!-- IMAGES -->
@@ -843,17 +770,110 @@
                      </div>
                   </div>
                   <!--#endregion MORE COMMENTS  -->
+                     <!--#region  FOLLOWERS  -->
+                     <div class="divide-y">
+                        <!-- IMAGE -->
+                        <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                           <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                              <a href="image_watch.html">
+                                 <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
+                              </a>
+                           </div>
+                           <div class="flex-1 space-y-2">
+                              <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                              <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                              <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                              <div class="flex items-center justify-between">
+                                 <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                    <div> 27 weeks ago</div>
+                                    <!-- <div class="md:block hidden">·</div> -->
+                                    <!-- <div> 156.9K views</div> -->
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- ----- -->
+                        </div>
+                        <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                           <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                              <a href="image_watch.html">
+                                 <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
+                              </a>
+                           </div>
+                           <div class="flex-1 space-y-2">
+                              <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                              <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                              <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                              <div class="flex items-center justify-between">
+                                 <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                    <div> 27 weeks ago</div>
+                                    <!-- <div class="md:block hidden">·</div> -->
+                                    <!-- <div> 156.9K views</div> -->
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- ----- -->
+                        </div>
+                     </div>
+                     <!--#endregion FOLLOWERS  -->
+                     <!--#region  FRIENDS  -->
+                         <div class="divide-y">
+                           <!-- IMAGE -->
+                           <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                              <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                                 <a href="image_watch.html">
+                                    <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
+                                 </a>
+                              </div>
+                              <div class="flex-1 space-y-2">
+                                 <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                                 <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                                 <div class="flex items-center justify-between">
+                                    <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                       <div> 27 weeks ago</div>
+                                       <!-- <div class="md:block hidden">·</div> -->
+                                       <!-- <div> 156.9K views</div> -->
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- ----- -->
+                           </div>
+                           <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                              <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                                 <a href="image_watch.html">
+                                    <img src="../assets/images/post/img-4.jpg" uk-responsive class="w-full h-full absolute object-cover inset-0">
+                                 </a>
+                              </div>
+                              <div class="flex-1 space-y-2">
+                                 <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
+                                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
+                                 <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
+                                 <div class="flex items-center justify-between">
+                                    <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                       <div> 27 weeks ago</div>
+                                       <!-- <div class="md:block hidden">·</div> -->
+                                       <!-- <div> 156.9K views</div> -->
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- ----- -->
+                           </div>
+                        </div>
+                     <!--#endregion FRIENDS  -->
                </div>
                
           
                
             </div>
+         </div>
+      </div>
             <!-- open chat box -->
             <div uk-toggle="target: #chat_users_modal" class="start-chat">
                <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
                </svg>
             </div>
+            
             <!--#region MODALS AND OTHERS -->
 
             <!--#region Chat Users-->
