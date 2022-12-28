@@ -531,21 +531,44 @@
                      
                  
                       <div class="py-5 space-y-4">
-
-                          <div>
-                              <h1 class="text-2xl font-semibold line-clamp-1">
-                                  Lorem ipsum dolor sit amet
-                                 </h1>
-                              <!-- <p> 60,723,169 views </p> -->
-                          </div>
-                   
-                          
-                  
-                          <p> Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna
-                              aliqua.
-                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat.
-                           </p>
-                                 
+                        <!-- POST -->
+                        <div class="relative">
+                           <h1 class="text-2xl font-semibold line-clamp-1">
+                               Lorem ipsum dolor sit amet
+                           </h1>
+                            <!-- EDIT AND DELETE POST -->
+                           <div class="absolute right-0 top-0">
+                              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                                uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                                   <ul class="space-y-1">
+                                    
+                                      <li>
+                                         <a href="" uk-toggle="target: #update_post_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                             <i class="uil-edit-alt mr-1"></i>
+                                              Edit  </a>
+                                      </li>
+                                
+                                      <li>
+                                         <hr class="-mx-2 my-2 dark:border-gray-800">
+                                      </li>
+                                      <li>
+                                         <a href="" uk-toggle="target: #delete_post_modal" 
+                                         class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                             <i class="uil-trash-alt mr-1"></i> Delete </a>
+                                      </li>
+                                   </ul>
+                                </div>
+                           </div>
+                       </div>
+                      
+                       
+                       <p class="mt-4">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos temporibus voluptatem ab sint obcaecati. Voluptatibus velit, in labore dolore delectus doloremque tenetur ut obcaecati commodi, nostrum eaque fugiat maiores debitis.
+                        Lorem ipsum dolor sit amet, 
+                        consectetur adipisici elit, 
+                        sed eiusmod tempor incidunt ut
+                         labore et dolore magna aliqua.</p> 
                            <div class="md:flex items-center justify-between">
                               <a href="" class="flex items-center space-x-3">
                                   <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-10 rounded-full">
@@ -1012,102 +1035,79 @@
                   <div class="lg:w-1/4 w-full"> 
  
                      <h3 class="text-xl font-bold mb-2"> Suggested Posts </h3>
-                     
                      <div class="py-2 relative">
-                       
-                         <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                      </div> 
+                        <div class="flex-1 pt-3 relative"> 
+                        
+                          <a href="post_watch.html">
+                        
+                          <h4 class="line-clamp-3 font-semibold whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+                          <br>
+                          <p class=" line-clamp-3 whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias corporis pariatur nihil voluptas. Assumenda ad modi vitae qui, quo officiis, labore veniam aspernatur harum voluptatibus, dolores sapiente voluptate dolore esse.</p>
+                        </a>
+                        <br>
+                          <div class="flex space-x-2 items-center text-sm pt-1">
+                           
+                            <div> 25 weeks  ago</div>
+                            <div>·</div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                     <div class="py-2 relative">
+                        <div class="flex-1 pt-3 relative"> 
+                        
+                          <a href="post_watch.html">
+                        
+                          <h4 class="line-clamp-3 font-semibold whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+                          <br>
+                          <p class=" line-clamp-3 whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias corporis pariatur nihil voluptas. Assumenda ad modi vitae qui, quo officiis, labore veniam aspernatur harum voluptatibus, dolores sapiente voluptate dolore esse.</p>
+                        </a>
+                        <br>
+                          <div class="flex space-x-2 items-center text-sm pt-1">
+                           
+                            <div> 25 weeks  ago</div>
+                            <div>·</div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                      
                       <div class="py-2 relative">
-                       
                         <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                     </div> 
-                     <div class="py-2 relative">
-                       
+                        
+                          <a href="post_watch.html">
+                        
+                          <h4 class="line-clamp-3 font-semibold whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+                          <br>
+                          <p class=" line-clamp-3 whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias corporis pariatur nihil voluptas. Assumenda ad modi vitae qui, quo officiis, labore veniam aspernatur harum voluptatibus, dolores sapiente voluptate dolore esse.</p>
+                        </a>
+                        <br>
+                          <div class="flex space-x-2 items-center text-sm pt-1">
+                           
+                            <div> 25 weeks  ago</div>
+                            <div>·</div>
+                          
+                          </div>
+                        </div>
+                      </div>
+                      <div class="py-2 relative">
                         <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                     </div> 
-                     <div class="py-2 relative">
-                        <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                     </div> 
-                     <div class="py-2 relative">
-                       
-                        <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                     </div> 
-                     <div class="py-2 relative">
-                       
-                        <div class="flex-1 pt-3 relative"> 
-                           <div>
-                                <a href="../images/image_watch.html" class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
-                                 <img src="../assets/images/post/img-4.jpg" uk-responsive >
-                              </a>
-                           </div>
-                             <a href="../images/image_watch.html" class="line-clamp-2 font-semibold">  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fugit architecto provident. Nesciunt harum cupiditate laboriosam necessitatibus molestias laborum magnam blanditiis voluptate est, voluptatum doloremque consequuntur. Esse a ut soluta.      </a>
-                             <div class="flex space-x-2 items-center text-sm pt-1">
-                                 <div> 27 weeks ago</div>
-                                 <div>·</div>
-                                 <!-- <div> 156.9K views</div> -->
-                             </div>
-                         </div>
-                     </div> 
+                        
+                          <a href="post_watch.html">
+                        
+                          <h4 class="line-clamp-3 font-semibold whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
+                          <br>
+                          <p class=" line-clamp-3 whitespace-no-wrap overflow-hidden text-truncate">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias corporis pariatur nihil voluptas. Assumenda ad modi vitae qui, quo officiis, labore veniam aspernatur harum voluptatibus, dolores sapiente voluptate dolore esse.</p>
+                        </a>
+                        <br>
+                          <div class="flex space-x-2 items-center text-sm pt-1">
+                           
+                            <div> 25 weeks  ago</div>
+                            <div>·</div>
+                          
+                          </div>
+                        </div>
+                      </div>
 
                   </div>
 
@@ -1331,6 +1331,83 @@
             </div>
       
          </div>
+
+         
+     <!--#region DELETE  POST -->
+
+     <div id="delete_post_modal"  uk-modal tabindex="-1">
+      <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
+         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+            type="button" uk-close>
+            <i class="icon-feather-close"></i>
+            </button>
+            <div class="p-6 text-center">
+                  <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete the post?</h3>
+                  <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                     Delete
+                  </button>
+           
+            </div>
+         </div>
+      </div>
+   </div>
+
+<!--#endregion DELETE  POST -->
+  <!--#region UPDATE  POST MODAL  -->
+
+  <div id="update_post_modal" class="create-post is-story" uk-modal>
+   <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+      <div class="py-4 border-b flex  justify-between px-6">
+         <h3 class="text-lg font-semibold"> Update Post </h3>
+         <div>
+            <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+               Saved as draft
+               </div> -->
+            <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close> <i class="icon-feather-close"></i> </button>
+         </div>
+      </div>
+      <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+         <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+            <!-- <div class="font-semibold text-lg"> Details </div> -->
+            <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
+               <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
+               <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+            </div>
+            <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
+               <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
+               <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+            </div>
+            <div class="px-2 space-y-2">
+               <div class="font-semibold text-base"> Visibilty </div>
+               <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
+                  the website. </div> -->
+               <select class="selectpicker">
+                  <option data-icon="uil-bullseye"> Private </option>
+                  
+                  <option data-icon="uil-globe" selected>Public</option>
+               </select>
+            </div>
+            <div class="flex items-center w-full justify-between p-3 border-t">
+               <div class="flex items-center space-x-2">
+                  <!--       
+                     <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
+                     <div> You are successfuly uploaded</div> -->
+               </div>
+               <div class="flex space-x-2">
+                  <button type="submit" 
+                  class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium">
+                   Update </button>
+               </div>
+            </div>
+         
+      </div>
+      </form>
+   </div>
+
+</div>
+<!--#endregion UPDATE  POST  MODAL  -->
             <!-- Javascript
          ================================================== -->
             <!-- For Night mode -->

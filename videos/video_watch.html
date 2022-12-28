@@ -539,14 +539,38 @@
                       </div>
 
                       <div class="py-5 space-y-4">
-
+                        <div class="relative">
                           <div>
                               <h1 class="text-2xl font-semibold line-clamp-1">
                                   Lorem ipsum dolor sit amet
                                  </h1>
                               <!-- <p> 60,723,169 views </p> -->
                           </div>
-                          
+                                <!-- EDIT AND DELETE VIDEO -->
+                                <div class="absolute right-0 top-0">
+                                 <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                                   <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                                   uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                                      <ul class="space-y-1">
+                                       
+                                         <li>
+                                            <a href="" uk-toggle="target: #update-video-modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                                                <i class="uil-edit-alt mr-1"></i>
+                                                 Edit  </a>
+                                         </li>
+                                   
+                                         <li>
+                                            <hr class="-mx-2 my-2 dark:border-gray-800">
+                                         </li>
+                                         <li>
+                                            <a href="" uk-toggle="target: #delete_video_modal" 
+                                            class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                                <i class="uil-trash-alt mr-1"></i> Delete </a>
+                                         </li>
+                                      </ul>
+                                   </div>
+                              </div>
+                           </div>
                           <div class="md:flex items-center justify-between">
                               <a href="" class="flex items-center space-x-3">
                                   <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-10 rounded-full">
@@ -558,14 +582,7 @@
                               </a>
                     
                               <div class="flex items-center space-x-3 md:pt-0 pt-2">
-                                 
-                                  <!-- <div class="flex h-2 w-36 bg-gray-200 rounded-lg overflow-hidden">
-                                      <div class="w-2/3 bg-gradient-to-br from-purple-400 to-blue-400 h-4"></div>
-                                  </div>
-                                  <div class="like-btn" uk-tooltip="I like it">
-                                      <i class="uil-thumbs-up"></i>
-                                      <span class="likes">21</span>
-                                  </div> -->
+                        
                               
                                   <div class="like-btn relative bottom-0 ml-4" uk-tooltip="Like it">
                                     <button  class="flex items-center space-x-2 ml-2">
@@ -1349,6 +1366,94 @@
             </div>
       
          </div>
+             <!--#region DELETE  VIDEO -->
+
+             <div id="delete_video_modal"  uk-modal tabindex="-1">
+               <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
+                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                     <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                     type="button" uk-close>
+                     <i class="icon-feather-close"></i>
+                     </button>
+                     <div class="p-6 text-center">
+                           <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete the video?</h3>
+                           <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                              Delete
+                           </button>
+                           <!-- <button 
+                           type="button" 
+                        
+                           class=" text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                           No, cancel</button> -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+   
+         <!--#endregion DELETE  VIDEO -->
+
+         <!-- #region UPDATE VIDEO TITLE DESCRIPTION MODAL-->
+
+      <div id="update-video-modal" class="create-post is-story" uk-modal>
+         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
+            <div class="py-4 border-b flex  justify-between px-6">
+               <h3 class="text-lg font-semibold"> Update Video </h3>
+               <div>
+                  <!-- <div class="font-semibold px-2.5 py-1 bg-gray-100  rounded-md text text-gray-500 text-sm mr-8">
+                     Saved as draft
+                     </div> -->
+                  <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close> <i class="icon-feather-close"></i> </button>
+               </div>
+            </div>
+            <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
+               <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+                  <!-- <div class="font-semibold text-lg"> Details </div> -->
+                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
+                     <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
+                     <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                  </div>
+                  <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
+                     <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
+                     <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                  </div>
+                  <div class="px-2 space-y-2">
+                     <div class="font-semibold text-base"> Visibilty </div>
+                     <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
+                        the website. </div> -->
+                     <select class="selectpicker">
+                        <option data-icon="uil-bullseye"> Private </option>
+                        
+                        <option data-icon="uil-globe" selected>Public</option>
+                     </select>
+                  </div>
+                  <div class="flex items-center w-full justify-between p-3 border-t">
+                     <div class="flex items-center space-x-2">
+                        <!--       
+                           <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
+                           <div> You are successfuly uploaded</div> -->
+                     </div>
+                     <div class="flex space-x-2">
+                        <button type="submit" class="bg-blue-600 flex h-9 items-center justify-center rounded-md text-white px-5 font-medium">
+                            Update </button>
+                     </div>
+                  </div>
+                  <!--       
+                     </div>
+                     
+                     <div class="flex items-center w-full justify-between p-3 border-t">
+                     
+                         <div class="flex items-center space-x-2">
+                     
+                             <ion-icon name="checkmark-circle" class="text-green-600 text-xl"></ion-icon>
+                             <div> You are successfuly uploaded</div> -->
+            </div>
+            </form>
+         </div>
+   
+      </div>
+
+       <!--#endregion UPDATE VIDEO TITLE DESCRIPTION MODAL -->
             <!-- Javascript
          ================================================== -->
             <!-- For Night mode -->
