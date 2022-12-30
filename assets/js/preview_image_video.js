@@ -37,9 +37,14 @@ function preview_image()
  
  function preview_video() 
  {
-    document.getElementById("uploadvideopreview").style.visibility="visible"
+    document.getElementById("uploadvideopreview").style.visibility="visible";
    var total_file=document.getElementById("uploadonevideo");
-   $('#uploadvideopreview').attr("src", `${window.URL.createObjectURL(total_file.files[0])}`);
+   if (total_file.files[0].size > 110000000) {
+    document.getElementById("uploadvideopreview").style.visibility="hidden";
+    alert("Only videos under 100 MB can be uploaded");
+    return;
+  }
+   $('#uploadvideopreview').attr("src", `${URL.createObjectURL(total_file.files[0])}`);
     
   }
  
