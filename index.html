@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link href="../assets/favicon.png" rel="icon" type="image/png">
+    <link href="https://res.cloudinary.com/rwkama27/image/upload/v1676421448/socialnetworkk/public/favicon_sb2xhj.png" rel="icon" type="image/png">
 
     <!-- Basic Page Needs
         ================================================== -->
@@ -15,13 +15,13 @@
 
     <!-- icons
     ================================================== -->
-    <link rel="stylesheet" href="../assets/css/icons.css">
+    <link rel="stylesheet" href="./assets/css/icons.css">
 
     <!-- CSS 
     ================================================== --> 
-    <link rel="stylesheet" href="../assets/css/uikit.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+    <link rel="stylesheet" href="./assets/css/uikit.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/tailwind.min.css">
 
 
     <style>
@@ -31,6 +31,7 @@
     </style>
       <!-- JS 
     ================================================== --> 
+    
      <script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
      <script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
 
@@ -42,33 +43,43 @@
         <div class="flex flex-col items-center lg: lg:flex-row lg:space-x-10">
 
             <div class="lg:mb-12 flex-1 lg:text-left text-center">
-                <img src="../assets/images/logo.png" alt="" class="lg:mx-0 lg:w-52 mx-auto w-40">
+                <img src="https://res.cloudinary.com/rwkama27/image/upload/v1676421397/socialnetworkk/public/logo_gmdg0j.png" alt="" class="lg:mx-0 lg:w-52 mx-auto w-40">
                 <p class="font-medium lg:mx-0 md:text-2xl mt-6 mx-auto sm:w-3/4 text-xl"> Connect with friends and the world around you on Socialite.</p>
             </div>
             <div class="lg:mt-0 lg:w-96 md:w-1/2 sm:w-2/3 mt-10 w-full">
-                <form onsubmit="location.href='../feed/feed.html'; return false;" class="p-6 space-y-4 relative bg-white shadow-lg rounded-lg"  > 
-                    <input type="text" placeholder="User Name" autofocus class="with-border" required>
-                    <input type="password" placeholder="Password" class="with-border" required>
+                <form id="index_form_login_user"
+                  class="p-6 space-y-4 relative bg-white shadow-lg rounded-lg"  > 
+
+                    <input id="index_login_username" 
+                    type="text" placeholder="User Name" 
+                    minlength="8"
+                    autofocus class="with-border" required>
+
+                    <input id="index_login_password" 
+                    type="password" placeholder="Password"
+                    minlength="8"
+                    class="with-border" required>
+
                     <button type="submit"  class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full">
                         Log In
                     </button>
              
                     <hr class="pb-3.5">
                     <div class="flex">
-                        <a href="#register" type="button" class="bg-green-600 hover:bg-green-500 hover:text-white font-semibold py-3 px-5 rounded-md text-center text-white mx-auto" uk-toggle>
+                        <a href="#index_register_user" type="button" class="bg-green-600 hover:bg-green-500 hover:text-white font-semibold py-3 px-5 rounded-md text-center text-white mx-auto" uk-toggle>
                             Create New Account
                         </a>
                     </div>
                 </form>
 
-               
+            
             </div>
     
         </div>
     </div>
   
     <!-- REGISTER MODAL -->
-    <div id="register" uk-modal>
+    <div id="index_register_user" uk-modal>
         <div class="uk-modal-dialog uk-modal-body rounded-xl shadow-2xl p-0 lg:w-5/12">
             <button class="uk-modal-close-default p-3 bg-gray-100 rounded-full m-3" type="button" uk-close></button>
             <div class="border-b px-7 py-5">
@@ -76,32 +87,53 @@
                 <div class="text-base text-gray-600"> 
                     This information will be made public, so be careful what you share.</div>
             </div>
-            <form onsubmit="location.href='../usersettings/usersettings.html'; return false;" method="post" class="p-7 space-y-5">
+            <form id="formindex_register_user" method="post" class="p-7 space-y-5">
                 
-                    <input type="text" placeholder="Your Name" class="with-border" required>
+                <input type="text" id="index_name_user" 
+                placeholder="Your Name" class="with-border"
+                minlength="4"
+                 required>
                     
              
-                <input type="text" placeholder="User Name" class="with-border" required>
-                <div class="grid lg:grid-cols-2 gap-3">
-                <input id="user_password" type="password" placeholder="Password" class="with-border" required>
+                <input type="text" placeholder="User Name" 
+                minlength="8"
+                id="index_username" 
+                class="with-border" required>
 
-                <input id="confirm_password" type="password" placeholder="Confirm Password" class="with-border" required>
+                <div class="grid lg:grid-cols-2 gap-3">
+
+                <input id="user_password" type="password"
+                minlength="8"
+                 placeholder="Password" class="with-border" required>
+
+                <input id="confirm_password" type="password" 
+                minlength="8"
+                placeholder="Confirm Password" class="with-border" required>
                                
             </div>
 
-                <input type="email" placeholder="E-mail" class="with-border" required>
+                <input type="email" placeholder="E-mail" 
+                class="with-border" 
+                id="index_email"
+                required>
+                
                 <div class="grid lg:grid-cols-2 gap-3">
                     <div>
                         <label class="mb-0"> Date Birth </label>
                         <input type="date" 
+                        id="index_datebirth"
+                        min="1900-02-03"
                         max="2004-02-03"
-                         class="mt-2 with-border" required>
+                        class="mt-2 with-border" required>
                        
 
                     </div>
                     <div>
                         <label class="mb-0"> Country </label>
-                        <input type="text" name="myCountry" list="countries" id="countryinput" class="mt-2 with-border" required>
+                        <input type="text" name="myCountry"
+                        minlength="2"
+                         list="countries" id="countryinput" 
+                         class="mt-2 with-border" required>
                         <datalist id="countries">
                           <!-- See country.js -->
                          </datalist>
@@ -119,17 +151,19 @@
         </div>
     </div>
 
-    <!-- For Night mode -->
- 
-    <!-- ==================================================  -->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
-    <script src="../assets/js/tippy.all.min.js"></script>
-    <script src="../assets/js/uikit.js"></script>
-    <script src="../assets/js/simplebar.js"></script>
-    <script src="../assets/js/custom.js"></script>
-    <script src="../assets/js/confirmpassword.js"></script>
-    <script src="../assets/js/bootstrap-select.min.js"></script>
-    <script src="../assets/js/country.js"></script>
+    <!-- REST API -->
+    <script src="./REST_API/rest_api_user.js"></script>
+    <script src="./REST_API//rest_api_loginuser.js"></script>
+
+    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+    <script src="./assets/js/tippy.all.min.js"></script>
+    <script src="./assets/js/uikit.js"></script>
+    <script src="./assets/js/simplebar.js"></script>
+    <script src="./assets/js/custom.js"></script>
+    <script src="./assets/js/confirmpassword.js"></script>
+    <script src="./assets/js/bootstrap-select.min.js"></script>
+    <script src="./index.js"></script>
+    <script src="./assets/js/country.js"></script>
     <!-- <script src="https://unpkg.com/ionicons@6.0.3/dist/ionicons.js"></script> -->
    
 </body>
