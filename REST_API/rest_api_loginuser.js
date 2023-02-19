@@ -1,4 +1,4 @@
-class C
+class APIRESTLoginUser
 {
   
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
@@ -9,7 +9,7 @@ class C
         const {username,password} = userdata;
         
 
-            let URLUSER=this.RESTAPIURL+"/user/loginuser"
+            let URLUSER=this.RESTAPIURL+"/user/loginuser";
 
             let headersList = {
               "Accept": "*/*",
@@ -39,7 +39,30 @@ class C
            return true;
       }
    
-          
+      static getLoginUser=async()=>
+      {
+       
+      
+            let URLUSER=this.RESTAPIURL+"/user/loginuser";
+
+            let headersList = {
+              "Accept": "*/*",
+             
+             }
+             
+             let response = await fetch(URLUSER, { 
+               method: "GET",
+               headers: headersList
+             });
+             
+           if(!response.ok)
+           {
+            const error=await response.text();
+            throw new Error(error);
+           }
+           let data = await response.json();
+           return data;
+      }  
         
  }     
  

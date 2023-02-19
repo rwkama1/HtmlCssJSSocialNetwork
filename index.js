@@ -21,10 +21,15 @@ class IndexJS
   };
 
   try {
-   const response= await APIRESTUser.registerUser(dataform);
-   if (response) {
+   const response_register= await APIRESTUser.registerUser(dataform);
+   if (response_register) {
     console.log("User Added");
-    window.location.href="./usersettings/usersettings.html";
+    const response_login= await APIRESTLoginUser.loginUser(dataform);
+    if(response_login)
+    {
+      window.location.href="./usersettings/usersettings.html";
+    }
+   
    }
    
   } catch (error) {
@@ -49,7 +54,7 @@ class IndexJS
     const response= await APIRESTLoginUser.loginUser(dataform);
     if (response) {
      console.log("Login User");
-     window.location.href="./index/index.html";
+     window.location.href="./feed/feed.html";
     }
     
    } catch (error) {

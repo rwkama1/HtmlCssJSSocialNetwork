@@ -494,6 +494,7 @@
                               <div class="grid lg:grid-cols-2 gap-5">
                                  <div class="line">
                                     <input class="line__input"
+                                    id="usersettings_nameuser"
                                       autocomplete="off"  type="text" 
                                        onkeyup="this.setAttribute('value', this.value);" value=""
                                        required>
@@ -501,6 +502,7 @@
                                  </div>
                                  <div class="line">
                                     <input class="line__input"  autocomplete="off"
+                                    id="usersettings_emailuser"
                                      type="email" onkeyup="this.setAttribute('value', this.value);"
                                       required value="">
                                     <span  class="line__placeholder">Email </span>
@@ -510,13 +512,14 @@
                               <div class="grid lg:grid-cols-2 gap-5">
                                  <div class="line">
                                     <input class="line__input" autocomplete="off"
+                                    id="usersettings_ocupation"
                                     type="text"
                                      onkeyup="this.setAttribute('value', this.value);" required value="">
                                     <span  class="line__placeholder">Occupation </span>
                                  </div>
                                  <div class="line">
                                     <input class="line__input" id="countryinput"  
-                                  
+                                    id="usersettings_country"
                                     type="text"
                                      onkeyup="this.setAttribute('value', this.value);" required value="">
                                     <span  class="line__placeholder">Country </span>
@@ -526,29 +529,34 @@
                               <div class="line">
                                  <input class="line__input" " type="url" 
                                  onkeyup="this.setAttribute('value', this.value);"
+                                 id="usersettings_urlfacebook"
                                   value="">
                                  <span  class="line__placeholder">Url Facebook</span>
                               </div>
                               <div class="line">
                                  <input class="line__input"  
                                  onkeyup="this.setAttribute('value', this.value);"
+                                 id="usersettings_urlinstagram"
                                   type="url"  value="">
                                  <span  class="line__placeholder">Url Instagram  </span>
                               </div>
                               <div class="line">
                                  <input class="line__input" 
                                  onkeyup="this.setAttribute('value', this.value);"
-                                  type="url" " value="">
+                                 id="usersettings_urllinkedin"
+                                  type="url"  value="">
                                  <span  class="line__placeholder"> Url Linkedin  </span>
                               </div>
                               <div class="line">
                                  <input class="line__input"   type="url" 
+                                 id="usersettings_urltwitter"
                                  onkeyup="this.setAttribute('value', this.value);" value="">
                                  <span  class="line__placeholder"> Url Twitter  </span>
                               </div>
                               <div class="line h-32">
                                  <textarea class="line__input h-32"   autocomplete="off" 
                                   type="text" onkeyup="this.setAttribute('value', this.value);"
+                                  id="usersettings_description"
                                   required
                                   
                                   value=""></textarea>
@@ -560,7 +568,9 @@
                                     <p> &nbsp Date Birth </p>
                                  </label>
                                  <div class="line">
-                                    <input class="line__input" required max="2004-06-01"   type="date" value="">
+                                    <input class="line__input" required max="2004-06-01"  
+                                    id="usersettings_datebirth"
+                                     type="date" value="">
                                     <!-- <span for="username" class="line__placeholder"> Nick </span> -->
                                  </div>
                               </div>
@@ -789,6 +799,9 @@
   
       <!-- Javascript
          ================================================== -->
+    <!-- REST API -->
+    <script src="./REST_API/rest_api_user.js"></script>
+    <script src="./REST_API//rest_api_loginuser.js"></script>
       <script>
          // Hide ,Display and change the ClassName 
          //of the user account options navigation menu
@@ -847,6 +860,7 @@
       <script src="../assets/js/confirmpassword.js"></script>
       <script src="../assets/js/bootstrap-select.min.js"></script>
       <script src="../assets/js/preview_image_video.js"></script>
+      <script src="./usersettings.js"></script>
       <!-- <script src="https://unpkg.com/ionicons@6.0.3/dist/ionicons.js"></script> -->
    </body>
 </html>
