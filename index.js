@@ -76,37 +76,3 @@ loginform.addEventListener('submit', IndexJS.loginUser);
 
 
 
-
-// const loginform = document.getElementById('formindex_register_user');
-
-// loginform.addEventListener('submit', (event) => {
-//   event.preventDefault();
-// const name = document.getElementById('index_name_user').value;
-// const username = document.getElementById('index_username').value;
-// const password = document.getElementById('user_password').value;
-// const email = document.getElementById('index_email').value;
-// const datebirth = document.getElementById('index_datebirth').value;
-// const country = document.getElementById('countryinput').value;
-
-// const dataform = {
-//   name,
-//   username,
-//   password,
-//   email,
-//   datebirth,
-//   country
-// };
-
-
-//   APIRESTUser.registerUser(dataform)
-//     .then(() => {
-//       console.log("User Added");
-//     window.location.href="./usersettings/usersettings.html";
- 
-//     })
-//     .catch(error => {
-//       alert(error);
-//     });
-// });
-
-// }

@@ -63,6 +63,30 @@ class APIRESTLoginUser
            let data = await response.json();
            return data;
       }  
+      static logout=async()=>
+      {
+       
+         
+            let URLUSER=this.RESTAPIURL+"/user/logout";
+
+            let headersList = {
+              "Accept": "*/*",
+             
+             }
+             
+             let response = await fetch(URLUSER, { 
+               method: "POST",
+               headers: headersList
+             });
+             
+           if(!response.ok)
+           {
+            const error=await response.text();
+            throw new Error(error);
+           }
+           let data = await response.text();
+           return data;
+      }  
         
  }     
  

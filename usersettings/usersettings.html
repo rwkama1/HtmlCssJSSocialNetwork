@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- Favicon -->
-      <link href="../assets/favicon.png" rel="icon" type="image/png">
+      <link href="https://res.cloudinary.com/rwkama27/image/upload/v1676421448/socialnetworkk/public/favicon_sb2xhj.png" rel="icon" type="image/png">
       <!-- Basic Page Needs
          ================================================== -->
       <title>Socialite Template</title>
@@ -378,7 +378,8 @@
                               Night mode <span class="btn-night-mode-switch">
                               <span class="uk-switch-button"></span> </span>
                            </a>
-                           <a href="../index.html">
+                           <a  id="usersettings_link_logout" >
+
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                               </svg>
@@ -489,7 +490,7 @@
                            </p>
                         </div>
                         <!-- form body -->
-                        <form onsubmit="messagenotification('Data Updated','success',event)" >
+                        <form id="usersettings_updateuser"  >
                            <div class="lg:py-8 lg:px-20 flex-1 space-y-4 p-6">
                               <div class="grid lg:grid-cols-2 gap-5">
                                  <div class="line">
@@ -519,7 +520,7 @@
                                  </div>
                                  <div class="line">
                                     <input class="line__input" id="countryinput"  
-                                    id="usersettings_country"
+                                    
                                     type="text"
                                      onkeyup="this.setAttribute('value', this.value);" required value="">
                                     <span  class="line__placeholder">Country </span>
@@ -543,7 +544,7 @@
                               <div class="line">
                                  <input class="line__input" 
                                  onkeyup="this.setAttribute('value', this.value);"
-                                 id="usersettings_urllinkedin"
+                                 id="c"
                                   type="url"  value="">
                                  <span  class="line__placeholder"> Url Linkedin  </span>
                               </div>
@@ -558,8 +559,7 @@
                                   type="text" onkeyup="this.setAttribute('value', this.value);"
                                   id="usersettings_description"
                                   required
-                                  
-                                  value=""></textarea>
+                                  ></textarea>
                                  <span  class="line__placeholder">About me </span>
                               </div>
                      
@@ -570,7 +570,7 @@
                                  <div class="line">
                                     <input class="line__input" required max="2004-06-01"  
                                     id="usersettings_datebirth"
-                                     type="date" value="">
+                                     type="date" >
                                     <!-- <span for="username" class="line__placeholder"> Nick </span> -->
                                  </div>
                               </div>
@@ -800,8 +800,10 @@
       <!-- Javascript
          ================================================== -->
     <!-- REST API -->
-    <script src="./REST_API/rest_api_user.js"></script>
-    <script src="./REST_API//rest_api_loginuser.js"></script>
+
+     <script src="../REST_API/rest_api_user.js"></script>
+      <script src="../REST_API/rest_api_loginuser.js"></script>
+     
       <script>
          // Hide ,Display and change the ClassName 
          //of the user account options navigation menu
@@ -860,6 +862,8 @@
       <script src="../assets/js/confirmpassword.js"></script>
       <script src="../assets/js/bootstrap-select.min.js"></script>
       <script src="../assets/js/preview_image_video.js"></script>
+
+      <script src="../head_sidebar.js"></script>
       <script src="./usersettings.js"></script>
       <!-- <script src="https://unpkg.com/ionicons@6.0.3/dist/ionicons.js"></script> -->
    </body>
