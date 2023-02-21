@@ -470,7 +470,7 @@
                            <li id="navliprofile" class="uk-active"><a href="#profile" onclick="showProfileDiv()"> <i class="uil-user"></i> Profile </a></li>
                            <!-- <li><a href="#"> <i class="uil-user"></i> Profile </a></li> -->
                            <li id="navliusernamepassword"><a href="#usernamepassword" onclick="showUserNamePasswordDiv()"
-                              > <i class="uil-unlock-alt"></i> Username & Password </a></li>
+                              > <i class="uil-unlock-alt"></i> Update Password </a></li>
                            <li id="navliavatarcover"><a href="#avatarcover" onclick="showAvatarCoverDiv()"> <i class="uil-scenery"></i> Avatar & Cover</a></li>
                            <li id="navlideleteaccount" uk-toggle="target: #create-deleteaccount"><a href="#" > <i class="uil-trash-alt"></i> Delete account</a></li>
                            
@@ -490,7 +490,7 @@
                            </p>
                         </div>
                         <!-- form body -->
-                        <form id="usersettings_updateuser"  >
+                        <form id="usersettings_updateuser">
                            <div class="lg:py-8 lg:px-20 flex-1 space-y-4 p-6">
                               <div class="grid lg:grid-cols-2 gap-5">
                                  <div class="line">
@@ -499,7 +499,7 @@
                                       autocomplete="off"  type="text" 
                                        onkeyup="this.setAttribute('value', this.value);" value=""
                                        required>
-                                    <span  class="line__placeholder">  Name   </span>
+                                    <span  class="line__placeholder"> Name  </span>
                                  </div>
                                  <div class="line">
                                     <input class="line__input"  autocomplete="off"
@@ -544,7 +544,7 @@
                               <div class="line">
                                  <input class="line__input" 
                                  onkeyup="this.setAttribute('value', this.value);"
-                                 id="c"
+                                 id="usersettings_urllinkedin"
                                   type="url"  value="">
                                  <span  class="line__placeholder"> Url Linkedin  </span>
                               </div>
@@ -558,6 +558,7 @@
                                  <textarea class="line__input h-32"   autocomplete="off" 
                                   type="text" onkeyup="this.setAttribute('value', this.value);"
                                   id="usersettings_description"
+                                  maxlength="100"
                                   required
                                   ></textarea>
                                  <span  class="line__placeholder">About me </span>
@@ -584,36 +585,46 @@
                      <br>
                   </div>
 
-                  <!-- UPDATE USERNAME & PASSWORD -->
+                  <!-- UPDATE PASSWORD -->
 
                   <div id="usernamepassword" hidden class="lg:w-2/3">
                      <div class="lg:flex lg:flex-col justify-between lg:h-full">
                         <!-- form header -->
                         <div class="lg:px-10 lg:py-8 p-6">
-                           <h3 class="font-bold mb-2 text-xl"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp Username & Password</h3>
-                           <form onsubmit="messagenotification('Username y/o Password Updated','success',event)">
+                           <h3 class="font-bold mb-2 text-xl"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp Update Password</h3>
+                           <form id="form_updatepassword">
                             
                               <div class="lg:py-8 lg:px-20 flex-1 space-y-4 p-6">
                                   
                                     <div class="line">
                                        <input class="line__input"  autocomplete="off" 
+                                       id="updatepassword_username" 
                                         type="text" 
-                                       autofocus
+                                     
                                        required>
                                        <span  class="line__placeholder">  Username   </span>
                                     </div>
-                                  
                                     <div class="line">
-                                       <input id="user_password" 
-                                   
+
+                                       <input id="updatepassword_currentpassword" 
+                                    minlength="8"
                                        class="line__input" autocomplete="off"
                                         type="password"
                                        required>
-                                       <span  class="line__placeholder"> Password </span>
+                                       <span  class="line__placeholder"> Current Password </span>
+                                    </div>
+                                    <div class="line">
+
+                                       <input id="user_password" 
+                                       minlength="8"
+                                       class="line__input" autocomplete="off"
+                                        type="password"
+                                       required>
+                                       <span  class="line__placeholder">New Password </span>
                                     </div>
                                     <div class="line">
                                        <input id="confirm_password"
-                                     
+                                       minlength="8"
                                         class="line__input"
                                         autocomplete="off"  type="password"                                    
                                        required>
@@ -644,9 +655,12 @@
                         <div class="profiles_banner">
                              
                            <button  onclick="select_cover_image()">
-                              <img id="image_cover"  src="../assets/images/avatars/no-image-slide.jpg" uk-responsive alt="">
+                              <img id="image_cover" 
+                               src="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/no-image-slide_nclriy.jpg"
+                                uk-responsive alt="">
                            </button>
-                           <input type="file" id="upload_image_cover" accept="image/*" onchange="upload_image_cover()"  style="display: none"> 
+                           <input type="file" id="upload_image_cover" accept="image/*"
+                            onchange="upload_image_cover()"  style="display: none"> 
 
                         </div>
                         <div class="profiles_content">
@@ -654,7 +668,9 @@
                               <div class="profile_avatar_holder"> 
                                 
                                  <button  onclick="select_profile_image()">
-                                    <img id="image_profile"  src="../assets/images/avatars/nouser.jpg" uk-responsive alt="">
+                                    <img id="image_profile" 
+                                     src="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg" 
+                                    uk-responsive alt="">
                                  </button>
                                  <input type="file" id="upload_image_profile" accept="image/*" onchange="upload_image_profile()"  style="display: none"> 
                               </div>

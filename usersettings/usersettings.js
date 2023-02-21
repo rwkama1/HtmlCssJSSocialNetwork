@@ -6,11 +6,12 @@ class UserSettingsJS
  {
    try {
      const response_loginuser= await APIRESTLoginUser.getLoginUser();
-     console.log(response_loginuser);
+     const getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+   
     const {name,email,ocupattion,urlfacebook,country
       ,urlinstagram,urllinkedin,urltwitter,description,
-      datebirth
-    }=response_loginuser;
+      datebirth,userrname,image,coverphoto
+    }=getuser;
 
    //CONVERT DATE
     const isoDate = datebirth;
@@ -20,7 +21,7 @@ class UserSettingsJS
     const day = ("0" + date.getUTCDate()).slice(-2);
     const formattedDate = `${year}-${month}-${day}`;
 
-    //SHOW DATA
+    //SHOW DATA PROFILE
     document.getElementById("usersettings_nameuser").setAttribute("value", name);
     document.getElementById("usersettings_emailuser").setAttribute("value", email);
     document.getElementById("usersettings_ocupation").setAttribute("value", ocupattion);
@@ -32,13 +33,30 @@ class UserSettingsJS
     document.getElementById("usersettings_description").value = description;
     document.getElementById("usersettings_datebirth").setAttribute("value", formattedDate);
         
-  //       }
+   //SHOW DATA UPDATE PASSWORD
+   document.getElementById("updatepassword_username").setAttribute("value", userrname);
 
+         
+   //SHOW IMAGE COVER PROFILE
+   if(image==="")
+   {
+    document.getElementById("image_profile").src = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
+   else{
+    document.getElementById("image_profile").src = image;
+   }
+  
+   if (coverphoto==="") {
+    document.getElementById("image_cover").src = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/no-image-slide_nclriy.jpg";
+   } else {
+    document.getElementById("image_cover").src = coverphoto;
+   }
+ 
  
    
   } catch (error) {
-    // alert(error);
-    // window.location.href="../index.html";
+    alert(error);
+    window.location.href="../index.html";
 
   }
   } 
@@ -73,7 +91,56 @@ class UserSettingsJS
       alert(error);
     }
   } 
-
+  static  updatePassword=async(event)=>
+  {
+     event.preventDefault();
+     const userrname = document.getElementById('updatepassword_username').value;
+     const oldpassword = document.getElementById('updatepassword_currentpassword').value;
+     const newpassword = document.getElementById('user_password').value;
+  
+     const dataform = {
+      userrname,
+      oldpassword,
+      newpassword
+     }
+ 
+     try {
+     const response_update= await APIRESTUser.updatePassword(dataform);
+     if (response_update) {
+       console.log("Password Updated");
+       messagenotification('Password Updated','success',event)
+     
+     }
+     
+     } catch (error) {
+       alert(error);
+     }
+   } 
+   static  updateProfileCoverImage=async(event)=>
+   {
+      event.preventDefault();
+      const userrname = document.getElementById('updatepassword_username').value;
+      const oldpassword = document.getElementById('updatepassword_currentpassword').value;
+      const newpassword = document.getElementById('user_password').value;
+   
+      const dataform = {
+       userrname,
+       oldpassword,
+       newpassword
+      }
+  
+      try {
+      const response_update= await APIRESTUser.updatePassword(dataform);
+      if (response_update) {
+        console.log("Password Updated");
+        messagenotification('Password Updated','success',event)
+      
+      }
+      
+      } catch (error) {
+        alert(error);
+      }
+    } 
 }
 
 
@@ -81,3 +148,6 @@ document.addEventListener("DOMContentLoaded",UserSettingsJS.getLoginUser);
 
 const updateform = document.getElementById('usersettings_updateuser');
 updateform.addEventListener('submit', UserSettingsJS.updateUser);
+
+const updatepasswordform = document.getElementById('form_updatepassword');
+updatepasswordform.addEventListener('submit', UserSettingsJS.updatePassword);
