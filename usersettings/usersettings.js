@@ -119,25 +119,17 @@ class UserSettingsJS
    static  updateProfileCoverImage=async(event)=>
    {
       event.preventDefault();
-      const userrname = document.getElementById('updatepassword_username').value;
-      const oldpassword = document.getElementById('updatepassword_currentpassword').value;
-      const newpassword = document.getElementById('user_password').value;
-   
-      const dataform = {
-       userrname,
-       oldpassword,
-       newpassword
-      }
+     
+      
   
       try {
-      const response_update= await APIRESTUser.updatePassword(dataform);
-      if (response_update) {
-        console.log("Password Updated");
-        messagenotification('Password Updated','success',event)
-      
+        await APIRESTCloudinary.createFolder();
+        // await saveProfile(userId);
+        console.log("Folder Created");
+      messagenotification('Profile Updated','success',event);
       }
       
-      } catch (error) {
+      catch (error) {
         alert(error);
       }
     } 
@@ -151,3 +143,6 @@ updateform.addEventListener('submit', UserSettingsJS.updateUser);
 
 const updatepasswordform = document.getElementById('form_updatepassword');
 updatepasswordform.addEventListener('submit', UserSettingsJS.updatePassword);
+
+const saveProfileCoverImage = document.getElementById('updateprofilecover_save');
+saveProfileCoverImage.addEventListener('click', UserSettingsJS.updateProfileCoverImage);
