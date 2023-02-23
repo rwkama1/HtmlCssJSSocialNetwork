@@ -116,10 +116,7 @@
       } 
       static  updateImageProfileCover=async(profileimage,coverimage)=>
       {
-      
-        
-
-            let URLUSER=this.RESTAPIURL+"/user/updateuserpassword"
+            let URLUSER=this.RESTAPIURL+"/user/insertcoverprofilepicture"
 
             let headersList = {
               "Accept": "*/*",

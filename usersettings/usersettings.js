@@ -119,17 +119,43 @@ class UserSettingsJS
    static  updateProfileCoverImage=async(event)=>
    {
       event.preventDefault();
-     
+      const response_loginuser= await APIRESTLoginUser.getLoginUser();
+     const getuser= await APIRESTUser.getUser(response_loginuser.iduser);
       
   
       try {
+
+        let fileimageprofile = document.getElementById('upload_image_profile').files[0];
+        let fileimagecover = document.getElementById('upload_image_cover').files[0];
         await APIRESTCloudinary.createFolder();
-        // await saveProfile(userId);
-        console.log("Folder Created");
-      messagenotification('Profile Updated','success',event);
+        if (fileimageprofile) {
+            let urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
+            await APIRESTUser.updateImageProfileCover(urlimagePROFILE,getuser.coverphoto);
+            messagenotification('Profile Image Updated','success',event);
+          
+        }
+        
+        else if (fileimagecover) {
+        
+          let urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
+          await APIRESTUser.updateImageProfileCover(getuser.image,urlimageCOVER);
+          messagenotification('Cover Image Updated','success',event);
+         
+        }
+        else if (fileimagecover6&&fileimageprofile) {
+
+          const urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
+          const urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
+          await APIRESTUser.updateImageProfileCover(urlimagePROFILE,urlimageCOVER);
+          messagenotification('Images Updated','success',event);
+        }
+       
+     
+    
       }
       
       catch (error) {
+        console.error(error);
         alert(error);
       }
     } 
