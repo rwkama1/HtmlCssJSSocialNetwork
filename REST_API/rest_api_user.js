@@ -80,6 +80,30 @@
            }
            return true;
       } 
+      static  deleteUser=async()=>
+      {
+      
+            let URLUSER=this.RESTAPIURL+"/user/user"
+
+            let headersList = {
+              "Accept": "*/*",
+              "Content-Type": "application/json"
+             }
+             
+           
+             var requestOptions = {
+              method: "DELETE",
+              headers: headersList
+             };
+     
+           const response=await fetch(URLUSER, requestOptions);
+           if(!response.ok)
+           {
+            const error=await response.text();
+            throw new Error(error);
+           }
+           return true;
+      } 
       static  updatePassword=async(userdata)=>
       {
         const {userrname,oldpassword,newpassword} 
@@ -168,5 +192,6 @@
            let data = await response.json();
            return data;
       }  
+
  }     
  

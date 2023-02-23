@@ -120,7 +120,7 @@ class UserSettingsJS
    {
       event.preventDefault();
       const response_loginuser= await APIRESTLoginUser.getLoginUser();
-     const getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+   
       
   
       try {
@@ -128,9 +128,16 @@ class UserSettingsJS
         let fileimageprofile = document.getElementById('upload_image_profile').files[0];
         let fileimagecover = document.getElementById('upload_image_cover').files[0];
         await APIRESTCloudinary.createFolder();
-        if (fileimageprofile) {
+        if (fileimagecover&&fileimageprofile) {
+
+          const urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
+          const urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
+          await APIRESTUser.updateImageProfileCover(urlimagePROFILE,urlimageCOVER);
+          messagenotification('Images Updated','success',event);
+        }
+        else if (fileimageprofile) {
             let urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
-            await APIRESTUser.updateImageProfileCover(urlimagePROFILE,getuser.coverphoto);
+            await APIRESTUser.updateImageProfileCover(urlimagePROFILE,response_loginuser.coverphoto);
             messagenotification('Profile Image Updated','success',event);
           
         }
@@ -138,27 +145,34 @@ class UserSettingsJS
         else if (fileimagecover) {
         
           let urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
-          await APIRESTUser.updateImageProfileCover(getuser.image,urlimageCOVER);
+          await APIRESTUser.updateImageProfileCover(response_loginuser.image,urlimageCOVER);
           messagenotification('Cover Image Updated','success',event);
          
         }
-        else if (fileimagecover6&&fileimageprofile) {
-
-          const urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
-          const urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
-          await APIRESTUser.updateImageProfileCover(urlimagePROFILE,urlimageCOVER);
-          messagenotification('Images Updated','success',event);
-        }
-       
-     
-    
-      }
       
+      }
       catch (error) {
         console.error(error);
         alert(error);
       }
     } 
+
+   static  deleteUser=async(event)=>
+    {
+       event.preventDefault();
+      
+       try {
+       const response_delete= await APIRESTUser.deleteUser();
+       if (response_delete) {
+         
+        window.location.href="../index.html";
+       
+       }
+       
+       } catch (error) {
+         alert(error);
+       }
+   }  
 }
 
 
@@ -172,3 +186,6 @@ updatepasswordform.addEventListener('submit', UserSettingsJS.updatePassword);
 
 const saveProfileCoverImage = document.getElementById('updateprofilecover_save');
 saveProfileCoverImage.addEventListener('click', UserSettingsJS.updateProfileCoverImage);
+
+const deleteUser = document.getElementById('button_userrsettings_deleteuser');
+deleteUser.addEventListener('click', UserSettingsJS.deleteUser)
