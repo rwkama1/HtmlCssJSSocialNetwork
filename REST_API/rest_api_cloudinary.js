@@ -23,7 +23,7 @@ class APIRESTCloudinary
     } catch (error) {
       console.error(error);
 
-      alert(`Error: ${error.message}`)
+      // alert(`Error: ${error.message}`)
     }
   }
 
@@ -76,18 +76,3 @@ class APIRESTCloudinary
   
 
  }
-//  let headersList = {
-//   "Accept": "*/*",
-
-//  }
-//   let GETURLCLOUDINARY=this.RESTAPIURL+`/cloudinary/creategetfolder`;
-//  let get_folder_cloudinary_response = await fetch(GETURLCLOUDINARY, {
-//    method: "GET",
-//    headers: headersList
-//  });
-
-// if (get_folder_cloudinary_response) {
-// // The folder already exists, we do nothing.
-//   return;
-// }
-// else{

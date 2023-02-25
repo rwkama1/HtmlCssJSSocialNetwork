@@ -1,7 +1,7 @@
 class UserSettingsJS
 
 { 
-
+// LOAD PAGE
   static  getLoginUser=async()=>
  {
    try {
@@ -61,6 +61,8 @@ class UserSettingsJS
   }
   } 
 
+
+  
  static  updateUser=async(event)=>
  {
     event.preventDefault();
@@ -176,7 +178,7 @@ class UserSettingsJS
 }
 
 
-document.addEventListener("DOMContentLoaded",UserSettingsJS.getLoginUser);
+window.addEventListener("load",UserSettingsJS.getLoginUser);
 
 const updateform = document.getElementById('usersettings_updateuser');
 updateform.addEventListener('submit', UserSettingsJS.updateUser);

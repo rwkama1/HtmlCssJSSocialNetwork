@@ -168,6 +168,38 @@
            }
            return true;
       } 
+      static  updateDescription=async(description)=>
+      {
+
+            let URLUSER=this.RESTAPIURL+"/user/updateDescriptionUser"
+
+            let headersList = {
+              "Accept": "*/*",
+              "Content-Type": "application/json"
+             }
+             
+             let bodyContent = JSON.stringify({
+ 
+              "description": description
+             
+            
+            });
+             var requestOptions = {
+              method: "PUT",
+              body: bodyContent,
+              headers: headersList
+             };
+     
+           const response=await fetch(URLUSER, requestOptions);
+           if(!response.ok)
+           {
+            const error=await response.text();
+            throw new Error(error);
+           }
+           return true;
+      } 
+
+      //GETS
       static getUser=async(iduser)=>
       {
        
