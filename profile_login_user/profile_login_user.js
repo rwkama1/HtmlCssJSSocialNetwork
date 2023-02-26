@@ -37,6 +37,10 @@ class Profile_Login_User
       //LOAD ALBUM IMAGES MODAL ADD IMAGE
 
       await this.loadAlbumImagesUserModal();
+
+      // LOAD ALBUMIMAGES LOGIN USER
+  
+           await this.loadAlbumImagesLoginUser();
    
       // LOAD IMAGES LOGIN USER
   
@@ -125,18 +129,88 @@ static loadNameDescriptionUser(description, name) {
   document.getElementById("profileloginuser_h1_nameuser").innerHTML = name;
   document.getElementById("profileloginuser_p_description").innerHTML = inside_profileloginuser_p_description;
 }
+static async loadAlbumImagesLoginUser() {
+  let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+
+  let html_load_albumimage = '';
+
+  for (let i = 0; i < getalbumimagesuser.length; i++) {
+    // const imageUrl = getalbumimagesuser[i].urlimage;
+
+
+    if (i >= 3) {
+      html_load_albumimage += `
+      <div hidden id="morealbumimage" >
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+            <li> 
+              <a href="">
+               <img src="../assets/images/post/img-1.jpg" alt="" uk-cover>
+               </a>
+            </li>
+           
+            <li> 
+               <a href="">
+                  <img src="../assets/images/post/img-2.jpg" alt="" uk-cover>
+                  </a> 
+            </li>
+            <li>
+               <a href="">
+                  <img src="../assets/images/post/img-3.jpg" alt="" uk-cover>
+                  </a> 
+            </li>
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+   </div>
+        `;
+    } else {
+      html_load_albumimage += `
+      <div>
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+            <li> 
+              <a href="">
+               <img src="../assets/images/post/img-1.jpg" alt="" uk-cover>
+               </a>
+            </li>
+           
+            <li> 
+               <a href="">
+                  <img src="../assets/images/post/img-2.jpg" alt="" uk-cover>
+                  </a> 
+            </li>
+            <li>
+               <a href="">
+                  <img src="../assets/images/post/img-3.jpg" alt="" uk-cover>
+                  </a> 
+            </li>
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+     
+   </div>
+        `;
+    }
+  }
+
+
+  document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
+}
 static async loadImagesLoginUser(iduser) {
-  let getalbumimagesuser = await APIRESTImages.getImagesByLoginUser(iduser);
+  let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser);
 
   let html_load_images = '';
 
-  for (let i = 0; i < getalbumimagesuser.length; i++) {
-    const imageUrl = getalbumimagesuser[i].URLIMAGE;
+  for (let i = 0; i < getimagesuser.length; i++) {
+    const imageUrl = getimagesuser[i].urlimage;
 
 
     if (i >= 3) {
       html_load_images += `
-          <div id="morephotos" class="card lg:mx-0 uk-animation-slide-bottom-small">
+          <div id="morephotos" hidden class="card lg:mx-0 uk-animation-slide-bottom-small">
             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
               <a href="">
                 <img src="${imageUrl}" class="w-full h-full absolute object-cover inset-0">

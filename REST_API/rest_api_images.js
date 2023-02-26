@@ -66,6 +66,30 @@ class APIRESTImages
             let data = await response.json();
             return data;
        }  
+       static getImagesByAlbum=async(idalbum)=>
+       {
+        
+       
+             let URLIMAGE=this.RESTAPIURL+`/images/getImagesByAlbum?pidalbum=${idalbum}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
   }     
   
      
