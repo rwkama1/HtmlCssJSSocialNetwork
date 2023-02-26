@@ -42,7 +42,30 @@ class APIRESTImages
        }
        return true;
        }  
+       static getImagesByLoginUser=async(iduser)=>
+       {
+        
+       
+             let URLIMAGE=this.RESTAPIURL+`/images/getImagesbyIdUser?piduser=${iduser}`;
  
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
   }     
   
      
