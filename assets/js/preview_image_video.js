@@ -1,13 +1,15 @@
 function preview_multiples_images() 
 {
   var total_file=document.getElementById("uploadimagealbum");
-
+ 
   for(var i=0;i<total_file.files.length;i++)
   {
     
     $('#ulimage_preview').append(
-      `<li> <img src='${URL.createObjectURL(total_file.files[i])}' alt="" 'uk-responsive'> </li>`
+      `<li> <img src='${URL.createObjectURL(total_file.files[i])}' 
+      alt="" 'uk-responsive'> </li>`
     );
+    SelectData.selectMultipleImages.push(total_file.files[i])
  }
 }
 
@@ -17,7 +19,7 @@ function preview_image()
   $('#uploadoneimagepreview').attr("src",`${window.URL.createObjectURL(total_file.files[0])}`);
    
  }
-
+ 
  function preview_multiples_videos() 
 {
   var total_file=document.getElementById("upload_video_album");

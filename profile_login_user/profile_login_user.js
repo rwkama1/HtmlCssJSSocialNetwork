@@ -113,7 +113,37 @@ class Profile_Login_User
      }
       
     }
-
+    static add_album_image=async(event)=>
+    {
+      try {
+       event.preventDefault();
+      
+          let arrayurlimages=[];
+        const title=  document.getElementById('titlealbum_profileloginuser').value=""; 
+          let filesalbumimages = SelectData.getSelectMultipleImages();
+          for (let i = 0; i < filesalbumimages.length; i++) {
+              const fileimage = filesalbumimages[i] ;
+              let urlimage=await APIRESTCloudinary.upload_image(fileimage);
+              arrayurlimages.push(urlimage);
+          }
+      
+        //      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile);
+         
+         
+         const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages);
+         if (response_upload_albumimage) {
+       
+           messagenotification('Album images Added','success',event);
+           SelectData.selectMultipleImages=[];
+           document.getElementById('titlealbum_profileloginuser').value=""; 
+          }
+ 
+      
+     }catch (error) {
+       alert(error);
+     }
+      
+    }
  
 
     //#endregion IMAGES
@@ -131,34 +161,19 @@ static loadNameDescriptionUser(description, name) {
 }
 static async loadAlbumImagesLoginUser() {
   let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
-
+  
   let html_load_albumimage = '';
 
   for (let i = 0; i < getalbumimagesuser.length; i++) {
-    // const imageUrl = getalbumimagesuser[i].urlimage;
-
+    const idalbumphoto = getalbumimagesuser[i].idalbumphoto ;
+    let getImagesByAlbum = await APIRESTImages.getImagesByAlbum(idalbumphoto);
 
     if (i >= 3) {
       html_load_albumimage += `
       <div hidden id="morealbumimage" >
       <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
          <ul class="uk-slideshow-items">
-            <li> 
-              <a href="">
-               <img src="../assets/images/post/img-1.jpg" alt="" uk-cover>
-               </a>
-            </li>
-           
-            <li> 
-               <a href="">
-                  <img src="../assets/images/post/img-2.jpg" alt="" uk-cover>
-                  </a> 
-            </li>
-            <li>
-               <a href="">
-                  <img src="../assets/images/post/img-3.jpg" alt="" uk-cover>
-                  </a> 
-            </li>
+         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
          </ul>
          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
@@ -170,22 +185,7 @@ static async loadAlbumImagesLoginUser() {
       <div>
       <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
          <ul class="uk-slideshow-items">
-            <li> 
-              <a href="">
-               <img src="../assets/images/post/img-1.jpg" alt="" uk-cover>
-               </a>
-            </li>
-           
-            <li> 
-               <a href="">
-                  <img src="../assets/images/post/img-2.jpg" alt="" uk-cover>
-                  </a> 
-            </li>
-            <li>
-               <a href="">
-                  <img src="../assets/images/post/img-3.jpg" alt="" uk-cover>
-                  </a> 
-            </li>
+         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
          </ul>
          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
@@ -194,6 +194,7 @@ static async loadAlbumImagesLoginUser() {
    </div>
         `;
     }
+    
   }
 
 
@@ -201,7 +202,7 @@ static async loadAlbumImagesLoginUser() {
 }
 static async loadImagesLoginUser(iduser) {
   let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser);
-
+  document.getElementById("profileloginuser_span_photoscount").innerHTML = getimagesuser.length;
   let html_load_images = '';
 
   for (let i = 0; i < getimagesuser.length; i++) {
@@ -274,6 +275,25 @@ static async loadAlbumImagesUserModal() {
   document.getElementById("profileloginuser_select_albumimages").innerHTML = load_albums_image;
 }
 
+//OTHERS
+
+static forAddImagesFromAlbum(images)
+   {
+    let html_images="";
+    for (let i = 0; i < images.length; i++) {
+      const imageUrl = images[i].urlimage;
+      html_images += `
+         <li>
+            <a href="">
+               <img src="${imageUrl}" alt="" uk-cover>
+            </a>
+         </li>
+      `;
+   }
+    return html_images
+   
+   }
+
 }
 window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);
 
@@ -281,6 +301,8 @@ window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);
 const addimageform = document.getElementById('form_profileloginuser_addimage');
 addimageform.addEventListener('submit', Profile_Login_User.upload_image_modal);
 
+const addalbumimageform = document.getElementById('form_albumimages_profileloginuser');
+addalbumimageform.addEventListener('submit', Profile_Login_User.add_album_image);
 
 const updatedescriptionform = document.getElementById('profileloginuser_form_updateabout');
 updatedescriptionform.addEventListener('submit', Profile_Login_User.update_description_modal);
