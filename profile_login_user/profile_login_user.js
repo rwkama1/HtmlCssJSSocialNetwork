@@ -119,7 +119,7 @@ class Profile_Login_User
        event.preventDefault();
       
           let arrayurlimages=[];
-        const title=  document.getElementById('titlealbum_profileloginuser').value=""; 
+        const title=  document.getElementById('titlealbum_profileloginuser').value; 
           let filesalbumimages = SelectData.getSelectMultipleImages();
           for (let i = 0; i < filesalbumimages.length; i++) {
               const fileimage = filesalbumimages[i] ;
@@ -133,15 +133,18 @@ class Profile_Login_User
          const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages);
          if (response_upload_albumimage) {
        
-           messagenotification('Album images Added','success',event);
+         
            SelectData.selectMultipleImages=[];
            document.getElementById('titlealbum_profileloginuser').value=""; 
           }
- 
+         
+          messagenotification('Album images Added','success',event);
+        setInterval(location.reload(),1000)
       
      }catch (error) {
        alert(error);
-     }
+       location.reload();
+     }   
       
     }
  
