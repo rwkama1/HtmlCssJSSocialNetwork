@@ -47,10 +47,8 @@ class Profile_Login_User
       await this.loadImagesLoginUser(iduser);
 
  
-      
-// const update_image_modal = document.getElementById('update-image-modal');
-// update_image_modal.addEventListener('show', Profile_Login_User.showDataUpdateModal);
-
+      const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
+      buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
 
      } catch (error) {
       console.error(error);
@@ -152,23 +150,61 @@ class Profile_Login_User
      }   
       
     }
-    static click_updateimagemodal=(event)=>
+    static updateImage= async(event)=>
     {
-
-      event.preventDefault();
-      
-      const imageId = document.getElementById("image-id").value;
-      const imageTitle = document.getElementById("image-title").value;
-      const imageDesc = document.getElementById("image-desc").value;
-      const imageVisibility = document.getElementById("image-visibility").value;
-
-      console.log(imageTitle);
-      
-
+      try {
+        event.preventDefault();
+        const idimage = document.getElementById('idphoto_updateimage_profileloginuser').value;
+        const title = document.getElementById('title_updateimage_profileloginuser').value;
+         const description = document.getElementById('description_updateimage_profileloginuser').value;
+       
+         const visibility = document.getElementById('visibility_updateimage_profileloginuser').value;
+        
+           
+         const dataform = {idimage,title
+           ,description,visibility}
+       
+          const response_upload_image= await APIRESTImages.updateImage(dataform);
+          if (response_upload_image) {
+        
+            messagenotification('Image Updated','success',event);
+            document.getElementById('title_updateimage_profileloginuser').value="";
+            document.getElementById('description_updateimage_profileloginuser').value="";
+           }
+     
+       
+      }catch (error) {
+        alert(error);
+      }
     }
+    static deleteImage= async(event)=>
+    {
+      try {
+       
+        const idimage = document.getElementById('idphoto_deleteimagemodal_profileloginuser').value;
+       
+       
+          const response_delete_image= await APIRESTImages.deleteImage(idimage);
+          if (response_delete_image) {
+        
+            messagenotification('Image Deleted','success',event);
+            setInterval(() => {
+              location.reload()
+            }, 1000);
+          
+           }
+     
+       
+      }catch (error) {
+        alert(error);
+      }
+    }
+  
     static  showDataUpdateModal=async(id)=>
     {
       const response_getimage= await APIRESTImages.getImage(id);
+      document.getElementById('idphoto_updateimage_profileloginuser').value=response_getimage.idphoto;
+      
       document.getElementById('title_updateimage_profileloginuser').value=response_getimage.title;
     document.getElementById('description_updateimage_profileloginuser').value=response_getimage.description;
       const visibilitySelect = document.getElementById('visibility_updateimage_profileloginuser');
@@ -178,11 +214,15 @@ class Profile_Login_User
         visibilitySelect.value = 'Public';
       }
       
-      console.log(response_getimage);
+      
     
 
     }
-
+    static showIdDeleteModal=async(id)=>
+    {
+      document.getElementById('idphoto_deleteimagemodal_profileloginuser').value=id;
+   
+    }
     //#endregion IMAGES
 
 
@@ -262,7 +302,9 @@ static async loadImagesLoginUser(iduser) {
                   id="a_update_image_modal"
                    uk-toggle="target: #update-image-modal" href=""
                    onclick="Profile_Login_User.showDataUpdateModal(${getimagesuser[i].idphoto});">  Update </a>
-                  <a uk-toggle="target: #deleteimagemodal" href="">  Delete </a> 
+                  <a uk-toggle="target: #deleteimagemodal" href=""
+                  onclick="Profile_Login_User.showIdDeleteModal(${getimagesuser[i].idphoto});"
+                  >  Delete </a> 
                 </div>
 
               </div>
@@ -285,7 +327,9 @@ static async loadImagesLoginUser(iduser) {
                   uk-toggle="target: #update-image-modal" href=""
                   onclick="Profile_Login_User.showDataUpdateModal('${getimagesuser[i].idphoto}');">  Update </a>
                 
-                  <a uk-toggle="target: #deleteimagemodal" href="">  Delete </a> 
+                  <a uk-toggle="target: #deleteimagemodal" href=""
+                  onclick="Profile_Login_User.showIdDeleteModal(${getimagesuser[i].idphoto});"
+                  >  Delete </a> 
                 </div>
 
               </div>
@@ -353,4 +397,9 @@ addalbumimageform.addEventListener('submit', Profile_Login_User.add_album_image)
 
 const updatedescriptionform = document.getElementById('profileloginuser_form_updateabout');
 updatedescriptionform.addEventListener('submit', Profile_Login_User.update_description_modal);
+
+
+const updateImageForm = document.getElementById('form_updateimage_profileloginuser');
+updateImageForm.addEventListener('submit', Profile_Login_User.updateImage);
+
 
