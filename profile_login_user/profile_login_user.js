@@ -46,6 +46,11 @@ class Profile_Login_User
   
       await this.loadImagesLoginUser(iduser);
 
+ 
+      
+// const update_image_modal = document.getElementById('update-image-modal');
+// update_image_modal.addEventListener('show', Profile_Login_User.showDataUpdateModal);
+
 
      } catch (error) {
       console.error(error);
@@ -147,12 +152,42 @@ class Profile_Login_User
      }   
       
     }
- 
+    static click_updateimagemodal=(event)=>
+    {
+
+      event.preventDefault();
+      
+      const imageId = document.getElementById("image-id").value;
+      const imageTitle = document.getElementById("image-title").value;
+      const imageDesc = document.getElementById("image-desc").value;
+      const imageVisibility = document.getElementById("image-visibility").value;
+
+      console.log(imageTitle);
+      
+
+    }
+    static  showDataUpdateModal=async(id)=>
+    {
+      const response_getimage= await APIRESTImages.getImage(id);
+      document.getElementById('title_updateimage_profileloginuser').value=response_getimage.title;
+    document.getElementById('description_updateimage_profileloginuser').value=response_getimage.description;
+      const visibilitySelect = document.getElementById('visibility_updateimage_profileloginuser');
+      if (response_getimage.visibility === 'Private') {
+        visibilitySelect.value = 'Private';
+      } else {
+        visibilitySelect.value = 'Public';
+      }
+      
+      console.log(response_getimage);
+    
+
+    }
 
     //#endregion IMAGES
 
 
 // LOAD PAGE
+
 
 static loadNameDescriptionUser(description, name) {
   let inside_profileloginuser_p_description = `
@@ -223,9 +258,13 @@ static async loadImagesLoginUser(iduser) {
               <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="flex justify-around text-xs">
-                  <a uk-toggle="target: #update-image-modal" href="">  Update </a>
+                  <a
+                  id="a_update_image_modal"
+                   uk-toggle="target: #update-image-modal" href=""
+                   onclick="Profile_Login_User.showDataUpdateModal(${getimagesuser[i].idphoto});">  Update </a>
                   <a uk-toggle="target: #deleteimagemodal" href="">  Delete </a> 
                 </div>
+
               </div>
             </div>
           </div>
@@ -241,9 +280,14 @@ static async loadImagesLoginUser(iduser) {
               <div class="-bottom-12 absolute bg-gradient-to-b from-transparent h-1/2 to-gray-800 uk-transition-slide-bottom-small w-full"></div>
               <div class="absolute bottom-0 w-full p-3 text-white uk-transition-slide-bottom-small">
                 <div class="flex justify-around text-xs">
-                  <a uk-toggle="target: #update-image-modal" href="">  Update </a>
+                  <a 
+                  id="a_update_image_modal"
+                  uk-toggle="target: #update-image-modal" href=""
+                  onclick="Profile_Login_User.showDataUpdateModal('${getimagesuser[i].idphoto}');">  Update </a>
+                
                   <a uk-toggle="target: #deleteimagemodal" href="">  Delete </a> 
                 </div>
+
               </div>
             </div>
           </div>
@@ -298,7 +342,7 @@ static forAddImagesFromAlbum(images)
    }
 
 }
-window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);
+document.addEventListener("DOMContentLoaded",Profile_Login_User.showdata_getLoginUser);
 
 
 const addimageform = document.getElementById('form_profileloginuser_addimage');
@@ -309,5 +353,4 @@ addalbumimageform.addEventListener('submit', Profile_Login_User.add_album_image)
 
 const updatedescriptionform = document.getElementById('profileloginuser_form_updateabout');
 updatedescriptionform.addEventListener('submit', Profile_Login_User.update_description_modal);
-
 

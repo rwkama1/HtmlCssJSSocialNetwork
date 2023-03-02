@@ -1,7 +1,7 @@
 class SelectData
 {
   //PROPERTIES
-  static selectMultipleImages=[];
+  static selectMultipleImages=[];//FILES
 
   //GETS
   static getSelectMultipleImages()
