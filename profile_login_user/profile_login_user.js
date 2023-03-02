@@ -245,6 +245,8 @@ static async loadAlbumImagesLoginUser() {
   for (let i = 0; i < getalbumimagesuser.length; i++) {
     const idalbumphoto = getalbumimagesuser[i].idalbumphoto ;
     let getImagesByAlbum = await APIRESTImages.getImagesByAlbum(idalbumphoto);
+if(getImagesByAlbum.length!==0)
+{
 
     if (i >= 3) {
       html_load_albumimage += `
@@ -274,6 +276,7 @@ static async loadAlbumImagesLoginUser() {
     }
     
   }
+}
 
 
   document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
