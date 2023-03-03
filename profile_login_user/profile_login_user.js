@@ -46,7 +46,9 @@ class Profile_Login_User
   
       await this.loadImagesLoginUser(iduser);
 
- 
+  // LOAD VIDEOS LOGIN USER
+        await this.loadVideosLoginUser();
+      
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
       buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
 
@@ -58,6 +60,7 @@ class Profile_Login_User
      }
      
      } 
+
      static update_description_modal=async(event)=>
      {
        try {
@@ -199,7 +202,9 @@ class Profile_Login_User
         alert(error);
       }
     }
-  
+
+    // GET IMAGES
+
     static  showDataUpdateModal=async(id)=>
     {
       const response_getimage= await APIRESTImages.getImage(id);
@@ -225,10 +230,16 @@ class Profile_Login_User
     }
     //#endregion IMAGES
 
+    //#region VIDEOS
 
-// LOAD PAGE
 
 
+
+    //#endregion VIDEOS
+
+//#region LOAD PAGE
+
+//GET ALBUM IMAGES LOGIN USER
 static loadNameDescriptionUser(description, name) {
   let inside_profileloginuser_p_description = `
          ${description} <a href=""
@@ -237,6 +248,7 @@ static loadNameDescriptionUser(description, name) {
   document.getElementById("profileloginuser_h1_nameuser").innerHTML = name;
   document.getElementById("profileloginuser_p_description").innerHTML = inside_profileloginuser_p_description;
 }
+//GET ALBUM IMAGES LOGIN USER
 static async loadAlbumImagesLoginUser() {
   let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
   
@@ -281,6 +293,7 @@ if(getImagesByAlbum.length!==0)
 
   document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
 }
+//GET IMAGES LOGIN USER
 static async loadImagesLoginUser(iduser) {
   let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser);
   document.getElementById("profileloginuser_span_photoscount").innerHTML = getimagesuser.length;
@@ -345,6 +358,99 @@ static async loadImagesLoginUser(iduser) {
 
   document.getElementById("profileloginuser_listallimages_div").innerHTML = html_load_images;
 }
+
+
+//GET ALBUM VIDEOS LOGIN USER
+static async loadAlbumVideosLoginUser() {
+  let getalbumimagesuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+  
+  let html_load_albumvideo = '';
+
+  for (let i = 0; i < getalbumimagesuser.length; i++) {
+    const idalbumphoto = getalbumimagesuser[i].idalbumvideo  ;
+    let getImagesByAlbum = await APIRESTImages.getImagesByAlbum(idalbumphoto);
+if(getImagesByAlbum.length!==0)
+{
+
+    if (i >= 3) {
+      html_load_albumimage += `
+      <div hidden id="morealbumimage" >
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+   </div>
+        `;
+    } else {
+      html_load_albumimage += `
+      <div>
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+     
+   </div>
+        `;
+    }
+    
+  }
+}
+
+
+  document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
+}
+
+//GET VIDEOS LOGIN USER
+static async loadVideosLoginUser(iduser) {
+  let getVideosByLoginUser = await APIRESTVideo.getVideosByLoginUser(iduser);
+  document.getElementById("profileloginuser_span_videoscount").innerHTML = getVideosByLoginUser.length;
+  let html_load_videos = '';
+
+  for (let i = 0; i < getVideosByLoginUser.length; i++) {
+    const videoUrl = getVideosByLoginUser[i].urlvideo;
+
+
+    if (i >= 3) {
+      html_load_videos += `
+      <div hidden id="morevideo" >
+      <div class="uk-position-relative uk-visible-toggle uk-light" >
+               <a href="../feed/feed.html">
+                <video src="${videoUrl}" autoplay loop muted playsinline>
+
+                </video>
+              
+                </a>
+      
+      </div>
+   </div>
+        `;
+    } else {
+      html_load_videos += `
+      <div>
+      <div class="uk-position-relative uk-visible-toggle uk-light" >
+         <a href="../feed/feed.html">
+            <video src="${videoUrl}" autoplay loop muted playsinline>
+
+            </video>
+          
+            </a>
+      </div>
+   </div>
+        `;
+    }
+  }
+
+
+  document.getElementById("profileloginuser_listallvideos_div").innerHTML = html_load_videos;
+}
+
+//GET IMAGE COVER PROFILE
 static showImageCoverProfile(image, coverphoto) {
   if (image === "") {
     document.getElementById("profileloginuser_profileimage").src = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
@@ -359,6 +465,7 @@ static showImageCoverProfile(image, coverphoto) {
     document.getElementById("profileloginuser_coverimage").src = coverphoto;
   }
 }
+//GET TITLE ALBUMS IN ADD MODAL IMAGE
 static async loadAlbumImagesUserModal() {
   let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
   let load_albums_image = "";
@@ -368,6 +475,8 @@ static async loadAlbumImagesUserModal() {
 
   document.getElementById("profileloginuser_select_albumimages").innerHTML = load_albums_image;
 }
+
+ //#endregion LOAD PAGE
 
 //OTHERS
 

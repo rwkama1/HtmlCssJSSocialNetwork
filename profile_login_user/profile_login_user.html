@@ -2197,7 +2197,7 @@
                         <nav class="responsive-nav style-2 md:m-0 -mx-4">
                            <ul uk-switcher="connect: #video-tab; animation: uk-animation-fade">
                               <li><a href="#"> Albums Videos </a></li>
-                              <li><a href="#">  All Videos <span> 230</span> </a></li>
+                              <li><a href="#">  All Videos <span id="profileloginuser_span_videoscount"></span> </a></li>
                               <!-- <li><a href="#"> Recently added </a></li> -->
                            </ul>
                         </nav>
@@ -2364,60 +2364,12 @@
                      </div>
                      <!-- All VIDEOS -->
                      <div>
-                        <div class="uk-child-width-1-2@m" uk-grid>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" >
-                                 <a href="../feed/feed.html">
-                                    <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
-
-                                    </video>
-                                  
-                                    </a>
-                              </div>
-                             
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" >
-                                
-                                 <a href="../feed/feed.html">
-                                    <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
-
-                                    </video>
-                                  
-                                    </a>
-                              </div>
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" >
-                                 <a href="../feed/feed.html">
-                                    <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
-
-                                    </video>
-                                  
-                                    </a>
-                              </div>
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" >
-                                 <a href="../feed/feed.html">
-                                    <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
-
-                                    </video>
-                                  
-                                    </a>
-                              </div>
-                           </div>
-                           <div hidden id="morevideo" >
-                              <div class="uk-position-relative uk-visible-toggle uk-light" >
-                                       <a href="../feed/feed.html">
-                                        <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
- 
-                                        </video>
-                                      
-                                        </a>
-                              
-                              </div>
-                           </div>
+                        <div 
+                        id="profileloginuser_listallvideos_div" 
+                        class="uk-child-width-1-2@m" uk-grid>
+                      <!-- SEE profile_login_user.js -->
+                           
+                          
                         </div>
                         <div class="flex justify-center mt-6">
                            <a href="#" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white" uk-toggle="target: #morevideo; animation: uk-animation-fade">
@@ -4863,7 +4815,9 @@
          ================================================== -->
 
   <script src="../utils/selectdata.js"></script>
+  <script src="../REST_API/rest_api_albumvideo.js"></script>
     <script src="../REST_API/rest_api_images.js"></script>
+    <script src="../REST_API/rest_api_videos.js"></script>
    <script src="../REST_API/rest_api_albumimage.js"></script>
    <script src="../REST_API/rest_api_cloudinary.js"></script>
     <script src="../REST_API/rest_api_user.js"></script>
