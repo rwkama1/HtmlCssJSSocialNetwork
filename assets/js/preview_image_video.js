@@ -34,6 +34,7 @@ function preview_image()
     
       </li>`
     );
+    SelectData.selectMultipleVideos.push(total_file.files[i])
  }
 }
  

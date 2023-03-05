@@ -38,6 +38,9 @@ class Profile_Login_User
 
       await this.loadAlbumImagesUserModal();
 
+      //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
+      await this.loadAlbumVideoUserModal();
+
       // LOAD ALBUMIMAGES LOGIN USER
   
            await this.loadAlbumImagesLoginUser();
@@ -45,6 +48,10 @@ class Profile_Login_User
       // LOAD IMAGES LOGIN USER
   
       await this.loadImagesLoginUser(iduser);
+
+      // LOAD ALBUM VIDEOS LOGIN USER
+      await this.loadAlbumVideosLoginUser();
+
 
   // LOAD VIDEOS LOGIN USER
         await this.loadVideosLoginUser();
@@ -101,21 +108,25 @@ class Profile_Login_User
         const description = document.getElementById('profileloginuser_uploadimage_description').value;
         const visibility = document.getElementById('profileloginuser_uploadimage_visibility').value;
         let fileimageprofile = document.getElementById('uploadoneimage').files[0];
-             let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile);
+        let getulogin=await this.getLoginUser();
+       
+      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile,getulogin.iduser);
         const dataform = {title
           ,idalbumphoto,visibility,description,urlimage}
       
          const response_upload_image= await APIRESTImages.addImage(dataform);
          if (response_upload_image) {
-       
-           messagenotification('Image Added','success',event);
+      
            document.getElementById('profileloginuser_uploadimage_title').value="";
            document.getElementById('profileloginuser_uploadimage_description').value="";
           }
     
-      
+       
+          messagenotification('Image Added','success',event);
+          setInterval(location.reload(),1000);
      }catch (error) {
        alert(error);
+       location.reload();
      }
       
     }
@@ -129,7 +140,8 @@ class Profile_Login_User
           let filesalbumimages = SelectData.getSelectMultipleImages();
           for (let i = 0; i < filesalbumimages.length; i++) {
               const fileimage = filesalbumimages[i] ;
-              let urlimage=await APIRESTCloudinary.upload_image(fileimage);
+              let getulogin=await this.getLoginUser();
+              let urlimage=await APIRESTCloudinary.upload_image(fileimage,getulogin.iduser);
               arrayurlimages.push(urlimage);
           }
       
@@ -139,13 +151,13 @@ class Profile_Login_User
          const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages);
          if (response_upload_albumimage) {
        
-         
+          messagenotification('Album images Added','success',event);
+          setInterval(location.reload(),1000);
            SelectData.selectMultipleImages=[];
            document.getElementById('titlealbum_profileloginuser').value=""; 
           }
          
-          messagenotification('Album images Added','success',event);
-        setInterval(location.reload(),1000)
+       
       
      }catch (error) {
        alert(error);
@@ -231,15 +243,81 @@ class Profile_Login_User
     //#endregion IMAGES
 
     //#region VIDEOS
-
-
+    static upload_video_modal=async(event)=>
+    {
+      try {
+       event.preventDefault();
+       const title = document.getElementById('profileloginuser_uploadvideo_title').value;
+        const idalbumvideo = document.getElementById('profileloginuser_select_albumvideos').value;
+        const description = document.getElementById('profileloginuser_uploadvideo_description').value;
+        const visibility = document.getElementById('profileloginuser_uploadvideo_visibility').value;
+        let filevideo = document.getElementById('uploadonevideo').files[0];
+        let getulogin=await this.getLoginUser();
+       
+      let urlvideo=await APIRESTCloudinary.upload_video(filevideo,getulogin.iduser);
+        const dataform = {title
+          ,idalbumvideo,visibility,description,urlvideo}
+      
+         const response_upload_video= await APIRESTVideo.addVideo(dataform);
+         if (response_upload_video) {
+          messagenotification('Video Added','success',event);
+          setInterval(location.reload(),1000);
+           document.getElementById('profileloginuser_uploadvideo_title').value="";
+           document.getElementById('profileloginuser_uploadvideo_description').value="";
+          }
+    
+       
+         
+     }catch (error) {
+       alert(error);
+       location.reload();
+     }
+      
+    }
+    static add_album_video=async(event)=>
+    {
+      try {
+       event.preventDefault();
+      
+          let arrayurlvideo=[];
+          const title=  document.getElementById('titlealbumvideo_profileloginuser').value; 
+          let filesalbumvideos= SelectData.getSelectMultipleVideos();
+          for (let i = 0; i < filesalbumvideos.length; i++) {
+              const filevideos = filesalbumvideos[i] ;
+              let getulogin=await this.getLoginUser();
+              let urlvideo=await APIRESTCloudinary.upload_video(filevideos,getulogin.iduser);
+              arrayurlvideo.push(urlvideo);
+          }
+      
+        //      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile);
+         
+         
+         const response_upload_albumvideo= await APIRESTAlbumVideo.add_album_video(title,arrayurlvideo);
+         if (response_upload_albumvideo) {
+       
+         
+           SelectData.selectMultipleVideos=[];
+           document.getElementById('titlealbumvideo_profileloginuser').value=""; 
+          }
+         
+          messagenotification('Album videos Added','success',event);
+        //setInterval(location.reload(),1000)
+      
+     }catch (error) {
+      event.preventDefault();
+      //  alert(error);
+       console.log(error);
+      //  location.reload();
+     }   
+      
+    }
 
 
     //#endregion VIDEOS
 
 //#region LOAD PAGE
 
-//GET ALBUM IMAGES LOGIN USER
+//GET NAME ABOUT USER
 static loadNameDescriptionUser(description, name) {
   let inside_profileloginuser_p_description = `
          ${description} <a href=""
@@ -362,22 +440,22 @@ static async loadImagesLoginUser(iduser) {
 
 //GET ALBUM VIDEOS LOGIN USER
 static async loadAlbumVideosLoginUser() {
-  let getalbumimagesuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+  let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
   
   let html_load_albumvideo = '';
 
-  for (let i = 0; i < getalbumimagesuser.length; i++) {
-    const idalbumphoto = getalbumimagesuser[i].idalbumvideo  ;
-    let getImagesByAlbum = await APIRESTImages.getImagesByAlbum(idalbumphoto);
-if(getImagesByAlbum.length!==0)
+  for (let i = 0; i < getalbumvideosuser.length; i++) {
+    const idalbumvideo = getalbumvideosuser[i].idalbumvideo  ;
+    let getVideosByAlbum = await APIRESTVideo.getVideosByAlbum(idalbumvideo);
+if(getVideosByAlbum.length!==0)
 {
 
     if (i >= 3) {
-      html_load_albumimage += `
-      <div hidden id="morealbumimage" >
+      html_load_albumvideo += `
+      <div hidden id="morealbumvideo" >
       <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
          <ul class="uk-slideshow-items">
-         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
+         ${this.forAddVideoFromAlbum(getVideosByAlbum)} 
          </ul>
          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
@@ -385,17 +463,17 @@ if(getImagesByAlbum.length!==0)
    </div>
         `;
     } else {
-      html_load_albumimage += `
+      html_load_albumvideo += `
       <div>
-      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-         <ul class="uk-slideshow-items">
-         ${this.forAddImagesFromAlbum(getImagesByAlbum)}
-         </ul>
-         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-      </div>
-     
-   </div>
+          <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+                    <ul class="uk-slideshow-items">
+                    ${this.forAddVideoFromAlbum(getVideosByAlbum)}        
+                    </ul>
+                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+              </div>
+                             
+         </div>
         `;
     }
     
@@ -403,7 +481,7 @@ if(getImagesByAlbum.length!==0)
 }
 
 
-  document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
+  document.getElementById("profileloginuser_listalbumvideo_div").innerHTML = html_load_albumvideo;
 }
 
 //GET VIDEOS LOGIN USER
@@ -476,6 +554,20 @@ static async loadAlbumImagesUserModal() {
   document.getElementById("profileloginuser_select_albumimages").innerHTML = load_albums_image;
 }
 
+
+
+
+//GET TITLE ALBUM IN ADD MODAL VIDEO
+static async loadAlbumVideoUserModal() {
+  let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+  let load_albums_video = "";
+  for (let i = 0; i < getalbumvideosuser.length; i++) {
+    load_albums_video += `<option value=${getalbumvideosuser[i].idalbumvideo}>${getalbumvideosuser[i].title}</option>`;
+  }
+
+  document.getElementById("profileloginuser_select_albumvideos").innerHTML = load_albums_video;
+}
+
  //#endregion LOAD PAGE
 
 //OTHERS
@@ -497,6 +589,26 @@ static forAddImagesFromAlbum(images)
    
    }
 
+   static forAddVideoFromAlbum(videos)
+   {
+    let html_videos="";
+    for (let i = 0; i < videos.length; i++) {
+      const urlvideo = videos[i].urlvideo;
+      html_videos += `
+      <li> 
+      <a href="../feed/feed.html">
+         <video src="${urlvideo}" 
+         autoplay loop muted playsinline >
+
+         </video>
+         </a>
+   </li>
+      `;
+   }
+    return html_videos
+   
+   }
+
 }
 document.addEventListener("DOMContentLoaded",Profile_Login_User.showdata_getLoginUser);
 
@@ -514,4 +626,11 @@ updatedescriptionform.addEventListener('submit', Profile_Login_User.update_descr
 const updateImageForm = document.getElementById('form_updateimage_profileloginuser');
 updateImageForm.addEventListener('submit', Profile_Login_User.updateImage);
 
+
+
+const addalbumvideoform = document.getElementById('form_albumvideo_profileloginuser');
+addalbumvideoform.addEventListener('submit', Profile_Login_User.add_album_video);
+
+const addvideoform = document.getElementById('form_profileloginuser_addvideo');
+addvideoform.addEventListener('submit', Profile_Login_User.upload_video_modal);
 

@@ -27,23 +27,24 @@ class APIRESTCloudinary
     }
   }
 
-  static  upload_image=async(imagefile)=> {
+  static  upload_image=async(imagefile,iduserlogin)=> {
    
+    let headersList = {
+      "Accept": "*/*"
+     }
+     
+     let bodyContent = new FormData();
+     bodyContent.append("upload_preset", "eibi5tao");
+     bodyContent.append("folder", `socialnetworkk/${iduserlogin}`);
+     bodyContent.append("file", imagefile);
+     
+     let response_urlimage = await fetch("https://api.cloudinary.com/v1_1/rwkama27/image/upload", { 
+       method: "POST",
+       body: bodyContent,
+       headers: headersList
+     });
+     
    
-        let POSTURLCLOUDINARY=this.RESTAPIURL+"/cloudinary/upload_image";
-        let base64Image = await this.convertFileToBase64(imagefile);
-        let headersList = {
-          "Accept": "*/*",
-          "Content-Type": "application/json"
-         }
-         let bodyContent = JSON.stringify({
-          "image" :base64Image
-        });
-         let response_urlimage= await fetch(POSTURLCLOUDINARY, {
-          method: "POST",
-          body: bodyContent,
-          headers: headersList
-        });
       
         if(!response_urlimage.ok)
         {
@@ -51,28 +52,38 @@ class APIRESTCloudinary
          throw new Error(error);
         }
         let imageUrl  = await response_urlimage.json();
-      
-        return imageUrl;
+       return imageUrl.secure_url;
+        //console.log(base64Image);
 
     
   }
-  static convertFileToBase64=async (file)=> {
-    try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      const result = await new Promise((resolve, reject) => {
-        reader.onload = () => {
-          resolve(reader.result);
-        };
-        reader.onerror = (error) => {
-          reject(error);
-        };
-      });
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  }
-  
 
- }
+  static  upload_video=async(videofile,iduserlogin)=> {
+   
+    let headersList = {
+      "Accept": "*/*"
+     }
+     
+     let bodyContent = new FormData();
+     bodyContent.append("upload_preset", "eibi5tao");
+     bodyContent.append("folder", `socialnetworkk/${iduserlogin}`);
+     bodyContent.append("file", videofile);
+     
+     let response_urlvideo = await fetch("https://api.cloudinary.com/v1_1/rwkama27/video/upload", { 
+       method: "POST",
+       body: bodyContent,
+       headers: headersList
+     });
+     
+   
+      
+        if(!response_urlvideo.ok)
+        {
+         const error=await response_urlvideo.text();
+         throw new Error(error);
+        }
+        let videoURL  = await response_urlvideo.json();
+       return videoURL.secure_url;
+
+  }
+}

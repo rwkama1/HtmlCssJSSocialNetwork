@@ -26,7 +26,19 @@
          }
       </style>
       <!-- JS  ================================================== -->
-      
+      <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.4/cloudinary-core.min.js"
+      integrity="sha512-IbSnv7d3S0AhZSFfPStsTG9IfssskLtgsm2gbbTjmFM/ssHMIwwwRItZfGQKZYhwVXStAVT7nA+pdu0VTE01lA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    
       <script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
       <script src="../assets/js/iconify-icon.min.js"></script>
@@ -2220,129 +2232,12 @@
                   <div class="uk-switcher" id="video-tab">
                      <!-- ALBUM VIDEOS -->
                      <div>
-                        <div class="uk-child-width-1-2@m" uk-grid>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                                 <ul class="uk-slideshow-items">
-                                    <li> 
-                                      <a href="../feed/feed.html">
-                                       <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline >
-
-                                       </video>
-                                     
-                                       </a>
-                                    </li>
-                                   
-                                    <li> 
-                                       <a href="../feed/feed.html">
-                                          <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline >
-
-                                          </video>
-                                          </a>
-                                    </li>
-                                    
-                                 </ul>
-                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                              </div>
-                             
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                                 <ul class="uk-slideshow-items">
-                                    <li> 
-                                       <a href="../feed/feed.html">
-                                        <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline >
- 
-                                        </video>
-                                      
-                                        </a>
-                                     </li>
-                                    
-                                     <li> 
-                                        <a href="../feed/feed.html">
-                                           <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline >
- 
-                                           </video>
-                                           </a>
-                                     </li>
-                                 </ul>
-                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                              </div>
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                                 <ul class="uk-slideshow-items">
-                                    <li> 
-                                       <a href="../feed/feed.html">
-                                        <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline >
- 
-                                        </video>
-                                      
-                                        </a>
-                                     </li>
-                                    
-                                     <li> 
-                                        <a href="../feed/feed.html">
-                                           <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline >
- 
-                                           </video>
-                                           </a>
-                                     </li>
-                                 </ul>
-                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                              </div>
-                           </div>
-                           <div>
-                              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                                 <ul class="uk-slideshow-items">
-                                    <li> 
-                                       <a href="../feed/feed.html">
-                                        <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
- 
-                                        </video>
-                                      
-                                        </a>
-                                     </li>
-                                    
-                                     <li> 
-                                        <a href="../feed/feed.html">
-                                           <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline >
- 
-                                           </video>
-                                           </a>
-                                     </li>
-                                 </ul>
-                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                              </div>
-                           </div>
-                           <div hidden id="morealbumvideo" >
-                              <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
-                                 <ul class="uk-slideshow-items">
-                                    <li> 
-                                       <a href="../feed/feed.html">
-                                        <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline>
- 
-                                        </video>
-                                      
-                                        </a>
-                                     </li>
-                                    
-                                     <li> 
-                                        <a href="../feed/feed.html">
-                                           <video src="../assets/video/galaxia.mp4" autoplay loop muted playsinline >
- 
-                                           </video>
-                                           </a>
-                                     </li>
-                                 </ul>
-                                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                              </div>
-                           </div>
+                        <div class="uk-child-width-1-2@m" 
+                        id="profileloginuser_listalbumvideo_div"
+                        uk-grid>
+                          
+                       <!-- SEE profile_login_user.js -->
+                          
                         </div>
                         <div class="flex justify-center mt-6">
                            <a href="#" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white" uk-toggle="target: #morealbumvideo; animation: uk-animation-fade">
@@ -4007,9 +3902,10 @@
             </div>
          </div>
          <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-            <form onsubmit="messagenotification('Album Video Added','success',event)" class="space-y-4 g:w-8/12">
+            <form id="form_albumvideo_profileloginuser"  class="space-y-4 g:w-8/12">
                <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                   <input type="text" placeholder="Title"
+                  id="titlealbumvideo_profileloginuser"
                    required 
                    class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                </div>
@@ -4084,17 +3980,17 @@
                </div>
             </div>
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="messagenotification('Video Added','success',event)" class="space-y-4 g:w-8/12">
+               <form id="form_profileloginuser_addvideo" class="space-y-4 g:w-8/12">
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
-                     <input type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                     <input id="profileloginuser_uploadvideo_title" type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
-                     <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea id="profileloginuser_uploadvideo_description" type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
                      <div class="font-semibold text-base"> Visibility </div>
                   
-                     <select class="selectpicker">
+                     <select id="profileloginuser_uploadvideo_visibility">
                         <option data-icon="uil-bullseye"> Private </option>
                     
                         <option data-icon="uil-globe" selected>Public</option>
@@ -4106,10 +4002,9 @@
                   <div class="px-2 space-y-2">
                      <div class="font-semibold text-base"> Album Video </div>
                   
-                     <select class="selectpicker" >
-                        <option  >Album1</option>
-                        <option > Album2 </option>
-                        <option >Album3</option>
+                     <select id="profileloginuser_select_albumvideos" required   >
+
+                            <!-- SEE PROFILE_LOGIN_USER.JS -->
                      
                      </select>
                   </div>

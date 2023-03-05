@@ -4,14 +4,13 @@ class APIRESTVideo
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
       
-       static addImage=async(imagedata)=>
-       {
-        
-       
-        const {idalbumphoto,title,description,urlimage,visibility} = imagedata;
-        
+       static addVideo=async(videodata)=>
 
-        let POSTURLIMAGE=this.RESTAPIURL+"/images/image"
+       {
+       
+        const {idalbumvideo,title,description,urlvideo,visibility} = videodata;
+
+        let POSTURLVIDEO=this.RESTAPIURL+"/video/video"
 
         let headersList = {
           "Accept": "*/*",
@@ -20,10 +19,10 @@ class APIRESTVideo
          
  
          let bodyContent = JSON.stringify({
-          "idalbumphoto": idalbumphoto ,
+          "idalbumvideo": idalbumvideo ,
           "title": title,
           "description":description ,
-          "urlimage":urlimage ,
+          "urlvideo":urlvideo ,
           "visibility":visibility 
         
         });
@@ -34,7 +33,7 @@ class APIRESTVideo
           headers: headersList
          };
  
-      const response=await fetch(POSTURLIMAGE, requestOptions);
+      const response=await fetch(POSTURLVIDEO, requestOptions);
        if(!response.ok)
        {
         const error=await response.text();
@@ -132,16 +131,14 @@ class APIRESTVideo
        }  
        static getVideosByAlbum=async(idalbum)=>
        {
-        
-       
-             let URLIMAGE=this.RESTAPIURL+`/video/getImagesByAlbum?pidalbum=${idalbum}`;
+             let URLVIDEO=this.RESTAPIURL+`/video/getVideosbyAlbum?pidalbum=${idalbum}`;
  
              let headersList = {
                "Accept": "*/*",
               
               }
               
-              let response = await fetch(URLIMAGE, { 
+              let response = await fetch(URLVIDEO, { 
                 method: "GET",
                 headers: headersList
               });
