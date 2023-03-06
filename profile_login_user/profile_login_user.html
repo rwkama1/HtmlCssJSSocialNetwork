@@ -17,7 +17,7 @@
       <!-- CSS 
          ================================================== -->
       <link rel="stylesheet" href="../assets/css/uikit.css">
-     
+   
       <link rel="stylesheet" href="../assets/css/style.css">
       <link rel="stylesheet" href="../assets/css/tailwind.min.css">
       <style>
@@ -25,6 +25,8 @@
          margin: 0 auto;
          }
       </style>
+      
+      <link rel="stylesheet" href="../assets/css/loading_spinner.css">
       <!-- JS  ================================================== -->
       <script
       src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
@@ -2294,7 +2296,7 @@
                         <nav class="responsive-nav style-2 md:m-0 -mx-4">
                            <ul uk-switcher="connect: #post-tab; animation: uk-animation-fade">
                               <!-- <li><a href="#"> Albums Videos </a></li> -->
-                              <li><a href="#">  All Posts <span> 230</span> </a></li>
+                              <li><a href="#">  All Posts <span id="profileloginuser_span_postcount"> </span> </a></li>
                               <!-- <li><a href="#"> Recently added </a></li> -->
                            </ul>
                         </nav>
@@ -2319,64 +2321,11 @@
                      <!-- All POSTS -->
                      <div>
                        
-                           <ul class="card divide-y divide-gray-100 sm:m-0 -mx-5">
-                              <li>
-                                  <div class="flex items-start space-x-5 p-7">
-                                      <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="w-12 h-12 rounded-full">
-                                      <div class="flex-1">
-                                          <a href="#" class="text-lg font-semibold line-clamp-1 mb-1">I have only recently found this particular keyword.  </a>
-                                          <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">Tag-dev</span> 8 hours ago </p>
-                                        <p class="leading-6 line-clamp-2 mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
-                                      </div>
-                                      <div class="sm:flex items-center space-x-4 hidden">
-                                          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                                          <span class="text-xl"> 4 </span>
-                                      </div>
-                                  </div>
-                              </li>
-                              <li>
-                                  <div class="flex items-start space-x-5 p-7">
-                                      <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="w-12 h-12 rounded-full">
-                                      <div class="flex-1">
-                                          <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> Stuck on Please wait for hosting to be configured  </a>
-                                          <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">Tag-dev</span> 8 hours ago </p>
-                                        <p class="leading-6 line-clamp-2 mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
-                                      </div>
-                                      <div class="sm:flex items-center space-x-4 hidden">
-                                          <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                                          <span class="text-xl"> 6 </span>
-                                      </div>
-                                  </div>
-                              </li>
-                              <li hidden id="morepost">
-                                 <div class="flex items-start space-x-5 p-7">
-                                     <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="w-12 h-12 rounded-full">
-                                     <div class="flex-1">
-                                         <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> Stuck on Please wait for hosting to be configured  </a>
-                                         <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">Tag-dev</span> 8 hours ago </p>
-                                       <p class="leading-6 line-clamp-2 mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
-                                     </div>
-                                     <div class="sm:flex items-center space-x-4 hidden">
-                                         <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                                         <span class="text-xl"> 6 </span>
-                                     </div>
-                                 </div>
-                             </li>
-                             <li hidden id="morepost">
-                              <div class="flex items-start space-x-5 p-7">
-                                  <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="w-12 h-12 rounded-full">
-                                  <div class="flex-1">
-                                      <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> Stuck on Please wait for hosting to be configured  </a>
-                                      <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">Tag-dev</span> 8 hours ago </p>
-                                    <p class="leading-6 line-clamp-2 mt-3">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat</p>
-                                  </div>
-                                  <div class="sm:flex items-center space-x-4 hidden">
-                                      <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                                      <span class="text-xl"> 6 </span>
-                                  </div>
-                              </div>
-                          </li>
-                         
+                           <ul id="profileloginuser_listposts_ul" class="card divide-y divide-gray-100 sm:m-0 -mx-5">
+                          
+                           <!-- SEE profileloginuser.js -->
+                             
+                            
                           </ul>
                         
                         <div class="flex justify-center mt-6">
@@ -3657,22 +3606,22 @@
                </div>
             </div>
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="messagenotification('Post Added','success',event)"
+               <form id="form_profileloginuser_addpost"
                 class="space-y-4 g:w-8/12">
                   <!-- <div class="font-semibold text-lg"> Details </div> -->
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                     <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                     <input type="text" id="profileloginuser_addpost_name" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                     <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea id="profileloginuser_addpost_description" type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
                      <div class="font-semibold text-base"> Visibility </div>
                      <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                         the website. </div> -->
-                     <select class="selectpicker">
+                     <select id="profileloginuser_addpost_visibility">
                         <option data-icon="uil-bullseye"> Private </option>
                      
                         <option data-icon="uil-globe" selected>Public</option>
@@ -3741,6 +3690,9 @@
                onchange="preview_multiples_images();" 
                accept="image/*"  >
           </div>
+          <p>
+            Only images under 10 MB can be uploaded
+          </p>
          <div>
 				<div uk-form-custom class="w-full py-3">
             <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
@@ -3759,7 +3711,7 @@
          
             <!-- #endregion UPLOAD IMAGE -->
 
-              
+          
 
             <div class="flex items-center w-full justify-between p-3 border-t">
                <div class="flex items-center space-x-2">
@@ -3901,6 +3853,7 @@
                <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5" type="button" uk-close> <i class="icon-feather-close"></i> </button>
             </div>
          </div>
+         
          <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
             <form id="form_albumvideo_profileloginuser"  class="space-y-4 g:w-8/12">
                <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
@@ -3923,10 +3876,14 @@
                </div>
                <input type="file" 
                required
+           
                id="upload_video_album"
                onchange="preview_multiples_videos();" 
                accept="video/*" multiple >
           </div>
+          <p>
+            Only videos under 100 MB can be uploaded
+          </p>
          <div>
 				<div uk-form-custom class="w-full py-3">
             <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
@@ -4045,8 +4002,11 @@
          
                
             </div>
+            
             </form>
+            
          </div>
+        
       </div>
 
       <!--#endregion CREATE  VIDEO  MODAL -->
@@ -4710,6 +4670,8 @@
          ================================================== -->
 
   <script src="../utils/selectdata.js"></script>
+  <script src="../REST_API/rest_api_postcomment.js"></script>
+  <script src="../REST_API/rest_api_post.js"></script>
   <script src="../REST_API/rest_api_albumvideo.js"></script>
     <script src="../REST_API/rest_api_images.js"></script>
     <script src="../REST_API/rest_api_videos.js"></script>

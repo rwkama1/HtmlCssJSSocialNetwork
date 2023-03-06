@@ -16,8 +16,13 @@ function preview_multiples_images()
 function preview_image() 
 {
   var total_file=document.getElementById("uploadoneimage");
+  if (total_file.files[0].size > 10000000) {
+    document.getElementById("uploadoneimagepreview").style.visibility="hidden";
+    alert("Only images under 10 MB can be uploaded");
+    return;
+  
+  }
   $('#uploadoneimagepreview').attr("src",`${window.URL.createObjectURL(total_file.files[0])}`);
-   
  }
  
  function preview_multiples_videos() 

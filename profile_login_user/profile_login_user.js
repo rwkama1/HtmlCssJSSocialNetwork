@@ -53,9 +53,18 @@ class Profile_Login_User
       await this.loadAlbumVideosLoginUser();
 
 
-  // LOAD VIDEOS LOGIN USER
+      // LOAD VIDEOS LOGIN USER
         await this.loadVideosLoginUser();
+
+
+    // LOAD POST LOGIN USER
+  
+      await this.loadPostLoginUser(iduser);
       
+
+
+
+
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
       buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
 
@@ -102,7 +111,8 @@ class Profile_Login_User
     static upload_image_modal=async(event)=>
     {
       try {
-       event.preventDefault();
+        event.preventDefault();
+        document.getElementById("create-image-modal").classList.add("cursor-loading");
        const title = document.getElementById('profileloginuser_uploadimage_title').value;
         const idalbumphoto = document.getElementById('profileloginuser_select_albumimages').value;
         const description = document.getElementById('profileloginuser_uploadimage_description').value;
@@ -123,6 +133,7 @@ class Profile_Login_User
     
        
           messagenotification('Image Added','success',event);
+          document.getElementById("create-image-modal").classList.remove("cursor-loading");
           setInterval(location.reload(),1000);
      }catch (error) {
        alert(error);
@@ -133,8 +144,9 @@ class Profile_Login_User
     static add_album_image=async(event)=>
     {
       try {
-       event.preventDefault();
-      
+       
+        event.preventDefault();
+        document.getElementById("create_album_images_modal").classList.add("cursor-loading");
           let arrayurlimages=[];
         const title=  document.getElementById('titlealbum_profileloginuser').value; 
           let filesalbumimages = SelectData.getSelectMultipleImages();
@@ -151,13 +163,14 @@ class Profile_Login_User
          const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages);
          if (response_upload_albumimage) {
        
-          messagenotification('Album images Added','success',event);
-          setInterval(location.reload(),1000);
+
            SelectData.selectMultipleImages=[];
            document.getElementById('titlealbum_profileloginuser').value=""; 
           }
-         
-       
+          messagenotification('Album images Added','success',event);
+          document.getElementById("create_album_images_modal").classList.remove("cursor-loading");
+          setInterval(location.reload(),1000);
+        
       
      }catch (error) {
        alert(error);
@@ -247,6 +260,7 @@ class Profile_Login_User
     {
       try {
        event.preventDefault();
+       document.getElementById("create-video-modal").classList.add("cursor-loading");
        const title = document.getElementById('profileloginuser_uploadvideo_title').value;
         const idalbumvideo = document.getElementById('profileloginuser_select_albumvideos').value;
         const description = document.getElementById('profileloginuser_uploadvideo_description').value;
@@ -260,13 +274,14 @@ class Profile_Login_User
       
          const response_upload_video= await APIRESTVideo.addVideo(dataform);
          if (response_upload_video) {
-          messagenotification('Video Added','success',event);
-          setInterval(location.reload(),1000);
+        
            document.getElementById('profileloginuser_uploadvideo_title').value="";
            document.getElementById('profileloginuser_uploadvideo_description').value="";
           }
     
-       
+          messagenotification('Video Added','success',event);
+          document.getElementById("create-video-modal").classList.remove("cursor-loading");
+          setInterval(location.reload(),1000);
          
      }catch (error) {
        alert(error);
@@ -278,7 +293,7 @@ class Profile_Login_User
     {
       try {
        event.preventDefault();
-      
+       document.getElementById("create-album-video-modal").classList.add("cursor-loading");
           let arrayurlvideo=[];
           const title=  document.getElementById('titlealbumvideo_profileloginuser').value; 
           let filesalbumvideos= SelectData.getSelectMultipleVideos();
@@ -301,7 +316,8 @@ class Profile_Login_User
           }
          
           messagenotification('Album videos Added','success',event);
-        //setInterval(location.reload(),1000)
+          document.getElementById("create-album-video-modal").classList.remove("cursor-loading");
+        setInterval(location.reload(),1000)
       
      }catch (error) {
       event.preventDefault();
@@ -314,6 +330,101 @@ class Profile_Login_User
 
 
     //#endregion VIDEOS
+
+    //#region POST
+
+    static add_post=async(event)=>
+    {
+      try {
+        event.preventDefault();
+        
+       const title = document.getElementById('profileloginuser_addpost_name').value;
+    
+        const description = document.getElementById('profileloginuser_addpost_description').value;
+        const visibility = document.getElementById('profileloginuser_addpost_visibility').value;
+   
+        const dataform = {title
+          ,visibility,description}
+      
+         const response_post= await APIRESTPost.addPost(dataform);
+         if (response_post) {
+         
+           document.getElementById('profileloginuser_addpost_name').value="";
+           document.getElementById('profileloginuser_addpost_description').value="";
+          }
+    
+          messagenotification('Post Added','success',event);
+         
+          setInterval(location.reload(),1000);
+         
+     }catch (error) {
+       alert(error);
+       location.reload();
+     }
+      
+    }
+
+    static async loadPostLoginUser(iduser) {
+      let getpostuser = await APIRESTPost.getPostByLoginUser(iduser);
+      document.getElementById("profileloginuser_span_postcount").innerHTML = getpostuser.length;
+      let html_load_post = '';
+    
+      for (let i = 0; i < getpostuser.length; i++) {
+        let userProfileImage = getpostuser[i].user.image;
+       let idpost=getpostuser[i].idpost;
+        let postTitle = getpostuser[i].title;
+        let stringpostedago = getpostuser[i].stringpostedago;
+        
+        let postdescription = getpostuser[i].description;
+        // let postdescription = getpostuser[i].description;
+
+    let countpostcomments=await APIRESTPostComment.getCommentPostByPost(idpost);
+        if (i >= 3) {
+          html_load_post += `
+              <li hidden id="morepost">
+              <div class="flex items-start space-x-5 p-7">
+                  <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+                  <div class="flex-1">
+                      <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
+                      <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">${stringpostedago}</span></p>
+                    <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+                  </div>
+                  <div class="sm:flex items-center space-x-4 hidden">
+                      <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                      <span class="text-xl"> ${countpostcomments.length} </span>
+                  </div>
+              </div>
+          </li>
+            `;
+        } else {
+          html_load_post += `
+            <li>
+                <div class="flex items-start space-x-5 p-7">
+                    <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+                    <div class="flex-1">
+                        <a href="#" class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
+                        <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html">${stringpostedago}</span>  </p>
+                        <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+                    </div>
+                    <div class="sm:flex items-center space-x-4 hidden">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" 
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                        <span class="text-xl"> ${countpostcomments.length} </span>
+                    </div>
+                </div>
+            </li>
+  
+            `;
+        }
+      }
+    
+    
+      document.getElementById("profileloginuser_listposts_ul").innerHTML = html_load_post;
+    }
+    
+    //#endregion
+
 
 //#region LOAD PAGE
 
@@ -627,10 +738,12 @@ const updateImageForm = document.getElementById('form_updateimage_profileloginus
 updateImageForm.addEventListener('submit', Profile_Login_User.updateImage);
 
 
-
 const addalbumvideoform = document.getElementById('form_albumvideo_profileloginuser');
 addalbumvideoform.addEventListener('submit', Profile_Login_User.add_album_video);
 
 const addvideoform = document.getElementById('form_profileloginuser_addvideo');
 addvideoform.addEventListener('submit', Profile_Login_User.upload_video_modal);
 
+
+const addpostform = document.getElementById('form_profileloginuser_addpost');
+addpostform.addEventListener('submit', Profile_Login_User.add_post);
