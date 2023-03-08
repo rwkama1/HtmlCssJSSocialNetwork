@@ -1502,18 +1502,18 @@ static forAddImagesFromAlbum(images)
 
  static forCommentsPost(getcommentsposts){
    let html_comments_post="";
-   for (let i = 0; i < getcommentsposts.length; i++) {
-     const commentpost = getcommentsposts[i];
+   for (let i = 0; i < 3; i++) {
+   //   const commentpost = getcommentsposts[i];
      html_comments_post += `
      <div >
 
          
      <div class="flex">
-        <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="${commentpost.imagecommentuser}" alt="" class="absolute h-full rounded-full w-full"> </div>
+        <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
         <div>
            <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
               <p class="leading-6">
-                 ${commentpost.textcomment}
+                sagsdadsagdsgdsg
               
               </p>
               <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
@@ -1524,7 +1524,7 @@ static forAddImagesFromAlbum(images)
                  <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
                  <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
               </button>
-              <button uk-toggle="target: #view_subcomment2" >
+              <button uk-toggle="target: #view_subcomment${i}" >
                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
                  3
               </button>
@@ -1534,23 +1534,22 @@ static forAddImagesFromAlbum(images)
      </div>
      <br>
      <!-- SUBCOMMENTS -->
-      <div hidden id="view_subcomment11"  class="flex-col">
-          
-           <!-- SEND MESSAGE INPUT -->
-           <div class="flex">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                 <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                 <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                    <button>
-                       <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                    </button>
-                 </div>
+     <div hidden id="view_subcomment${i}"  class="flex-col">
+       
+        <!-- SEND MESSAGE INPUT -->
+        <div class="flex">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
+           <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+              <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+              <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+                 <button>
+                    <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+                 </button>
               </div>
            </div>
-           <br>
         </div>
-         </div>
+        <br>
+     </div>
  </div>
      `;
   }
