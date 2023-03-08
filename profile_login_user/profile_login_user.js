@@ -102,8 +102,8 @@ static load_timeline=async(iduser)=>
     if (i >= 3) {
      
         if (getpostimagevideo.type==="P") {
-        
-         html_load_postvideoimage_more+=this.html_Post_TimeLine(getpostimagevideo);
+         let commentposts=await APIRESTPostComment.getCommentPostByPost(getpostimagevideo.id);
+         html_load_postvideoimage_more+=this.html_Post_TimeLine(getpostimagevideo,commentposts);
          
        } else if (getpostimagevideo.type==="I"){
          html_load_postvideoimage_more+=this.html_Image_TimeLine(getpostimagevideo);
@@ -117,7 +117,7 @@ static load_timeline=async(iduser)=>
     } else {
       if (getpostimagevideo.type==="P") {
         
-         html_load_postvideoimage+=this.html_Post_TimeLine(getpostimagevideo);
+         html_load_postvideoimage+=this.html_Post_TimeLine(getpostimagevideo,commentposts);
      
       } else if (getpostimagevideo.type==="I"){
         html_load_postvideoimage+=this.html_Image_TimeLine(getpostimagevideo);
@@ -782,9 +782,10 @@ static forAddImagesFromAlbum(images)
    
    }
 
-  static html_Post_TimeLine(getpost)//getcommentposts
+  static html_Post_TimeLine(getpost,getcommentposts)
 {
    let userImageProfile=getpost.user.image;
+   let idpost=getpost.id;
    let userName=getpost.user.name;
    let stringpostedago=getpost.stringpostedago;
    let description=getpost.description;
@@ -846,7 +847,7 @@ static forAddImagesFromAlbum(images)
            </div>
            <div> Like</div>
         </a>
-        <a href="" uk-toggle="target: #view-comments1" class="flex items-center space-x-2">
+        <a href="" uk-toggle="target: #view-commentspost${idpost}" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
                  <path fill-rule="evenodd"
@@ -871,275 +872,12 @@ static forAddImagesFromAlbum(images)
         
         </div>
      </div>
-     <div hidden id="view-comments1" class="border-t py-4 space-y-4 dark:border-gray-600">
-         <!-- COMMENT -->
-         <div>
-
+     <div hidden id="view-commentspost${idpost}" class="border-t py-4 space-y-4 dark:border-gray-600">
          
-        <div class="flex">
-           <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-           <div>
-              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                <!-- COMMENT -->
-                 <div class="flex">
-                    <div>
-                       <p class="leading-6">
-                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis accusantium minus iusto, odit perferendis porro sunt rem, eveniet totam iste qui? Numquam expedita eum ea corrupti assumenda fugit enim excepturi!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi qui voluptatibus minima repellendus voluptatem commodi! Aliquid dolores veritatis quas nesciunt magni consequuntur quo enim quia. Ipsa porro eos quis blanditiis.
-                          <urna class="i uil-heart"></urna>
-                          <i class="uil-grin-tongue-wink"> </i> 
-                       </p>
-                       <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800">
-                          
-                       </div>
-                    </div>
-
-                    <div>
-                       <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
-                         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
-                         uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
-                            <ul class="space-y-1">
-                             
-                               <li>
-                                  <a href="" uk-toggle="target: #update_comment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                      <i class="uil-edit-alt mr-1"></i>
-                                       Edit  </a>
-                               </li>
-                         
-                               <li>
-                                  <hr class="-mx-2 my-2 dark:border-gray-800">
-                               </li>
-                               <li>
-                                  <a href="" uk-toggle="target: #deletecommentmodal" 
-                                  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                      <i class="uil-trash-alt mr-1"></i> Delete </a>
-                               </li>
-                            </ul>
-                         </div>
-                    </div>
-                 </div>
-              </div>
-              <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                 <button  class="text-black-600">
-                    3
-                    <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                    <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                 </button>
-                 <button uk-toggle="target: #view_subcomment1" >
-                    <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                    3
-                 </button>
-                 <span> 3d </span> 
-                 
-              </div>
-             
-           </div>
-        </div>
-        <br>
-        <!-- SUBCOMMENTS -->
-        <div hidden id="view_subcomment1"  class="flex-col">
-          
-           <!-- SEND MESSAGE INPUT -->
-           <div class="flex">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                 <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                 <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                    <button>
-                       <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                    </button>
-                 </div>
-              </div>
-           </div>
-           <br>
-        </div>
-         </div>
-            <!-- COMMENT -->
-        <div>
-
-         
-             <div class="flex">
-                <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-                <div>
-                   <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                      <p class="leading-6">
-                         In ut odio libero vulputate
-                         <urna class="i uil-heart"></urna>
-                         <i class="uil-grin-tongue-wink"> </i> 
-                      </p>
-                      <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                   </div>
-                   <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                      <button  class="text-black-600">
-                         3
-                         <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                         <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                      </button>
-                      <button uk-toggle="target: #view_subcomment2" >
-                         <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                         3
-                      </button>
-                      <span> 3d </span> 
-                   </div>
-                </div>
-             </div>
-             <br>
-             <!-- SUBCOMMENTS -->
-             <div hidden id="view_subcomment2"  class="flex-col">
-                <div class="flex">
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                      <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                         class="absolute h-full rounded-full w-full">
-                   </div>
-                   <div>
-                      <div style="text-align: center;">
-                       <div class="flex">
-
-                      
-                         <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <label style="text-align: center;" >
-                            <small   class="leading-6"> 
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo quae commodi minus dolorem quisquam debitis deserunt veniam, repellendus officiis explicabo sint earum natus at? Quo amet ad temporibus inventore.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Deserunt perferendis dolor cupiditate error, 
-                            maxime labore officia exercitationem fugit iusto autem atque,
-                            sit officiis blanditiis laboriosam eum aliquid repudiandae explicabo quaerat.
-                            </small>
-                            </label>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                         </div>
-                      
-                    <div>
-                       <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
-                         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
-                         uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
-                            <ul class="space-y-1">
-                             
-                               <li>
-                                  <a href="" uk-toggle="target: #update_comment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                                      <i class="uil-edit-alt mr-1"></i>
-                                       Edit  </a>
-                               </li>
-                         
-                               <li>
-                                  <hr class="-mx-2 my-2 dark:border-gray-800">
-                               </li>
-                               <li>
-                                  <a href="" uk-toggle="target: #deletecommentmodal" 
-                                  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                                      <i class="uil-trash-alt mr-1"></i> Delete </a>
-                               </li>
-                            </ul>
-                         </div>
-                      </div>
-                         </div>
-                         <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                            <a href="" class="text-black-600">
-                               3
-                               <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                               <!-- Like  -->
-                            </a>
-                            <span> 3d </span>
-                         </div>
-                      </div>
-                      <br>
-                   </div>
-                </div>
-                <div class="flex">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                     <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                        class="absolute h-full rounded-full w-full">
-                  </div>
-                  <div>
-                     <div style="text-align: center;">
-                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                           <label style="text-align: center;" >
-                           <small   class="leading-6"> 
-                           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                           </small>
-                           </label>
-                           <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                        </div>
-                        <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                           <a href="" class="text-black-600">
-                              3
-                              <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                              <!-- Like  -->
-                           </a>
-                           <span> 3d </span>
-                        </div>
-                     </div>
-                     <br>
-                  </div>
-               </div>
-
-               <div class="flex">
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                    <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                       class="absolute h-full rounded-full w-full">
-                 </div>
-                 <div>
-                    <div style="text-align: center;">
-                       <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                          <label style="text-align: center;" >
-                          <small   class="leading-6"> 
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                          </small>
-                          </label>
-                          <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                       </div>
-                       <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                          <a href="" class="text-black-600">
-                             3
-                             <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                             <!-- Like  -->
-                          </a>
-                          <span> 3d </span>
-                       </div>
-                    </div>
-                    <br>
-                 </div>
-              </div>
-                <!-- SEND MESSAGE INPUT -->
-                <div class="flex">
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-                   <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                      <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                      <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                         <button>
-                            <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                         </button>
-                      </div>
-                   </div>
-                </div>
-                <br>
-             </div>
-       </div>
-        <!-- 
-           <div class="flex">
-               <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-               <div>
-                  <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                     <p class="leading-6"> sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. David !<i class="uil-grin-tongue-wink-alt"></i> </p>
-                     <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                  </div>
-                  <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                     
-                     <a href="#" class="text-black-600">
-                        3
-                        <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                        
-                         Like  
-                      </a>
-                     <a href="#"> Replay </a> <span> 3d </span> 
-                  </div>
-                  
-               </div>
-            </div>  -->
-     </div>
+      ${this.forCommentsPost(getcommentposts)}
+        <!-- COMMENT -->
+       
+     </div>   <!-- END VIEWCOMMENTPOST -->
      
      <!-- <a href="" class="hover:text-blue-600 hover:underline">  View more comments </a> -->
      <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
@@ -1760,6 +1498,63 @@ static forAddImagesFromAlbum(images)
  <br>
     `;
     return html_video
+    }
+
+ static forCommentsPost(getcommentsposts){
+   let html_comments_post="";
+   for (let i = 0; i < getcommentsposts.length; i++) {
+     const commentpost = getcommentsposts[i];
+     html_comments_post += `
+     <div >
+
+         
+     <div class="flex">
+        <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="${commentpost.imagecommentuser}" alt="" class="absolute h-full rounded-full w-full"> </div>
+        <div>
+           <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+              <p class="leading-6">
+                 ${commentpost.textcomment}
+              
+              </p>
+              <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+           </div>
+           <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+              <button  class="text-black-600">
+                 3
+                 <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
+                 <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
+              </button>
+              <button uk-toggle="target: #view_subcomment2" >
+                 <iconify-icon icon="akar-icons:comment"></iconify-icon>
+                 3
+              </button>
+              <span> 3d </span> 
+           </div>
+        </div>
+     </div>
+     <br>
+     <!-- SUBCOMMENTS -->
+      <div hidden id="view_subcomment11"  class="flex-col">
+          
+           <!-- SEND MESSAGE INPUT -->
+           <div class="flex">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
+              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+                 <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                 <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+                    <button>
+                       <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+                    </button>
+                 </div>
+              </div>
+           </div>
+           <br>
+        </div>
+         </div>
+ </div>
+     `;
+  }
+   return html_comments_post
     }
 }
 document.addEventListener("DOMContentLoaded",Profile_Login_User.showdata_getLoginUser);
