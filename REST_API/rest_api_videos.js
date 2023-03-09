@@ -41,14 +41,14 @@ class APIRESTVideo
        }
        return true;
        }  
-       static updateImage=async(imagedata)=>
+       static updateVideo=async(videodata)=>
        {
         
 
-        const {idimage,title,description,visibility} = imagedata;
+        const {idvideo,title,description,visibility} = videodata;
         
 
-        let PUTURLIMAGE=this.RESTAPIURL+"/images/image"
+        let PUTURLVIDEO=this.RESTAPIURL+"/video/video"
 
         let headersList = {
           "Accept": "*/*",
@@ -56,7 +56,7 @@ class APIRESTVideo
          }
       
          let bodyContent = JSON.stringify({
-          "idimage": idimage ,
+          "idvideo": idvideo ,
           "title": title,
           "description":description ,
           "visibility":visibility 
@@ -69,7 +69,7 @@ class APIRESTVideo
           headers: headersList
          };
  
-      const response=await fetch(PUTURLIMAGE, requestOptions);
+      const response=await fetch(PUTURLVIDEO, requestOptions);
        if(!response.ok)
        {
         const error=await response.text();
@@ -77,11 +77,11 @@ class APIRESTVideo
        }
        return true;
        }  
-       static deleteImage=async(idimage)=>
+       static deleteVideo=async(idvideo)=>
        {
         
 
-        let DELETEURLIMAGE=this.RESTAPIURL+"/images/image"
+        let DELETEURLVIDEO=this.RESTAPIURL+"/video/video"
 
         let headersList = {
           "Accept": "*/*",
@@ -89,7 +89,7 @@ class APIRESTVideo
          }
       
          let bodyContent = JSON.stringify({
-          "idimage": idimage 
+          "idvideo": idvideo 
         });
  
          var requestOptions = {
@@ -98,7 +98,7 @@ class APIRESTVideo
           headers: headersList
          };
  
-      const response=await fetch(DELETEURLIMAGE, requestOptions);
+      const response=await fetch(DELETEURLVIDEO, requestOptions);
        if(!response.ok)
        {
         const error=await response.text();
@@ -151,17 +151,17 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
-       static getImage=async(idphoto)=>
+       static getVideo=async(idvideo)=>
        {
         
-             let URLIMAGE=this.RESTAPIURL+`/images/image?pid=${idphoto}`;
+             let URLVIDEO=this.RESTAPIURL+`/video/video?pidvideo=${idvideo}`;
  
              let headersList = {
                "Accept": "*/*",
               
               }
               
-              let response = await fetch(URLIMAGE, { 
+              let response = await fetch(URLVIDEO, { 
                 method: "GET",
                 headers: headersList
               });

@@ -391,6 +391,30 @@ static load_timeline=async(iduser)=>
     }
 
 
+    static  showDataUpdateModalVideo=async(id)=>
+    {
+      const response_getvideo= await APIRESTVideo.getVideo(id);
+      document.getElementById('profileloginuser_updatevideo_idvideo').value=response_getvideo.idvideo;
+      
+      document.getElementById('profileloginuser_updatevideo_name').value=response_getvideo.title;
+      document.getElementById('profileloginuser_updatevideo_description').value=response_getvideo.description;
+      const visibilitySelect = document.getElementById('profileloginuser_updatevideo_visibility');
+      if (response_getvideo.visibility === 'Private') {
+        visibilitySelect.value = 'Private';
+      } else {
+        visibilitySelect.value = 'Public';
+      }
+      
+      
+    
+
+    }
+    static showIdDeleteModalVideo=async(id)=>
+    {
+      document.getElementById('idphoto_deleteimagemodal_profileloginuser').value=id;
+   
+    }
+
     //#endregion VIDEOS
 
     //#region POST
@@ -781,7 +805,7 @@ static forAddImagesFromAlbum(images)
     return html_videos
    
    }
-
+//******************************************************** */
   static html_Post_TimeLine(getpost,getcommentposts)
 {
    let userImageProfile=getpost.user.image;
@@ -898,6 +922,7 @@ static forAddImagesFromAlbum(images)
   static html_Image_TimeLine(getimage)
 {
    let userImageProfile=getimage.user.image;
+   let idimage=getimage.id;
    let userName=getimage.user.name;
    let stringpostedago=getimage.stringpostedago;
    let urlimage=getimage.url;
@@ -926,7 +951,9 @@ static forAddImagesFromAlbum(images)
                    </a> 
                    </li> -->
                 <li>
-                   <a href="#" uk-toggle="target: #update-image-modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                   <a href="#" uk-toggle="target: #update-image-modal" 
+                   onclick="Profile_Login_User.showDataUpdateModal('${idimage}');"
+                   class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                        <i class="uil-edit-alt mr-1">
 
                        </i> Edit  </a>
@@ -936,7 +963,9 @@ static forAddImagesFromAlbum(images)
                    <hr class="-mx-2 my-2 dark:border-gray-800">
                 </li>
                 <li>
-                   <a href="" uk-toggle="target: #deleteimagemodal"  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                   <a href="" uk-toggle="target: #deleteimagemodal" 
+                   onclick="Profile_Login_User.showIdDeleteModal(${idimage});"
+                    class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i class="uil-trash-alt mr-1"></i> Delete </a>
                 </li>
              </ul>
@@ -964,7 +993,7 @@ static forAddImagesFromAlbum(images)
            </div>
            <div> Like</div>
         </a>
-        <a href="" uk-toggle="target: #view-comments11" class="flex items-center space-x-2">
+        <a href="" uk-toggle="target: #view-commentsimage${idimage}" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
                  <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
@@ -995,202 +1024,23 @@ static forAddImagesFromAlbum(images)
         
         </div>
      </div>
-     <div hidden id="view-comments11" class="border-t py-4 space-y-4 dark:border-gray-600">
-         <!-- COMMENT -->
-         <div>
-
-         
-        <div class="flex">
-           <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-           <div>
-              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                 <p class="leading-6">
-                    In ut odio libero vulputate
-                    <urna class="i uil-heart"></urna>
-                    <i class="uil-grin-tongue-wink"> </i> 
-                 </p>
-                 <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-              </div>
-              <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                 <button  class="text-black-600">
-                    3
-                    <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                    <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                 </button>
-                 <button uk-toggle="target: #view_subcomment11" >
-                    <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                    3
-                 </button>
-                 <span> 3d </span> 
-              </div>
-           </div>
-        </div>
-        <br>
-        <!-- SUBCOMMENTS -->
-        <div hidden id="view_subcomment11"  class="flex-col">
-          
-           <!-- SEND MESSAGE INPUT -->
-           <div class="flex">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                 <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                 <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                    <button>
-                       <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                    </button>
-                 </div>
-              </div>
-           </div>
-           <br>
-        </div>
-         </div>
-            <!-- COMMENT -->
-        <div>
-
-         
-             <div class="flex">
-                <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-                <div>
-                   <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                      <p class="leading-6">
-                         In ut odio libero vulputate
-                         <urna class="i uil-heart"></urna>
-                         <i class="uil-grin-tongue-wink"> </i> 
-                      </p>
-                      <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                   </div>
-                   <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                      <button  class="text-black-600">
-                         3
-                         <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                         <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                      </button>
-                      <button uk-toggle="target: #view_subcomment22" >
-                         <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                         3
-                      </button>
-                      <span> 3d </span> 
-                   </div>
-                </div>
-             </div>
-             <br>
-             <!-- SUBCOMMENTS -->
-             <div hidden id="view_subcomment22"  class="flex-col">
-                <div class="flex">
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                      <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                         class="absolute h-full rounded-full w-full">
-                   </div>
-                   <div>
-                      <div style="text-align: center;">
-                         <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <label style="text-align: center;" >
-                            <small   class="leading-6"> 
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo quae commodi minus dolorem quisquam debitis deserunt veniam, repellendus officiis explicabo sint earum natus at? Quo amet ad temporibus inventore.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Deserunt perferendis dolor cupiditate error, 
-                            maxime labore officia exercitationem fugit iusto autem atque,
-                            sit officiis blanditiis laboriosam eum aliquid repudiandae explicabo quaerat.
-                            </small>
-                            </label>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                         </div>
-                         <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                            <a href="" class="text-black-600">
-                               3
-                               <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                               <!-- Like  -->
-                            </a>
-                            <span> 3d </span>
-                         </div>
-                      </div>
-                      <br>
-                   </div>
-                </div>
-                <div class="flex">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                     <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                        class="absolute h-full rounded-full w-full">
-                  </div>
-                  <div>
-                     <div style="text-align: center;">
-                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                           <label style="text-align: center;" >
-                           <small   class="leading-6"> 
-                           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                           </small>
-                           </label>
-                           <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                        </div>
-                        <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                           <a href="" class="text-black-600">
-                              3
-                              <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                              <!-- Like  -->
-                           </a>
-                           <span> 3d </span>
-                        </div>
-                     </div>
-                     <br>
-                  </div>
-               </div>
-
-               <div class="flex">
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                    <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                       class="absolute h-full rounded-full w-full">
-                 </div>
-                 <div>
-                    <div style="text-align: center;">
-                       <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                          <label style="text-align: center;" >
-                          <small   class="leading-6"> 
-                          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                          </small>
-                          </label>
-                          <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                       </div>
-                       <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                          <a href="" class="text-black-600">
-                             3
-                             <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                             <!-- Like  -->
-                          </a>
-                          <span> 3d </span>
-                       </div>
-                    </div>
-                    <br>
-                 </div>
-              </div>
-                <!-- SEND MESSAGE INPUT -->
-                <div class="flex">
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-                   <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                      <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                      <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                         <button>
-                            <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                         </button>
-                      </div>
-                   </div>
-                </div>
-                <br>
-             </div>
+     <div hidden id="view-commentsimage${idimage}" class="border-t py-4 space-y-4 dark:border-gray-600">
+     <!-- COMMENT -->
+     ${this.forCommentImage()}
+       
+      
+    </div> 
+    
+    <!-- <a href="" class="hover:text-blue-600 hover:underline">  View more comments </a> -->
+    <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+       <input placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+       <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+          <a href="">
+             <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+          </a>
+       
        </div>
-
-     </div>
-
-     <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-        <input placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-        <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-           <a href="">
-              <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-           </a>
-        </div>
-     </div>
+    </div>
   </div>
 </div>
 <br>
@@ -1200,6 +1050,7 @@ static forAddImagesFromAlbum(images)
   static html_Video_TimeLine(getvideo)
   {
    let userImageProfile=getvideo.user.image;
+   let idvideo=getvideo.id;
    let userName=getvideo.user.name;
    let stringpostedago=getvideo.stringpostedago;
    let urlvideo=getvideo.url;
@@ -1225,6 +1076,7 @@ static forAddImagesFromAlbum(images)
                 
                   <li>
                      <a href="" uk-toggle="target: #update-video-modal" 
+                     onclick="Profile_Login_User.showDataUpdateModalVideo('${idvideo}');"
                      class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                          <i class="uil-edit-alt mr-1"></i> Edit  </a>
                   </li>
@@ -1264,7 +1116,7 @@ static forAddImagesFromAlbum(images)
              </div>
              <div> Like</div>
           </a>
-          <a href="" uk-toggle="target: #view-comments111" class="flex items-center space-x-2">
+          <a href="" uk-toggle="target: #view-commentsvideo${idvideo}" class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
                    <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
@@ -1294,194 +1146,8 @@ static forAddImagesFromAlbum(images)
           
           </div>
        </div>
-       <div hidden id="view-comments111" class="border-t py-4 space-y-4 dark:border-gray-600">
-           <!-- COMMENT -->
-           <div>
-
-           
-          <div class="flex">
-             <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-             <div>
-                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                   <p class="leading-6">
-                      In ut odio libero vulputate
-                      <urna class="i uil-heart"></urna>
-                      <i class="uil-grin-tongue-wink"> </i> 
-                   </p>
-                   <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                </div>
-                <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                   <button  class="text-black-600">
-                      3
-                      <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                      <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                   </button>
-                   <button uk-toggle="target: #view_subcomment111" >
-                      <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                      3
-                   </button>
-                   <span> 3d </span> 
-                </div>
-             </div>
-          </div>
-          <br>
-          <!-- SUBCOMMENTS -->
-          <div hidden id="view_subcomment111"  class="flex-col">
-            
-             <!-- SEND MESSAGE INPUT -->
-             <div class="flex">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                   <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                      <button>
-                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                      </button>
-                   </div>
-                </div>
-             </div>
-             <br>
-          </div>
-           </div>
-              <!-- COMMENT -->
-          <div>
-
-           
-               <div class="flex">
-                  <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-                  <div>
-                     <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                        <p class="leading-6">
-                           In ut odio libero vulputate
-                           <urna class="i uil-heart"></urna>
-                           <i class="uil-grin-tongue-wink"> </i> 
-                        </p>
-                        <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                     </div>
-                     <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                        <button  class="text-black-600">
-                           3
-                           <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                           <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                        </button>
-                        <button uk-toggle="target: #view_subcomment222" >
-                           <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                           3
-                        </button>
-                        <span> 3d 
-                         
-                        </span> 
-                     </div>
-                  </div>
-               </div>
-               <br>
-               <!-- SUBCOMMENTS -->
-               <div hidden id="view_subcomment222"  class="flex-col">
-                  <div class="flex">
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                        <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                           class="absolute h-full rounded-full w-full">
-                     </div>
-                     <div>
-                        <div style="text-align: center;">
-                           <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                              <label style="text-align: center;" >
-                              <small   class="leading-6"> 
-                              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo quae commodi minus dolorem quisquam debitis deserunt veniam, repellendus officiis explicabo sint earum natus at? Quo amet ad temporibus inventore.
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                              Deserunt perferendis dolor cupiditate error, 
-                              maxime labore officia exercitationem fugit iusto autem atque,
-                              sit officiis blanditiis laboriosam eum aliquid repudiandae explicabo quaerat.
-                              </small>
-                              </label>
-                              <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                           </div>
-                           <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                              <a href="" class="text-black-600">
-                                 3
-                                 <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                                 <!-- Like  -->
-                              </a>
-                              <span> 3d </span>
-                           </div>
-                        </div>
-                        <br>
-                     </div>
-                  </div>
-                  <div class="flex">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                       <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                          class="absolute h-full rounded-full w-full">
-                    </div>
-                    <div>
-                       <div style="text-align: center;">
-                          <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                             <label style="text-align: center;" >
-                             <small   class="leading-6"> 
-                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                             </small>
-                             </label>
-                             <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                          </div>
-                          <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                             <a href="" class="text-black-600">
-                                3
-                                <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                                <!-- Like  -->
-                             </a>
-                             <span> 3d </span>
-                          </div>
-                       </div>
-                       <br>
-                    </div>
-                 </div>
-
-                 <div class="flex">
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                   <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-                      <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-                         class="absolute h-full rounded-full w-full">
-                   </div>
-                   <div>
-                      <div style="text-align: center;">
-                         <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                            <label style="text-align: center;" >
-                            <small   class="leading-6"> 
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                            </small>
-                            </label>
-                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                         </div>
-                         <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                            <a href="" class="text-black-600">
-                               3
-                               <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                               <!-- Like  -->
-                            </a>
-                            <span> 3d </span>
-                         </div>
-                      </div>
-                      <br>
-                   </div>
-                </div>
-                  <!-- SEND MESSAGE INPUT -->
-                  <div class="flex">
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-                     <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                        <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                        <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                           <button>
-                              <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                           </button>
-                        </div>
-                     </div>
-                  </div>
-                  <br>
-               </div>
-         </div>
-         
+       <div hidden id="view-commentsvideo${idvideo}" class="border-t py-4 space-y-4 dark:border-gray-600">
+       ${this.forCommentVideo()}
        </div>
 
    
@@ -1499,6 +1165,7 @@ static forAddImagesFromAlbum(images)
     `;
     return html_video
     }
+//********************************************* */
 
  static forCommentsPost(getcommentsposts){
    let html_comments_post="";
@@ -1524,7 +1191,7 @@ static forAddImagesFromAlbum(images)
                  <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
                  <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
               </button>
-              <button uk-toggle="target: #view_subcomment${i}" >
+              <button uk-toggle="target: #view_subcommentpost${i}" >
                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
                  3
               </button>
@@ -1534,7 +1201,7 @@ static forAddImagesFromAlbum(images)
      </div>
      <br>
      <!-- SUBCOMMENTS -->
-     <div hidden id="view_subcomment${i}"  class="flex-col">
+     <div hidden id="view_subcommentpost${i}"  class="flex-col">
        
         <!-- SEND MESSAGE INPUT -->
         <div class="flex">
@@ -1555,6 +1222,116 @@ static forAddImagesFromAlbum(images)
   }
    return html_comments_post
     }
+    static forCommentImage(getcommentsimage){
+      let html_comment_image="";
+      for (let i = 0; i < 3; i++) {
+
+      html_comment_image += `
+        <div >
+   
+            
+        <div class="flex">
+           <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
+           <div>
+              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                 <p class="leading-6">
+                   sagsdadsagdsgdsg
+                 
+                 </p>
+                 <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+              </div>
+              <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+                 <button  class="text-black-600">
+                    3
+                    <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
+                    <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
+                 </button>
+                 <button uk-toggle="target: #view_subcommentimage${i}" >
+                    <iconify-icon icon="akar-icons:comment"></iconify-icon>
+                    3
+                 </button>
+                 <span> 3d </span> 
+              </div>
+           </div>
+        </div>
+        <br>
+        <!-- SUBCOMMENTS -->
+        <div hidden id="view_subcommentimage${i}"  class="flex-col">
+          
+           <!-- SEND MESSAGE INPUT -->
+           <div class="flex">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
+              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+                 <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                 <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+                    <button>
+                       <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+                    </button>
+                 </div>
+              </div>
+           </div>
+           <br>
+        </div>
+    </div>
+        `;
+     }
+      return html_comment_image
+       }
+   static forCommentVideo(){
+         let html_comment_video="";
+         for (let i = 0; i < 3; i++) {
+   
+            html_comment_video += `
+           <div >
+      
+               
+           <div class="flex">
+              <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
+              <div>
+                 <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                    <p class="leading-6">
+                      sagsdadsagdsgdsg
+                    
+                    </p>
+                    <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                 </div>
+                 <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+                    <button  class="text-black-600">
+                       3
+                       <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
+                       <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
+                    </button>
+                    <button uk-toggle="target: #view_subcommentvideo${i}" >
+                       <iconify-icon icon="akar-icons:comment"></iconify-icon>
+                       3
+                    </button>
+                    <span> 3d </span> 
+                 </div>
+              </div>
+           </div>
+           <br>
+           <!-- SUBCOMMENTS -->
+           <div hidden id="view_subcommentvideo${i}"  class="flex-col">
+             
+              <!-- SEND MESSAGE INPUT -->
+              <div class="flex">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
+                 <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+                    <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                    <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+                       <button>
+                          <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+                       </button>
+                    </div>
+                 </div>
+              </div>
+              <br>
+           </div>
+       </div>
+           `;
+        }
+         return html_comment_video;
+          }
 }
 document.addEventListener("DOMContentLoaded",Profile_Login_User.showdata_getLoginUser);
 

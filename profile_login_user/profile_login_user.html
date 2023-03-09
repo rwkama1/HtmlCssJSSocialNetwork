@@ -531,7 +531,7 @@
                      <div class="card lg:mx-0 p-4" >
 						   <!-- CREATE POST  -->
                         <div class="flex space-x-3" uk-toggle="target: #create-post-modal"> <img src="../assets/images/avatars/avatar-2.jpg" class="w-10 h-10 rounded-full">
-                           <input placeholder="What's Your Mind ? Hamse!" class="bg-gray-100 hover:bg-gray-200 flex-1 h-10 px-6 rounded-full"> 
+                           <input placeholder="What's Your Mind ? " class="bg-gray-100 hover:bg-gray-200 flex-1 h-10 px-6 rounded-full"> 
                         </div>
                         <div class="grid grid-flow-col pt-3 -mx-1 -mb-1 font-semibold text-sm">
 
@@ -2893,7 +2893,7 @@
                         <div class="font-semibold text-base"> Visibilty </div>
                         <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                            the website. </div> -->
-                        <select class="selectpicker">
+                        <select >
                            <option data-icon="uil-bullseye"> Private </option>
                            
                            <option data-icon="uil-globe" selected>Public</option>
@@ -2933,21 +2933,22 @@
                </div>
             </div>
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+               <form id="form_updatevideo_profileloginuser" class="space-y-4 g:w-8/12">
                   <!-- <div class="font-semibold text-lg"> Details </div> -->
+                  <input id="profileloginuser_updatevideo_idvideo"  type="hidden" >
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                     <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                     <input id="profileloginuser_updatevideo_name" type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                     <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea id="profileloginuser_updatevideo_description" type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
-                     <div class="font-semibold text-base"> Visibilty </div>
+                     <div class="font-semibold text-base"> Visibility </div>
                      <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                         the website. </div> -->
-                     <select class="selectpicker">
+                     <select  id="profileloginuser_updatevideo_visibility">
                         <option data-icon="uil-bullseye"> Private </option>
                         
                         <option data-icon="uil-globe" selected>Public</option>
