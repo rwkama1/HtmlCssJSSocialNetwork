@@ -17,8 +17,22 @@
       <link rel="stylesheet" href="../assets/css/uikit.css">
       <link rel="stylesheet" href="../assets/css/style.css">
       <link rel="stylesheet" href="../assets/css/tailwind.min.css">
+      <link rel="stylesheet" href="../assets/css/loading_spinner.css">
       <!-- JS 
          ================================================== -->
+
+         <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+         integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+         crossorigin="anonymous"
+         referrerpolicy="no-referrer"
+       ></script>
+       <script
+         src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.4/cloudinary-core.min.js"
+         integrity="sha512-IbSnv7d3S0AhZSFfPStsTG9IfssskLtgsm2gbbTjmFM/ssHMIwwwRItZfGQKZYhwVXStAVT7nA+pdu0VTE01lA=="
+         crossorigin="anonymous"
+         referrerpolicy="no-referrer"
+       ></script>
       <script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
       <script src="../assets/js/iconify-icon.min.js"></script>
@@ -496,11 +510,12 @@
                         </a>
                         <!-- search dropdown -->
                         <div class="absolute right-3 bg-white z-10 w-full flex items-center border rounded-md" id="profile-search" hidden>
-                           <input type="text" placeholder="Search.." class="flex-1">
+                           <input id="videomainpage_searchvideo_text" type="text" placeholder="Search.." class="flex-1">
                            <ion-icon name="close-outline" class="text-2xl hover:bg-gray-100 p-1 rounded-full mr-2 cursor-pointer" uk-toggle="target: #profile-search;animation: uk-animation-slide-top-small"></ion-icon>
                         </div>
                      </div>
                      <!-- VIDEOS -->
+                     <div id="videomaingpage_listsearchvideos_div">
                      <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
                         <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
                            <a href="../videos/video_watch.html">
@@ -521,26 +536,8 @@
                         </div>
                         <!-- ----- -->
                      </div>
-                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
-                        <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                           <a href="video-watch.html">
-                              <video src="../assets/video/universesize.mp4" autoplay loop muted playsinline uk-cover></video>
-                           </a>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                           <a href="video-watch.html" class="md:text-xl font-semibold line-clamp-2"> Exploring an Abandoned Water Park in China </a>
-                           <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna . </p>
-                           <a href="#" class="font-semibold block text-sm"> Stalla Johani</a>
-                           <div class="flex items-center justify-between">
-                              <div class="flex space-x-3 items-center text-sm md:pt-3">
-                                 <div> 27 weeks ago</div>
-                                 <!-- <div class="md:block hidden">·</div> -->
-                                 <!-- <div> 156.9K views</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        <!-- ----- -->
-                     </div>
+              
+                  </div>
                   </div>
                   <!--#endregion  SEARCH VIDEO  -->
               
@@ -908,8 +905,6 @@
             <!--#endregion-->
 
               <!--#region CREATE  VIDEO  MODAL -->
-
-
               <div id="create-video-modal" class="create-post is-story" uk-modal>
                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
                   <div class="py-4 border-b flex  justify-between px-6">
@@ -920,17 +915,17 @@
                      </div>
                   </div>
                   <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-                     <form onsubmit="messagenotification('Video Added','success',event)" class="space-y-4 g:w-8/12">
+                     <form id="form_profileloginuser_addvideo" class="space-y-4 g:w-8/12">
                         <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
-                           <input type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                           <input id="profileloginuser_uploadvideo_title" type="text" placeholder="Title" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                         </div>
                         <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
-                           <textarea type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                           <textarea id="profileloginuser_uploadvideo_description" type="text" rows="5" placeholder="Description" required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                         </div>
                         <div class="px-2 space-y-2">
                            <div class="font-semibold text-base"> Visibility </div>
                         
-                           <select class="selectpicker">
+                           <select id="profileloginuser_uploadvideo_visibility">
                               <option data-icon="uil-bullseye"> Private </option>
                           
                               <option data-icon="uil-globe" selected>Public</option>
@@ -942,10 +937,9 @@
                         <div class="px-2 space-y-2">
                            <div class="font-semibold text-base"> Album Video </div>
                         
-                           <select class="selectpicker" >
-                              <option  >Album1</option>
-                              <option > Album2 </option>
-                              <option >Album3</option>
+                           <select id="profileloginuser_select_albumvideos" required   >
+      
+                                  <!-- SEE PROFILE_LOGIN_USER.JS -->
                            
                            </select>
                         </div>
@@ -986,16 +980,26 @@
                
                      
                   </div>
+                  
                   </form>
+                  
                </div>
+              
             </div>
-      <!--#endregion CREATE  VIDEO  MODAL -->
+             <!--#endregion CREATE  VIDEO  MODAL -->
 
 
 
             <!-- #endregion MODALS AND OTHERS -->
             <!-- Javascript
          ================================================== -->
+         <script src="../utils/selectdata.js"></script>
+         <script src="../REST_API/rest_api_user.js"></script>
+         <script src="../REST_API/rest_api_loginuser.js"></script>
+      <script src="../REST_API/rest_api_videos.js"></script>
+    
+      <script src="../REST_API/rest_api_cloudinary.js"></script>
+   
             <!-- For Night mode -->
             <script src="../assets/js/nightmode.js"></script>
             <script src="../assets/js/jquery-3.6.0.min.js"></script>
@@ -1007,5 +1011,7 @@
             <script src="../assets/js/bootstrap-select.min.js"></script>
             <script src="../assets/js/preview_image_video.js"></script>
             <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-   </body>
+   
+            <script src="../videos/video_mainpage.js"></script>
+         </body>
 </html>

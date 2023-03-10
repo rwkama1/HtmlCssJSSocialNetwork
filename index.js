@@ -54,7 +54,11 @@ class IndexJS
     const response= await APIRESTLoginUser.loginUser(dataform);
     if (response) {
      console.log("Login User");
-     window.location.href="./feed/feed.html";
+    
+     setInterval(() => {
+      window.location.href="./feed/feed.html";
+     }, 1000);
+  
     }
     
    } catch (error) {

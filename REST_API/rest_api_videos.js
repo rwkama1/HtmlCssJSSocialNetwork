@@ -106,6 +106,7 @@ class APIRESTVideo
        }
        return true;
        }  
+       //GETS 
        static getVideosByLoginUser=async()=>
        {
        
@@ -151,6 +152,28 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
+       static getSearchVideosExpresion=async(searchtext)=>
+       {
+             let URLVIDEO=this.RESTAPIURL+`/video/getSearchVideosExpresion?searchtext=${searchtext}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEO, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
        static getVideo=async(idvideo)=>
        {
         
@@ -174,6 +197,7 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
+       
   }     
   
      

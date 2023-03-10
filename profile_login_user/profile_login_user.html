@@ -2879,21 +2879,22 @@
                   </div>
                </div>
                <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-                  <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+                  <form id="form_profileloginuser_updatepost" class="space-y-4 g:w-8/12">
+                     <input id="idpost_updatepost_profileloginuser"  type="hidden" >
                      <!-- <div class="font-semibold text-lg"> Details </div> -->
                      <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                         <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                        <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                        <input id="profileloginuser_updatepost_name" type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                      </div>
                      <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                         <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                        <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                        <textarea id="profileloginuser_updatepost_description" type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                      </div>
                      <div class="px-2 space-y-2">
-                        <div class="font-semibold text-base"> Visibilty </div>
+                        <div class="font-semibold text-base"> Visibility </div>
                         <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                            the website. </div> -->
-                        <select >
+                        <select id="profileloginuser_updatepost_visibility" >
                            <option data-icon="uil-bullseye"> Private </option>
                            
                            <option data-icon="uil-globe" selected>Public</option>
@@ -3024,9 +3025,13 @@
                   <i class="icon-feather-close"></i>
                   </button>
                   <div class="p-6 text-center">
-                        <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg aria-hidden="true"
+                         class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete the video?</h3>
-                        <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                        <input id="idvideo_deletevideomodal_profileloginuser"  type="hidden" >
+                        <button
+                        id="button_deletevideomodal_profileuser"
+                         data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                            Delete
                         </button>
                         <!-- <button 
@@ -3053,7 +3058,10 @@
             <div class="p-6 text-center">
                   <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                   <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete the post?</h3>
-                  <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                  <input id="idpost_deletepostmodal_profileloginuser"  type="hidden" >
+                  <button 
+                  id="button_deletepostmodal_profileuser"
+                  data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                      Delete
                   </button>
            

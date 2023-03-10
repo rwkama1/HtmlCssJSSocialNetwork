@@ -66,16 +66,15 @@ class Profile_Login_User
       await this.loadPostLoginUser(iduser);
       
 
-
-
-
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
       buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
 
+
+
      } catch (error) {
       console.error(error);
-      alert(error);
-      window.location.href="../index.html";
+     alert(error);
+     window.location.href="../index.html";
    
      }
      
@@ -102,8 +101,8 @@ static load_timeline=async(iduser)=>
     if (i >= 3) {
      
         if (getpostimagevideo.type==="P") {
-         let commentposts=await APIRESTPostComment.getCommentPostByPost(getpostimagevideo.id);
-         html_load_postvideoimage_more+=this.html_Post_TimeLine(getpostimagevideo,commentposts);
+         // let commentposts=await APIRESTPostComment.getCommentPostByPost(getpostimagevideo.id);
+         html_load_postvideoimage_more+=this.html_Post_TimeLine(getpostimagevideo);
          
        } else if (getpostimagevideo.type==="I"){
          html_load_postvideoimage_more+=this.html_Image_TimeLine(getpostimagevideo);
@@ -117,7 +116,7 @@ static load_timeline=async(iduser)=>
     } else {
       if (getpostimagevideo.type==="P") {
         
-         html_load_postvideoimage+=this.html_Post_TimeLine(getpostimagevideo,commentposts);
+         html_load_postvideoimage+=this.html_Post_TimeLine(getpostimagevideo);
      
       } else if (getpostimagevideo.type==="I"){
         html_load_postvideoimage+=this.html_Image_TimeLine(getpostimagevideo);
@@ -389,13 +388,59 @@ static load_timeline=async(iduser)=>
      }   
       
     }
-
+    static updateVideo= async(event)=>
+    {
+      try {
+        event.preventDefault();
+        const idvideo = document.getElementById('profileloginuser_updatevideo_idvideo').value;
+        const title = document.getElementById('profileloginuser_updatevideo_name').value;
+         const description = document.getElementById('profileloginuser_updatevideo_description').value;       
+         const visibility = document.getElementById('profileloginuser_updatevideo_visibility').value;
+        
+           
+         const dataform = {idvideo,title
+           ,description,visibility}
+       
+          const response_upload_video= await APIRESTVideo.updateVideo(dataform);
+          if (response_upload_video) {
+        
+            messagenotification('Video Updated','success',event);
+            document.getElementById('profileloginuser_updatevideo_name').value="";
+            document.getElementById('profileloginuser_updatevideo_description').value="";
+           }
+     
+       
+      }catch (error) {
+        alert(error);
+      }
+    }
+    static deleteVideo= async(event)=>
+    {
+      try {
+       
+        const idvideo = document.getElementById('idvideo_deletevideomodal_profileloginuser').value;
+       
+       
+          const response_delete_video= await APIRESTVideo.deleteVideo(idvideo);
+          if (response_delete_video) {
+        
+            messagenotification('Video Deleted','success',event);
+            setInterval(() => {
+              location.reload()
+            }, 1000);
+          
+           }
+     
+       
+      }catch (error) {
+        alert(error);
+      }
+    }
 
     static  showDataUpdateModalVideo=async(id)=>
     {
       const response_getvideo= await APIRESTVideo.getVideo(id);
       document.getElementById('profileloginuser_updatevideo_idvideo').value=response_getvideo.idvideo;
-      
       document.getElementById('profileloginuser_updatevideo_name').value=response_getvideo.title;
       document.getElementById('profileloginuser_updatevideo_description').value=response_getvideo.description;
       const visibilitySelect = document.getElementById('profileloginuser_updatevideo_visibility');
@@ -404,10 +449,6 @@ static load_timeline=async(iduser)=>
       } else {
         visibilitySelect.value = 'Public';
       }
-      
-      
-    
-
     }
     static showIdDeleteModalVideo=async(id)=>
     {
@@ -449,66 +490,73 @@ static load_timeline=async(iduser)=>
      }
       
     }
-
-    static async loadPostLoginUser(iduser) {
-      let getpostuser = await APIRESTPost.getPostByLoginUser(iduser);
-      document.getElementById("profileloginuser_span_postcount").innerHTML = getpostuser.length;
-      let html_load_post = '';
-    
-      for (let i = 0; i < getpostuser.length; i++) {
-        let userProfileImage = getpostuser[i].user.image;
-       let idpost=getpostuser[i].idpost;
-        let postTitle = getpostuser[i].title;
-        let stringpostedago = getpostuser[i].stringpostedago;
+    static updatePost= async(event)=>
+    {
+      try {
+        event.preventDefault();
+        const idpost = document.getElementById('idpost_updatepost_profileloginuser').value;
+        const title = document.getElementById('profileloginuser_updatepost_name').value;
+         const description = document.getElementById('profileloginuser_updatepost_description').value;       
+         const visibility = document.getElementById('profileloginuser_updatepost_visibility').value;
         
-        let postdescription = getpostuser[i].description;
-        // let postdescription = getpostuser[i].description;
-
-    let countpostcomments=await APIRESTPostComment.getCommentPostByPost(idpost);
-        if (i >= 3) {
-          html_load_post += `
-              <li hidden id="morepost">
-              <div class="flex items-start space-x-5 p-7">
-                  <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
-                  <div class="flex-1">
-                      <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
-                      <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">${stringpostedago}</span></p>
-                    <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
-                  </div>
-                  <div class="sm:flex items-center space-x-4 hidden">
-                      <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                      <span class="text-xl"> ${countpostcomments.length} </span>
-                  </div>
-              </div>
-          </li>
-            `;
-        } else {
-          html_load_post += `
-            <li>
-                <div class="flex items-start space-x-5 p-7">
-                    <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
-                    <div class="flex-1">
-                        <a href="#" class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
-                        <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html">${stringpostedago}</span>  </p>
-                        <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
-                    </div>
-                    <div class="sm:flex items-center space-x-4 hidden">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" 
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
-                        <span class="text-xl"> ${countpostcomments.length} </span>
-                    </div>
-                </div>
-            </li>
-  
-            `;
-        }
+           
+         const dataform = {idpost,title
+           ,description,visibility}
+       
+          const response_upload_post= await APIRESTPost.updatePost(dataform);
+          if (response_upload_post) {
+        
+            messagenotification('Post Updated','success',event);
+            document.getElementById('profileloginuser_updatepost_name').value="";
+            document.getElementById('profileloginuser_updatepost_description').value="";
+           }
+     
+       
+      }catch (error) {
+        alert(error);
       }
-    
-    
-      document.getElementById("profileloginuser_listposts_ul").innerHTML = html_load_post;
     }
-    
+    static deletePost= async(event)=>
+    {
+      try {
+       
+        const idpost = document.getElementById('idpost_deletepostmodal_profileloginuser').value;
+       
+       
+          const response_delete_post= await APIRESTPost.deletePost(idpost);
+          if (response_delete_post) {
+        
+            messagenotification('Post Deleted','success',event);
+            setInterval(() => {
+              location.reload()
+            }, 1000);
+          
+           }
+     
+       
+      }catch (error) {
+        alert(error);
+      }
+    }
+    static  showDataUpdateModalPost=async(id)=>
+    {
+      const response_getpost= await APIRESTPost.getPost(id);
+      document.getElementById('idpost_updatepost_profileloginuser').value=response_getpost.idpost;
+      document.getElementById('profileloginuser_updatepost_name').value=response_getpost.title;
+      document.getElementById('profileloginuser_updatepost_description').value=response_getpost.description;
+      const visibilitySelect = document.getElementById('profileloginuser_updatepost_visibility');
+      if (response_getpost.visibility === 'Private') {
+        visibilitySelect.value = 'Private';
+      } else {
+        visibilitySelect.value = 'Public';
+      }
+    }
+    static showIdDeleteModalPost=async(id)=>
+    {
+      document.getElementById('idpost_deletepostmodal_profileloginuser').value=id;
+   
+    }
+
     //#endregion
 
 
@@ -633,8 +681,65 @@ static async loadImagesLoginUser(iduser) {
 
   document.getElementById("profileloginuser_listallimages_div").innerHTML = html_load_images;
 }
+//GET POST LOGIN USER
+static async loadPostLoginUser(iduser) {
+   let getpostuser = await APIRESTPost.getPostByLoginUser(iduser);
+   document.getElementById("profileloginuser_span_postcount").innerHTML = getpostuser.length;
+   let html_load_post = '';
+ 
+   for (let i = 0; i < getpostuser.length; i++) {
+     let userProfileImage = getpostuser[i].user.image;
+    let idpost=getpostuser[i].idpost;
+     let postTitle = getpostuser[i].title;
+     let stringpostedago = getpostuser[i].stringpostedago;
+     
+     let postdescription = getpostuser[i].description;
+     // let postdescription = getpostuser[i].description;
 
+ let countpostcomments=await APIRESTPostComment.getCommentPostByPost(idpost);
+     if (i >= 3) {
+       html_load_post += `
+           <li hidden id="morepost">
+           <div class="flex items-start space-x-5 p-7">
+               <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+               <div class="flex-1">
+                   <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
+                   <p class="text-sm text-gray-400 mb-2"> Posted By: <span data-href="%40tag-dev.html">${stringpostedago}</span></p>
+                 <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+               </div>
+               <div class="sm:flex items-center space-x-4 hidden">
+                   <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                   <span class="text-xl"> ${countpostcomments.length} </span>
+               </div>
+           </div>
+       </li>
+         `;
+     } else {
+       html_load_post += `
+         <li>
+             <div class="flex items-start space-x-5 p-7">
+                 <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+                 <div class="flex-1">
+                     <a href="#" class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
+                     <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html">${stringpostedago}</span>  </p>
+                     <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+                 </div>
+                 <div class="sm:flex items-center space-x-4 hidden">
+                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" 
+                     xmlns="http://www.w3.org/2000/svg">
+                     <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                     <span class="text-xl"> ${countpostcomments.length} </span>
+                 </div>
+             </div>
+         </li>
 
+         `;
+     }
+   }
+ 
+ 
+   document.getElementById("profileloginuser_listposts_ul").innerHTML = html_load_post;
+ }S
 //GET ALBUM VIDEOS LOGIN USER
 static async loadAlbumVideosLoginUser() {
   let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
@@ -806,7 +911,7 @@ static forAddImagesFromAlbum(images)
    
    }
 //******************************************************** */
-  static html_Post_TimeLine(getpost,getcommentposts)
+  static html_Post_TimeLine(getpost)
 {
    let userImageProfile=getpost.user.image;
    let idpost=getpost.id;
@@ -841,7 +946,9 @@ static forAddImagesFromAlbum(images)
                    </a> 
                    </li> -->
                 <li>
-                   <a href="" uk-toggle="target: #update_post_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                   <a href="" uk-toggle="target: #update_post_modal"
+                   onclick="Profile_Login_User.showDataUpdateModalPost('${idpost}');"
+                    class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                        <i class="uil-edit-alt mr-1"></i>
                         Edit  </a>
                 </li>
@@ -850,7 +957,9 @@ static forAddImagesFromAlbum(images)
                    <hr class="-mx-2 my-2 dark:border-gray-800">
                 </li>
                 <li>
-                   <a href="" uk-toggle="target: #delete_post_modal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                   <a href="" uk-toggle="target: #delete_post_modal" 
+                   onclick="Profile_Login_User.showIdDeleteModalPost('${idpost}');"
+                   class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i class="uil-trash-alt mr-1"></i> Delete </a>
                 </li>
              </ul>
@@ -898,7 +1007,7 @@ static forAddImagesFromAlbum(images)
      </div>
      <div hidden id="view-commentspost${idpost}" class="border-t py-4 space-y-4 dark:border-gray-600">
          
-      ${this.forCommentsPost(getcommentposts)}
+      ${this.forCommentsPost()}
         <!-- COMMENT -->
        
      </div>   <!-- END VIEWCOMMENTPOST -->
@@ -1167,7 +1276,7 @@ static forAddImagesFromAlbum(images)
     }
 //********************************************* */
 
- static forCommentsPost(getcommentsposts){
+ static forCommentsPost(){
    let html_comments_post="";
    for (let i = 0; i < 3; i++) {
    //   const commentpost = getcommentsposts[i];
@@ -1222,7 +1331,7 @@ static forAddImagesFromAlbum(images)
   }
    return html_comments_post
     }
-    static forCommentImage(getcommentsimage){
+    static forCommentImage(){
       let html_comment_image="";
       for (let i = 0; i < 3; i++) {
 
@@ -1333,29 +1442,44 @@ static forAddImagesFromAlbum(images)
          return html_comment_video;
           }
 }
-document.addEventListener("DOMContentLoaded",Profile_Login_User.showdata_getLoginUser);
 
-
+window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);
+//IMAGE
 const addimageform = document.getElementById('form_profileloginuser_addimage');
 addimageform.addEventListener('submit', Profile_Login_User.upload_image_modal);
-
+//IMAGE
 const addalbumimageform = document.getElementById('form_albumimages_profileloginuser');
 addalbumimageform.addEventListener('submit', Profile_Login_User.add_album_image);
 
+// UPDATE ABOUT
 const updatedescriptionform = document.getElementById('profileloginuser_form_updateabout');
 updatedescriptionform.addEventListener('submit', Profile_Login_User.update_description_modal);
 
-
+//IMAGE
 const updateImageForm = document.getElementById('form_updateimage_profileloginuser');
 updateImageForm.addEventListener('submit', Profile_Login_User.updateImage);
 
-
+//VIDEO
 const addalbumvideoform = document.getElementById('form_albumvideo_profileloginuser');
 addalbumvideoform.addEventListener('submit', Profile_Login_User.add_album_video);
 
+//VIDEO
 const addvideoform = document.getElementById('form_profileloginuser_addvideo');
 addvideoform.addEventListener('submit', Profile_Login_User.upload_video_modal);
 
+//VIDEO
+const updatevideoform = document.getElementById('form_updatevideo_profileloginuser');
+updatevideoform.addEventListener('submit', Profile_Login_User.updateVideo);
+//VIDEO
+const buttonDeleteVideo = document.getElementById('button_deletevideomodal_profileuser');
+buttonDeleteVideo.addEventListener('click', Profile_Login_User.deleteVideo);
 
+//POST
 const addpostform = document.getElementById('form_profileloginuser_addpost');
 addpostform.addEventListener('submit', Profile_Login_User.add_post);
+//POST
+const updatepostform = document.getElementById('form_profileloginuser_updatepost');
+updatepostform.addEventListener('submit', Profile_Login_User.updatePost);
+//POST
+const buttonDeletePost= document.getElementById('button_deletepostmodal_profileuser');
+buttonDeletePost.addEventListener('click', Profile_Login_User.deletePost);
