@@ -16,11 +16,20 @@ class Profile_Login_User
       try {
       
       let getuser=await this.getLoginUser();
-       const {iduser,name,email,ocupattion,urlfacebook,country
+       let {iduser,name,email,ocupattion,urlfacebook,country
          ,urlinstagram,urllinkedin,urltwitter,description,
          userrname,image,coverphoto
        }=getuser
        
+
+      // SHOW  IMAGE PROFILE TIMELINE ADD POST
+      if(image==="")
+      {
+         image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      let addpost_imageprofile= document.getElementById("profileloginuser_imageprofile_timeline_addpost");
+      addpost_imageprofile.src=image;
+
    //SHOW IMAGE COVER PROFILE
 
 
@@ -95,7 +104,7 @@ class Profile_Login_User
 
 static load_timeline=async(iduser)=>
 {
-  let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByUser(iduser);
+  let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser);
   // console.log(getPhotoPostVideoByUser);
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
@@ -700,6 +709,11 @@ static async loadPostLoginUser(iduser) {
  
    for (let i = 0; i < getpostuser.length; i++) {
      let userProfileImage = getpostuser[i].user.image;
+     if(userProfileImage==="")
+     {
+      userProfileImage=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+     }
+    
     let idpost=getpostuser[i].idpost;
      let postTitle = getpostuser[i].title;
      let stringpostedago = getpostuser[i].stringpostedago;
@@ -925,6 +939,10 @@ static forAddImagesFromAlbum(images)
   static html_Post_TimeLine(getpost)
 {
    let userImageProfile=getpost.user.image;
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
    let idpost=getpost.id;
    let userName=getpost.user.name;
    let stringpostedago=getpost.stringpostedago;
@@ -1042,6 +1060,11 @@ static forAddImagesFromAlbum(images)
   static html_Image_TimeLine(getimage)
 {
    let userImageProfile=getimage.user.image;
+   
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
    let idimage=getimage.id;
    let userName=getimage.user.name;
    let stringpostedago=getimage.stringpostedago;
@@ -1170,6 +1193,10 @@ static forAddImagesFromAlbum(images)
   static html_Video_TimeLine(getvideo)
   {
    let userImageProfile=getvideo.user.image;
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
    let idvideo=getvideo.id;
    let userName=getvideo.user.name;
    let stringpostedago=getvideo.stringpostedago;

@@ -5,11 +5,11 @@ class APIRESTImageVideoPost
 
  
 
- static getPhotoPostVideoByUser=async(iduser)=>
+ static getPhotoPostVideoByLoginUser=async(iduserlogin)=>
  {
   
  
-       let URLPOST=this.RESTAPIURL+`/postvideoimage/getPhotoPostVideoByUser?iduserlogin=${iduser}&iduser=${iduser}`;
+       let URLPOST=this.RESTAPIURL+`/postvideoimage/getPhotoPostVideoByLoginUser?iduserlogin=${iduserlogin}`;
 
        let headersList = {
          "Accept": "*/*",

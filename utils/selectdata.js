@@ -8,6 +8,8 @@ class SelectData
 
   static iduserLogin=0;
 
+  static selectvideo={};
+
   //GETS
   static getSelectMultipleImages()
   {
@@ -20,5 +22,9 @@ class SelectData
   static getIdUserLogin()
   {
     return this.iduserLogin;
+  }
+  static selectVideo()
+  {
+    return this.selectvideo;
   }
 }
