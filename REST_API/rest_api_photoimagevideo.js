@@ -9,7 +9,7 @@ class APIRESTImageVideoPost
  {
   
  
-       let URLPOST=this.RESTAPIURL+`/postvideoimage/getPhotoPostVideoByUser?iduser=${iduser}`;
+       let URLPOST=this.RESTAPIURL+`/postvideoimage/getPhotoPostVideoByUser?iduserlogin=${iduser}&iduser=${iduser}`;
 
        let headersList = {
          "Accept": "*/*",

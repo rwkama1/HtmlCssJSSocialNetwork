@@ -3,23 +3,43 @@ class VideoMainPageJS
     static  getLoginUser=async()=>
     {
       let response_loginuser= await APIRESTLoginUser.getLoginUser();
-      let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
-      return getuser
+    
+
+      return response_loginuser
   
     }
       //LOAD PAGE
       static loadPage=async()=>
       {
-        await this.listVideoSearch();
-      }
+        try {
+        let response_loginuser= await this.getLoginUser();
+        SelectData.iduserLogin=response_loginuser.iduser;
 
+        await this.loadAlbumVideoUserModal();
+
+        await this.listVideoSearch(SelectData.getIdUserLogin());
+
+        await this.listVideosMoreLike();
+
+        await this.listVideosMoreComment();
+
+      } catch (error) {
+        alert(error);
+        window.location.href="../index.html"; 
+   }
+      }
+        //SEARCH
       static searchVideos=async(event)=>
       {
+        try {
+          
+      
+        let iduserLogin=SelectData.getIdUserLogin();
         const query = event.target.value;
-        let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(query);
+        let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(iduserLogin,query);
         let html_load_seaarchvideos="";
-        for (let i = 0; i < getSearchVideosExpresion.length; i++) {
-          let {urlvideo,description,stringpostedago,title}=getSearchVideosExpresion[i];
+        for (let i = 0; i <  Math.min(getSearchVideosExpresion.length, 10); i++) {
+          let {urlvideo,description,stringpostedago,title,user}=getSearchVideosExpresion[i];
           html_load_seaarchvideos+=`
               <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
               <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
@@ -30,7 +50,7 @@ class VideoMainPageJS
               <div class="flex-1 space-y-2">
                 <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                <a href="#" class="font-semibold block text-sm"> ${title}</a>
+                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
                       <div>${stringpostedago} </div>
@@ -43,15 +63,17 @@ class VideoMainPageJS
           `
         }
       document.getElementById("videomaingpage_listsearchvideos_div").innerHTML=html_load_seaarchvideos;
-      
+    } catch (error) {
+         alert(error);
+         window.location.href="../index.html"; 
+    }
       }
-
-
-  static async listVideoSearch() {
-    let getSearchVideosExpresion = await APIRESTVideo.getSearchVideosExpresion("");
+      //LIST
+      static async listVideoSearch(iduser) {
+    let getSearchVideosExpresion = await APIRESTVideo.getSearchVideosExpresion(iduser,"");
     let html_load_seaarchvideos="";
-    for (let i = 0; i < getSearchVideosExpresion.length; i++) {
-      let { urlvideo, description, stringpostedago, title } = getSearchVideosExpresion[i];
+    for (let i = 0; i < Math.min(getSearchVideosExpresion.length, 10); i++) {
+      let { urlvideo, description, stringpostedago, title,user } = getSearchVideosExpresion[i];
       html_load_seaarchvideos += `
               <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
               <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
@@ -62,7 +84,7 @@ class VideoMainPageJS
               <div class="flex-1 space-y-2">
                 <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                <a href="#" class="font-semibold block text-sm"> ${title}</a>
+                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
                       <div>${stringpostedago} </div>
@@ -77,7 +99,114 @@ class VideoMainPageJS
     document.getElementById("videomaingpage_listsearchvideos_div").innerHTML = html_load_seaarchvideos;
     document.getElementById("videomaingpage_listnewestvideos_div").innerHTML = html_load_seaarchvideos;
     
-  }
+        }
+        static async listVideosMoreLike() {
+          let getVideosOrderByLikes = await APIRESTVideo.getVideosOrderByLikes();
+        
+          let html_load_videosmorelike="";
+          for (let i = 0; i < Math.min(getVideosOrderByLikes.length, 10); i++) {
+            let { urlvideo, description, stringpostedago, title,user } = getVideosOrderByLikes[i];
+            html_load_videosmorelike += `
+                    <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                    <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                      <a href="../videos/video_watch.html">
+                          <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
+                      </a>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                      <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                      <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
+                      <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                      <div class="flex items-center justify-between">
+                          <div class="flex space-x-3 items-center text-sm md:pt-3">
+                            <div>${stringpostedago} </div>
+                          
+                          </div>
+                      </div>
+                    </div>
+                    <!-- ----- -->
+                </div>
+                `;
+          }
+          document.getElementById("videomaingpage_listmorelikesvideos_div").innerHTML = html_load_videosmorelike;  
+          
+              }
+        static async listVideosMoreComment() {
+                let getVideosOrderbyComments = await APIRESTVideo.getVideosOrderbyComments();
+              
+                let html_load_videosmorecomments="";
+                for (let i = 0; i < Math.min(getVideosOrderbyComments.length, 10); i++) {
+                  let { urlvideo, description, stringpostedago, title,user } = getVideosOrderbyComments[i];
+                  html_load_videosmorecomments += `
+                          <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                          <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                            <a href="../videos/video_watch.html">
+                                <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
+                            </a>
+                          </div>
+                          <div class="flex-1 space-y-2">
+                            <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                            <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
+                            <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                            <div class="flex items-center justify-between">
+                                <div class="flex space-x-3 items-center text-sm md:pt-3">
+                                  <div>${stringpostedago} </div>
+                                
+                                </div>
+                            </div>
+                          </div>
+                          <!-- ----- -->
+                      </div>
+                      `;
+                }
+                document.getElementById("videomaingpage_listmorecommentsvideos_div").innerHTML = html_load_videosmorecomments;  
+                
+         }
+
+         //ADD VIDEO
+         static upload_video_modal=async(event)=>
+         {
+           try {
+            event.preventDefault();
+            document.getElementById("create-video-modal").classList.add("cursor-loading");
+            const title = document.getElementById('videomainpage_uploadvideo_title').value;
+             const idalbumvideo = document.getElementById('videomainpage_select_albumvideos').value;
+             const description = document.getElementById('videomainpage_uploadvideo_description').value;
+             const visibility = document.getElementById('videomainpage_uploadvideo_visibility').value;
+             let filevideo = document.getElementById('uploadonevideo').files[0];
+             let getulogin=await this.getLoginUser();
+            
+           let urlvideo=await APIRESTCloudinary.upload_video(filevideo,getulogin.iduser);
+             const dataform = {title
+               ,idalbumvideo,visibility,description,urlvideo}
+           
+              const response_upload_video= await APIRESTVideo.addVideo(dataform);
+              if (response_upload_video) {
+             
+                document.getElementById('videomainpage_uploadvideo_title').value="";
+                document.getElementById('videomainpage_uploadvideo_description').value="";
+               }
+         
+               messagenotification('Video Added','success',event);
+               document.getElementById("create-video-modal").classList.remove("cursor-loading");
+               setInterval(location.reload(),1000);
+              
+          }catch (error) {
+            alert(error);
+            location.reload();
+          }
+           
+         }
+         //GET TITLE ALBUM IN ADD MODAL VIDEO
+        static async loadAlbumVideoUserModal() {
+          let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+          let load_albums_video = "";
+          for (let i = 0; i < getalbumvideosuser.length; i++) {
+            load_albums_video += `<option value=${getalbumvideosuser[i].idalbumvideo}>${getalbumvideosuser[i].title}</option>`;
+          }
+
+          document.getElementById("videomainpage_select_albumvideos").innerHTML = load_albums_video;
+        }
 }
 window.addEventListener("load",VideoMainPageJS.loadPage);
 
@@ -85,3 +214,9 @@ window.addEventListener("load",VideoMainPageJS.loadPage);
 
 const searchVideo = document.getElementById("videomainpage_searchvideo_text");
 searchVideo.addEventListener("input",VideoMainPageJS.searchVideos)
+
+
+//ADD VIDEO
+
+const addvideo = document.getElementById("form_videomainpage_addvideo");
+addvideo.addEventListener("submit",VideoMainPageJS.upload_video_modal)

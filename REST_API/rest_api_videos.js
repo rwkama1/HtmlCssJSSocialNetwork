@@ -107,10 +107,57 @@ class APIRESTVideo
        return true;
        }  
        //GETS 
-       static getVideosByLoginUser=async()=>
+       static getVideosOrderByLikes=async()=>
        {
        
-             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosbyIdUser`;
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderByLikes`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEOS, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+       static getVideosOrderbyComments=async()=>
+       {
+       
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderbyComments`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEOS, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+       
+       static getVideosByLoginUser=async(iduserLogin)=>
+       {
+       
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosbyIdUser?iduserlogin=${iduserLogin}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -152,9 +199,9 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
-       static getSearchVideosExpresion=async(searchtext)=>
+       static getSearchVideosExpresion=async(iduser,searchtext)=>
        {
-             let URLVIDEO=this.RESTAPIURL+`/video/getSearchVideosExpresion?searchtext=${searchtext}`;
+             let URLVIDEO=this.RESTAPIURL+`/video/getSearchVideosExpresion?searchtext=${searchtext}&iduser=${iduser}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -197,6 +244,7 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
+
        
   }     
   

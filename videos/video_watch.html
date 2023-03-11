@@ -32,178 +32,164 @@
    </head>
    <body>
       <div id="wrapper">
-         <!-- Header -->
-         <header>
+       <!-- Header -->
+       <header>
       
       
-            <div class="header_wrap">
-               <div class="header_inner mcontainer">
-                  <div class="left_side">
-                     <span class="slide_menu" uk-toggle="target: #wrapper ; cls: is-collapse is-active">
-                        <svg xmlns="c" viewBox="0 0 24 24" width="24" height="24">
-                           <path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z" fill="currentColor"></path>
-                        </svg>
-                     </span>
-                     <div id="logo">
-                        <a href="../feed/feed.html"> <img src="../assets/images/logo.png" alt=""> <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt=""> </a>
-                     </div>
+         <div class="header_wrap">
+            <div class="header_inner mcontainer">
+               <div class="left_side">
+                  <span class="slide_menu" uk-toggle="target: #wrapper ; cls: is-collapse is-active">
+                     <svg xmlns="c" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z" fill="currentColor"></path>
+                     </svg>
+                  </span>
+                  <div id="logo">
+                     <a href="../feed/feed.html"> <img src="../assets/images/logo.png" alt=""> <img src="../assets/images/logo-mobile.png" class="logo_mobile" alt=""> </a>
                   </div>
-                 
-                  <!-- search icon for mobile -->
-                  <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
-                  <div class="header_search">
-                     <i class="uil-search-alt"></i>
-                     <input value="" type="text" class="form-control" placeholder="Search for Users , Posts and more ..." autocomplete="off">
-                     <div uk-drop="mode: click" class="header_search_dropdown">
-      
-                        <ul>
-                           <!-- USER -->
+               </div>
+              
+               <!-- search icon for mobile -->
+               <div class="header-search-icon" uk-toggle="target: #wrapper ; cls: show-searchbox"> </div>
+               <div class="header_search">
+                  <i class="uil-search-alt"></i>
+                  <input value="" type="text" class="form-control" placeholder="Search for Users , Posts and more ..." autocomplete="off">
+                  <div uk-drop="mode: click" class="header_search_dropdown">
+   
+                     <ul>
+                        <!-- USER -->
+                        <li>
+                           <a href="../profileuser/profileuser.html">
+                              <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
+                              <div class="list-name"> Erica Jones </div>
+                           
+                           </a>
+                           
+                        </li>
+                        <!-- POST -->
+                        <li>
+                           <a href="../posts/post_watch.html">
+                            
+                              <div class="list-name"> Title Post </div>
+                           </a>
+                        </li>
+                        <!-- VIDEO -->
+                        <li>
+                           <a href="../videos/video_watch.html">
+                              <video src="../assets/video/universesize.mp4" class="list-avatar" autoplay loop muted playsinline >
+   
+                              </video> 
+                              <div class="list-name"> Video </div>
+                           </a>
+                        </li>
+                        <!-- IMAGES -->
+                        <li>
+                           <a href="../images/image_watch.html">
+                              <img src="../assets/images//post/img-2.jpg" alt="" class="list-avatar">
+                              <div class="list-name"> Image </div>
+                           </a>
+                        </li>
+                      
+                      
+                     </ul>
+                  </div>
+               </div>
+     
+               <div class="right_side">
+                  <div class="header_widgets">
+   
+                       <!-- FRIEND REQUESTS -->
+   
+                       <a href="" class="is_icon" uk-tooltip="title: Friend Invitations">
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                        width="37" height="37" 
+                        viewBox="0 0 24 24" fill="black" 
+                        stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                           <span>3</span>
+                         </a>                  
+                     <div uk-drop="mode: click" class="header_dropdown">
+                        <div  class="dropdown_scrollbar" data-simplebar>
+                           <div class="drop_headline">
+                              <h4>Friend Invitations </h4>
+                       
+                           </div>
+   
+                           <div class="contact-list my-2 ml-1">
+                              <!-- FRIEND REQUESTS -->
+                           <ul>
+                              <li>
+                                
+   
+                              
+                                 <a href="../profileuser/profileuser.html">
+                                   
+   
+                                    <div class="contact-avatar">
+                                       <img src="../assets/images/avatars/avatar-1.jpg" alt="">
+                                       <span class="user_status status_online"></span>
+                                    </div>
+                                    <div class="contact-username">
+                                        Dennis Han
+   
+                                    </div>
+                                 </a>
+                       
+                             
+   
+                              </li>
                            <li>
                               <a href="../profileuser/profileuser.html">
-                                 <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="list-avatar">
-                                 <div class="list-name"> Erica Jones </div>
-                              
+                                 <div class="contact-avatar">
+                                    <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    <span class="user_status"></span>
+                                 </div>
+                                 <div class="contact-username"> Erica Jones</div>
                               </a>
-                              
                            </li>
-                           <!-- POST -->
                            <li>
-                              <a href="../posts/post_watch.html">
-                               
-                                 <div class="list-name"> Title Post </div>
+                              <a href="../profileuser/profileuser.html">
+                                 <div class="contact-avatar">
+                                    <img src="../assets/images/avatars/avatar-7.jpg" alt="">
+                                 </div>
+                                 <div class="contact-username">Stella Johnson</div>
                               </a>
                            </li>
-                           <!-- VIDEO -->
-                           <li>
-                              <a href="../videos/video_watch.html">
-                                 <video src="../assets/video/universesize.mp4" class="list-avatar" autoplay loop muted playsinline >
-      
-                                 </video> 
-                                 <div class="list-name"> Video </div>
-                              </a>
-                           </li>
-                           <!-- IMAGES -->
-                           <li>
-                              <a href="../images/image_watch.html">
-                                 <img src="../assets/images//post/img-2.jpg" alt="" class="list-avatar">
-                                 <div class="list-name"> Image </div>
-                              </a>
-                           </li>
-                         
-                         
-                        </ul>
+                              <li>
+                                 <a href="../profileuser/profileuser.html">
+                                    <div class="contact-avatar">
+                                       <img src="../assets/images/avatars/avatar-4.jpg" alt="">
+                                    </div>
+                                    <div class="contact-username"> Alex Dolgove</div>
+                                 </a>
+                              </li>
+                    
+                           </ul>
+                           </div>
+                        </div>
                      </div>
-                  </div>
-        
-                  <div class="right_side">
-                     <div class="header_widgets">
-      
-                          <!-- FRIEND REQUESTS -->
-      
-                          <a href="" class="is_icon" uk-tooltip="title: Friend Invitations">
+   
+                     <!-- NOTIFICATION -->
+   
+                     <a href="" class="is_icon" uk-tooltip="title: Notifications">
+                        <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                        </svg>
+                        <span>3</span> 
+                     </a>
+                     <div uk-drop="mode: click" class="header_dropdown">
+                        <div class="dropdown_scrollbar" data-simplebar>
+                           <div class="drop_headline">
+                              <h4>Notifications </h4>
+                              <a href="#" data-tippy-placement="left" title="Clear notifications">
+                                 <ion-icon name="trash-outline"></ion-icon>
+                             </a>
+                           </div>
+                           <ul>
                        
-                           <svg xmlns="http://www.w3.org/2000/svg" 
-                           width="37" height="37" 
-                           viewBox="0 0 24 24" fill="black" 
-                           stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                              <span>3</span>
-                            </a>                  
-                        <div uk-drop="mode: click" class="header_dropdown">
-                           <div  class="dropdown_scrollbar" data-simplebar>
-                              <div class="drop_headline">
-                                 <h4>Friend Invitations </h4>
-                          
-                              </div>
-      
-                              <div class="contact-list my-2 ml-1">
-                                 <!-- FRIEND REQUESTS -->
-                              <ul>
-                                 <li>
-                                   
-      
-                                 
-                                    <a href="../profileuser/profileuser.html">
-                                      
-      
-                                       <div class="contact-avatar">
-                                          <img src="../assets/images/avatars/avatar-1.jpg" alt="">
-                                          <span class="user_status status_online"></span>
-                                       </div>
-                                       <div class="contact-username">
-                                           Dennis Han
-      
-                                       </div>
-                                    </a>
-                          
-                                
-      
-                                 </li>
-                              <li>
-                                 <a href="../profileuser/profileuser.html">
-                                    <div class="contact-avatar">
-                                       <img src="../assets/images/avatars/avatar-2.jpg" alt="">
-                                       <span class="user_status"></span>
-                                    </div>
-                                    <div class="contact-username"> Erica Jones</div>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="../profileuser/profileuser.html">
-                                    <div class="contact-avatar">
-                                       <img src="../assets/images/avatars/avatar-7.jpg" alt="">
-                                    </div>
-                                    <div class="contact-username">Stella Johnson</div>
-                                 </a>
-                              </li>
-                                 <li>
-                                    <a href="../profileuser/profileuser.html">
-                                       <div class="contact-avatar">
-                                          <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                                       </div>
-                                       <div class="contact-username"> Alex Dolgove</div>
-                                    </a>
-                                 </li>
-                       
-                              </ul>
-                              </div>
-                           </div>
-                        </div>
-      
-                        <!-- NOTIFICATION -->
-      
-                        <a href="" class="is_icon" uk-tooltip="title: Notifications">
-                           <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-                           </svg>
-                           <span>3</span> 
-                        </a>
-                        <div uk-drop="mode: click" class="header_dropdown">
-                           <div class="dropdown_scrollbar" data-simplebar>
-                              <div class="drop_headline">
-                                 <h4>Notifications </h4>
-                                 <a href="#" data-tippy-placement="left" title="Clear notifications">
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </a>
-                              </div>
-                              <ul>
-                          
-                                 <li class="not-read">
-                                    <a href="#">
-                                       <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
-                                       </div>
-                                       <span class="drop_icon bg-gradient-primary">
-                                          <i class="icon-feather-message-square"></i>
-                                          </span>
-                                       <div class="drop_text">
-                                          <p> <strong>Stella Johnson</strong> Replay Your Comment in <span class="text-link">Adobe XD Tutorial</span> </p>
-                                          <time> 9 hours ago </time>
-                                       </div>
-                                    </a>
-                               </li>
-                               
-                               <li >
+                              <li class="not-read">
                                  <a href="#">
                                     <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
                                     </div>
@@ -211,246 +197,264 @@
                                        <i class="icon-feather-message-square"></i>
                                        </span>
                                     <div class="drop_text">
-                                       <p> <strong>Stella Johnson</strong> Comment Your Post  <span class="text-link">Adobe XD Tutorial</span> </p>
+                                       <p> <strong>Stella Johnson</strong> Replay Your Comment in <span class="text-link">Adobe XD Tutorial</span> </p>
                                        <time> 9 hours ago </time>
                                     </div>
                                  </a>
-                               </li>
-                                 
-                               <li >
-                                 <a href="#">
-                                    <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
-                                    </div>
-                                    <span class="drop_icon bg-gradient-primary">
-                                       <i class="icon-feather-message-square"></i>
-                                       </span>
-                                    <div class="drop_text">
-                                       <p> <strong>Stella Johnson</strong> Comment Your Video  <span class="text-link">Adobe XD Tutorial</span> </p>
-                                       <time> 9 hours ago </time>
-                                    </div>
-                                 </a>
-                               </li>
-                               <li >
-                                 <a href="#">
-                                    <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
-                                    </div>
-                                    <span class="drop_icon bg-gradient-primary">
-                                       <i class="icon-feather-message-square"></i>
-                                       </span>
-                                    <div class="drop_text">
-                                       <p> <strong>Stella Johnson</strong> Comment Your Image  <span class="text-link">Adobe XD Tutorial</span> </p>
-                                       <time> 9 hours ago </time>
-                                    </div>
-                                 </a>
-                               </li>
-                              </ul>
-                           </div>
-                        </div>
-                        <!-- MESSAGE -->
-                        <a href="#" class="is_icon" uk-tooltip="title: Message">
-                           <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
-                           </svg>
-                           <span>4</span> 
-                        </a>
-                        <div uk-drop="mode: click" class="header_dropdown is_message">
-                           <div class="dropdown_scrollbar" data-simplebar>
-                              <div class="drop_headline">
-                                 <h4>Messages </h4>
-                                 <a href="#" data-tippy-placement="left" title="Clear messages">
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </a>
-                              </div>
-                             
-                              <ul>
-                                 <li class="un-read">
-                                    <a href="">
-                                       <div class="drop_avatar">
-                                           <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Stella Johnson </strong>
-                                          <time>12:43 PM</time>
-                                          <p> Alex will explain you how ... </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li class="un-read">
-                                    <a href="">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Adrian Mohani </strong>
-                                          <time> 6:43 PM</time>
-                                          <p> Thanks for The Answer sit amet... </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="#">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong>Alia Dolgove </strong>
-                                          <time> Wed </time>
-                                          <p> Alia just joined Messenger! </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="#">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Jonathan Madano </strong>
-                                          <time> Sun</time>
-                                          <p> Replay Your Comments insit amet consectetur </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li >
-                                    <a href="">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Stella Johnson </strong>
-                                          <time>12:43 PM</time>
-                                          <p> Alex will explain you how ... </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Adrian Mohani </strong>
-                                          <time> 6:43 PM</time>
-                                          <p> Thanks for The Answer sit amet... </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong>Alia Dolgove </strong>
-                                          <time> Wed </time>
-                                          <p> Alia just joined Messenger! </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="#">
-                                       <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-4.jpg" alt=""> </div>
-                                       <div class="drop_text">
-                                          <strong> Jonathan Madano </strong>
-                                          <time> Sun</time>
-                                          <p> Replay Your Comments insit amet consectetur </p>
-                                       </div>
-                                    </a>
-                                 </li>
-                              </ul>
-                           </div>
+                            </li>
                             
-                        </div>
-                        <a href="#"> <img src="../assets/images/avatars/avatar-2.jpg" class="is_avatar" alt=""> </a>
-                        <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
-                           <a href="../profile_login_user/profile_login_user.html" class="user">
-                              <div class="user_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> </div>
-                              <div class="user_name">
-                                 <div> Stella Johnson </div>
+                            <li >
+                              <a href="#">
+                                 <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
+                                 </div>
+                                 <span class="drop_icon bg-gradient-primary">
+                                    <i class="icon-feather-message-square"></i>
+                                    </span>
+                                 <div class="drop_text">
+                                    <p> <strong>Stella Johnson</strong> Comment Your Post  <span class="text-link">Adobe XD Tutorial</span> </p>
+                                    <time> 9 hours ago </time>
+                                 </div>
+                              </a>
+                            </li>
                               
-                              </div>
-                           </a>
-                          
-                           <hr>
-                           <a href="../usersettings/usersettings.html">
-                              <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
-                              </svg>
-                              My Account 
-                           </a>
-                        
-                           <a href="#" id="night-mode" class="btn-night-mode">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                 <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                              </svg>
-                              Night mode <span class="btn-night-mode-switch">
-                              <span class="uk-switch-button"></span> </span>
-                           </a>
-                           <a href="../register_login/index.html">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                              </svg>
-                              Log Out 
-                           </a>
+                            <li >
+                              <a href="#">
+                                 <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
+                                 </div>
+                                 <span class="drop_icon bg-gradient-primary">
+                                    <i class="icon-feather-message-square"></i>
+                                    </span>
+                                 <div class="drop_text">
+                                    <p> <strong>Stella Johnson</strong> Comment Your Video  <span class="text-link">Adobe XD Tutorial</span> </p>
+                                    <time> 9 hours ago </time>
+                                 </div>
+                              </a>
+                            </li>
+                            <li >
+                              <a href="#">
+                                 <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
+                                 </div>
+                                 <span class="drop_icon bg-gradient-primary">
+                                    <i class="icon-feather-message-square"></i>
+                                    </span>
+                                 <div class="drop_text">
+                                    <p> <strong>Stella Johnson</strong> Comment Your Image  <span class="text-link">Adobe XD Tutorial</span> </p>
+                                    <time> 9 hours ago </time>
+                                 </div>
+                              </a>
+                            </li>
+                           </ul>
                         </div>
+                     </div>
+                     <!-- MESSAGE -->
+                     <a href="#" class="is_icon" uk-tooltip="title: Message">
+                        <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                           <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>4</span> 
+                     </a>
+                     <div uk-drop="mode: click" class="header_dropdown is_message">
+                        <div class="dropdown_scrollbar" data-simplebar>
+                           <div class="drop_headline">
+                              <h4>Messages </h4>
+                              <a href="#" data-tippy-placement="left" title="Clear messages">
+                                 <ion-icon name="trash-outline"></ion-icon>
+                             </a>
+                           </div>
+                          
+                           <ul>
+                              <li class="un-read">
+                                 <a href="">
+                                    <div class="drop_avatar">
+                                        <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Stella Johnson </strong>
+                                       <time>12:43 PM</time>
+                                       <p> Alex will explain you how ... </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li class="un-read">
+                                 <a href="">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Adrian Mohani </strong>
+                                       <time> 6:43 PM</time>
+                                       <p> Thanks for The Answer sit amet... </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-6.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong>Alia Dolgove </strong>
+                                       <time> Wed </time>
+                                       <p> Alia just joined Messenger! </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-5.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Jonathan Madano </strong>
+                                       <time> Sun</time>
+                                       <p> Replay Your Comments insit amet consectetur </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li >
+                                 <a href="">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Stella Johnson </strong>
+                                       <time>12:43 PM</time>
+                                       <p> Alex will explain you how ... </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Adrian Mohani </strong>
+                                       <time> 6:43 PM</time>
+                                       <p> Thanks for The Answer sit amet... </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-3.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong>Alia Dolgove </strong>
+                                       <time> Wed </time>
+                                       <p> Alia just joined Messenger! </p>
+                                    </div>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#">
+                                    <div class="drop_avatar"> <img src="../assets/images/avatars/avatar-4.jpg" alt=""> </div>
+                                    <div class="drop_text">
+                                       <strong> Jonathan Madano </strong>
+                                       <time> Sun</time>
+                                       <p> Replay Your Comments insit amet consectetur </p>
+                                    </div>
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
+                         
+                     </div>
+                     <!-- NAME USER -->
+                     <a href=""> 
+                        <img id="header_image_user"  class="is_avatar" alt=""> </a>
+                     <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
+                        <a href="../profile_login_user/profile_login_user.html" class="user">
+                           <div class="user_avatar"> <img id="header_image_user2"  alt=""> </div>
+                           <div class="user_name">
+                              <div id="header_show_nameuser">  </div>
+                           
+                           </div>
+                        </a>
+                       
+                        <hr>
+                        <a href="../usersettings/usersettings.html">
+                           <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                               clip-rule="evenodd"></path>
+                           </svg>
+                           My Account 
+                        </a>
+                     
+                        <a href="#" id="night-mode" class="btn-night-mode">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                           </svg>
+                           Night mode <span class="btn-night-mode-switch">
+                           <span class="uk-switch-button"></span> </span>
+                        </a>
+                        <a  id="usersettings_link_logout" >
+
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                           </svg>
+                           Log Out 
+                        </a>
                      </div>
                   </div>
                </div>
             </div>
-         </header>
-         <!-- sidebar -->
-         <div class="sidebar">
-            <div class="sidebar_inner" data-simplebar>
-               <ul>
-                  <li >
-                     <a href="../feed/feed.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-600">
-                           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                        </svg>
-                        <span> Feed </span> 
-                     </a>
-                  </li>
-                  <li>
-                     <a href="../videos/video_mainpage.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-red-500">
-                           <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4H4v2h1V9zm-1 4h1v2H4v-2z" clip-rule="evenodd" />
-                        </svg>
-                        <span> Videos</span> 
-                     </a>
-                  </li>
-                  <li id="more-veiw">
-                     <a href="../images/image_mainpage.html">
-                        <!-- hidden -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-purple-500">
-                           <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                        <span>  Photos </span> 
-                     </a>
-                  </li>
-                  <li id="more-veiw">
-                     <a href="../posts/post_mainpage.html">
-                        <!-- hidden -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-500">
-                           <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                           <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-                       </svg>
-                        <span>  Forum </span> 
-                     </a>
-                  </li>
-                 
-               </ul>
-         
-               <h3 class="side-title"> Friends </h3>
-               <div class="contact-list my-2 ml-1">
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
-                     <div class="contact-username"> Dennis Han</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
-                     <div class="contact-username"> Erica Jones</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
-                     <div class="contact-username">Stella Johnson</div>
-                  </a>
-                  <a href="chats-friend.html">
-                     <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-4.jpg" alt=""> </div>
-                     <div class="contact-username"> Alex Dolgove</div>
-                  </a>
-               </div>
-            
-            </div>
-            <!-- sidebar overly for mobile -->
-            <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
          </div>
+      </header>
+      <!-- sidebar -->
+      <div class="sidebar">
+         <div class="sidebar_inner" data-simplebar>
+            <ul>
+               <li >
+                  <a href="../feed/feed.html">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-600">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                     </svg>
+                     <span> Feed </span> 
+                  </a>
+               </li>
+               <li>
+                  <a href="../videos/video_mainpage.html">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-red-500">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 2h6v4H7V5zm8 8v2h1v-2h-1zm-2-2H7v4h6v-4zm2 0h1V9h-1v2zm1-4V5h-1v2h1zM5 5v2H4V5h1zm0 4H4v2h1V9zm-1 4h1v2H4v-2z" clip-rule="evenodd" />
+                     </svg>
+                     <span> Videos</span> 
+                  </a>
+               </li>
+               <li id="more-veiw">
+                  <a href="../images/image_mainpage.html">
+                     <!-- hidden -->
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-purple-500">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                     </svg>
+                     <span>  Photos </span> 
+                  </a>
+               </li>
+               <li id="more-veiw">
+                  <a href="../posts/post_mainpage.html">
+                     <!-- hidden -->
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-blue-500">
+                        <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                        <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                    </svg>
+                     <span>  Forum </span> 
+                  </a>
+               </li>
+              
+            </ul>
+      
+            <h3 class="side-title"> Friends </h3>
+            <div class="contact-list my-2 ml-1">
+               <a href="chats-friend.html">
+                  <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-1.jpg" alt=""> <span class="user_status status_online"></span> </div>
+                  <div class="contact-username"> Dennis Han</div>
+               </a>
+               <a href="chats-friend.html">
+                  <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> <span class="user_status"></span> </div>
+                  <div class="contact-username"> Erica Jones</div>
+               </a>
+               <a href="chats-friend.html">
+                  <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-7.jpg" alt=""> </div>
+                  <div class="contact-username">Stella Johnson</div>
+               </a>
+               <a href="chats-friend.html">
+                  <div class="contact-avatar"> <img src="../assets/images/avatars/avatar-4.jpg" alt=""> </div>
+                  <div class="contact-username"> Alex Dolgove</div>
+               </a>
+            </div>
+         
+         </div>
+         <!-- sidebar overly for mobile -->
+         <div class="side_overly" uk-toggle="target: #wrapper ; cls: is-collapse is-active"></div>
+      </div>
          <!-- Main Contents -->
          <div class="main_content">
             <div class="mcontainer">
@@ -1385,6 +1389,12 @@
        <!--#endregion UPDATE VIDEO TITLE DESCRIPTION MODAL -->
             <!-- Javascript
          ================================================== -->
+         <script src="../utils/selectdata.js"></script>
+         <script src="../REST_API/rest_api_user.js"></script>
+         <script src="../REST_API/rest_api_loginuser.js"></script>
+        <script src="../REST_API/rest_api_videos.js"></script>
+        <script src="../REST_API/rest_api_albumvideo.js"></script>
+      <script src="../REST_API/rest_api_cloudinary.js"></script>
             <!-- For Night mode -->
      
             <script src="../assets/js/nightmode.js"></script>
@@ -1397,5 +1407,7 @@
             <script src="../assets/js/bootstrap-select.min.js"></script>
             <script src="../assets/js/preview_image_video.js"></script>
             <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+            <script src="../head_sidebar.js"></script> 
    </body>
 </html>

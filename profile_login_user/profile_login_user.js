@@ -20,19 +20,34 @@ class Profile_Login_User
          ,urlinstagram,urllinkedin,urltwitter,description,
          userrname,image,coverphoto
        }=getuser
+       
+   //SHOW IMAGE COVER PROFILE
+
+
+   this.showImageCoverProfile(image, coverphoto);
    
+   //  //SHOW NAME DESCRIPTION PROFILE
+ 
+     this.loadNameDescriptionUser(description, name);
+
 
        //TIMELINE
        await this.load_timeline(iduser);
 
-        //SHOW IMAGE COVER PROFILE
-
-
-        this.showImageCoverProfile(image, coverphoto);
-   
-      //  //SHOW NAME DESCRIPTION PROFILE
     
-        this.loadNameDescriptionUser(description, name);
+
+         // LOAD VIDEOS LOGIN USER
+         await this.loadVideosLoginUser(iduser);
+
+
+      // LOAD ALBUM VIDEOS LOGIN USER
+      await this.loadAlbumVideosLoginUser();
+
+
+          //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
+      await this.loadAlbumVideoUserModal();
+
+    
 
       // LOAD DESCRIPTION MODAL UPDATE DESCRIPTION
 
@@ -42,8 +57,7 @@ class Profile_Login_User
 
       await this.loadAlbumImagesUserModal();
 
-      //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
-      await this.loadAlbumVideoUserModal();
+   
 
       // LOAD ALBUMIMAGES LOGIN USER
   
@@ -53,12 +67,9 @@ class Profile_Login_User
   
       await this.loadImagesLoginUser(iduser);
 
-      // LOAD ALBUM VIDEOS LOGIN USER
-      await this.loadAlbumVideosLoginUser();
+     
 
-
-      // LOAD VIDEOS LOGIN USER
-        await this.loadVideosLoginUser();
+    
 
 
     // LOAD POST LOGIN USER
@@ -88,7 +99,7 @@ static load_timeline=async(iduser)=>
   // console.log(getPhotoPostVideoByUser);
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
-  for (let i = 0; i < getPhotoPostVideoByUser.length; i++) {
+  for (let i = 0; i < Math.min(getPhotoPostVideoByUser.length, 15); i++) {
     let getpostimagevideo=getPhotoPostVideoByUser[i];
   //   let userProfileImage = getpostuser[i].user.image;
   //  let idpost=getpostuser[i].idpost;
@@ -618,7 +629,7 @@ if(getImagesByAlbum.length!==0)
 }
 //GET IMAGES LOGIN USER
 static async loadImagesLoginUser(iduser) {
-  let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser);
+  let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser,iduser);
   document.getElementById("profileloginuser_span_photoscount").innerHTML = getimagesuser.length;
   let html_load_images = '';
 

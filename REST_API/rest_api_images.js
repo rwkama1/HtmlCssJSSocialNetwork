@@ -107,11 +107,11 @@ class APIRESTImages
        }
        return true;
        }  
-       static getImagesByLoginUser=async(iduser)=>
+       static getImagesByLoginUser=async(iduserLogin,iduser)=>
        {
         
        
-             let URLIMAGE=this.RESTAPIURL+`/images/getImagesbyIdUser?piduser=${iduser}`;
+             let URLIMAGE=this.RESTAPIURL+`/images/getImagesbyIdUser?piduser=${iduser}&iduserlogin=${iduserLogin}`;
  
              let headersList = {
                "Accept": "*/*",
