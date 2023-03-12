@@ -13,6 +13,7 @@ class Profile_Login_User
     
     static showdata_getLoginUser=async()=>
     {
+      setTimeout(async () => {
       try {
       
       let getuser=await this.getLoginUser();
@@ -97,7 +98,7 @@ class Profile_Login_User
      window.location.href="../index.html";
    
      }
-     
+   },1000);
      } 
 
 //TIMELINE
@@ -325,8 +326,6 @@ static load_timeline=async(iduser)=>
         visibilitySelect.value = 'Public';
       }
       
-      
-    
 
     }
     static showIdDeleteModal=async(id)=>

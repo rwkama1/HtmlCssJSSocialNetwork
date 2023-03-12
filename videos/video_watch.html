@@ -463,7 +463,7 @@
                   <div class="lg:w-3/4"> 
                      
                       <div class="embed-video rounded">
-                          <video id="video_watch" src="../assets/video/universesize.mp4" 
+                          <video id="videowatch_video" id="video_watch" 
                           uk-reponsive muted  autoplay playsinline   controls   >
 
 
@@ -474,13 +474,13 @@
                       <div class="py-5 space-y-4">
                         <div class="relative">
                           <div>
-                              <h1 class="text-2xl font-semibold line-clamp-1">
-                                  Lorem ipsum dolor sit amet
+                              <h1 id="videowatch_titlevideo" class="text-2xl font-semibold line-clamp-1">
+                                  
                                  </h1>
                               <!-- <p> 60,723,169 views </p> -->
                           </div>
                                 <!-- EDIT AND DELETE VIDEO -->
-                                <div class="absolute right-0 top-0">
+                                <div id="videowatch_editdeletevideo_div" hidden class="absolute right-0 top-0">
                                  <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
                                    <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
                                    uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
@@ -506,10 +506,10 @@
                            </div>
                           <div class="md:flex items-center justify-between">
                               <a href="" class="flex items-center space-x-3">
-                                  <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-10 rounded-full">
+                                  <img id="videowatch_userimageprofile" src="" alt="" class="w-10 rounded-full">
                                   <div class="">
-                                      <div class="text-base font-semibold"> Stella Johnson </div>
-                                      <div class="text-xs"> Published on Oct 22, 2022 </div>
+                                      <div id="videowatch_username_div" class="text-base font-semibold">  </div>
+                                      <div id="videowatch_publishedvideo" class="text-xs">  </div>
                                       
                                   </div>
                               </a>
@@ -524,7 +524,7 @@
                                              <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                                           </svg>
                                        </div>
-                                       <div class="ml-6"> 166</div>
+                                       <div id="videowatch_likesvideo" class="ml-6"> 166</div>
                                     </button>
                                    
                                 </div>
@@ -532,7 +532,7 @@
                           </div>
                           
                           <div class="text-lg font-semibold pt-2"> Description </div>
-                          <p> Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna
+                          <p id="videowatch_descriptionvideo_p"> Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna
                               aliqua.
                               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat.
                            </p>
@@ -1326,9 +1326,9 @@
    
          <!--#endregion DELETE  VIDEO -->
 
-         <!-- #region UPDATE VIDEO TITLE DESCRIPTION MODAL-->
+        <!-- #region UPDATE VIDEO TITLE DESCRIPTION MODAL-->
 
-      <div id="update-video-modal" class="create-post is-story" uk-modal>
+        <div id="update-video-modal" class="create-post is-story" uk-modal>
          <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
             <div class="py-4 border-b flex  justify-between px-6">
                <h3 class="text-lg font-semibold"> Update Video </h3>
@@ -1340,21 +1340,22 @@
                </div>
             </div>
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+               <form id="form_updatevideo_videowatch" class="space-y-4 g:w-8/12">
                   <!-- <div class="font-semibold text-lg"> Details </div> -->
+                  <input id="videowatch_updatevideo_idvideo"  type="hidden" >
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-                     <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+                     <input id="videowatch_updatevideo_name" type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
                   </div>
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-                     <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+                     <textarea id="videowatch_updatevideo_description" type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                   <div class="px-2 space-y-2">
-                     <div class="font-semibold text-base"> Visibilty </div>
+                     <div class="font-semibold text-base"> Visibility </div>
                      <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                         the website. </div> -->
-                     <select class="selectpicker">
+                     <select  id="videowatch_updatevideo_visibility">
                         <option data-icon="uil-bullseye"> Private </option>
                         
                         <option data-icon="uil-globe" selected>Public</option>
@@ -1409,5 +1410,6 @@
             <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
             <script src="../head_sidebar.js"></script> 
+            <script src="./video_watch.js"></script> 
    </body>
 </html>

@@ -11,6 +11,7 @@ class VideoMainPageJS
       //LOAD PAGE
       static loadPage=async()=>
       {
+        setTimeout(async () => {
         try {
         let response_loginuser= await this.getLoginUser();
         SelectData.iduserLogin=response_loginuser.iduser;
@@ -26,7 +27,9 @@ class VideoMainPageJS
       } catch (error) {
         alert(error);
         window.location.href="../index.html"; 
-   }
+         }
+    },1000);
+
       }
         //SEARCH
       static searchVideos=async(event)=>
@@ -39,18 +42,29 @@ class VideoMainPageJS
         let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(iduserLogin,query);
         let html_load_seaarchvideos="";
         for (let i = 0; i <  Math.min(getSearchVideosExpresion.length, 10); i++) {
-          let {urlvideo,description,stringpostedago,title,user}=getSearchVideosExpresion[i];
+          let {urlvideo,description,stringpostedago,title,user,idvideo}=getSearchVideosExpresion[i];
           html_load_seaarchvideos+=`
               <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
               <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                <a href="../videos/video_watch.html">
+                <a 
+                href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                >
                     <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
                 </a>
               </div>
               <div class="flex-1 space-y-2">
-                <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                <a 
+                href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                <a 
+              href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
                       <div>${stringpostedago} </div>
@@ -73,18 +87,26 @@ class VideoMainPageJS
     let getSearchVideosExpresion = await APIRESTVideo.getSearchVideosExpresion(iduser,"");
     let html_load_seaarchvideos="";
     for (let i = 0; i < Math.min(getSearchVideosExpresion.length, 10); i++) {
-      let { urlvideo, description, stringpostedago, title,user } = getSearchVideosExpresion[i];
+      let { urlvideo, description, stringpostedago, title,user,idvideo } = getSearchVideosExpresion[i];
+     
       html_load_seaarchvideos += `
               <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
               <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                <a href="../videos/video_watch.html">
+                <a
+                 href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                >
                     <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
                 </a>
               </div>
               <div class="flex-1 space-y-2">
-                <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                <a href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                 class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                <a href="./video_watch.html"
+                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                 class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
                       <div>${stringpostedago} </div>
@@ -105,18 +127,28 @@ class VideoMainPageJS
         
           let html_load_videosmorelike="";
           for (let i = 0; i < Math.min(getVideosOrderByLikes.length, 10); i++) {
-            let { urlvideo, description, stringpostedago, title,user } = getVideosOrderByLikes[i];
+            let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideosOrderByLikes[i];
             html_load_videosmorelike += `
                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
                     <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                      <a href="../videos/video_watch.html">
+                    
+                      <a href="./video_watch.html"
+                      onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                      >
                           <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
                       </a>
                     </div>
                     <div class="flex-1 space-y-2">
-                      <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                    <a href="./video_watch.html"
+                    onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                       class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                       <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                      <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                     
+                      <a href="./video_watch.html"
+                       onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                       class="font-semibold block text-sm"> ${user.name}</a>
                       <div class="flex items-center justify-between">
                           <div class="flex space-x-3 items-center text-sm md:pt-3">
                             <div>${stringpostedago} </div>
@@ -136,18 +168,28 @@ class VideoMainPageJS
               
                 let html_load_videosmorecomments="";
                 for (let i = 0; i < Math.min(getVideosOrderbyComments.length, 10); i++) {
-                  let { urlvideo, description, stringpostedago, title,user } = getVideosOrderbyComments[i];
+                  let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideosOrderbyComments[i];
                   html_load_videosmorecomments += `
                           <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
                           <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                            <a href="../videos/video_watch.html">
+                         
+                            <a href="./video_watch.html"
+                            onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                            >
                                 <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
                             </a>
                           </div>
                           <div class="flex-1 space-y-2">
-                            <a href="../videos/video_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                           
+                            <a href="./video_watch.html"
+                            onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                            class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                             <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                            <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                          
+                            <a href="./video_watch.html"
+                            onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                             class="font-semibold block text-sm"> ${user.name}</a>
                             <div class="flex items-center justify-between">
                                 <div class="flex space-x-3 items-center text-sm md:pt-3">
                                   <div>${stringpostedago} </div>
@@ -206,6 +248,21 @@ class VideoMainPageJS
           }
 
           document.getElementById("videomainpage_select_albumvideos").innerHTML = load_albums_video;
+        }
+
+        static passidtoVideoWatch=(idvideo)=>
+        {
+          try {
+            sessionStorage.setItem('idvideowatch', idvideo);
+          
+
+       
+
+         }catch (error) {
+           alert(error);
+          
+         }
+          
         }
 }
 window.addEventListener("load",VideoMainPageJS.loadPage);

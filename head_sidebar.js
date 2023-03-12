@@ -19,8 +19,8 @@ static  logout=async()=>
     
  
   // SHOW NAME AND IMAGE PROFILE
-  const response_loginuser= await APIRESTLoginUser.getLoginUser();
-  const getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+  const getuser= await APIRESTLoginUser.getLoginUser();
+  
   if(getuser.image==="")
   {
     document.getElementById("header_image_user").src = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
@@ -40,7 +40,7 @@ static  logout=async()=>
  }
 }
 }
-document.addEventListener("DOMContentLoaded",Head_SidebarJS.show_image_and_name_user);
+window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);
 
 const a_logout = document.getElementById('usersettings_link_logout');
 a_logout.addEventListener('click', Head_SidebarJS.logout);
