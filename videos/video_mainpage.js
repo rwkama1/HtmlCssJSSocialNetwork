@@ -25,8 +25,8 @@ class VideoMainPageJS
         await this.listVideosMoreComment();
 
       } catch (error) {
-        alert(error);
-        window.location.href="../index.html"; 
+        // alert(error);
+        // window.location.href="../index.html"; 
          }
     },1000);
 
@@ -78,8 +78,8 @@ class VideoMainPageJS
         }
       document.getElementById("videomaingpage_listsearchvideos_div").innerHTML=html_load_seaarchvideos;
     } catch (error) {
-         alert(error);
-         window.location.href="../index.html"; 
+        //  alert(error);
+        //  window.location.href="../index.html"; 
     }
       }
       //LIST
@@ -259,7 +259,7 @@ class VideoMainPageJS
        
 
          }catch (error) {
-           alert(error);
+          // alert(error);
           
          }
           

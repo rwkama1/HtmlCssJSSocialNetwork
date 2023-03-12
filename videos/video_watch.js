@@ -29,8 +29,8 @@ class VideoWatchJS
 
 
    } catch (error) {
-     alert(error);
-     window.location.href="../index.html"; 
+     console.log(error);
+     //window.location.href="../index.html"; 
         }
     },1000);
    } 
@@ -68,8 +68,11 @@ class VideoWatchJS
       visibilitySelect.value = 'Public';
     }
 
+    //GET ID VIDEO DELETE
+    document.getElementById("idvideo_deletevideomodal_videowatch").setAttribute("value", idvideo);
 
    }
+   //UPDATE VIDEO
    static updateVideo= async(event)=>
    {
      try {
@@ -97,12 +100,37 @@ class VideoWatchJS
        alert(error);
      }
    }
-
+   //DELETE VIDEO
+   static deleteVideo= async(event)=>
+   {
+     try {
+      
+       const idvideo = document.getElementById('idvideo_deletevideomodal_videowatch').value;
+      
+      
+         const response_delete_video= await APIRESTVideo.deleteVideo(idvideo);
+         if (response_delete_video) {
+       
+           messagenotification('Video Deleted','success',event);
+           setInterval(() => {
+            window.location.href="./video_mainpage.html"; 
+           }, 1000);
+         
+          }
+    
+      
+     }catch (error) {
+       alert(error);
+     }
+   }
 
 
    
 }
 window.addEventListener("load",VideoWatchJS.loadPage);
-//VIDEO
+
 const updatevideoform = document.getElementById('form_updatevideo_videowatch');
 updatevideoform.addEventListener('submit', VideoWatchJS.updateVideo);
+
+const buttonDeleteVideo = document.getElementById('button_deletevideomodal_videowatch');
+buttonDeleteVideo.addEventListener('click', VideoWatchJS.deleteVideo);

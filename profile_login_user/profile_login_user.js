@@ -16,11 +16,12 @@ class Profile_Login_User
       setTimeout(async () => {
       try {
       
-      let getuser=await this.getLoginUser();
+      let getuserlogin=await this.getLoginUser();
+      SelectData.userlogin=getuserlogin;
        let {iduser,name,email,ocupattion,urlfacebook,country
          ,urlinstagram,urllinkedin,urltwitter,description,
          userrname,image,coverphoto
-       }=getuser
+       }=SelectData.getUserLogin();
        
 
       // SHOW  IMAGE PROFILE TIMELINE ADD POST
@@ -94,8 +95,8 @@ class Profile_Login_User
 
      } catch (error) {
       console.error(error);
-     alert(error);
-     window.location.href="../index.html";
+   //   alert(error);
+   //   window.location.href="../index.html";
    
      }
    },1000);
@@ -763,7 +764,7 @@ static async loadPostLoginUser(iduser) {
  
  
    document.getElementById("profileloginuser_listposts_ul").innerHTML = html_load_post;
- }S
+ }
 //GET ALBUM VIDEOS LOGIN USER
 static async loadAlbumVideosLoginUser() {
   let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();

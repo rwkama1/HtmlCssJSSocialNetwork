@@ -107,6 +107,8 @@ class APIRESTImages
        }
        return true;
        }  
+
+        //GETS
        static getImagesByLoginUser=async(iduserLogin,iduser)=>
        {
         
@@ -166,6 +168,75 @@ class APIRESTImages
               }
               
               let response = await fetch(URLIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+       static getSearchImagesExpresion=async(iduser,searchtext)=>
+       {
+             let URLIMAGE=this.RESTAPIURL+`/images/getSearchImagesExpresion?searchtext=${searchtext}&iduser=${iduser}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+
+       static getImagesOrderByLikes=async()=>
+       {
+       
+             let URLIMAGES=this.RESTAPIURL+`/images/getImagesOrderByLikes`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGES, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+       static getImagesOrderbyComments=async()=>
+       {
+       
+             let URLIMAGES=this.RESTAPIURL+`/images/getImagessOrderbyComments`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGES, { 
                 method: "GET",
                 headers: headersList
               });
