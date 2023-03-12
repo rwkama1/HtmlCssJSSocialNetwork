@@ -16,7 +16,7 @@ class ImageMainPageJS
         let response_loginuser= await this.getLoginUser();
         SelectData.iduserLogin=response_loginuser.iduser;
 
-       // await this.loadAlbumImageUserModal();
+        await this.loadAlbumImageUserModal();
 
         await this.listImageSearch(response_loginuser.iduser);
 
@@ -71,6 +71,7 @@ class ImageMainPageJS
             // window.location.href="../index.html"; 
        }
          }
+         //LIST
          static listImageSearch=async(iduser)=>
          {
          let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(iduser,"");
@@ -170,6 +171,50 @@ class ImageMainPageJS
          document.getElementById("imagemainpage_listmorecommentimage_div").innerHTML = html_load_commentsimages;
          
          }
+            //ADD IMAGE
+            static upload_image_modal=async(event)=>
+            {
+              try {
+               event.preventDefault();
+               document.getElementById("create-image-modal").classList.add("cursor-loading");
+               const title = document.getElementById('imagemainpage_uploadimage_title').value;
+                const idalbumimage = document.getElementById('imagemainpage_select_albumimages').value;
+                const description = document.getElementById('imagemainpage_uploadimage_description').value;
+                const visibility = document.getElementById('imagemainpage_uploadimage_visibility').value;
+                let fileimage = document.getElementById('uploadoneimage').files[0];
+                let getulogin=await this.getLoginUser();
+               
+              let urlimage=await APIRESTCloudinary.upload_image(fileimage,getulogin.iduser);
+                const dataform = {title
+                  ,idalbumimage,visibility,description,urlimage}
+              
+                 const response_upload_image= await APIRESTImages.addImage(dataform);
+                 if (response_upload_image) {
+                
+                   document.getElementById('imagemainpage_uploadimage_title').value="";
+                   document.getElementById('imagemainpage_uploadimage_description').value="";
+                  }
+            
+                  messagenotification('Image Added','success',event);
+                  document.getElementById("create-image-modal").classList.remove("cursor-loading");
+                  setInterval(location.reload(),1000);
+                 
+             }catch (error) {
+               alert(error);
+               location.reload();
+             }
+              
+            }
+   //GET TITLE ALBUM IN ADD MODAL IMAGE
+   static async loadAlbumImageUserModal() {
+      let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+      let load_albums_image = "";
+      for (let i = 0; i < getAlbumImage.length; i++) {
+         load_albums_image += `<option value=${getAlbumImage[i].idalbumphoto}>${getAlbumImage[i].title}</option>`;
+      }
+
+      document.getElementById("imagemainpage_select_albumimages").innerHTML = load_albums_image;
+    }
 
 }
 window.addEventListener("load",ImageMainPageJS.loadPage);
@@ -177,4 +222,9 @@ window.addEventListener("load",ImageMainPageJS.loadPage);
 //SEARCH IMAGE
 
 const searchImage = document.getElementById("imagemainpage_searchvideo_text");
-searchImage.addEventListener("input",ImageMainPageJS.searchImage)
+searchImage.addEventListener("input",ImageMainPageJS.searchImage);
+
+//ADD IMAGE
+
+const addimage = document.getElementById("form_imagemainpage_addimage");
+addimage.addEventListener("submit",ImageMainPageJS.upload_image_modal)
