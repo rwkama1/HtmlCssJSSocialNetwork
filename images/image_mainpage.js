@@ -45,13 +45,17 @@ class ImageMainPageJS
              html_load_searchimages+=`
              <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
              <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-                <a href="image_watch.html">
+                <a href="image_watch.html"
+                onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+                >
                    <img src="${urlimage}" 
                    uk-responsive class="w-full h-full absolute object-cover inset-0">
                 </a>
              </div>
              <div class="flex-1 space-y-2">
-                <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                <a href="image_watch.html" 
+                onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+                class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
                 <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
@@ -82,13 +86,17 @@ class ImageMainPageJS
             html_load_seaarchimages += `
             <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
             <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-               <a href="image_watch.html">
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               >
                   <img src="${urlimage}" 
                   uk-responsive class="w-full h-full absolute object-cover inset-0">
                </a>
             </div>
             <div class="flex-1 space-y-2">
-               <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+               <a href="image_watch.html" 
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
@@ -115,13 +123,17 @@ class ImageMainPageJS
             html_load_imageslike += `
             <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
             <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-               <a href="image_watch.html">
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               >
                   <img src="${urlimage}" 
                   uk-responsive class="w-full h-full absolute object-cover inset-0">
                </a>
             </div>
             <div class="flex-1 space-y-2">
-               <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+                class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
@@ -148,13 +160,17 @@ class ImageMainPageJS
             html_load_commentsimages += `
             <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
             <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
-               <a href="image_watch.html">
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               >
                   <img src="${urlimage}" 
                   uk-responsive class="w-full h-full absolute object-cover inset-0">
                </a>
             </div>
             <div class="flex-1 space-y-2">
-               <a href="image_watch.html" class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+               <a href="image_watch.html" 
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
@@ -172,13 +188,13 @@ class ImageMainPageJS
          
          }
             //ADD IMAGE
-            static upload_image_modal=async(event)=>
+        static upload_image_modal=async(event)=>
             {
               try {
                event.preventDefault();
                document.getElementById("create-image-modal").classList.add("cursor-loading");
                const title = document.getElementById('imagemainpage_uploadimage_title').value;
-                const idalbumimage = document.getElementById('imagemainpage_select_albumimages').value;
+                const idalbumphoto = document.getElementById('imagemainpage_select_albumimages').value;
                 const description = document.getElementById('imagemainpage_uploadimage_description').value;
                 const visibility = document.getElementById('imagemainpage_uploadimage_visibility').value;
                 let fileimage = document.getElementById('uploadoneimage').files[0];
@@ -186,7 +202,7 @@ class ImageMainPageJS
                
               let urlimage=await APIRESTCloudinary.upload_image(fileimage,getulogin.iduser);
                 const dataform = {title
-                  ,idalbumimage,visibility,description,urlimage}
+                  ,idalbumphoto,visibility,description,urlimage}
               
                  const response_upload_image= await APIRESTImages.addImage(dataform);
                  if (response_upload_image) {
@@ -205,16 +221,28 @@ class ImageMainPageJS
              }
               
             }
-   //GET TITLE ALBUM IN ADD MODAL IMAGE
-   static async loadAlbumImageUserModal() {
-      let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser();
-      let load_albums_image = "";
-      for (let i = 0; i < getAlbumImage.length; i++) {
-         load_albums_image += `<option value=${getAlbumImage[i].idalbumphoto}>${getAlbumImage[i].title}</option>`;
-      }
+         //GET TITLE ALBUM IN ADD MODAL IMAGE
+         static async loadAlbumImageUserModal() {
+            let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+            let load_albums_image = "";
+            for (let i = 0; i < getAlbumImage.length; i++) {
+            
+               load_albums_image += `<option value=${getAlbumImage[i].idalbumphoto}>${getAlbumImage[i].title}</option>`;
+            }
 
-      document.getElementById("imagemainpage_select_albumimages").innerHTML = load_albums_image;
-    }
+            document.getElementById("imagemainpage_select_albumimages").innerHTML = load_albums_image;
+         }
+         static passidtoImageWatch=(idimage)=>
+        {
+          try {
+            sessionStorage.setItem('idimagewatch', idimage);
+
+         }catch (error) {
+          // alert(error);
+          
+         }
+          
+        }
 
 }
 window.addEventListener("load",ImageMainPageJS.loadPage);
