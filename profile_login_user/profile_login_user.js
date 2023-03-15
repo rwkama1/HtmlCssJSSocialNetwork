@@ -650,7 +650,10 @@ static async loadImagesLoginUser(iduser) {
       html_load_images += `
           <div id="morephotos" hidden class="card lg:mx-0 uk-animation-slide-bottom-small">
             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <a href="">
+              <a 
+              href="../images/image_watch.html"
+              onclick="Profile_Login_User.passidtoImageWatch('${getimagesuser[i].idphoto}');"
+              >
                 <img src="${imageUrl}" class="w-full h-full absolute object-cover inset-0">
               </a>
               <!-- overly-->
@@ -674,7 +677,10 @@ static async loadImagesLoginUser(iduser) {
       html_load_images += `
           <div>
             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-              <a href="">
+              <a
+              href="../images/image_watch.html"
+              onclick="Profile_Login_User.passidtoImageWatch('${getimagesuser[i].idphoto}');"
+              >
                 <img src="${imageUrl}" class="w-full h-full absolute object-cover inset-0">
               </a>
               <!-- overly-->
@@ -728,7 +734,10 @@ static async loadPostLoginUser(iduser) {
            <div class="flex items-start space-x-5 p-7">
                <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
                <div class="flex-1">
-                   <a href="#" class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
+                   <a
+                    href="../posts/post_watch.html"
+                   onclick="Profile_Login_User.passidtoPostWatch('${idpost}');"
+                    class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
                    <p class="text-sm text-gray-400 mb-2"><span data-href="%40tag-dev.html">${stringpostedago}</span></p>
                  <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
                </div>
@@ -745,7 +754,10 @@ static async loadPostLoginUser(iduser) {
              <div class="flex items-start space-x-5 p-7">
                  <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
                  <div class="flex-1">
-                     <a href="#" class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
+                     <a 
+                     href="../posts/post_watch.html"
+                     onclick="Profile_Login_User.passidtoPostWatch('${idpost}');"
+                     class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
                      <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html">${stringpostedago}</span>  </p>
                      <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
                  </div>
@@ -825,7 +837,11 @@ static async loadVideosLoginUser(iduser) {
       html_load_videos += `
       <div hidden id="morevideo" >
       <div class="uk-position-relative uk-visible-toggle uk-light" >
-               <a href="../feed/feed.html">
+         <a 
+         href="../videos/video_watch.html"
+         onclick="Profile_Login_User.passidtoVideoWatch('${getVideosByLoginUser[i].idvideo}');"
+
+               >
                 <video src="${videoUrl}" autoplay loop muted playsinline>
 
                 </video>
@@ -839,7 +855,11 @@ static async loadVideosLoginUser(iduser) {
       html_load_videos += `
       <div>
       <div class="uk-position-relative uk-visible-toggle uk-light" >
-         <a href="../feed/feed.html">
+         <a 
+         href="../videos/video_watch.html"
+         onclick="Profile_Login_User.passidtoVideoWatch('${getVideosByLoginUser[i].idvideo}');"
+
+         >
             <video src="${videoUrl}" autoplay loop muted playsinline>
 
             </video>
@@ -906,7 +926,10 @@ static forAddImagesFromAlbum(images)
       const imageUrl = images[i].urlimage;
       html_images += `
          <li>
-            <a href="">
+            <a 
+            href="../images/image_watch.html"
+              onclick="Profile_Login_User.passidtoImageWatch('${images[i].idphoto}');"
+            >
                <img src="${imageUrl}" alt="" uk-cover>
             </a>
          </li>
@@ -923,7 +946,10 @@ static forAddImagesFromAlbum(images)
       const urlvideo = videos[i].urlvideo;
       html_videos += `
       <li> 
-      <a href="../feed/feed.html">
+      <a 
+      href="../videos/video_watch.html"
+         onclick="Profile_Login_User.passidtoVideoWatch('${videos[i].idvideo}');"
+      >
          <video src="${urlvideo}" 
          autoplay loop muted playsinline >
 
@@ -1479,6 +1505,45 @@ static forAddImagesFromAlbum(images)
         }
          return html_comment_video;
           }
+ //*************************************************** */
+ static passidtoPostWatch=(idpost)=>
+        {
+          try {
+            sessionStorage.setItem('idpostwatch', idpost);
+
+         }catch (error) {
+          // alert(error);
+          
+         }
+          
+}
+static passidtoImageWatch=(idimage)=>
+{
+  try {
+    sessionStorage.setItem('idimagewatch', idimage);
+
+ }catch (error) {
+  // alert(error);
+  
+ }
+  
+}
+
+static passidtoVideoWatch=(idvideo)=>
+{
+  try {
+    sessionStorage.setItem('idvideowatch', idvideo);
+  
+
+
+
+ }catch (error) {
+  // alert(error);
+  
+ }
+  
+}
+
 }
 
 window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);
