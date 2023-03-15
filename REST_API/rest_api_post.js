@@ -105,7 +105,8 @@ const response=await fetch(PUTURLPOST, requestOptions);
         throw new Error(error);
        }
        return true;
-       }   
+       } 
+       //  GETS
  static getPostByLoginUser=async(iduser)=>
  {
   
@@ -154,4 +155,70 @@ const response=await fetch(PUTURLPOST, requestOptions);
       let data = await response.json();
       return data;
  }  
+ static getSearchPostExpresion=async(iduser,searchtext)=>
+       {
+             let URLPOST=this.RESTAPIURL+`/post/getSearchPostExpresion?searchtext=${searchtext}&iduser=${iduser}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }
+    static getMoreLikePost=async()=>
+       {
+             let URLPOST=this.RESTAPIURL+`/post/getPostOrderByLikes`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
+    static getMoreCommentPosts=async()=>
+       {
+             let URLPOST=this.RESTAPIURL+`/post/getPostsOrderbyComments`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }           
 }

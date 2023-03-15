@@ -32,8 +32,8 @@
    </head>
    <body>
       <div id="wrapper">
-         <!-- Header -->
-         <header>
+          <!-- Header -->
+          <header>
       
       
             <div class="header_wrap">
@@ -348,12 +348,14 @@
                            </div>
                             
                         </div>
-                        <a href="#"> <img src="../assets/images/avatars/avatar-2.jpg" class="is_avatar" alt=""> </a>
+                        <!-- NAME USER -->
+                        <a href=""> 
+                           <img id="header_image_user"  class="is_avatar" alt=""> </a>
                         <div uk-drop="mode: click;offset:5" class="header_dropdown profile_dropdown">
                            <a href="../profile_login_user/profile_login_user.html" class="user">
-                              <div class="user_avatar"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> </div>
+                              <div class="user_avatar"> <img id="header_image_user2"  alt=""> </div>
                               <div class="user_name">
-                                 <div> Stella Johnson </div>
+                                 <div id="header_show_nameuser">  </div>
                               
                               </div>
                            </a>
@@ -361,7 +363,8 @@
                            <hr>
                            <a href="../usersettings/usersettings.html">
                               <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+                                 <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                  clip-rule="evenodd"></path>
                               </svg>
                               My Account 
                            </a>
@@ -373,7 +376,8 @@
                               Night mode <span class="btn-night-mode-switch">
                               <span class="uk-switch-button"></span> </span>
                            </a>
-                           <a href="../register_login/index.html">
+                           <a  id="usersettings_link_logout" >
+   
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                               </svg>
@@ -462,11 +466,11 @@
                       <div class="py-5 space-y-4">
                         <!-- POST -->
                         <div class="relative">
-                           <h1 class="text-2xl font-semibold line-clamp-1">
-                               Lorem ipsum dolor sit amet
+                           <h1 id="postwatch_title" class="text-2xl font-semibold line-clamp-1">
+                             
                            </h1>
                             <!-- EDIT AND DELETE POST -->
-                           <div class="absolute right-0 top-0">
+                           <div id="postwatch_editdeletepost_div" hidden class="absolute right-0 top-0">
                               <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
                                 <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
                                 uk-drop="mode: click;pos: bottom-right;animation: uk-animation-slide-bottom-small">
@@ -492,18 +496,14 @@
                        </div>
                       
                        
-                       <p class="mt-4">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos temporibus voluptatem ab sint obcaecati. Voluptatibus velit, in labore dolore delectus doloremque tenetur ut obcaecati commodi, nostrum eaque fugiat maiores debitis.
-                        Lorem ipsum dolor sit amet, 
-                        consectetur adipisici elit, 
-                        sed eiusmod tempor incidunt ut
-                         labore et dolore magna aliqua.</p> 
+                       <p id="postwatch_description" class="mt-4">
+                       </p> 
                            <div class="md:flex items-center justify-between">
                               <a href="" class="flex items-center space-x-3">
-                                  <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-10 rounded-full">
+                                  <img id="postwatch_userimage" src="" alt="" class="w-10 rounded-full">
                                   <div class="">
-                                      <div class="text-base font-semibold"> Stella Johnson </div>
-                                      <div class="text-xs"> Published on Oct 22, 2022 </div>
+                                      <div id="postwatch_username_div" class="text-base font-semibold">  </div>
+                                      <div id="postwatch_publishedpost" class="text-xs"> </div>
                                       
                                   </div>
                               </a>
@@ -1135,30 +1135,30 @@
 
                         <!-- DELETE  COMMENT MODAL -->
 
-    <div id="deletecommentmodal"  uk-modal tabindex="-1">
-      <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
-            type="button" uk-close>
-            <i class="icon-feather-close"></i>
-             </button>
-              <div class="p-6 text-center">
-                  <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  <h3 
-                  class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete the comment?</h3>
-                  <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                      Delete
-                  </button>
-                  <!-- <button 
-                   type="button" 
-                 
-                   class=" text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                   No, cancel</button> -->
-              </div>
-          </div>
-      </div>
-    </div>
+               <div id="deletecommentmodal"  uk-modal tabindex="-1">
+                  <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
+                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+                        type="button" uk-close>
+                        <i class="icon-feather-close"></i>
+                        </button>
+                        <div class="p-6 text-center">
+                              <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                              <h3 
+                              class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                              Are you sure you want to delete the comment?</h3>
+                              <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                 Delete
+                              </button>
+                              <!-- <button 
+                              type="button" 
+                           
+                              class=" text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                              No, cancel</button> -->
+                        </div>
+                     </div>
+                  </div>
+               </div>
 
       <!-- DELETE SUBCOMMENT MODAL -->
       <div id="deletesubcommentmodal" uk-modal tabindex="-1">
@@ -1267,7 +1267,10 @@
      <div id="delete_post_modal"  uk-modal tabindex="-1">
       <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
+              <input id="idpost_deletepost_postwatch"  type="hidden" >
+            <button
+            id="button_deletepostmodal_postwatch"
+             class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
             type="button" uk-close>
             <i class="icon-feather-close"></i>
             </button>
@@ -1284,9 +1287,9 @@
    </div>
 
 <!--#endregion DELETE  POST -->
-  <!--#region UPDATE  POST MODAL  -->
+ <!--#region UPDATE  POST MODAL  -->
 
-  <div id="update_post_modal" class="create-post is-story" uk-modal>
+ <div id="update_post_modal" class="create-post is-story" uk-modal>
    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical shadow-2xl uk-animation-slide-bottom-small">
       <div class="py-4 border-b flex  justify-between px-6">
          <h3 class="text-lg font-semibold"> Update Post </h3>
@@ -1298,21 +1301,22 @@
          </div>
       </div>
       <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-         <form onsubmit="alert('Post Added')" class="space-y-4 g:w-8/12">
+         <form id="form_postwatch_updatepost" class="space-y-4 g:w-8/12">
+            <input id="idpost_updatepost_postwatch"  type="hidden" >
             <!-- <div class="font-semibold text-lg"> Details </div> -->
             <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 pb-0 rounded-md">
                <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Title</label>
-               <input type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
+               <input id="postwatch_updatepost_name" type="text" placeholder="Name" required class="-mt-2 -mx-3 bg-transparent focus:bg-white focus:ring-gray-300 h-8 outline-none px-0 text-base w-full"> 
             </div>
             <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Description</label>
-               <textarea type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
+               <textarea id="postwatch_updatepost_description" type="text" rows="5"  required class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
             </div>
             <div class="px-2 space-y-2">
-               <div class="font-semibold text-base"> Visibilty </div>
+               <div class="font-semibold text-base"> Visibility </div>
                <!-- <div> Manage your videos or your contents who want to see your videos and share with theme across
                   the website. </div> -->
-               <select class="selectpicker">
+               <select id="postwatch_updatepost_visibility" >
                   <option data-icon="uil-bullseye"> Private </option>
                   
                   <option data-icon="uil-globe" selected>Public</option>
@@ -1340,7 +1344,12 @@
             <!-- Javascript
          ================================================== -->
             <!-- For Night mode -->
-     
+            <script src="../utils/selectdata.js"></script>
+            <script src="../REST_API/rest_api_user.js"></script>
+            <script src="../REST_API/rest_api_loginuser.js"></script>    
+            <script src="../REST_API/rest_api_postcomment.js"></script>      
+           <script src="../REST_API/rest_api_post.js"></script>
+
             <script src="../assets/js/nightmode.js"></script>
             <script src="../assets/js/jquery-3.6.0.min.js"></script>
             <script src="../assets/js/tippy.all.min.js"></script>
@@ -1351,5 +1360,8 @@
             <script src="../assets/js/bootstrap-select.min.js"></script>
             <script src="../assets/js/preview_image_video.js"></script>
             <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-   </body>
+              
+            <script src="../head_sidebar.js"></script> 
+            <script src="./post_watch.js"></script>
+         </body>
 </html>

@@ -13,6 +13,8 @@ static  logout=async()=>
       window.location.href="../index.html";
     }
   } 
+
+  
   static  show_image_and_name_user=async()=>
  {
   try {

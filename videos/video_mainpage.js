@@ -270,7 +270,7 @@ window.addEventListener("load",VideoMainPageJS.loadPage);
 //SEARCH VIDEO
 
 const searchVideo = document.getElementById("videomainpage_searchvideo_text");
-searchVideo.addEventListener("input",VideoMainPageJS.searchVideos)
+searchVideo.addEventListener("input",VideoMainPageJS.searchVideos);
 
 
 //ADD VIDEO

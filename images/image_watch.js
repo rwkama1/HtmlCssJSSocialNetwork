@@ -9,7 +9,7 @@ class ImageWatchJS
        let idimagewatch = sessionStorage.getItem('idimagewatch');
        let getImage=await APIRESTImages.getImage(idimagewatch);
        let getuser=await APIRESTUser.getUser(getImage.user.iduser);
-            console.log(idimagewatch);
+         
        let iduserlogin=getuserlogin.iduser;
        let iduserimage=getuser.iduser;
        //SHOW EDIT DELETE IMAGE DIV
