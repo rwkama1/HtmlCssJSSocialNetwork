@@ -173,7 +173,7 @@ class PostMainPageJS
                                 <img src="${user.image}" alt="" class="w-12 h-12 rounded-full">
                                 <div class="flex-1">
                                     <a href="../posts/post_watch.html" 
-                                    onclick="PostMainPageJS.passidtoPostWatch('${idphoto}');"
+                                    onclick="PostMainPageJS.passidtoPostWatch('${idpost}');"
                                     class="text-lg font-semibold line-clamp-1 mb-1">${title} </a>
                                     <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html"></span> ${stringpostedago} </p>
                                   <p class="leading-6 line-clamp-2 mt-3">${description}</p>

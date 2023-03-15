@@ -91,7 +91,9 @@ class PostWatchJS
            if (updatePost) {
          
              messagenotification('Post Updated','success',event);
-             location.reload();
+             setInterval(() => {
+              location.reload();
+             }, 1000);
              document.getElementById('postwatch_updatepost_name').value="";
              document.getElementById('postwatch_updatepost_description').value="";
             }
@@ -106,15 +108,15 @@ class PostWatchJS
      {
        try {
         
-         const idimage = document.getElementById('idphoto_deleteimagemodal_imagewatch').value;
+         const idpost = document.getElementById('idpost_deletepost_postwatch').value;
         
         
-           const response_delete_image= await APIRESTImages.deleteImage(idimage);
-           if (response_delete_image) {
+           const deletePost= await APIRESTPost.deletePost(idpost);
+           if (deletePost) {
          
-             messagenotification('Image Deleted','success',event);
+             messagenotification('Post Deleted','success',event);
              setInterval(() => {
-              window.location.href="./image_mainpage.html"; 
+              window.location.href="./post_mainpage.html"; 
              }, 1000);
            
             }
@@ -132,6 +134,7 @@ window.addEventListener("load",PostWatchJS.loadPage);
 
 const updatepostform = document.getElementById('form_postwatch_updatepost');
 updatepostform.addEventListener('submit', PostWatchJS.updatePost);
+
 
 const buttonDeletePost = document.getElementById('button_deletepostmodal_postwatch');
 buttonDeletePost.addEventListener('click', PostWatchJS.deletePost);

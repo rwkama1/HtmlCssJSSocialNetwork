@@ -1,8 +1,5 @@
 class Head_SidebarJS
-
 { 
-
-
 static  logout=async()=>
  {
    
@@ -15,14 +12,13 @@ static  logout=async()=>
   } 
 
   
-  static  show_image_and_name_user=async()=>
+static  show_image_and_name_user=async()=>
  {
+
   try {
-    
- 
   // SHOW NAME AND IMAGE PROFILE
   const getuser= await APIRESTLoginUser.getLoginUser();
-  
+
   if(getuser.image==="")
   {
     document.getElementById("header_image_user").src = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
