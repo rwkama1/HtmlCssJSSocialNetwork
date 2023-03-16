@@ -16,14 +16,18 @@ class ImageMainPageJS
         let response_loginuser= await this.getLoginUser();
         SelectData.iduserLogin=response_loginuser.iduser;
 
-        await this.loadAlbumImageUserModal();
 
-        await this.listImageSearch(response_loginuser.iduser);
+        await Promise.all([
+         this.loadAlbumImageUserModal(),
+         this.listImageSearch(response_loginuser.iduser)
+        
+     ]);
 
-        await this.listImageMoreLike();
-
-        await this.listImageMoreComment();
-
+      await Promise.all([
+         this.listImageMoreLike(),
+         this.listImageMoreComment()
+      ]);
+       
       } catch (error) {
         // alert(error);
         // window.location.href="../index.html"; 

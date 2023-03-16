@@ -22,15 +22,9 @@ class Profile_Login_User
          ,urlinstagram,urllinkedin,urltwitter,description,
          userrname,image,coverphoto
        }=SelectData.getUserLogin();
-       
 
-      // SHOW  IMAGE PROFILE TIMELINE ADD POST
-      if(image==="")
-      {
-         image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
-      }
-      let addpost_imageprofile= document.getElementById("profileloginuser_imageprofile_timeline_addpost");
-      addpost_imageprofile.src=image;
+
+  
 
    //SHOW IMAGE COVER PROFILE
 
@@ -41,42 +35,88 @@ class Profile_Login_User
  
      this.loadNameDescriptionUser(description, name);
 
-
-       //TIMELINE
-       await this.load_timeline(iduser);
-
-    
-
-         // LOAD VIDEOS LOGIN USER
-         await this.loadVideosLoginUser(iduser);
-
-
-      // LOAD ALBUM VIDEOS LOGIN USER
-      await this.loadAlbumVideosLoginUser();
-
-
-          //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
-      await this.loadAlbumVideoUserModal();
-
-    
+         // SHOW  IMAGE PROFILE TIMELINE ADD POST
+         if(image==="")
+         {
+            image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+         }
+         let addpost_imageprofile= document.getElementById("profileloginuser_imageprofile_timeline_addpost");
+         addpost_imageprofile.src=image;
+   
 
       // LOAD DESCRIPTION MODAL UPDATE DESCRIPTION
 
       document.getElementById("profileloginuser_txtarea_updateabout").value= description;
 
+
+      // CHARGE OPERATIONS SIMULTANEOUSLY
+
+     await Promise.all([
+        
+         this.load_timeline(iduser),
+         this.loadVideosLoginUser(iduser)
+       
+       
+       ]);
+
+       await Promise.all([
+        
+         this.loadAlbumVideosLoginUser(),
+         this.loadAlbumVideoUserModal()
+        
+       
+       ]);
+
+       await Promise.all([
+        
+         
+         
+         this.loadAlbumImagesUserModal(),
+         this.loadAlbumImagesLoginUser()
+         
+       ]);
+
+       
+       await Promise.all([
+        
+         this.loadImagesLoginUser(iduser),
+         this.loadPostLoginUser(iduser)
+       ]);
+
+
+
+       //TIMELINE
+       //await this.load_timeline(iduser);
+
+    
+
+         // LOAD VIDEOS LOGIN USER
+      //   await this.loadVideosLoginUser(iduser);
+
+
+      // LOAD ALBUM VIDEOS LOGIN USER
+    //  await this.loadAlbumVideosLoginUser();
+
+
+          //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
+      //await this.loadAlbumVideoUserModal();
+
+    
+
+
       //LOAD ALBUM IMAGES MODAL ADD IMAGE
 
-      await this.loadAlbumImagesUserModal();
+      //await this.loadAlbumImagesUserModal();
 
    
 
       // LOAD ALBUMIMAGES LOGIN USER
   
-           await this.loadAlbumImagesLoginUser();
+          // await this.loadAlbumImagesLoginUser();
    
       // LOAD IMAGES LOGIN USER
   
-      await this.loadImagesLoginUser(iduser);
+      //await this.loadImagesLoginUser(iduser);
 
      
 
@@ -85,7 +125,7 @@ class Profile_Login_User
 
     // LOAD POST LOGIN USER
   
-      await this.loadPostLoginUser(iduser);
+      //await this.loadPostLoginUser(iduser);
       
 
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');

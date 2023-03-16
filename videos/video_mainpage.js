@@ -16,13 +16,28 @@ class VideoMainPageJS
         let response_loginuser= await this.getLoginUser();
         SelectData.iduserLogin=response_loginuser.iduser;
 
-        await this.loadAlbumVideoUserModal();
 
-        await this.listVideoSearch(SelectData.getIdUserLogin());
+        //CHARGE OPERATIONS SIMULTANEOUSLY
 
-        await this.listVideosMoreLike();
 
-        await this.listVideosMoreComment();
+        await Promise.all([
+          this.listVideosMoreLike(),
+          this.listVideoSearch(SelectData.getIdUserLogin())
+         
+      ]);
+
+      await Promise.all([
+       
+        this.loadAlbumVideoUserModal(),
+        this.listVideosMoreComment()
+    ]);
+       // await this.loadAlbumVideoUserModal();
+
+        //await this.listVideoSearch(SelectData.getIdUserLogin());
+
+        //await this.listVideosMoreLike();
+
+      //await this.listVideosMoreComment();
 
       } catch (error) {
         // alert(error);

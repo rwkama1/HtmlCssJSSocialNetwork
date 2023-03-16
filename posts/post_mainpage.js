@@ -15,12 +15,14 @@ class PostMainPageJS
           SelectData.iduserLogin=response_loginuser.iduser;
   
           //await this.loadAlbumImageUserModal();
-  
-           await this.listPostSearch(response_loginuser.iduser);
-  
-          await this.listPostMoreLikes();
-  
-         await this.listPostMoreComments();
+          await Promise.all([
+            this.listPostSearch(response_loginuser.iduser),
+             this.listPostMoreLikes(),
+            this.listPostMoreComments()
+           
+        ]);
+   
+
   
         } catch (error) {
           // alert(error);

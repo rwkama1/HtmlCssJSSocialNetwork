@@ -5,12 +5,23 @@ class PostWatchJS
   {
    setTimeout(async () => {
     try {
-     let getuserlogin=await APIRESTLoginUser.getLoginUser();
+    
         let idpostwatch = sessionStorage.getItem('idpostwatch');
-      
-       let getPost=await APIRESTPost.getPost(idpostwatch);
-        let getuser=await APIRESTUser.getUser(getPost.user.iduser);
+
+        // CHARGE OPERATIONS SIMULTANEOUSLY
+
+        const [
+          getuserlogin,
+          getPost,
          
+        ]=   await Promise.all([
+          APIRESTLoginUser.getLoginUser(),
+          APIRESTPost.getPost(idpostwatch)
+        
+         
+      ]);
+      
+      let getuser=await APIRESTUser.getUser(getPost.user.iduser);
     let iduserlogin=getuserlogin.iduser;
         let iduserpost=getuser.iduser;
        //SHOW EDIT DELETE POST DIV

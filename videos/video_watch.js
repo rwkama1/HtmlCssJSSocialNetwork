@@ -5,11 +5,13 @@ class VideoWatchJS
    {
     setTimeout(async () => {
      try {
-        let getuserlogin=await APIRESTLoginUser.getLoginUser();
-        let idvideowatch = sessionStorage.getItem('idvideowatch');
-        let getVideo=await APIRESTVideo.getVideo(idvideowatch);
-        let getuser=await APIRESTUser.getUser(getVideo.user.iduser);
+      const [getuserlogin, getVideo] = await Promise.all([
+        APIRESTLoginUser.getLoginUser(),
+        APIRESTVideo.getVideo(sessionStorage.getItem('idvideowatch')),
+       
+      ]);
 
+      let getuser=await APIRESTUser.getUser(getVideo.user.iduser)
         let iduserlogin=getuserlogin.iduser;
         let iduservideo=getuser.iduser;
         //SHOW EDIT DELETE VIDEO DIV

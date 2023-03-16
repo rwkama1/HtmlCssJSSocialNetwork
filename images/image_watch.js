@@ -5,9 +5,12 @@ class ImageWatchJS
   {
    setTimeout(async () => {
     try {
-       let getuserlogin=await APIRESTLoginUser.getLoginUser();
-       let idimagewatch = sessionStorage.getItem('idimagewatch');
-       let getImage=await APIRESTImages.getImage(idimagewatch);
+      const [getuserlogin, getImage] = await Promise.all([
+        APIRESTLoginUser.getLoginUser(),
+        APIRESTImages.getImage(sessionStorage.getItem('idimagewatch')),
+       
+      ]);
+     
        let getuser=await APIRESTUser.getUser(getImage.user.iduser);
          
        let iduserlogin=getuserlogin.iduser;

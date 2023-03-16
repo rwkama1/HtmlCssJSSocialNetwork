@@ -14,7 +14,7 @@ static  logout=async()=>
   
 static  show_image_and_name_user=async()=>
  {
-
+  setTimeout(async () => {
   try {
   // SHOW NAME AND IMAGE PROFILE
   const getuser= await APIRESTLoginUser.getLoginUser();
@@ -35,7 +35,7 @@ static  show_image_and_name_user=async()=>
  catch (error) {
   alert(error);
   window.location.href="../index.html";
- }
+ }},500);
 }
 }
 window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);
