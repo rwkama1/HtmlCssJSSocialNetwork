@@ -77,8 +77,8 @@ class VideoMainPageJS
                 class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
                 <a 
-              href="./video_watch.html"
-                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                href="../profileuser/profileuser.html"
+                onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
                 class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
@@ -119,8 +119,9 @@ class VideoMainPageJS
                 onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
                  class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
-                <a href="./video_watch.html"
-                onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                <a 
+                href="../profileuser/profileuser.html"
+                onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
                  class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                     <div class="flex space-x-3 items-center text-sm md:pt-3">
@@ -161,8 +162,9 @@ class VideoMainPageJS
                        class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                       <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
                      
-                      <a href="./video_watch.html"
-                       onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                      <a 
+                      href="../profileuser/profileuser.html"
+                     onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
                        class="font-semibold block text-sm"> ${user.name}</a>
                       <div class="flex items-center justify-between">
                           <div class="flex space-x-3 items-center text-sm md:pt-3">
@@ -202,8 +204,9 @@ class VideoMainPageJS
                             class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                             <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
                           
-                            <a href="./video_watch.html"
-                            onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                            <a 
+                            href="../profileuser/profileuser.html"
+                              onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
                              class="font-semibold block text-sm"> ${user.name}</a>
                             <div class="flex items-center justify-between">
                                 <div class="flex space-x-3 items-center text-sm md:pt-3">
@@ -269,6 +272,20 @@ class VideoMainPageJS
         {
           try {
             sessionStorage.setItem('idvideowatch', idvideo);
+          
+
+       
+
+         }catch (error) {
+          // alert(error);
+          
+         }
+          
+        }
+        static passidtoUserProfile=(iduser)=>
+        {
+          try {
+            sessionStorage.setItem('iduserwatch', iduser);
           
 
        
