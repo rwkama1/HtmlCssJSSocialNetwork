@@ -177,6 +177,29 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
+       static getVideosByUser=async(iduser)=>
+       {
+       
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosPublicbyIdUser?iduserlogin=${iduser}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEOS, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }
        static getVideosByAlbum=async(idalbum)=>
        {
              let URLVIDEO=this.RESTAPIURL+`/video/getVideosbyAlbum?pidalbum=${idalbum}`;

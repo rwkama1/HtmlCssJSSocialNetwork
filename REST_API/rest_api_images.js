@@ -132,7 +132,30 @@ class APIRESTImages
             }
             let data = await response.json();
             return data;
-       }  
+       } 
+         static getImagesByUser=async(iduserlogin,iduser)=>
+       {
+       
+             let URLIMAGES=this.RESTAPIURL+`/images/getImagesPublicbyIdUser?piduser=${iduser}&iduserlogin=${iduserlogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGES, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
        static getImagesByAlbum=async(idalbum)=>
        {
         

@@ -1,12 +1,19 @@
 class ProfileUserJS
 {
+   static  getLoginUser=async()=>
+   {
+     let response_loginuser= await APIRESTLoginUser.getLoginUser();
+     let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+     return getuser
+ 
+   }
   //LOAD PAGE
     
   static loadPage=async()=>
   {
     setTimeout(async () => {
     try {
-     
+      let getuserlogin=await this.getLoginUser();
       let getuser=await APIRESTUser.getUser(sessionStorage.getItem('iduserwatch'));
     //let getuserlogin=await this.getLoginUser();
     // SelectData.userlogin=getuserlogin;
@@ -38,49 +45,196 @@ this.showImageCoverProfile(image, coverphoto);
    await Promise.all([
       
        this.load_timeline(iduser),
-      // this.loadVideosLoginUser(iduser)
+       this.loadVideosUser(iduser)
      
      
      ]);
-
-  //    await Promise.all([
-      
-  //      this.loadAlbumVideosLoginUser(),
-  //      this.loadAlbumVideoUserModal()
-      
      
-  //    ]);
-
-  //    await Promise.all([
+     await Promise.all([
       
-       
-       
-  //      this.loadAlbumImagesUserModal(),
-  //      this.loadAlbumImagesLoginUser()
-       
-  //    ]);
+       this.loadImagesUser(getuserlogin.iduser,iduser),
+       this.loadPostUser(iduser)
+     ]);
 
-     
-  //    await Promise.all([
-      
-  //      this.loadImagesLoginUser(iduser),
-  //      this.loadPostLoginUser(iduser)
-  //    ]);
-
-  //   const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
-  //   buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
 
 
 
    } catch (error) {
-    console.error(error);
- //   alert(error);
- //   window.location.href="../index.html";
+    //console.error(error);
+   alert(error);
+   window.location.href="../index.html";
  
    }
  },1000);
    }
+   //GET VIDEOS  USER
+static async loadVideosUser(iduser) {
+   let getVideosByUser = await APIRESTVideo.getVideosByUser(iduser);
+   document.getElementById("profileuser_span_countvideos").innerHTML = getVideosByUser.length;
+   let html_load_videos = '';
+ 
+   for (let i = 0; i < getVideosByUser.length; i++) {
+      let {idvideo,urlvideo
+       }=getVideosByUser[i];
+
+ 
+     if (i >= 3) {
+       html_load_videos += `
+       <div hidden id="morevideo" >
+       <div class="uk-position-relative uk-visible-toggle uk-light" >
+          <a 
+          href="../videos/video_watch.html"
+          onclick="ProfileUserJS.passidtoVideoWatch('${idvideo}');"
+ 
+                >
+                 <video src="${urlvideo}" autoplay loop muted playsinline>
+ 
+                 </video>
+               
+                 </a>
+       
+       </div>
+    </div>
+         `;
+     } else {
+       html_load_videos += `
+       <div>
+       <div class="uk-position-relative uk-visible-toggle uk-light" >
+          <a 
+          href="../videos/video_watch.html"
+          onclick="ProfileUserJS.passidtoVideoWatch('${idvideo}');"
+ 
+          >
+             <video src="${urlvideo}" autoplay loop muted playsinline>
+ 
+             </video>
+           
+             </a>
+       </div>
+    </div>
+         `;
+     }
+   }
+ 
+ 
+   document.getElementById("profileuser_listallvideos_div").innerHTML = html_load_videos;
+ }
+ //GET IMAGES  USER
+static async loadImagesUser(iduserLogin,iduser) {
+   let getimagesuser = await APIRESTImages.getImagesByUser(iduserLogin,iduser);
+   document.getElementById("profileuser_span_countimages").innerHTML = getimagesuser.length;
+   let html_load_images = '';
+ 
+   for (let i = 0; i < getimagesuser.length; i++) {
+      let {idphoto ,urlimage
+      }=getimagesuser[i];
    
+ 
+     if (i >= 3) {
+       html_load_images += `
+           <div id="morephotos" hidden class="card lg:mx-0 uk-animation-slide-bottom-small">
+             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
+               <a 
+               href="../images/image_watch.html"
+               onclick="ProfileUserJS.passidtoImageWatch('${idphoto}');"
+               >
+                 <img src="${urlimage}" class="w-full h-full absolute object-cover inset-0">
+               </a>
+              
+             </div>
+           </div>
+         `;
+     } else {
+       html_load_images += `
+           <div>
+             <div class="bg-green-400 max-w-full lg:h-44 h-36 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
+               <a
+               href="../images/image_watch.html"
+               onclick="ProfileUserJS.passidtoImageWatch('${idphoto}');"
+               >
+                 <img src="${urlimage}" class="w-full h-full absolute object-cover inset-0">
+               </a>
+              
+             </div>
+           </div>
+         `;
+     }
+   }
+ 
+ 
+   document.getElementById("profileuser_listallimages_div").innerHTML = html_load_images;
+ }
+
+ //GET POST  USER
+ static async loadPostUser(iduser) {
+   let getpostuser = await APIRESTPost.getPostByUser(iduser);
+   document.getElementById("profileuser_span_countpost").innerHTML = getpostuser.length;
+   let html_load_post = '';
+ 
+   for (let i = 0; i < getpostuser.length; i++) {
+     let userProfileImage = getpostuser[i].user.image;
+     if(userProfileImage==="")
+     {
+      userProfileImage=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+     }
+    
+    let idpost=getpostuser[i].idpost;
+     let postTitle = getpostuser[i].title;
+     let stringpostedago = getpostuser[i].stringpostedago;
+     
+     let postdescription = getpostuser[i].description;
+     // let postdescription = getpostuser[i].description;
+
+ let countpostcomments=await APIRESTPostComment.NumberOfCommentPost(idpost);
+     if (i >= 3) {
+       html_load_post += `
+           <li hidden id="morepost">
+           <div class="flex items-start space-x-5 p-7">
+               <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+               <div class="flex-1">
+                   <a
+                    href="../posts/post_watch.html"
+                   onclick="ProfileUserJS.passidtoPostWatch('${idpost}');"
+                    class="text-lg font-semibold line-clamp-1 mb-1"> ${postTitle} </a>
+                   <p class="text-sm text-gray-400 mb-2"><span data-href="%40tag-dev.html">${stringpostedago}</span></p>
+                 <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+               </div>
+               <div class="sm:flex items-center space-x-4 hidden">
+                   <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                   <span class="text-xl"> ${countpostcomments} </span>
+               </div>
+           </div>
+       </li>
+         `;
+     } else {
+       html_load_post += `
+         <li>
+             <div class="flex items-start space-x-5 p-7">
+                 <img src="${userProfileImage}" alt="" class="w-12 h-12 rounded-full">
+                 <div class="flex-1">
+                     <a 
+                     href="../posts/post_watch.html"
+                     onclick="ProfileUserJS.passidtoPostWatch('${idpost}');"
+                     class="text-lg font-semibold line-clamp-1 mb-1">${postTitle}  </a>
+                     <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html">${stringpostedago}</span>  </p>
+                     <p class="leading-6 line-clamp-2 mt-3">${postdescription}</p>
+                 </div>
+                 <div class="sm:flex items-center space-x-4 hidden">
+                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" 
+                     xmlns="http://www.w3.org/2000/svg">
+                     <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"></path><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"></path></svg>
+                     <span class="text-xl"> ${countpostcomments} </span>
+                 </div>
+             </div>
+         </li>
+
+         `;
+     }
+   }
+ 
+ 
+   document.getElementById("profileuser_listposts_ul").innerHTML = html_load_post;
+ }
     //SHOW COUNTRY , OCUPATION , URLS
 
    static load_country_ocupation_urls=(country,ocupation,urlfacebook
@@ -163,6 +317,7 @@ static load_timeline=async(iduser)=>
   
 }
 
+ 
   //GET IMAGE COVER PROFILE
   static showImageCoverProfile(image, coverphoto) {
     if (image === "") {
@@ -479,6 +634,7 @@ static html_Post_TimeLine(getpost)
     `;
     return html_video
     }
+
 //********************************************* */
 
  static forCommentsPost(){
@@ -646,6 +802,45 @@ static html_Post_TimeLine(getpost)
         }
          return html_comment_video;
           }
+
+/******************************************* */      
+
+static passidtoVideoWatch=(idvideo)=>
+          {
+            try {
+              sessionStorage.setItem('idvideowatch', idvideo);
+            
+          
+          
+          
+           }catch (error) {
+            // alert(error);
+            
+           }
+            
+          }    
+static passidtoImageWatch=(idimage)=>
+{
+  try {
+    sessionStorage.setItem('idimagewatch', idimage);
+
+ }catch (error) {
+  // alert(error);
+  
+ }
+  
+}
+static passidtoPostWatch=(idpost)=>
+{
+  try {
+    sessionStorage.setItem('idpostwatch', idpost);
+
+ }catch (error) {
+  // alert(error);
+  
+ }
+  
+} 
 }
 
 window.addEventListener("load",ProfileUserJS.loadPage);
