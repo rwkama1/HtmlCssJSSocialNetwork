@@ -23,6 +23,7 @@ class ImageMainPageJS
         
      ]);
 
+     
       await Promise.all([
          this.listImageMoreLike(),
          this.listImageMoreComment()
@@ -239,6 +240,7 @@ class ImageMainPageJS
          static passidtoImageWatch=(idimage)=>
         {
           try {
+            sessionStorage.setItem("iduserwatch",null);
             sessionStorage.setItem('idimagewatch', idimage);
 
          }catch (error) {

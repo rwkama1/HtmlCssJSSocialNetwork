@@ -35,7 +35,11 @@ class PostWatchJS
                editDeleteDiv.setAttribute('hidden', true);
                }
 
+// GET ID USER
 
+document.getElementById("postwatch_iduser").value=iduserpost;
+
+      //GET POST
        this.loadPost(getPost,getuser.image);
 
 
@@ -137,7 +141,20 @@ class PostWatchJS
          alert(error);
        }
      }
-  
+   //REDIRECT TO PROFILE USER
+ static passidtoUserProfile=()=>
+ {
+    try {
+     const iduser=document.getElementById("postwatch_iduser").value;
+      sessionStorage.setItem("iduserwatch",null);
+       sessionStorage.setItem('iduserwatch', iduser);
+   
+      }catch (error) {
+       // alert(error);
+       
+      }
+       
+ }  
   
 }
 window.addEventListener("load",PostWatchJS.loadPage);
@@ -149,3 +166,7 @@ updatepostform.addEventListener('submit', PostWatchJS.updatePost);
 
 const buttonDeletePost = document.getElementById('button_deletepostmodal_postwatch');
 buttonDeletePost.addEventListener('click', PostWatchJS.deletePost);
+
+
+const a_userprofile= document.getElementById('postwatch_a_userprofile');
+a_userprofile.addEventListener('click', PostWatchJS.passidtoUserProfile);

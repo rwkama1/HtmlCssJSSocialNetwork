@@ -54,6 +54,7 @@ this.showImageCoverProfile(image, coverphoto);
       
        this.loadImagesUser(getuserlogin.iduser,iduser),
        this.loadPostUser(iduser)
+       
      ]);
 
 
@@ -833,6 +834,7 @@ static passidtoImageWatch=(idimage)=>
 static passidtoPostWatch=(idpost)=>
 {
   try {
+   
     sessionStorage.setItem('idpostwatch', idpost);
 
  }catch (error) {

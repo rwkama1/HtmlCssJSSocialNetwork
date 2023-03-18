@@ -26,7 +26,11 @@ class ImageWatchJS
                editDeleteDiv.setAttribute('hidden', true);
                }
 
+// GET ID USER
 
+document.getElementById("imagewatch_iduser").value=iduserimage;
+
+//LOAD IMAGE
        this.loadImage(getImage,getuser.image);
 
 
@@ -126,8 +130,20 @@ class ImageWatchJS
          alert(error);
        }
      }
-  
-  
+  //REDIRECT TO PROFILE USER
+    static passidtoUserProfile=()=>
+    {
+       try {
+        const iduser=document.getElementById("imagewatch_iduser").value;
+        sessionStorage.setItem("iduserwatch",null);
+          sessionStorage.setItem('iduserwatch', iduser);
+      
+         }catch (error) {
+          // alert(error);
+          
+         }
+          
+    }  
 }
 window.addEventListener("load",ImageWatchJS.loadPage);
 
@@ -137,3 +153,6 @@ updateimageform.addEventListener('submit', ImageWatchJS.updateImage);
 
 const buttonDeleteImage = document.getElementById('button_deleteimagemodal_imagewatch');
 buttonDeleteImage.addEventListener('click', ImageWatchJS.deleteImage);
+
+const a_userprofile= document.getElementById('imagewatch_a_userprofile');
+a_userprofile.addEventListener('click', ImageWatchJS.passidtoUserProfile);

@@ -193,6 +193,7 @@ class PostMainPageJS
         static passidtoPostWatch=(idpost)=>
         {
           try {
+            sessionStorage.setItem("iduserwatch",null);
             sessionStorage.setItem('idpostwatch', idpost);
 
          }catch (error) {

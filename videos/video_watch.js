@@ -24,8 +24,13 @@ class VideoWatchJS
               
                 editDeleteDiv.setAttribute('hidden', true);
                 }
+// GET ID USER
+
+document.getElementById("videowatch_iduser").value=iduservideo;
 
 
+
+//GET VIDEO
         this.loadVideo(getVideo,getuser.image);
 
 
@@ -126,7 +131,20 @@ class VideoWatchJS
      }
    }
 
-
+ //REDIRECT TO PROFILE USER
+ static passidtoUserProfile=()=>
+ {
+    try {
+     const iduser=document.getElementById("videowatch_iduser").value;
+     sessionStorage.setItem("iduserwatch",null);
+       sessionStorage.setItem('iduserwatch', iduser);
+   
+      }catch (error) {
+       // alert(error);
+       
+      }
+       
+ }  
    
 }
 window.addEventListener("load",VideoWatchJS.loadPage);
@@ -136,3 +154,6 @@ updatevideoform.addEventListener('submit', VideoWatchJS.updateVideo);
 
 const buttonDeleteVideo = document.getElementById('button_deletevideomodal_videowatch');
 buttonDeleteVideo.addEventListener('click', VideoWatchJS.deleteVideo);
+
+const a_userprofile= document.getElementById('videowatch_a_userprofile');
+a_userprofile.addEventListener('click', VideoWatchJS.passidtoUserProfile);

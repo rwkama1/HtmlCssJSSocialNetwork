@@ -285,6 +285,7 @@ class VideoMainPageJS
         static passidtoUserProfile=(iduser)=>
         {
           try {
+            sessionStorage.setItem("iduserwatch",null);
             sessionStorage.setItem('iduserwatch', iduser);
           
 
