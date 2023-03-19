@@ -26,12 +26,12 @@ class ImageWatchJS
                editDeleteDiv.setAttribute('hidden', true);
                }
 
-// GET ID USER
+    // GET ID USER
 
-document.getElementById("imagewatch_iduser").value=iduserimage;
+    document.getElementById("imagewatch_iduser").value=iduserimage;
 
-//LOAD IMAGE
-       this.loadImage(getImage,getuser.image);
+    //LOAD IMAGE
+          this.loadImage(getImage,getuser.image);
 
 
 
@@ -41,7 +41,9 @@ document.getElementById("imagewatch_iduser").value=iduserimage;
        }
    },1000);
   }
-  static loadImage=async(getImage,userimage)=>
+
+  
+   static loadImage=async(getImage,userimage)=>
   {
    
    

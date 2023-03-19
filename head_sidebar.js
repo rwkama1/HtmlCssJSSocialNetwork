@@ -1,12 +1,16 @@
 class Head_SidebarJS
 { 
+
+  
 static  logout=async()=>
  {
-   
-    const response_logout= await APIRESTLoginUser.logout();
+  let getuser = JSON.parse(sessionStorage.getItem('user_login'));
+
+    const response_logout= await APIRESTLoginUser.logout(getuser.iduser,
+      getuser.userrname);
     if(response_logout)
     {
-    
+      sessionStorage.setItem("user_login",null);
       window.location.href="../index.html";
     }
   } 
@@ -16,8 +20,10 @@ static  show_image_and_name_user=async()=>
  {
   setTimeout(async () => {
   try {
+    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+    let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
   // SHOW NAME AND IMAGE PROFILE
-  const getuser= await APIRESTLoginUser.getLoginUser();
+  //const getuser= await APIRESTLoginUser.getLoginUser();
 
   if(getuser.image==="")
   {
@@ -35,7 +41,7 @@ static  show_image_and_name_user=async()=>
  catch (error) {
   alert(error);
   window.location.href="../index.html";
- }},500);
+ }},200);
 }
 }
 window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);

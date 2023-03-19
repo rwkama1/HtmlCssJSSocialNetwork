@@ -36,14 +36,16 @@ class APIRESTLoginUser
             const error=await response.text();
             throw new Error(error);
            }
-           return true;
+           let user=await response.json();
+           const userjson = JSON.stringify(user);
+           return userjson;
       }
    
-      static getLoginUser=async()=>
+      static existloginuser=async(iduser,username)=>
       {
        
       
-            let URLUSER=this.RESTAPIURL+"/user/loginuser";
+            let URLUSER=this.RESTAPIURL+`/user/existloginuser?iduserlogin=${iduser}&username=${username}`;
 
             let headersList = {
               "Accept": "*/*",
@@ -63,11 +65,11 @@ class APIRESTLoginUser
            let data = await response.json();
            return data;
       }  
-      static logout=async()=>
+      static logout=async(iduser,username)=>
       {
        
          
-            let URLUSER=this.RESTAPIURL+"/user/logout";
+            let URLUSER=this.RESTAPIURL+`/user/logout?iduserlogin=${iduser}&username=${username}`;
 
             let headersList = {
               "Accept": "*/*",

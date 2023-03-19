@@ -23,12 +23,12 @@ class IndexJS
   try {
    const response_register= await APIRESTUser.registerUser(dataform);
    if (response_register) {
-    console.log("User Added");
+  
     const response_login= await APIRESTLoginUser.loginUser(dataform);
-    if(response_login)
-    {
+    sessionStorage.setItem("user_login",null);
+    sessionStorage.setItem("user_login",response_login);
       window.location.href="./usersettings/usersettings.html";
-    }
+   
    
    }
    
@@ -52,14 +52,14 @@ class IndexJS
  
    try {
     const response= await APIRESTLoginUser.loginUser(dataform);
-    if (response) {
-     console.log("Login User");
+    sessionStorage.setItem("user_login",null);
+    sessionStorage.setItem("user_login",response);
     
      setInterval(() => {
       window.location.href="./feed/feed.html";
      }, 1000);
   
-    }
+    
     
    } catch (error) {
     console.error(error);

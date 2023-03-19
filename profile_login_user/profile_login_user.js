@@ -1,14 +1,18 @@
 class Profile_Login_User
 
 { 
+   static async sessionLoginUser() {
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+      let getuser = await APIRESTUser.getUser(sessionuser.iduser, sessionuser.iduser, sessionuser.userrname);
+      return getuser;
+    }
+//   static  getLoginUser=async()=>
+//   {
+//     let response_loginuser= await APIRESTLoginUser.getLoginUser();
+//     let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+//     return getuser
 
-  static  getLoginUser=async()=>
-  {
-    let response_loginuser= await APIRESTLoginUser.getLoginUser();
-    let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
-    return getuser
-
-  }
+//   }
     //LOAD PAGE
     
     static showdata_getLoginUser=async()=>
@@ -16,7 +20,7 @@ class Profile_Login_User
       setTimeout(async () => {
       try {
       
-      let getuserlogin=await this.getLoginUser();
+      let getuserlogin=await this.sessionLoginUser();
       SelectData.userlogin=getuserlogin;
        let {iduser,name,email,ocupattion,urlfacebook,country
          ,urlinstagram,urllinkedin,urltwitter,description,

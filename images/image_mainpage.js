@@ -62,7 +62,10 @@ class ImageMainPageJS
                 onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
                 class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                 <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
-                <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+                <a 
+                href="../profileuser/profileuser.html"
+                onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+                 class="font-semibold block text-sm"> ${user.name}</a>
                 <div class="flex items-center justify-between">
                    <div class="flex space-x-3 items-center text-sm md:pt-3">
                    <div>${stringpostedago} </div>
@@ -103,7 +106,10 @@ class ImageMainPageJS
                onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
                class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
-               <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+               <a 
+               href="../profileuser/profileuser.html"
+                  onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+                class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
                   <div class="flex space-x-3 items-center text-sm md:pt-3">
                   <div>${stringpostedago} </div>
@@ -140,7 +146,10 @@ class ImageMainPageJS
                onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
                 class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
-               <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+               <a 
+               href="../profileuser/profileuser.html"
+               onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+                class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
                   <div class="flex space-x-3 items-center text-sm md:pt-3">
                   <div>${stringpostedago} </div>
@@ -177,7 +186,10 @@ class ImageMainPageJS
                onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
                class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
                <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
-               <a href="#" class="font-semibold block text-sm"> ${user.name}</a>
+               <a 
+               href="../profileuser/profileuser.html"
+               onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+               class="font-semibold block text-sm"> ${user.name}</a>
                <div class="flex items-center justify-between">
                   <div class="flex space-x-3 items-center text-sm md:pt-3">
                   <div>${stringpostedago} </div>
@@ -237,11 +249,28 @@ class ImageMainPageJS
 
             document.getElementById("imagemainpage_select_albumimages").innerHTML = load_albums_image;
          }
+
+         //OTHERS
          static passidtoImageWatch=(idimage)=>
         {
           try {
             sessionStorage.setItem("iduserwatch",null);
             sessionStorage.setItem('idimagewatch', idimage);
+
+         }catch (error) {
+          // alert(error);
+          
+         }
+          
+        }
+        static passidtoUserProfile=(iduser)=>
+        {
+          try {
+            sessionStorage.setItem("iduserwatch",null);
+            sessionStorage.setItem('iduserwatch', iduser);
+          
+
+       
 
          }catch (error) {
           // alert(error);

@@ -1,12 +1,18 @@
 class UserSettingsJS
 
 { 
+
+  static async sessionLoginUser() {
+    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+    let getuser = await APIRESTUser.getUser(sessionuser.iduser, sessionuser.iduser, sessionuser.userrname);
+    return getuser;
+  }
 // LOAD PAGE
   static  getLoginUser=async()=>
  {
    try {
-     const response_loginuser= await APIRESTLoginUser.getLoginUser();
-     const getuser= await APIRESTUser.getUser(response_loginuser.iduser);
+   
+    let getuser = await this.sessionLoginUser();
    
     const {name,email,ocupattion,urlfacebook,country
       ,urlinstagram,urllinkedin,urltwitter,description,
@@ -66,6 +72,7 @@ class UserSettingsJS
  static  updateUser=async(event)=>
  {
     event.preventDefault();
+    let getuser = await this.sessionLoginUser();
     const name = document.getElementById('usersettings_nameuser').value;
     const ocupattion = document.getElementById('usersettings_ocupation').value;
     const urlfacebook = document.getElementById('usersettings_urlfacebook').value;
@@ -82,7 +89,8 @@ class UserSettingsJS
       ,urltwitter,country,description,datebirth,email}
 
     try {
-    const response_update= await APIRESTUser.updateUser(dataform);
+    const response_update= await APIRESTUser.updateUser(dataform,getuser.iduser
+      ,getuser.userrname);
     if (response_update) {
       console.log("User Updated");
       messagenotification('Data Updated','success',event)
@@ -96,6 +104,7 @@ class UserSettingsJS
   static  updatePassword=async(event)=>
   {
      event.preventDefault();
+     let getuser = await this.sessionLoginUser();
      const userrname = document.getElementById('updatepassword_username').value;
      const oldpassword = document.getElementById('updatepassword_currentpassword').value;
      const newpassword = document.getElementById('user_password').value;
@@ -107,7 +116,7 @@ class UserSettingsJS
      }
  
      try {
-     const response_update= await APIRESTUser.updatePassword(dataform);
+     const response_update= await APIRESTUser.updatePassword(dataform,getuser.iduser);
      if (response_update) {
        console.log("Password Updated");
        messagenotification('Password Updated','success',event)
@@ -121,9 +130,8 @@ class UserSettingsJS
    static  updateProfileCoverImage=async(event)=>
    {
       event.preventDefault();
-      const response_loginuser= await APIRESTLoginUser.getLoginUser();
+      let getuser = await this.sessionLoginUser();
    
-      
   
       try {
 
@@ -134,12 +142,15 @@ class UserSettingsJS
 
           const urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
           const urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
-          await APIRESTUser.updateImageProfileCover(urlimagePROFILE,urlimageCOVER);
+          await APIRESTUser.updateImageProfileCover(urlimagePROFILE,urlimageCOVER,getuser.iduser,
+            getuser.userrname);
           messagenotification('Images Updated','success',event);
         }
         else if (fileimageprofile) {
             let urlimagePROFILE=await APIRESTCloudinary.upload_image(fileimageprofile);
-            await APIRESTUser.updateImageProfileCover(urlimagePROFILE,response_loginuser.coverphoto);
+            await APIRESTUser.updateImageProfileCover(urlimagePROFILE,getuser.coverphoto,
+              getuser.iduser,
+            getuser.userrname);
             messagenotification('Profile Image Updated','success',event);
           
         }
@@ -147,7 +158,9 @@ class UserSettingsJS
         else if (fileimagecover) {
         
           let urlimageCOVER=await APIRESTCloudinary.upload_image(fileimagecover);
-          await APIRESTUser.updateImageProfileCover(response_loginuser.image,urlimageCOVER);
+          await APIRESTUser.updateImageProfileCover(getuser.image,urlimageCOVER,
+            getuser.iduser,
+            getuser.userrname);
           messagenotification('Cover Image Updated','success',event);
          
         }
@@ -162,11 +175,11 @@ class UserSettingsJS
    static  deleteUser=async(event)=>
     {
        event.preventDefault();
-      
+       let getuser = await this.sessionLoginUser();
        try {
-       const response_delete= await APIRESTUser.deleteUser();
+       const response_delete= await APIRESTUser.deleteUser(getuser.iduser,getuser.userrname);
        if (response_delete) {
-         
+        sessionStorage.setItem('user_login',null);
         window.location.href="../index.html";
        
        }
@@ -175,6 +188,9 @@ class UserSettingsJS
          alert(error);
        }
    }  
+
+
+  
 }
 
 

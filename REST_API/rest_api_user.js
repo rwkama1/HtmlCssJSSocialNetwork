@@ -40,7 +40,7 @@
            }
            return true;
       }
-     static  updateUser=async(userdata)=>
+     static  updateUser=async(userdata,iduserlogin,username)=>
       {
         const {name,ocupattion,urlfacebook,urllinkedin,urlinstagram
           ,urltwitter,country,description,datebirth,email} 
@@ -56,6 +56,8 @@
              
             let bodyContent = JSON.stringify({
                 "name" :name,
+                "iduserlogin" :iduserlogin,
+                "usernamelogin" :username,
                   "ocupattion" :ocupattion,
                   "urlfacebook":urlfacebook ,
                 "urllinkedin" :urllinkedin,
@@ -80,7 +82,7 @@
            }
            return true;
       } 
-      static  deleteUser=async()=>
+      static  deleteUser=async(iduserlogin,usernamelogin)=>
       {
       
             let URLUSER=this.RESTAPIURL+"/user/user"
@@ -89,10 +91,16 @@
               "Accept": "*/*",
               "Content-Type": "application/json"
              }
+             let bodyContent = JSON.stringify({
+              "iduserlogin" :iduserlogin,
+              "usernamelogin" :usernamelogin
              
+            
+            });
            
              var requestOptions = {
               method: "DELETE",
+              body:bodyContent,
               headers: headersList
              };
      
@@ -104,7 +112,7 @@
            }
            return true;
       } 
-      static  updatePassword=async(userdata)=>
+      static  updatePassword=async(userdata,iduserlogin)=>
       {
         const {userrname,oldpassword,newpassword} 
         = userdata;
@@ -118,7 +126,8 @@
              }
              
              let bodyContent = JSON.stringify({
- 
+              "iduserlogin" :iduserlogin,
+              "usernamelogin" :userrname,
               "userrname": userrname,
               "oldpassword": oldpassword,
               "newpassword":newpassword 
@@ -138,7 +147,7 @@
            }
            return true;
       } 
-      static  updateImageProfileCover=async(profileimage,coverimage)=>
+      static  updateImageProfileCover=async(profileimage,coverimage,iduserlogin,username)=>
       {
             let URLUSER=this.RESTAPIURL+"/user/insertcoverprofilepicture"
 
@@ -148,7 +157,8 @@
              }
              
              let bodyContent = JSON.stringify({
- 
+              "iduserlogin" :iduserlogin,
+              "usernamelogin" :username,
               "profile": profileimage,
               "cover": coverimage
               
@@ -168,7 +178,7 @@
            }
            return true;
       } 
-      static  updateDescription=async(description)=>
+      static  updateDescription=async(description,iduserlogin,username)=>
       {
 
             let URLUSER=this.RESTAPIURL+"/user/updateDescriptionUser"
@@ -179,7 +189,8 @@
              }
              
              let bodyContent = JSON.stringify({
- 
+              "iduserlogin" :iduserlogin,
+              "usernamelogin" :username,
               "description": description
              
             
@@ -200,11 +211,11 @@
       } 
 
       //GETS
-      static getUser=async(iduser)=>
+      static getUser=async(iduser,iduserlogin,username)=>
       {
        
       
-            let URLUSER=this.RESTAPIURL+`/user/user?pid=${iduser}`;
+            let URLUSER=this.RESTAPIURL+`/user/user?pid=${iduser}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
 
             let headersList = {
               "Accept": "*/*",
