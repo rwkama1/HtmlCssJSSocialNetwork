@@ -107,11 +107,11 @@ const response=await fetch(PUTURLPOST, requestOptions);
        return true;
        } 
        //  GETS
- static getPostByLoginUser=async(iduser)=>
+ static getPostByLoginUser=async(iduserlogin,username)=>
  {
   
  
-       let URLPOST=this.RESTAPIURL+`/post/getPostbyIdUser?pid=${iduser}`;
+       let URLPOST=this.RESTAPIURL+`/post/getPostbyIdUser?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
 
        let headersList = {
          "Accept": "*/*",

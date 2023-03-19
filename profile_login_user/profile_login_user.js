@@ -55,81 +55,78 @@ class Profile_Login_User
 
       // CHARGE OPERATIONS SIMULTANEOUSLY
 
-     await Promise.all([
+   //   await Promise.all([
         
-         this.load_timeline(iduser),
-         this.loadVideosLoginUser(iduser)
+   //       this.load_timeline(iduser),
+   //       this.loadVideosLoginUser(iduser)
        
        
-       ]);
+   //     ]);
 
-       await Promise.all([
+   //     await Promise.all([
         
-         this.loadAlbumVideosLoginUser(),
-         this.loadAlbumVideoUserModal()
+   //       this.loadAlbumVideosLoginUser(),
+   //       this.loadAlbumVideoUserModal()
         
        
-       ]);
+   //     ]);
 
-       await Promise.all([
+   //     await Promise.all([
         
          
          
-         this.loadAlbumImagesUserModal(),
-         this.loadAlbumImagesLoginUser()
+   //       this.loadAlbumImagesUserModal(),
+   //       this.loadAlbumImagesLoginUser()
          
-       ]);
+   //     ]);
 
        
-       await Promise.all([
+   //     await Promise.all([
         
-         this.loadImagesLoginUser(iduser),
-         this.loadPostLoginUser(iduser)
-       ]);
+   //       this.loadImagesLoginUser(iduser),
+   //       this.loadPostLoginUser(iduser)
+   //     ]);
 
 
 
        //TIMELINE
-       //await this.load_timeline(iduser);
+       await this.load_timeline(iduser);
 
     
 
-         // LOAD VIDEOS LOGIN USER
-      //   await this.loadVideosLoginUser(iduser);
+        // LOAD VIDEOS LOGIN USER
+        await this.loadVideosLoginUser(iduser);
 
 
-      // LOAD ALBUM VIDEOS LOGIN USER
-    //  await this.loadAlbumVideosLoginUser();
+     // LOAD ALBUM VIDEOS LOGIN USER
+     await this.loadAlbumVideosLoginUser();
 
 
-          //LOAD ALBUM VIDEOS MODAL ADD VIDEOS
-      //await this.loadAlbumVideoUserModal();
+         // LOAD ALBUM VIDEOS MODAL ADD VIDEOS
+      await this.loadAlbumVideoUserModal();
 
     
 
 
       //LOAD ALBUM IMAGES MODAL ADD IMAGE
 
-      //await this.loadAlbumImagesUserModal();
+      await this.loadAlbumImagesUserModal();
 
    
 
-      // LOAD ALBUMIMAGES LOGIN USER
+      //LOAD ALBUMIMAGES LOGIN USER
   
-          // await this.loadAlbumImagesLoginUser();
+          await this.loadAlbumImagesLoginUser();
    
-      // LOAD IMAGES LOGIN USER
+      //LOAD IMAGES LOGIN USER
   
-      //await this.loadImagesLoginUser(iduser);
-
-     
-
-    
+      await this.loadImagesLoginUser(iduser);
 
 
-    // LOAD POST LOGIN USER
+
+    //LOAD POST LOGIN USER
   
-      //await this.loadPostLoginUser(iduser);
+      await this.loadPostLoginUser(iduser);
       
 
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
@@ -208,9 +205,11 @@ static load_timeline=async(iduser)=>
      {
        try {
         event.preventDefault();
+
         let description = document.getElementById('profileloginuser_txtarea_updateabout').value;
         try {
-          const response_update= await APIRESTUser.updateDescription(description);
+         let getuserlogin=await this.sessionLoginUser();
+          const response_update= await APIRESTUser.updateDescription(description,getuserlogin.iduser,getuserlogin.userrname);
           if (response_update) {
         
             messagenotification('Description Updated','success',event)
@@ -238,20 +237,25 @@ static load_timeline=async(iduser)=>
     static upload_image_modal=async(event)=>
     {
       try {
+     
         event.preventDefault();
+        let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
         document.getElementById("create-image-modal").classList.add("cursor-loading");
        const title = document.getElementById('profileloginuser_uploadimage_title').value;
         const idalbumphoto = document.getElementById('profileloginuser_select_albumimages').value;
         const description = document.getElementById('profileloginuser_uploadimage_description').value;
         const visibility = document.getElementById('profileloginuser_uploadimage_visibility').value;
         let fileimageprofile = document.getElementById('uploadoneimage').files[0];
-        let getulogin=await this.getLoginUser();
+  
        
-      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile,getulogin.iduser);
+      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile,getuserlogin.iduser);
         const dataform = {title
           ,idalbumphoto,visibility,description,urlimage}
       
-         const response_upload_image= await APIRESTImages.addImage(dataform);
+
+
+         const response_upload_image= await APIRESTImages.addImage(dataform,
+            getuserlogin.iduser,getuserlogin.userrname);
          if (response_upload_image) {
       
            document.getElementById('profileloginuser_uploadimage_title').value="";
@@ -309,6 +313,7 @@ static load_timeline=async(iduser)=>
     {
       try {
         event.preventDefault();
+        let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idimage = document.getElementById('idphoto_updateimage_profileloginuser').value;
         const title = document.getElementById('title_updateimage_profileloginuser').value;
          const description = document.getElementById('description_updateimage_profileloginuser').value;
@@ -319,7 +324,8 @@ static load_timeline=async(iduser)=>
          const dataform = {idimage,title
            ,description,visibility}
        
-          const response_upload_image= await APIRESTImages.updateImage(dataform);
+          const response_upload_image= await APIRESTImages.updateImage(dataform,getuserlogin.iduser
+            ,getuserlogin.userrname);
           if (response_upload_image) {
         
             messagenotification('Image Updated','success',event);
@@ -335,11 +341,11 @@ static load_timeline=async(iduser)=>
     static deleteImage= async(event)=>
     {
       try {
-       
+         let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idimage = document.getElementById('idphoto_deleteimagemodal_profileloginuser').value;
        
        
-          const response_delete_image= await APIRESTImages.deleteImage(idimage);
+          const response_delete_image= await APIRESTImages.deleteImage(idimage,getuserlogin.iduser,getuserlogin.userrname);
           if (response_delete_image) {
         
             messagenotification('Image Deleted','success',event);
@@ -359,7 +365,9 @@ static load_timeline=async(iduser)=>
 
     static  showDataUpdateModal=async(id)=>
     {
-      const response_getimage= await APIRESTImages.getImage(id);
+      let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
+      const response_getimage= await APIRESTImages.getImage(id,getuserlogin.iduser
+         ,getuserlogin.userrname);
       document.getElementById('idphoto_updateimage_profileloginuser').value=response_getimage.idphoto;
       
       document.getElementById('title_updateimage_profileloginuser').value=response_getimage.title;
@@ -385,19 +393,20 @@ static load_timeline=async(iduser)=>
     {
       try {
        event.preventDefault();
+       let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
        document.getElementById("create-video-modal").classList.add("cursor-loading");
        const title = document.getElementById('profileloginuser_uploadvideo_title').value;
         const idalbumvideo = document.getElementById('profileloginuser_select_albumvideos').value;
         const description = document.getElementById('profileloginuser_uploadvideo_description').value;
         const visibility = document.getElementById('profileloginuser_uploadvideo_visibility').value;
         let filevideo = document.getElementById('uploadonevideo').files[0];
-        let getulogin=await this.getLoginUser();
+   
        
       let urlvideo=await APIRESTCloudinary.upload_video(filevideo,getulogin.iduser);
         const dataform = {title
           ,idalbumvideo,visibility,description,urlvideo}
       
-         const response_upload_video= await APIRESTVideo.addVideo(dataform);
+         const response_upload_video= await APIRESTVideo.addVideo(dataform,getulogin.iduser,getulogin.userrname);
          if (response_upload_video) {
         
            document.getElementById('profileloginuser_uploadvideo_title').value="";
@@ -456,6 +465,7 @@ static load_timeline=async(iduser)=>
     {
       try {
         event.preventDefault();
+        let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idvideo = document.getElementById('profileloginuser_updatevideo_idvideo').value;
         const title = document.getElementById('profileloginuser_updatevideo_name').value;
          const description = document.getElementById('profileloginuser_updatevideo_description').value;       
@@ -465,7 +475,8 @@ static load_timeline=async(iduser)=>
          const dataform = {idvideo,title
            ,description,visibility}
        
-          const response_upload_video= await APIRESTVideo.updateVideo(dataform);
+          const response_upload_video= await APIRESTVideo.updateVideo(dataform,getuserlogin.iduser,
+            getuserlogin.userrname);
           if (response_upload_video) {
         
             messagenotification('Video Updated','success',event);
@@ -481,11 +492,12 @@ static load_timeline=async(iduser)=>
     static deleteVideo= async(event)=>
     {
       try {
-       
+         let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idvideo = document.getElementById('idvideo_deletevideomodal_profileloginuser').value;
        
        
-          const response_delete_video= await APIRESTVideo.deleteVideo(idvideo);
+          const response_delete_video= await APIRESTVideo.deleteVideo(idvideo,getuserlogin.iduser,
+            getuserlogin.userrname);
           if (response_delete_video) {
         
             messagenotification('Video Deleted','success',event);
@@ -503,7 +515,9 @@ static load_timeline=async(iduser)=>
 
     static  showDataUpdateModalVideo=async(id)=>
     {
-      const response_getvideo= await APIRESTVideo.getVideo(id);
+      let getuserlogin = JSON.parse(sessionStorage.getItem('user_login'));
+      const response_getvideo= await APIRESTVideo.getVideo(id,getuserlogin.iduser,
+         getuserlogin.userrname);
       document.getElementById('profileloginuser_updatevideo_idvideo').value=response_getvideo.idvideo;
       document.getElementById('profileloginuser_updatevideo_name').value=response_getvideo.title;
       document.getElementById('profileloginuser_updatevideo_description').value=response_getvideo.description;
@@ -637,7 +651,8 @@ static loadNameDescriptionUser(description, name) {
 }
 //GET ALBUM IMAGES LOGIN USER
 static async loadAlbumImagesLoginUser() {
-  let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+   let getuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser(getuser.iduser,getuser.userrname);
   
   let html_load_albumimage = '';
 
@@ -753,7 +768,8 @@ static async loadImagesLoginUser(iduser) {
 }
 //GET POST LOGIN USER
 static async loadPostLoginUser(iduser) {
-   let getpostuser = await APIRESTPost.getPostByLoginUser(iduser);
+   let getuser=await this.sessionLoginUser();
+   let getpostuser = await APIRESTPost.getPostByLoginUser(getuser.iduser,getuser.userrname);
    document.getElementById("profileloginuser_span_postcount").innerHTML = getpostuser.length;
    let html_load_post = '';
  
@@ -823,7 +839,8 @@ static async loadPostLoginUser(iduser) {
  }
 //GET ALBUM VIDEOS LOGIN USER
 static async loadAlbumVideosLoginUser() {
-  let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+   let getuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser(getuser.iduser,getuser.userrname);
   
   let html_load_albumvideo = '';
 
@@ -936,7 +953,8 @@ static showImageCoverProfile(image, coverphoto) {
 }
 //GET TITLE ALBUMS IN ADD MODAL IMAGE
 static async loadAlbumImagesUserModal() {
-  let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+   let getuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let getalbumimagesuser = await APIRESTAlbumImage.getAlbumImageByLoginUser(getuser.iduser,getuser.userrname);
   let load_albums_image = "";
   for (let i = 0; i < getalbumimagesuser.length; i++) {
     load_albums_image += `<option value=${getalbumimagesuser[i].idalbumphoto}>${getalbumimagesuser[i].title}</option>`;
@@ -950,7 +968,8 @@ static async loadAlbumImagesUserModal() {
 
 //GET TITLE ALBUM IN ADD MODAL VIDEO
 static async loadAlbumVideoUserModal() {
-  let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+   let getuser = JSON.parse(sessionStorage.getItem('user_login'));
+   let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser(getuser.iduser,getuser.userrname);
   let load_albums_video = "";
   for (let i = 0; i < getalbumvideosuser.length; i++) {
     load_albums_video += `<option value=${getalbumvideosuser[i].idalbumvideo}>${getalbumvideosuser[i].title}</option>`;

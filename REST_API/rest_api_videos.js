@@ -4,7 +4,7 @@ class APIRESTVideo
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
       
-       static addVideo=async(videodata)=>
+       static addVideo=async(videodata,iduserlogin,username)=>
 
        {
        
@@ -19,6 +19,8 @@ class APIRESTVideo
          
  
          let bodyContent = JSON.stringify({
+          "iduserlogin": iduserlogin ,
+          "usernamelogin": username,
           "idalbumvideo": idalbumvideo ,
           "title": title,
           "description":description ,
@@ -41,7 +43,7 @@ class APIRESTVideo
        }
        return true;
        }  
-       static updateVideo=async(videodata)=>
+       static updateVideo=async(videodata,iduserlogin,username)=>
        {
         
 
@@ -56,6 +58,8 @@ class APIRESTVideo
          }
       
          let bodyContent = JSON.stringify({
+          "iduserlogin": iduserlogin ,
+          "usernamelogin": username,
           "idvideo": idvideo ,
           "title": title,
           "description":description ,
@@ -77,7 +81,7 @@ class APIRESTVideo
        }
        return true;
        }  
-       static deleteVideo=async(idvideo)=>
+       static deleteVideo=async(idvideo,iduserlogin,usernamelogin)=>
        {
         
 
@@ -89,6 +93,8 @@ class APIRESTVideo
          }
       
          let bodyContent = JSON.stringify({
+          "iduserlogin": iduserlogin ,
+          "usernamelogin": usernamelogin,
           "idvideo": idvideo 
         });
  
@@ -244,10 +250,10 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
-       static getVideo=async(idvideo)=>
+       static getVideo=async(idvideo,iduserLogin,username)=>
        {
         
-             let URLVIDEO=this.RESTAPIURL+`/video/video?pidvideo=${idvideo}`;
+             let URLVIDEO=this.RESTAPIURL+`/video/video?pidvideo=${idvideo}&iduserlogin=${iduserLogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",

@@ -4,7 +4,7 @@ class APIRESTImages
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
       
-       static addImage=async(imagedata)=>
+       static addImage=async(imagedata,iduserlogin,username)=>
        {
         
        
@@ -20,6 +20,8 @@ class APIRESTImages
          
  
          let bodyContent = JSON.stringify({
+          "iduserlogin" :iduserlogin,
+              "usernamelogin" :username,
           "idalbumphoto": idalbumphoto ,
           "title": title,
           "description":description ,
@@ -41,8 +43,9 @@ class APIRESTImages
         throw new Error(error);
        }
        return true;
-       }  
-       static updateImage=async(imagedata)=>
+       } 
+       
+       static updateImage=async(imagedata,iduserlogin,username)=>
        {
         
 
@@ -57,6 +60,8 @@ class APIRESTImages
          }
       
          let bodyContent = JSON.stringify({
+          "iduserlogin" :iduserlogin,
+              "usernamelogin" :username,
           "idimage": idimage ,
           "title": title,
           "description":description ,
@@ -78,7 +83,9 @@ class APIRESTImages
        }
        return true;
        }  
-       static deleteImage=async(idimage)=>
+
+
+       static deleteImage=async(idimage,iduserlogin,username)=>
        {
         
 
@@ -90,6 +97,8 @@ class APIRESTImages
          }
       
          let bodyContent = JSON.stringify({
+          "iduserlogin" :iduserlogin,
+              "usernamelogin" :username,
           "idimage": idimage 
         });
  
@@ -180,10 +189,10 @@ class APIRESTImages
             let data = await response.json();
             return data;
        }  
-       static getImage=async(idphoto)=>
+       static getImage=async(idphoto,iduserlogin,username)=>
        {
         
-             let URLIMAGE=this.RESTAPIURL+`/images/image?pid=${idphoto}`;
+             let URLIMAGE=this.RESTAPIURL+`/images/image?pid=${idphoto}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",

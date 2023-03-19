@@ -3,7 +3,7 @@ class APIRESTAlbumImage
   
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
-        static add_album_image=async(title,urlimages)=>
+        static add_album_image=async(title,urlimages,iduserlogin,username)=>
         {
           let POSTURLIMAGE=this.RESTAPIURL+"/albumimage/albumimage"
   
@@ -14,6 +14,8 @@ class APIRESTAlbumImage
            
    
            let bodyContent = JSON.stringify({
+            "iduserlogin": iduserlogin ,
+            "usernamelogin": username ,
             "urlimages": urlimages ,
             "title": title
            
@@ -36,11 +38,11 @@ class APIRESTAlbumImage
 
         
        //GETS
-       static getAlbumImageByLoginUser=async()=>
+       static getAlbumImageByLoginUser=async(iduserlogin,username)=>
        {
         
        
-             let URLALBUMIMAGE=this.RESTAPIURL+`/albumimage/getAlbumImagebyUser`;
+             let URLALBUMIMAGE=this.RESTAPIURL+`/albumimage/getAlbumImagebyUser?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",
