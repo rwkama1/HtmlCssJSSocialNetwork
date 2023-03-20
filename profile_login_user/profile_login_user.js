@@ -126,7 +126,7 @@ class Profile_Login_User
 
     //LOAD POST LOGIN USER
   
-      await this.loadPostLoginUser(iduser);
+      await this.loadPostLoginUser();
       
 
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
@@ -277,13 +277,14 @@ static load_timeline=async(iduser)=>
       try {
        
         event.preventDefault();
+        let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
         document.getElementById("create_album_images_modal").classList.add("cursor-loading");
           let arrayurlimages=[];
         const title=  document.getElementById('titlealbum_profileloginuser').value; 
           let filesalbumimages = SelectData.getSelectMultipleImages();
           for (let i = 0; i < filesalbumimages.length; i++) {
               const fileimage = filesalbumimages[i] ;
-              let getulogin=await this.getLoginUser();
+           
               let urlimage=await APIRESTCloudinary.upload_image(fileimage,getulogin.iduser);
               arrayurlimages.push(urlimage);
           }
@@ -291,7 +292,8 @@ static load_timeline=async(iduser)=>
         //      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile);
          
          
-         const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages);
+         const response_upload_albumimage= await APIRESTAlbumImage.add_album_image(title,arrayurlimages,getulogin.iduser,
+            getulogin.userrname);
          if (response_upload_albumimage) {
        
 
@@ -427,13 +429,14 @@ static load_timeline=async(iduser)=>
     {
       try {
        event.preventDefault();
+       let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
        document.getElementById("create-album-video-modal").classList.add("cursor-loading");
           let arrayurlvideo=[];
           const title=  document.getElementById('titlealbumvideo_profileloginuser').value; 
           let filesalbumvideos= SelectData.getSelectMultipleVideos();
           for (let i = 0; i < filesalbumvideos.length; i++) {
               const filevideos = filesalbumvideos[i] ;
-              let getulogin=await this.getLoginUser();
+             
               let urlvideo=await APIRESTCloudinary.upload_video(filevideos,getulogin.iduser);
               arrayurlvideo.push(urlvideo);
           }
@@ -441,7 +444,8 @@ static load_timeline=async(iduser)=>
         //      let urlimage=await APIRESTCloudinary.upload_image(fileimageprofile);
          
          
-         const response_upload_albumvideo= await APIRESTAlbumVideo.add_album_video(title,arrayurlvideo);
+         const response_upload_albumvideo= await APIRESTAlbumVideo.add_album_video(title,arrayurlvideo,
+            getulogin.iduser,getulogin.userrname);
          if (response_upload_albumvideo) {
        
          
@@ -530,7 +534,7 @@ static load_timeline=async(iduser)=>
     }
     static showIdDeleteModalVideo=async(id)=>
     {
-      document.getElementById('idphoto_deleteimagemodal_profileloginuser').value=id;
+      document.getElementById('idvideo_deletevideomodal_profileloginuser').value=id;
    
     }
 
@@ -542,7 +546,7 @@ static load_timeline=async(iduser)=>
     {
       try {
         event.preventDefault();
-        
+        let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
        const title = document.getElementById('profileloginuser_addpost_name').value;
     
         const description = document.getElementById('profileloginuser_addpost_description').value;
@@ -551,7 +555,8 @@ static load_timeline=async(iduser)=>
         const dataform = {title
           ,visibility,description}
       
-         const response_post= await APIRESTPost.addPost(dataform);
+         const response_post= await APIRESTPost.addPost(dataform,getulogin.iduser,
+            getulogin.userrname);
          if (response_post) {
          
            document.getElementById('profileloginuser_addpost_name').value="";
@@ -572,6 +577,7 @@ static load_timeline=async(iduser)=>
     {
       try {
         event.preventDefault();
+        let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idpost = document.getElementById('idpost_updatepost_profileloginuser').value;
         const title = document.getElementById('profileloginuser_updatepost_name').value;
          const description = document.getElementById('profileloginuser_updatepost_description').value;       
@@ -581,7 +587,9 @@ static load_timeline=async(iduser)=>
          const dataform = {idpost,title
            ,description,visibility}
        
-          const response_upload_post= await APIRESTPost.updatePost(dataform);
+          const response_upload_post= await APIRESTPost.updatePost(dataform,
+            getulogin.iduser,
+            getulogin.userrname);
           if (response_upload_post) {
         
             messagenotification('Post Updated','success',event);
@@ -597,11 +605,13 @@ static load_timeline=async(iduser)=>
     static deletePost= async(event)=>
     {
       try {
-       
+         let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
         const idpost = document.getElementById('idpost_deletepostmodal_profileloginuser').value;
        
        
-          const response_delete_post= await APIRESTPost.deletePost(idpost);
+          const response_delete_post= await APIRESTPost.deletePost(idpost,
+            getulogin.iduser,
+            getulogin.userrname);
           if (response_delete_post) {
         
             messagenotification('Post Deleted','success',event);
@@ -618,7 +628,10 @@ static load_timeline=async(iduser)=>
     }
     static  showDataUpdateModalPost=async(id)=>
     {
-      const response_getpost= await APIRESTPost.getPost(id);
+      let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
+      const response_getpost= await APIRESTPost.getPost(id,
+         getulogin.iduser,
+         getulogin.userrname);
       document.getElementById('idpost_updatepost_profileloginuser').value=response_getpost.idpost;
       document.getElementById('profileloginuser_updatepost_name').value=response_getpost.title;
       document.getElementById('profileloginuser_updatepost_description').value=response_getpost.description;
@@ -767,7 +780,7 @@ static async loadImagesLoginUser(iduser) {
   document.getElementById("profileloginuser_listallimages_div").innerHTML = html_load_images;
 }
 //GET POST LOGIN USER
-static async loadPostLoginUser(iduser) {
+static async loadPostLoginUser() {
    let getuser=await this.sessionLoginUser();
    let getpostuser = await APIRESTPost.getPostByLoginUser(getuser.iduser,getuser.userrname);
    document.getElementById("profileloginuser_span_postcount").innerHTML = getpostuser.length;
@@ -1321,7 +1334,9 @@ static forAddImagesFromAlbum(images)
                      <hr class="-mx-2 my-2 dark:border-gray-800">
                   </li>
                   <li>
-                     <a href="" uk-toggle="target: #delete_video_modal"  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                     <a href="" uk-toggle="target: #delete_video_modal"
+                     onclick="Profile_Login_User.showIdDeleteModalVideo('${idvideo}');"
+                       class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                          <i class="uil-trash-alt mr-1"></i> Delete </a>
                   </li>
                </ul>

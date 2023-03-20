@@ -1,33 +1,21 @@
 class ImageMainPageJS
 {
-    static  getLoginUser=async()=>
-    {
-      let response_loginuser= await APIRESTLoginUser.getLoginUser();
-    
-
-      return response_loginuser
   
-    }
       //LOAD PAGE
       static loadPage=async()=>
       {
         setTimeout(async () => {
         try {
-        let response_loginuser= await this.getLoginUser();
-        SelectData.iduserLogin=response_loginuser.iduser;
+         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
 
 
-        await Promise.all([
-         this.loadAlbumImageUserModal(),
-         this.listImageSearch(response_loginuser.iduser)
-        
-     ]);
-
+       
+        await this.loadAlbumImageUserModal(sessionuser);
+        await this.listImageSearch(sessionuser);
      
-      await Promise.all([
-         this.listImageMoreLike(),
-         this.listImageMoreComment()
-      ]);
+       await  this.listImageMoreLike(sessionuser);
+        await this.listImageMoreComment(sessionuser);
+    
        
       } catch (error) {
         // alert(error);
@@ -41,9 +29,10 @@ class ImageMainPageJS
          {
            try {
              
-            let iduserLogin=SelectData.getIdUserLogin();
+            let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
            const query = event.target.value;
-           let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(iduserLogin,query);
+           let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(sessionuser.iduser,
+            sessionuser.userrname,query);
            let html_load_searchimages="";
            for (let i = 0; i <  Math.min(getSearchImagesExpresion.length, 10); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getSearchImagesExpresion[i];
@@ -84,9 +73,10 @@ class ImageMainPageJS
        }
          }
          //LIST
-         static listImageSearch=async(iduser)=>
+         static listImageSearch=async(sessionuser)=>
          {
-         let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(iduser,"");
+            
+         let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(sessionuser.iduser,sessionuser.userrname,"");
          let html_load_seaarchimages="";
          for (let i = 0; i < Math.min(getSearchImagesExpresion.length, 15); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getSearchImagesExpresion[i];
@@ -124,9 +114,9 @@ class ImageMainPageJS
          document.getElementById("imagemainpage_listsearchimage_div").innerHTML = html_load_seaarchimages;
          document.getElementById("imagemainpage_listnewestimage_div").innerHTML = html_load_seaarchimages;
          }
-         static listImageMoreLike=async()=>
+         static listImageMoreLike=async(sessionuser)=>
          {
-         let getImagesOrderByLikes = await APIRESTImages.getImagesOrderByLikes();
+         let getImagesOrderByLikes = await APIRESTImages.getImagesOrderByLikes(sessionuser.iduser,sessionuser.userrname);
          let html_load_imageslike="";
          for (let i = 0; i < Math.min(getImagesOrderByLikes.length, 15); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesOrderByLikes[i];
@@ -164,9 +154,10 @@ class ImageMainPageJS
          document.getElementById("imagemainpage_listmorelikesimage_div").innerHTML = html_load_imageslike;
          
          }
-         static listImageMoreComment=async()=>
+         static listImageMoreComment=async(sessionuser)=>
          {
-         let getImagesOrderbyComments = await APIRESTImages.getImagesOrderbyComments();
+         let getImagesOrderbyComments = await APIRESTImages.getImagesOrderbyComments(sessionuser.iduser,
+            sessionuser.userrname);
          let html_load_commentsimages="";
          for (let i = 0; i < Math.min(getImagesOrderbyComments.length, 15); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesOrderbyComments[i];
@@ -209,19 +200,21 @@ class ImageMainPageJS
             {
               try {
                event.preventDefault();
+               let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
                document.getElementById("create-image-modal").classList.add("cursor-loading");
                const title = document.getElementById('imagemainpage_uploadimage_title').value;
                 const idalbumphoto = document.getElementById('imagemainpage_select_albumimages').value;
                 const description = document.getElementById('imagemainpage_uploadimage_description').value;
                 const visibility = document.getElementById('imagemainpage_uploadimage_visibility').value;
                 let fileimage = document.getElementById('uploadoneimage').files[0];
-                let getulogin=await this.getLoginUser();
+                
                
-              let urlimage=await APIRESTCloudinary.upload_image(fileimage,getulogin.iduser);
+              let urlimage=await APIRESTCloudinary.upload_image(fileimage,sessionuser.iduser);
                 const dataform = {title
                   ,idalbumphoto,visibility,description,urlimage}
               
-                 const response_upload_image= await APIRESTImages.addImage(dataform);
+                 const response_upload_image= await APIRESTImages.addImage(dataform,sessionuser.iduser,
+                  sessionuser.userrname);
                  if (response_upload_image) {
                 
                    document.getElementById('imagemainpage_uploadimage_title').value="";
@@ -239,8 +232,9 @@ class ImageMainPageJS
               
             }
          //GET TITLE ALBUM IN ADD MODAL IMAGE
-         static async loadAlbumImageUserModal() {
-            let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser();
+         static async loadAlbumImageUserModal(sessionuser) {
+            let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser(sessionuser.iduser,
+               sessionuser.userrnamw);
             let load_albums_image = "";
             for (let i = 0; i < getAlbumImage.length; i++) {
             

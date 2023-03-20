@@ -113,10 +113,10 @@ class APIRESTVideo
        return true;
        }  
        //GETS 
-       static getVideosOrderByLikes=async()=>
+       static getVideosOrderByLikes=async(iduserLogin,usernamelogin)=>
        {
        
-             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderByLikes`;
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderByLikes?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -136,10 +136,10 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
-       static getVideosOrderbyComments=async()=>
+       static getVideosOrderbyComments=async(iduserLogin,usernamelogin)=>
        {
        
-             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderbyComments`;
+             let URLVIDEOS=this.RESTAPIURL+`/video/getVideosOrderbyComments?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
  
              let headersList = {
                "Accept": "*/*",

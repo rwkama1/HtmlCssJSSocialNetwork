@@ -212,9 +212,9 @@ class APIRESTImages
             let data = await response.json();
             return data;
        }  
-       static getSearchImagesExpresion=async(iduser,searchtext)=>
+       static getSearchImagesExpresion=async(iduserlogin,username,searchtext)=>
        {
-             let URLIMAGE=this.RESTAPIURL+`/images/getSearchImagesExpresion?searchtext=${searchtext}&iduser=${iduser}`;
+             let URLIMAGE=this.RESTAPIURL+`/images/getSearchImagesExpresion?searchtext=${searchtext}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -235,10 +235,10 @@ class APIRESTImages
             return data;
        }  
 
-       static getImagesOrderByLikes=async()=>
+       static getImagesOrderByLikes=async(iduserlogin,username)=>
        {
        
-             let URLIMAGES=this.RESTAPIURL+`/images/getImagesOrderByLikes`;
+             let URLIMAGES=this.RESTAPIURL+`/images/getImagesOrderByLikes?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -258,10 +258,10 @@ class APIRESTImages
             let data = await response.json();
             return data;
        }  
-       static getImagesOrderbyComments=async()=>
+       static getImagesOrderbyComments=async(iduserlogin,username)=>
        {
        
-             let URLIMAGES=this.RESTAPIURL+`/images/getImagessOrderbyComments`;
+             let URLIMAGES=this.RESTAPIURL+`/images/getImagessOrderbyComments?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",

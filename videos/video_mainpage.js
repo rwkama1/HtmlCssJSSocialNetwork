@@ -1,50 +1,43 @@
 class VideoMainPageJS
 {
-    static  getLoginUser=async()=>
-    {
-      let response_loginuser= await APIRESTLoginUser.getLoginUser();
-    
-
-      return response_loginuser
-  
-    }
-      //LOAD PAGE
+    //LOAD PAGE
       static loadPage=async()=>
       {
+      
         setTimeout(async () => {
         try {
-        let response_loginuser= await this.getLoginUser();
-        SelectData.iduserLogin=response_loginuser.iduser;
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+       
 
 
         //CHARGE OPERATIONS SIMULTANEOUSLY
 
 
-        await Promise.all([
-          this.listVideosMoreLike(),
-          this.listVideoSearch(SelectData.getIdUserLogin())
+    //     await Promise.all([
+    //       this.listVideosMoreLike(),
+    //       this.listVideoSearch(SelectData.getIdUserLogin())
          
-      ]);
+    //   ]);
 
-      await Promise.all([
+    //   await Promise.all([
        
-        this.loadAlbumVideoUserModal(),
-        this.listVideosMoreComment()
-    ]);
-       // await this.loadAlbumVideoUserModal();
+    //     this.loadAlbumVideoUserModal(),
+    //     this.listVideosMoreComment()
+    // ]);
+       await this.loadAlbumVideoUserModal();
 
-        //await this.listVideoSearch(SelectData.getIdUserLogin());
+        await this.listVideoSearch(sessionuser.iduser);
 
-        //await this.listVideosMoreLike();
+        await this.listVideosMoreLike();
 
-      //await this.listVideosMoreComment();
+      await this.listVideosMoreComment();
 
       } catch (error) {
         // alert(error);
         // window.location.href="../index.html"; 
          }
     },1000);
-
+   
       }
         //SEARCH
       static searchVideos=async(event)=>
@@ -139,7 +132,9 @@ class VideoMainPageJS
     
         }
         static async listVideosMoreLike() {
-          let getVideosOrderByLikes = await APIRESTVideo.getVideosOrderByLikes();
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+          let getVideosOrderByLikes = await APIRESTVideo.getVideosOrderByLikes(sessionuser.iduser,
+            sessionuser.userrname);
         
           let html_load_videosmorelike="";
           for (let i = 0; i < Math.min(getVideosOrderByLikes.length, 10); i++) {
@@ -181,7 +176,10 @@ class VideoMainPageJS
           
               }
         static async listVideosMoreComment() {
-                let getVideosOrderbyComments = await APIRESTVideo.getVideosOrderbyComments();
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+                let getVideosOrderbyComments = await APIRESTVideo.getVideosOrderbyComments(
+                  sessionuser.iduser,sessionuser.userrname
+                );
               
                 let html_load_videosmorecomments="";
                 for (let i = 0; i < Math.min(getVideosOrderbyComments.length, 10); i++) {
@@ -228,19 +226,21 @@ class VideoMainPageJS
          {
            try {
             event.preventDefault();
+            let getulogin = JSON.parse(sessionStorage.getItem('user_login'));
             document.getElementById("create-video-modal").classList.add("cursor-loading");
             const title = document.getElementById('videomainpage_uploadvideo_title').value;
              const idalbumvideo = document.getElementById('videomainpage_select_albumvideos').value;
              const description = document.getElementById('videomainpage_uploadvideo_description').value;
              const visibility = document.getElementById('videomainpage_uploadvideo_visibility').value;
              let filevideo = document.getElementById('uploadonevideo').files[0];
-             let getulogin=await this.getLoginUser();
+            
             
            let urlvideo=await APIRESTCloudinary.upload_video(filevideo,getulogin.iduser);
              const dataform = {title
                ,idalbumvideo,visibility,description,urlvideo}
            
-              const response_upload_video= await APIRESTVideo.addVideo(dataform);
+              const response_upload_video= await APIRESTVideo.addVideo(dataform
+                ,getulogin.iduser,getulogin.userrname);
               if (response_upload_video) {
              
                 document.getElementById('videomainpage_uploadvideo_title').value="";
@@ -259,7 +259,10 @@ class VideoMainPageJS
          }
          //GET TITLE ALBUM IN ADD MODAL VIDEO
         static async loadAlbumVideoUserModal() {
-          let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser();
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+          let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser(
+            sessionuser.iduser,sessionuser.userrname
+          );
           let load_albums_video = "";
           for (let i = 0; i < getalbumvideosuser.length; i++) {
             load_albums_video += `<option value=${getalbumvideosuser[i].idalbumvideo}>${getalbumvideosuser[i].title}</option>`;

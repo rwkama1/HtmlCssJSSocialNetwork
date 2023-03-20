@@ -4,7 +4,7 @@ class APIRESTPost
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
  
- static addPost=async(postdata)=>
+ static addPost=async(postdata,iduserlogin,username)=>
  {
   
  
@@ -20,7 +20,8 @@ class APIRESTPost
    
 
    let bodyContent = JSON.stringify({
- 
+    "iduserlogin": iduserlogin,
+    "usernamelogin":username ,
     "title": title,
     "description":description ,
     "visibility":visibility 
@@ -41,7 +42,7 @@ const response=await fetch(POSTURL, requestOptions);
  }
  return true;
  }  
- static updatePost=async(postdata)=>
+ static updatePost=async(postdata,iduserLogin,username)=>
  {
   
 
@@ -56,6 +57,8 @@ const response=await fetch(POSTURL, requestOptions);
    }
 
    let bodyContent = JSON.stringify({
+    "iduserlogin": iduserLogin,
+    "usernamelogin":username ,
     "idpost": idpost ,
     "title": title,
     "description":description ,
@@ -77,7 +80,7 @@ const response=await fetch(PUTURLPOST, requestOptions);
  }
  return true;
  }  
- static deletePost=async(idpost)=>
+ static deletePost=async(idpost,iduserlogin,username)=>
        {
         
 
@@ -89,6 +92,8 @@ const response=await fetch(PUTURLPOST, requestOptions);
          }
       
          let bodyContent = JSON.stringify({
+          "iduserlogin": iduserlogin,
+          "usernamelogin":username ,
           "idpost": idpost 
         });
  
@@ -154,11 +159,11 @@ const response=await fetch(PUTURLPOST, requestOptions);
       let data = await response.json();
       return data;
  } 
- static getPost=async(idpost)=>
+ static getPost=async(idpost,iduserlogin,username)=>
  {
   
  
-       let URLPOST=this.RESTAPIURL+`/post/post?pid=${idpost}`;
+       let URLPOST=this.RESTAPIURL+`/post/post?pid=${idpost}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
 
        let headersList = {
          "Accept": "*/*",

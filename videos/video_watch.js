@@ -3,16 +3,17 @@ class VideoWatchJS
    //LOAD PAGE
    static loadPage=async()=>
    {
+    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     setTimeout(async () => {
      try {
-      const [getuserlogin, getVideo] = await Promise.all([
-        APIRESTLoginUser.getLoginUser(),
-        APIRESTVideo.getVideo(sessionStorage.getItem('idvideowatch')),
-       
-      ]);
+     
 
-      let getuser=await APIRESTUser.getUser(getVideo.user.iduser)
-        let iduserlogin=getuserlogin.iduser;
+      let getVideo=await APIRESTVideo.getVideo(sessionStorage.getItem('idvideowatch')
+      ,sessionuser.iduser,sessionuser.userrname);
+    
+      let getuser=await APIRESTUser.getUser(getVideo.user.iduser,sessionuser.iduser,
+        sessionuser.userrname)
+        let iduserlogin=sessionuser.iduser;
         let iduservideo=getuser.iduser;
         //SHOW EDIT DELETE VIDEO DIV
          const editDeleteDiv = document.getElementById('videowatch_editdeletevideo_div');
@@ -84,6 +85,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
    {
      try {
        event.preventDefault();
+      
        const idvideo = document.getElementById('videowatch_updatevideo_idvideo').value;
        const title = document.getElementById('videowatch_updatevideo_name').value;
         const description = document.getElementById('videowatch_updatevideo_description').value;       
@@ -92,12 +94,16 @@ document.getElementById("videowatch_iduser").value=iduservideo;
           
         const dataform = {idvideo,title
           ,description,visibility}
-      
-         const response_upload_video= await APIRESTVideo.updateVideo(dataform);
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+         const response_upload_video= await APIRESTVideo.updateVideo(dataform,sessionuser.iduser,
+          sessionuser.userrname);
          if (response_upload_video) {
        
            messagenotification('Video Updated','success',event);
-           location.reload();
+           setInterval(() => {
+            location.reload();
+           }, 1000);
+       
            document.getElementById('videowatch_updatevideo_name').value="";
            document.getElementById('videowatch_updatevideo_description').value="";
           }
@@ -111,11 +117,12 @@ document.getElementById("videowatch_iduser").value=iduservideo;
    static deleteVideo= async(event)=>
    {
      try {
-      
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
        const idvideo = document.getElementById('idvideo_deletevideomodal_videowatch').value;
       
       
-         const response_delete_video= await APIRESTVideo.deleteVideo(idvideo);
+         const response_delete_video= await APIRESTVideo.deleteVideo(idvideo,
+          sessionuser.iduser,sessionuser.userrname);
          if (response_delete_video) {
        
            messagenotification('Video Deleted','success',event);
@@ -127,6 +134,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
     
       
      }catch (error) {
+      console.error(error);
        alert(error);
      }
    }
