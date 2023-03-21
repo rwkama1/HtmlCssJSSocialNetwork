@@ -5,15 +5,13 @@ class ImageWatchJS
   {
    setTimeout(async () => {
     try {
-      const [getuserlogin, getImage] = await Promise.all([
-        APIRESTLoginUser.getLoginUser(),
-        APIRESTImages.getImage(sessionStorage.getItem('idimagewatch')),
-       
-      ]);
-     
-       let getuser=await APIRESTUser.getUser(getImage.user.iduser);
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+   
+      let getImage=await APIRESTImages.getImage(sessionStorage.getItem('idimagewatch'),sessionuser.iduser,
+      sessionuser.userrname)
+       let getuser=await APIRESTUser.getUser(getImage.user.iduser,sessionuser.iduser,sessionuser.userrname);
          
-       let iduserlogin=getuserlogin.iduser;
+       let iduserlogin=sessionuser.iduser;
        let iduserimage=getuser.iduser;
        //SHOW EDIT DELETE IMAGE DIV
         const editDeleteDiv = document.getElementById('imagewatch_editdeleteimage_div');
@@ -86,6 +84,7 @@ class ImageWatchJS
      {
        try {
          event.preventDefault();
+         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
          const idimage = document.getElementById('imagewatch_updateimage_idimage').value;
          const title = document.getElementById('imagewatch_updateimage_name').value;
           const description = document.getElementById('imagewatch_updateimage_description').value;       
@@ -95,11 +94,15 @@ class ImageWatchJS
           const dataform = {idimage,title
             ,description,visibility}
         
-           const response_upload_image= await APIRESTImages.updateImage(dataform);
+           const response_upload_image= await APIRESTImages.updateImage(dataform,sessionuser.iduser,
+            sessionuser.userrname);
            if (response_upload_image) {
          
              messagenotification('Image Updated','success',event);
-             location.reload();
+             setInterval(() => {
+              location.reload()
+             }, 1000);
+          
              document.getElementById('imagewatch_updateimage_name').value="";
              document.getElementById('imagewatch_updateimage_description').value="";
             }
@@ -115,9 +118,10 @@ class ImageWatchJS
        try {
         
          const idimage = document.getElementById('idphoto_deleteimagemodal_imagewatch').value;
+         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         
-        
-           const response_delete_image= await APIRESTImages.deleteImage(idimage);
+           const response_delete_image= await APIRESTImages.deleteImage(idimage,
+            sessionuser.iduser,sessionuser.userrname );
            if (response_delete_image) {
          
              messagenotification('Image Deleted','success',event);

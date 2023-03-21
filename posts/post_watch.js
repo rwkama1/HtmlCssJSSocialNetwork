@@ -5,24 +5,16 @@ class PostWatchJS
   {
    setTimeout(async () => {
     try {
-    
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         let idpostwatch = sessionStorage.getItem('idpostwatch');
 
-        // CHARGE OPERATIONS SIMULTANEOUSLY
-
-        const [
-          getuserlogin,
-          getPost,
-         
-        ]=   await Promise.all([
-          APIRESTLoginUser.getLoginUser(),
-          APIRESTPost.getPost(idpostwatch)
-        
-         
-      ]);
+          let getPost=await APIRESTPost.getPost(idpostwatch,sessionuser.iduser,
+            sessionuser.userrname)
       
-      let getuser=await APIRESTUser.getUser(getPost.user.iduser);
-    let iduserlogin=getuserlogin.iduser;
+      
+      let getuser=await APIRESTUser.getUser(getPost.user.iduser,sessionuser.iduser,
+        sessionuser.userrname);
+    let iduserlogin=sessionuser.iduser;
         let iduserpost=getuser.iduser;
        //SHOW EDIT DELETE POST DIV
         const editDeleteDiv = document.getElementById('postwatch_editdeletepost_div');
@@ -93,6 +85,7 @@ document.getElementById("postwatch_iduser").value=iduserpost;
      {
        try {
          event.preventDefault();
+         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
          const idpost = document.getElementById('idpost_updatepost_postwatch').value;
          const title = document.getElementById('postwatch_updatepost_name').value;
           const description = document.getElementById('postwatch_updatepost_description').value;       
@@ -102,7 +95,8 @@ document.getElementById("postwatch_iduser").value=iduserpost;
           const dataform = {idpost,title
             ,description,visibility}
         
-           const updatePost= await APIRESTPost.updatePost(dataform);
+           const updatePost= await APIRESTPost.updatePost(dataform,
+            sessionuser.iduser,sessionuser.userrname );
            if (updatePost) {
          
              messagenotification('Post Updated','success',event);
@@ -125,8 +119,9 @@ document.getElementById("postwatch_iduser").value=iduserpost;
         
          const idpost = document.getElementById('idpost_deletepost_postwatch').value;
         
-        
-           const deletePost= await APIRESTPost.deletePost(idpost);
+         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+           const deletePost= await APIRESTPost.deletePost(idpost,sessionuser.iduser,
+            sessionuser.userrname);
            if (deletePost) {
          
              messagenotification('Post Deleted','success',event);

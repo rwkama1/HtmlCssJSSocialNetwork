@@ -24,13 +24,13 @@ class VideoMainPageJS
     //     this.loadAlbumVideoUserModal(),
     //     this.listVideosMoreComment()
     // ]);
-       await this.loadAlbumVideoUserModal();
+       await this.loadAlbumVideoUserModal(sessionuser);
 
         await this.listVideoSearch(sessionuser.iduser);
 
-        await this.listVideosMoreLike();
+        await this.listVideosMoreLike(sessionuser);
 
-      await this.listVideosMoreComment();
+      await this.listVideosMoreComment(sessionuser);
 
       } catch (error) {
         // alert(error);
@@ -45,9 +45,9 @@ class VideoMainPageJS
         try {
           
       
-        let iduserLogin=SelectData.getIdUserLogin();
+          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         const query = event.target.value;
-        let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(iduserLogin,query);
+        let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(sessionuser.iduser,query);
         let html_load_seaarchvideos="";
         for (let i = 0; i <  Math.min(getSearchVideosExpresion.length, 10); i++) {
           let {urlvideo,description,stringpostedago,title,user,idvideo}=getSearchVideosExpresion[i];
@@ -131,8 +131,8 @@ class VideoMainPageJS
     document.getElementById("videomaingpage_listnewestvideos_div").innerHTML = html_load_seaarchvideos;
     
         }
-        static async listVideosMoreLike() {
-          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+        static async listVideosMoreLike(sessionuser) {
+        
           let getVideosOrderByLikes = await APIRESTVideo.getVideosOrderByLikes(sessionuser.iduser,
             sessionuser.userrname);
         
@@ -175,8 +175,8 @@ class VideoMainPageJS
           document.getElementById("videomaingpage_listmorelikesvideos_div").innerHTML = html_load_videosmorelike;  
           
               }
-        static async listVideosMoreComment() {
-          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+        static async listVideosMoreComment(sessionuser) {
+        
                 let getVideosOrderbyComments = await APIRESTVideo.getVideosOrderbyComments(
                   sessionuser.iduser,sessionuser.userrname
                 );
@@ -258,8 +258,8 @@ class VideoMainPageJS
            
          }
          //GET TITLE ALBUM IN ADD MODAL VIDEO
-        static async loadAlbumVideoUserModal() {
-          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+        static async loadAlbumVideoUserModal(sessionuser) {
+        
           let getalbumvideosuser = await APIRESTAlbumVideo.getAlbumVideoseByLoginUser(
             sessionuser.iduser,sessionuser.userrname
           );

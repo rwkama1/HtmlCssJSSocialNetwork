@@ -205,9 +205,9 @@ const response=await fetch(PUTURLPOST, requestOptions);
             let data = await response.json();
             return data;
        }
-    static getMoreLikePost=async()=>
+  static getMoreLikePost=async(iduserlogin,username)=>
        {
-             let URLPOST=this.RESTAPIURL+`/post/getPostOrderByLikes`;
+             let URLPOST=this.RESTAPIURL+`/post/getPostOrderByLikes?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",
@@ -227,9 +227,9 @@ const response=await fetch(PUTURLPOST, requestOptions);
             let data = await response.json();
             return data;
        } 
-    static getMoreCommentPosts=async()=>
+   static getMoreCommentPosts=async(iduserlogin,username)=>
        {
-             let URLPOST=this.RESTAPIURL+`/post/getPostsOrderbyComments`;
+             let URLPOST=this.RESTAPIURL+`/post/getPostsOrderbyComments?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
  
              let headersList = {
                "Accept": "*/*",

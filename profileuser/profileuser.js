@@ -1,29 +1,34 @@
 class ProfileUserJS
 {
-   static  getLoginUser=async()=>
-   {
-     let response_loginuser= await APIRESTLoginUser.getLoginUser();
-     let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
-     return getuser
- 
-   }
+  
   //LOAD PAGE
     
   static loadPage=async()=>
   {
     setTimeout(async () => {
     try {
-      let getuserlogin=await this.getLoginUser();
-      let getuser=await APIRESTUser.getUser(sessionStorage.getItem('iduserwatch'));
-    //let getuserlogin=await this.getLoginUser();
-    // SelectData.userlogin=getuserlogin;
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+      let getuser=await APIRESTUser.getUser(sessionStorage.getItem('iduserwatch')
+      ,sessionuser.iduser,sessionuser.userrname);
+    
      let {iduser,name,email,ocupattion,urlfacebook,country
        ,urlinstagram,urllinkedin,urltwitter,description,
        userrname,image,coverphoto
      }=getuser;
 
 
+   //EXIST LOGIN USER
+   let existloginuser=await APIRESTLoginUser.existloginuser(getuser.iduser,getuser.userrname);
+   const div_green_circle = document.getElementById('profileuser_existloginuser');
 
+   if (existloginuser) {
+  
+   div_green_circle.removeAttribute('hidden');
+   
+   } else {
+ 
+      div_green_circle.setAttribute('hidden', true);
+   }
 
  //SHOW IMAGE COVER PROFILE
 
@@ -40,25 +45,10 @@ this.showImageCoverProfile(image, coverphoto);
     this.load_country_ocupation_urls(country,ocupattion,urlfacebook,
       urlinstagram,urltwitter,urllinkedin);
 
-    // CHARGE OPERATIONS SIMULTANEOUSLY
-
-   await Promise.all([
-      
-       this.load_timeline(iduser),
-       this.loadVideosUser(iduser)
-     
-     
-     ]);
-     
-     await Promise.all([
-      
-       this.loadImagesUser(getuserlogin.iduser,iduser),
-       this.loadPostUser(iduser)
-       
-     ]);
-
-
-
+     await  this.load_timeline(iduser);
+      await this.loadVideosUser(iduser);
+      await this.loadImagesUser(sessionuser.iduser,iduser);
+     await  this.loadPostUser(iduser);
 
    } catch (error) {
     //console.error(error);
@@ -464,7 +454,10 @@ static html_Post_TimeLine(getpost)
   <!-- <div uk-lightbox>     -->
      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
        
-              <a href="">
+              <a 
+              href="../images/image_watch.html"
+              onclick="ProfileUserJS.passidtoImageWatch('${idimage}');"
+              >
                  <img src="${urlimage}" alt="" uk-responsive>
                  </a>
       
@@ -567,7 +560,10 @@ static html_Post_TimeLine(getpost)
 
           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
          
-               <a href="../feed/feed.html">
+               <a 
+               href="../videos/video_watch.html"
+              onclick="ProfileUserJS.passidtoVideoWatch('${idvideo}');"
+               >
                 <video src="${urlvideo}" autoplay loop muted playsinline >
 
                 </video>

@@ -1,26 +1,21 @@
 class PostMainPageJS
 {
-    static  getLoginUser=async()=>
-    {
-      let response_loginuser= await APIRESTLoginUser.getLoginUser();
-      return response_loginuser
-  
-    }
+
         //LOAD PAGE
         static loadPage=async()=>
         {
           setTimeout(async () => {
           try {
-          let response_loginuser= await this.getLoginUser();
-          SelectData.iduserLogin=response_loginuser.iduser;
+            let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+
   
           //await this.loadAlbumImageUserModal();
-          await Promise.all([
-            this.listPostSearch(response_loginuser.iduser),
-             this.listPostMoreLikes(),
-            this.listPostMoreComments()
+        
+           await  this.listPostSearch(sessionuser),
+           await this.listPostMoreLikes(sessionuser),
+           await this.listPostMoreComments(sessionuser)
            
-        ]);
+     
    
 
   
@@ -34,9 +29,9 @@ class PostMainPageJS
       //SEARCH
       static searchPost=async(event)=>
              {
-              let iduserLogin=SelectData.getIdUserLogin();
+              let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
               const query = event.target.value;
-              let getSearchPostExpresion = await APIRESTPost.getSearchPostExpresion(iduserLogin,query);
+              let getSearchPostExpresion = await APIRESTPost.getSearchPostExpresion(sessionuser.iduser,query);
               let html_load_searchpost="";
               for (let i = 0; i < Math.min(getSearchPostExpresion.length, 15); i++) {
                 let {  description, stringpostedago, title,user,idpost } = getSearchPostExpresion[i];
@@ -70,6 +65,7 @@ class PostMainPageJS
         {
           try {
            event.preventDefault();
+           let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
            document.getElementById("create-post-modal").classList.add("cursor-loading");
            const title = document.getElementById('postmainpage_addpost_name').value;
             const description = document.getElementById('postmainpage_addpost_description').value;
@@ -78,7 +74,8 @@ class PostMainPageJS
             const dataform = {title
               ,visibility,description}
           
-             const addPost= await APIRESTPost.addPost(dataform);
+             const addPost= await APIRESTPost.addPost(dataform,
+              sessionuser.iduser,sessionuser.userrname);
              if (addPost) {
             
                document.getElementById('postmainpage_addpost_name').value="";
@@ -97,8 +94,9 @@ class PostMainPageJS
           
         }
       //LIST
-      static async listPostSearch(iduser) {
-        let getSearchPostExpresion = await APIRESTPost.getSearchPostExpresion(iduser,"");
+      static async listPostSearch(sessionuser) {
+        let getSearchPostExpresion = await APIRESTPost.getSearchPostExpresion
+        (sessionuser.iduser,"");
         let html_load_searchpost="";
         for (let i = 0; i < Math.min(getSearchPostExpresion.length, 15); i++) {
           let {  description, stringpostedago, title,user,idpost } = getSearchPostExpresion[i];
@@ -128,8 +126,8 @@ class PostMainPageJS
         document.getElementById("postmaingpage_listnewestpost_div").innerHTML = html_load_searchpost;
         
             }
-      static async listPostMoreLikes() {
-              let getMoreLikePost = await APIRESTPost.getMoreLikePost();
+      static async listPostMoreLikes(sessionuser) {
+              let getMoreLikePost = await APIRESTPost.getMoreLikePost(sessionuser.iduser,sessionuser.userrname);
               let html_load_searchpost="";
               for (let i = 0; i < Math.min(getMoreLikePost.length, 15); i++) {
                 let {  description, stringpostedago, title,user,idpost } = getMoreLikePost[i];
@@ -159,8 +157,9 @@ class PostMainPageJS
               document.getElementById("postmaingpage_listmorelikespost_div").innerHTML = html_load_searchpost;
               
                   }
-     static async listPostMoreComments() {
-                    let getMoreCommentPosts = await APIRESTPost.getMoreCommentPosts();
+     static async listPostMoreComments(sessionuser) {
+                    let getMoreCommentPosts = await APIRESTPost.getMoreCommentPosts(sessionuser.iduser,
+                      sessionuser.userrname);
                     let html_load_searchpost="";
                     for (let i = 0; i < Math.min(getMoreCommentPosts.length, 15); i++) {
                       let {  description, stringpostedago, title,user,idpost } = getMoreCommentPosts[i];
