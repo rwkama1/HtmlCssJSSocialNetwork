@@ -37,17 +37,15 @@ const response=await fetch(SUBCOMMENTURL, requestOptions);
  }  
 
  //GETS
- static getSubCommentPostByPost=async(idcomment,iduser)=>
+ static getSubCommentByComment=async(iduserlogin,idcomment)=>
  {
   
  
-       let SUBCOMMENTURL=this.RESTAPIURL+`/subcomment/getSubCommentsByUserComment?idcomment=${idcomment}&iduser=${iduser}`;
+       let SUBCOMMENTURL=this.RESTAPIURL+`/subcomment/getSubCommentsByComment?idcomment=${idcomment}&iduserlogin=${iduserlogin}`;
 
        let headersList = {
-         "Accept": "*/*",
-        
+         "Accept": "*/*",    
         }
-        
         let response = await fetch(SUBCOMMENTURL, { 
           method: "GET",
           headers: headersList
@@ -61,10 +59,10 @@ const response=await fetch(SUBCOMMENTURL, requestOptions);
       let data = await response.json();
       return data;
  } 
- static NumberOfCommentPost=async(idpost)=>
+ static NumberOfSubComments=async(idcomment)=>
  {
 
-       let URLPOST=this.RESTAPIURL+`/comment/NumberOfCommentPost?idpost=${idpost}`;
+       let URLPOST=this.RESTAPIURL+`/subcomment/NumberOfSubComments?idcomment=${idcomment}`;
 
        let headersList = {
          "Accept": "*/*",
