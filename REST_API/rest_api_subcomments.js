@@ -82,4 +82,27 @@ const response=await fetch(SUBCOMMENTURL, requestOptions);
       let data = await response.json();
       return data;
  }   
+ static existSubComment=async(idsubcomment,iduserlogin,usernamelogin)=>
+ {
+ 
+       let URLPOST=this.RESTAPIURL+`/subcomment/existSubComment?idsubcomment=${idsubcomment}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
+
+       let headersList = {
+         "Accept": "*/*",
+        
+        }
+        
+        let response = await fetch(URLPOST, { 
+          method: "GET",
+          headers: headersList
+        });
+        
+      if(!response.ok)
+      {
+       const error=await response.text();
+       throw new Error(error);
+      }
+      let data = await response.json();
+      return data;
+ }   
 }
