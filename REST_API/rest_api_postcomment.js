@@ -55,7 +55,7 @@ const response=await fetch(POSTURL, requestOptions);
   });
 
    let requestOptions = {
-    method: "POST",
+    method: "PUT",
     body: bodyContent,
     headers: headersList
    };
@@ -87,7 +87,7 @@ const response=await fetch(POSTURL, requestOptions);
   });
 
    let requestOptions = {
-    method: "POST",
+    method: "DELETE",
     body: bodyContent,
     headers: headersList
    };
