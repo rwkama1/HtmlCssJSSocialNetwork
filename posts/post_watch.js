@@ -360,7 +360,11 @@ class PostWatchJS
      const commentPost= await APIRESTPostComment.commentPost(idpostwatch,
       textcomment,iduser,userrname);
      if (commentPost) {
-   
+      // let data={
+      //   idpostwatch,textcomment,iduser,userrname
+
+      // }
+      // console.log(data);
        messagenotification('Comment Added','success',event);
 
       await this.showAddedCommentPost(idpostwatch,iduser,userrname);
@@ -862,7 +866,7 @@ this.showRemoveSubComment(idsubcomment)
              
                <li>
                   <a href=""
-                  onclick="PostWatchJS.showsubcommentUpdateModal('${idsubusercomment}');"
+                  onclick="PostWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
                    uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                       <i class="uil-edit-alt mr-1"></i>
                        Edit  </a>
