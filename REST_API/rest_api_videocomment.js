@@ -1,12 +1,12 @@
-class APIRESTPostComment
+class APIRESTVideoComment
 {
      
  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
- static commentPost=async(idpost,textcomment,iduserlogin,username)=>
+ static commmentVideo=async(idvideo,textcomment,iduserlogin,username)=>
  {
 
-  let POSTURL=this.RESTAPIURL+"/comment/commentpost"
+  let VIDEOURL=this.RESTAPIURL+"/comment/commentvideo"
 
   let headersList = {
     "Accept": "*/*",
@@ -15,7 +15,7 @@ class APIRESTPostComment
    
 
    let bodyContent = JSON.stringify({
-    "idpost": idpost,
+    "idvideo": idvideo,
     "usernamelogin":username ,
     "text": textcomment,
     "iduserlogin":iduserlogin 
@@ -27,7 +27,7 @@ class APIRESTPostComment
     headers: headersList
    };
 
-const response=await fetch(POSTURL, requestOptions);
+const response=await fetch(VIDEOURL, requestOptions);
  if(!response.ok)
  {
   const error=await response.text();
@@ -35,10 +35,10 @@ const response=await fetch(POSTURL, requestOptions);
  }
  return true;
  }  
- static editcommentPost=async(idcomment,idpost,text,iduserlogin,usernamelogin)=>
+ static editcommentVideo=async(idcomment,idvideo,text,iduserlogin,usernamelogin)=>
  {
 
-  let POSTURL=this.RESTAPIURL+"/comment/commentpost"
+  let VIDEOURL=this.RESTAPIURL+"/comment/commentvideo"
 
   let headersList = {
     "Accept": "*/*",
@@ -48,7 +48,7 @@ const response=await fetch(POSTURL, requestOptions);
 
    let bodyContent = JSON.stringify({
     "idcomment": idcomment,
-    "idpost": idpost,
+    "idvideo": idvideo,
     "usernamelogin":usernamelogin ,
     "text": text,
     "iduserlogin":iduserlogin 
@@ -60,7 +60,7 @@ const response=await fetch(POSTURL, requestOptions);
     headers: headersList
    };
 
-const response=await fetch(POSTURL, requestOptions);
+const response=await fetch(VIDEOURL, requestOptions);
  if(!response.ok)
  {
   const error=await response.text();
@@ -68,10 +68,10 @@ const response=await fetch(POSTURL, requestOptions);
  }
  return true;
  }  
- static deletecommentPost=async(idcomment,idpost,iduserlogin,usernamelogin)=>
+ static deletecommentVideo=async(idcomment,idvideo,iduserlogin,usernamelogin)=>
  {
 
-  let POSTURL=this.RESTAPIURL+"/comment/commentpost"
+  let VIDEOURL=this.RESTAPIURL+"/comment/commentvideo"
 
   let headersList = {
     "Accept": "*/*",
@@ -81,7 +81,7 @@ const response=await fetch(POSTURL, requestOptions);
 
    let bodyContent = JSON.stringify({
     "idcomment": idcomment,
-    "idpost": idpost,
+    "idvideo": idvideo,
     "usernamelogin":usernamelogin ,
     "iduserlogin":iduserlogin 
   });
@@ -92,7 +92,7 @@ const response=await fetch(POSTURL, requestOptions);
     headers: headersList
    };
 
-const response=await fetch(POSTURL, requestOptions);
+const response=await fetch(VIDEOURL, requestOptions);
  if(!response.ok)
  {
   const error=await response.text();
@@ -101,18 +101,18 @@ const response=await fetch(POSTURL, requestOptions);
  return true;
  }  
  //GETS
- static getCommentPostByPost=async(idpost,iduserlogin,username)=>
+ static getCommentVideoByVideo=async(idvideo,iduserlogin,username)=>
  {
   
  
-       let URLPOST=this.RESTAPIURL+`/comment/commentpost?idpost=${idpost}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
+       let VIDEOURL=this.RESTAPIURL+`/comment/commentvideo?idvideo=${idvideo}&iduserlogin=${iduserlogin}&usernamelogin=${username}`;
 
        let headersList = {
          "Accept": "*/*",
         
         }
         
-        let response = await fetch(URLPOST, { 
+        let response = await fetch(VIDEOURL, { 
           method: "GET",
           headers: headersList
         });
@@ -125,17 +125,17 @@ const response=await fetch(POSTURL, requestOptions);
       let data = await response.json();
       return data;
  } 
- static NumberOfCommentPost=async(idpost)=>
+ static NumberOfCommentVideo=async(idvideo)=>
  {
 
-       let URLPOST=this.RESTAPIURL+`/comment/NumberOfCommentPost?idpost=${idpost}`;
+       let VIDEOURL=this.RESTAPIURL+`/comment/NumberOfCommentVideo?idvideo=${idvideo}`;
 
        let headersList = {
          "Accept": "*/*",
         
         }
         
-        let response = await fetch(URLPOST, { 
+        let response = await fetch(VIDEOURL, { 
           method: "GET",
           headers: headersList
         });
@@ -148,17 +148,17 @@ const response=await fetch(POSTURL, requestOptions);
       let data = await response.json();
       return data;
  } 
- static existCommentPost=async(idpost,idcomment,iduserlogin,usernamelogin)=>
+ static existCommentVideo=async(idvideo,idcomment,iduserlogin,usernamelogin)=>
  {
-
-       let URLPOST=this.RESTAPIURL+`/comment/existCommentPost?idpost=${idpost}&idcomment=${idcomment}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
+ 
+       let VIDEOURL=this.RESTAPIURL+`/comment/existCommentVideo?idvideo=${idvideo}&idcomment=${idcomment}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
 
        let headersList = {
          "Accept": "*/*",
         
         }
         
-        let response = await fetch(URLPOST, { 
+        let response = await fetch(VIDEOURL, { 
           method: "GET",
           headers: headersList
         });
@@ -171,27 +171,4 @@ const response=await fetch(POSTURL, requestOptions);
       let data = await response.json();
       return data;
  }   
- static getIfExistsSubComentsOfCommentsPost=async(idpost,iduserlogin)=>
- {
-  
-  let URLPOST=this.RESTAPIURL+`/subcomment/getIfExistsSubComentsOfCommentsPost?idpost=${idpost}&iduserlogin=${iduserlogin}`;
-
-  let headersList = {
-    "Accept": "*/*",
-   
-   }
-   
-   let response = await fetch(URLPOST, { 
-     method: "GET",
-     headers: headersList
-   });
-   
- if(!response.ok)
- {
-  const error=await response.text();
-  throw new Error(error);
- }
- let data = await response.json();
- return data;
- }
 }

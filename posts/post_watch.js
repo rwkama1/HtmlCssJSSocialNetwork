@@ -199,6 +199,7 @@ class PostWatchJS
         let likescomment =commentpost.likescomment;
         let datepublishcomment =commentpost.datepublishcomment;
 
+
         //CONERT FORMAT DATE
 
         const dt = new Date(datepublishcomment);
@@ -211,17 +212,21 @@ class PostWatchJS
           imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
         }
 
-        let numberofsubcomments=await  APIRESTSubComment.NumberOfSubComments(idcomment);
+     
 
-      //   let loadSubCommentPost =await this.loadSubCommentPost(idcomment,iduser);
-      //  let svgfill_existlikecomment= await this.svgfill_existlikecomment(idcomment,iduser,userrname);
-      const loadSubCommentPostPromise = this.loadSubCommentPost(idcomment, iduser,userrname);
-      const svgfill_existlikecommentPromise = this.svgfill_existlikecomment(idcomment, iduser, userrname);
+        let listsubcommentpost=await  APIRESTSubComment.getSubCommentByComment(
+          iduser,
+          idcomment);
+          let numberofsubcomments=listsubcommentpost.length;
+          let loadSubCommentPost="";
+          if(numberofsubcomments!==0)
+          {
+            loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
+          }
       
-      const [loadSubCommentPost, svgfill_existlikecomment] = await Promise.all([
-        loadSubCommentPostPromise,
-        svgfill_existlikecommentPromise,
-      ]);
+      const svgfill_existlikecomment = await this.svgfill_existlikecomment(idcomment, iduser, userrname);
+      
+     
 
       let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduser,userrname);
 
@@ -721,12 +726,10 @@ this.showRemoveSubComment(idsubcomment)
 }
 
 
-  static loadSubCommentPost=async(idcomment,iduser,userrname)=>
+  static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
   {
     let html_subcomments_posts="";
-    let listsubcommentpost=await  APIRESTSubComment.getSubCommentByComment(
-      iduser,
-      idcomment);
+    
       for (let i = 0; i < listsubcommentpost.length; i++) {
         const subcommentpost = listsubcommentpost[i];
         let idsubusercomment =subcommentpost.idsubusercomment  ;

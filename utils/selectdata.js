@@ -6,6 +6,8 @@ class SelectData
 
   static selectMultipleVideos=[];//FILES
 
+  static loadSubCommentByComment=[];
+
   static iduserLogin=0;
 
   static selectvideo=0;
@@ -32,5 +34,9 @@ class SelectData
   static getselectVideo()
   {
     return this.selectvideo;
+  }
+  static getloadSubCommentByComment()
+  {
+    return this.loadSubCommentByComment;
   }
 }
