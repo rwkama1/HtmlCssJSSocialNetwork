@@ -208,18 +208,17 @@ document.getElementById("videowatch_iduser").value=iduservideo;
 
     
 
-      //  let listsubcommentpost=await  APIRESTSubComment.getSubCommentByComment(
-      //   iduser,
-      //   idcomment);
-      //   let numberofsubcomments=listsubcommentpost.length;
-      //   let loadSubCommentPost="";
-      //   if(numberofsubcomments!==0)
-      //   {
-      //     loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
-      //   }
+       let listsubcommentvideo=await  APIRESTSubComment.getSubCommentByComment(
+        iduser,
+        idcomment);
+        let numberofsubcomments=listsubcommentvideo.length;
+        let loadSubCommentVideo="";
+        if(numberofsubcomments!==0)
+        {
+          loadSubCommentVideo = await this.loadSubCommentVideo(listsubcommentvideo,idcomment, iduser,userrname);
+        }
    
-    //  const svgfill_existlikecomment =await this.svgfill_existlikecomment(idcomment, iduser, userrname);
-     
+     const svgfill_existlikecomment =await this.svgfill_existlikecomment(idcomment, iduser, userrname);
      
 
      let show_edit_delete_comment =await this.show_edit_delete_comment(idvideo,idcomment,iduser,userrname);
@@ -244,25 +243,33 @@ document.getElementById("videowatch_iduser").value=iduservideo;
         <div class="flex space-x-4 lg:font-bold">
            <button onclick="VideoWatchJS.like_dislike_Comment('${idcomment}', event);" class="flex items-center space-x-2">
               <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 ">
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
+                 <svg 
+                 id="svg_videowatch_likecomment${idcomment}"
+                 xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20" 
+                  fill="${svgfill_existlikecomment}"
+                  width="22"
+                   height="22" 
+                   class="dark:text-gray-100">
                        <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
                  </svg>
               </div>
-              <div> 3</div>
+              <div id="videowatch_numberlikescomment${idcomment}"> ${likescomment}</div>
            </button>
-           <a href="" uk-toggle="target: #view-subcomments1" class="flex items-center space-x-2">
+           <a href="" uk-toggle="target: #view-subcomments${idcomment}"
+            class="flex items-center space-x-2">
               <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
                        <path fill-rule="evenodd"
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                  </svg>
               </div>
-              <div> 3 </div>
+              <div> ${numberofsubcomments}</div>
            </a>
      </div>
         </div>
         <!-- EDIT AND DELETE COMMENT  -->
-        <div ${{show_edit_delete_comment}}>
+        <div ${show_edit_delete_comment} >
            <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
            uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
@@ -281,7 +288,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
                  </li>
                  <li>
                     <a href=""
-                    onclick="PostWatchJS.showIdDeleteModalComment('${idcomment}');"
+                    onclick="VideoWatchJS.showIdDeleteModalComment('${idcomment}');"
                      uk-toggle="target: #deletecommentmodal" 
                     class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                           <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -292,102 +299,15 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      </div>
   
      <!-- Subcomment -->
-     <div class="ml-12 mt-4" hidden id="view-subcomments1" >
+     <div class="ml-12 mt-4" hidden id="view-subcomments${idcomment}" >
      <div class="p-4 rounded-md">
-        <!-- Subcomennt 1 -->
-        <div class="flex items-start mt-8">
-           <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-full shadow w-8 h-8 mr-4">
-           <div>
-           <h4 class="text-sm m-0 font-semibold">Adrian Mohani</h4>
-           <span class="text-gray-700 text-sm">10th April 2021</span>
-           <br>
-           <p class="text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam itaque animi perferendis molestiae iusto aut. Recusandae id quasi voluptates ut veritatis, minima illum voluptatibus magnam perspiciatis iusto eligendi veniam. Repellendus?
-           </p>
-           <!-- Like -->
-           <div class="flex space-x-4 lg:font-bold">
-              <a href="" class="flex items-center space-x-2">
-                 <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
-                          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
-                    </svg>
-                 </div>
-                 <div>3</div>
-              </a>
-        
-        </div>
-           </div>
-           <!-- EDIT AND DELETE SUBCOMENT -->
-           <div>
-              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
-              <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
-              uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
-                 <ul class="space-y-1">
-                    
-                    <li>
-                       <a href="" uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                             <i class="uil-edit-alt mr-1"></i>
-                             Edit  </a>
-                    </li>
-              
-                    <li>
-                       <hr class="-mx-2 my-2 dark:border-gray-800">
-                    </li>
-                    <li>
-                       <a href="" uk-toggle="target: #deletesubcommentmodal" 
-                       class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                             <i class="uil-trash-alt mr-1"></i> Delete </a>
-                    </li>
-                 </ul>
-              </div>
-           </div>
-        </div>
-         <div class="flex items-start mt-8">
-           <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-full shadow w-8 h-8 mr-4">
-           <div>
-           <h4 class="text-sm m-0 font-semibold">Adrian Mohani</h4>
-           <span class="text-gray-700 text-sm">10th April 2021</span>
-           <br>
-           <p class="text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam itaque animi perferendis molestiae iusto aut. Recusandae id quasi voluptates ut veritatis, minima illum voluptatibus magnam perspiciatis iusto eligendi veniam. Repellendus?
-           </p>
-           <!-- Like  -->
-           <div class="flex space-x-4 lg:font-bold">
-              <a href="" class="flex items-center space-x-2">
-                 <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
-                          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
-                    </svg>
-                 </div>
-                 <div>3</div>
-              </a>
-        
+         <div >
+        <div id="videowatch_listupdatesubcomments${idcomment}">
+        <!-- Subcoment 1 -->
+           ${loadSubCommentVideo}
           </div>
-           </div>
-        </div>
-        <div class="flex items-start mt-8">
-           <img src="../assets/images/avatars/avatar-5.jpg" alt="" class="rounded-full shadow w-8 h-8 mr-4">
-           <div>
-           <h4 class="text-sm m-0 font-semibold">Adrian Mohani</h4>
-           <span class="text-gray-700 text-sm">10th April 2021</span>
-           <br>
-           <p class="text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam itaque animi perferendis molestiae iusto aut. Recusandae id quasi voluptates ut veritatis, minima illum voluptatibus magnam perspiciatis iusto eligendi veniam. Repellendus?
-           </p>
-           <!-- Like  -->
-           <div class="flex space-x-4 lg:font-bold">
-              <a href="" class="flex items-center space-x-2">
-                 <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
-                          <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
-                    </svg>
-                 </div>
-                 <div>3</div>
-              </a>
-        
-        </div>
-           </div>
-        </div>
+
+       </div> 
   <br>
         <!-- ADD SUBCOMMENT -->
         <div>
@@ -406,7 +326,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      </div>
      </div>
   </div>
-  
+  </div>
      <br>
    `
    //  //SHOW EXISTLIKECOMMENT
@@ -465,67 +385,57 @@ document.getElementById("videowatch_iduser").value=iduservideo;
 static  showtextcommentUpdateModalComment=async(idcomment,textcomment)=>
 {
  
- document.getElementById('postwatch_idcomment_updatecomment').value=idcomment;
- document.getElementById('postwatch_text_updatecomment').value=textcomment;
+ document.getElementById('videowatch_idcomment_updatecomment').value=idcomment;
+ document.getElementById('videowatch_text_updatecomment').value=textcomment;
 
 
 }
 static showIdDeleteModalComment=async(idcomment)=>
 {
- document.getElementById('postwatch_idcomment_deletecommentmodal').value=idcomment;
+ document.getElementById('videowatch_idcomment_deletecommentmodal').value=idcomment;
 
 }
-//UPDATE COMMENT POST
-static updateCommentPost=async(event)=>
+//UPDATE COMMENT VIDEO
+static updateCommentVideo=async(event)=>
 {
  try {
    event.preventDefault();
-   let idcomment=document.getElementById("postwatch_idcomment_updatecomment").value;
+   let idcomment=document.getElementById("videowatch_idcomment_updatecomment").value;
    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
    let {iduser,userrname}=sessionuser;
-   let idpostwatch = sessionStorage.getItem('idpostwatch');
-  const textcomment = document.getElementById('postwatch_text_updatecomment').value;
+   let idvideowatch = sessionStorage.getItem('idvideowatch');
+  const textcomment = document.getElementById('videowatch_text_updatecomment').value;
 
-  const editcommentPost= await APIRESTPostComment.editcommentPost(idcomment,idpostwatch,
+  const editcommentVideo= await APIRESTVideoComment.editcommentVideo(idcomment,idvideowatch,
    textcomment,iduser,userrname);
-  if (editcommentPost) {
+  if (editcommentVideo) {
 
     messagenotification('Comment Updated','success',event);
 
-  this.showUpdatedCommentPost(idcomment,textcomment);
-    
-
-
+    this.showUpdatedCommentVideo(idcomment,textcomment);
    //  setInterval(() => {
    //   location.reload();
    //  }, 1000);
-    document.getElementById('postwatch_text_updatecomment').value="";
+    document.getElementById('videowatch_text_updatecomment').value="";
    }
 }catch (error) {
  alert(error);
 }
 }
-//DELETE COMMENT POST
-static deleteCommentPost=async(event)=>
+//DELETE COMMENT VIDEO
+static deleteCommentVideo=async(event)=>
 {
  try {
    event.preventDefault();
-   let idcomment=document.getElementById("postwatch_idcomment_deletecommentmodal").value;
+   let idcomment=document.getElementById("idvideo_deletevideomodal_videowatch").value;
    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
    let {iduser,userrname}=sessionuser;
-   let idpostwatch = sessionStorage.getItem('idpostwatch');
- 
-
-  const deletecommentPost= await APIRESTPostComment.deletecommentPost(idcomment,idpostwatch,
+   let idvideowatch = sessionStorage.getItem('idvideowatch');
+  const deletecommentVideo= await APIRESTVideoComment.deletecommentVideo(idcomment,idvideowatch,
    iduser,userrname);
-  if (deletecommentPost) {
-
-    messagenotification('Comment Deleted','success',event);
-
-   this.showRemoveCommentPost(idcomment);
-    
-
-   
+  if (deletecommentVideo) {
+     messagenotification('Comment Deleted','success',event);
+     this.showRemoveCommentVideo(idcomment);
    }
 }catch (error) {
  alert(error);
@@ -688,12 +598,12 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
  comments_postwatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_post);
 
 }
-static  showUpdatedCommentPost(idcomment,textcomment) {
- document.getElementById(`postwatch_p_textcomment${idcomment}`).innerHTML=textcomment;
+static  showUpdatedCommentVideo(idcomment,textcomment) {
+ document.getElementById(`videowatch_p_textcomment${idcomment}`).innerHTML=textcomment;
 }
-static  showRemoveCommentPost(idcomment) {
+static  showRemoveCommentVideo(idcomment) {
 
- document.getElementById(`postwatch_div_listcomment$${idcomment}`).remove();
+ document.getElementById(`videowatch_div_listcomment$${idcomment}`).remove();
 }
 //-------------------------------------------------------------------------
  //SUBCOMMENTS
@@ -799,16 +709,16 @@ this.showRemoveSubComment(idsubcomment)
 }
 
 
- static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
+ static loadSubCommentVideo=async(listsubcommentvideo,idcomment,iduser,userrname)=>
  {
-   let html_subcomments_posts="";
+   let html_subcomments_video="";
   
-     for (let i = 0; i < listsubcommentpost.length; i++) {
-       const subcommentpost = listsubcommentpost[i];
-       let idsubusercomment =subcommentpost.idsubusercomment  ;
-       let textsubcomment= subcommentpost.textsubcomment; 
-       let likessubcomment =subcommentpost.likessubcomment;
-       let datepublishsubcomment =subcommentpost.datepublishsubcomment ;
+     for (let i = 0; i < listsubcommentvideo.length; i++) {
+       const subcommentvideo = listsubcommentvideo[i];
+       let idsubusercomment =subcommentvideo.idsubusercomment  ;
+       let textsubcomment= subcommentvideo.textsubcomment; 
+       let likessubcomment =subcommentvideo.likessubcomment;
+       let datepublishsubcomment =subcommentvideo.datepublishsubcomment ;
 
        //CONERT FORMAT DATE
 
@@ -816,8 +726,8 @@ this.showRemoveSubComment(idsubcomment)
        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
        //USER
-       let namesubcommentuser  =subcommentpost.namesubcommentuser   ;
-       let imagesubcommentuser  =subcommentpost.imagesubcommentuser;
+       let namesubcommentuser  =subcommentvideo.namesubcommentuser   ;
+       let imagesubcommentuser  =subcommentvideo.imagesubcommentuser;
      
        if (imagesubcommentuser==="") {
          imagesubcommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
@@ -825,26 +735,27 @@ this.showRemoveSubComment(idsubcomment)
        const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
        let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
 
-       html_subcomments_posts+=`
-    <div class="flex items-start mt-8" id="postwatch_div_listsubcomment$${idsubusercomment}">
+       html_subcomments_video+=`
+    <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
     <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
     <div>
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
       <span class="text-gray-700 text-sm">${formatted_date}</span>
       <br>
-      <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
+      <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
        ${textsubcomment}
       </p>
       <!-- Like  -->
       <div class="flex space-x-4 lg:font-bold">
-       <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
+       <button onclick="VideoWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-               <svg id="svg_postwatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
+               <svg id="svg_videowatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
                fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
                </svg>
            </div>
-           <div id="postwatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
+           
+           <div id="videowatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
        </button>
   
    </div>
@@ -858,7 +769,7 @@ this.showRemoveSubComment(idsubcomment)
              
                <li>
                   <a href="" 
-                  onclick="PostWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
+                  onclick="VideoWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
                   uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                       <i class="uil-edit-alt mr-1"></i>
                        Edit  </a>
@@ -869,7 +780,7 @@ this.showRemoveSubComment(idsubcomment)
                </li>
                <li>
                   <a href=""
-                  onclick="PostWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                  onclick="VideoWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
                   uk-toggle="target: #deletesubcommentmodal" 
                   class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                       <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -880,7 +791,7 @@ this.showRemoveSubComment(idsubcomment)
   </div>
    `
  }
- return html_subcomments_posts;
+ return html_subcomments_video;
  
  
  }
@@ -1130,11 +1041,12 @@ static svgfill_existlikecomment=async(idcomment,iduser,username)=>
 static show_edit_delete_comment=async(idvideo,idcomment,iduserlogin,userrname)=>
 {
  let hidden="";
- let existLikeComment=await APIRESTVideoComment.existCommentVideo(idvideo,idcomment,iduserlogin,userrname);
- if (existLikeComment) {
+
+ let existCommentVideo=await APIRESTVideoComment.existCommentVideo(idvideo,idcomment,iduserlogin,userrname);
+ if (existCommentVideo) {
    hidden="";
  } else {
-   hidden="hidden"  
+   hidden="hidden" ; 
  }
  return hidden;
 }
@@ -1176,6 +1088,13 @@ buttonDeleteVideo.addEventListener('click', VideoWatchJS.deleteVideo);
 
 const a_userprofile= document.getElementById('videowatch_a_userprofile');
 a_userprofile.addEventListener('click', VideoWatchJS.passidtoUserProfile);
+
+
+const form_videowatch_updatecomment = document.getElementById('form_videowatch_updatecomment');
+form_videowatch_updatecomment.addEventListener('submit', VideoWatchJS.updateCommentVideo);
+
+const button_deletevideomodal_videowatch = document.getElementById('button_deletevideomodal_videowatch');
+button_deletevideomodal_videowatch.addEventListener('click', VideoWatchJS.deleteCommentVideo);
 
 
 const videowatch_buttonlikevideo = document.getElementById('videowatch_buttonlikevideo');
