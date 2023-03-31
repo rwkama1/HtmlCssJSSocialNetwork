@@ -4,7 +4,7 @@ class VideoWatchJS
    static loadPage=async()=>
    {
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
-    setTimeout(async () => {
+   
      try {
      
       let idvideowatch = sessionStorage.getItem('idvideowatch');
@@ -61,7 +61,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      console.log(error);
      //window.location.href="../index.html"; 
         }
-    },1000);
+    
    } 
    static loadVideo=async(getVideo,userimage)=>
    {
@@ -345,19 +345,19 @@ document.getElementById("videowatch_iduser").value=iduservideo;
 
  
  }
- //ADD COMMENT POST
- static addCommentPost=async(event)=>
+ //ADD COMMENT VIDEO
+ static addCommentVideo=async(event)=>
  {
    try {
      event.preventDefault();
      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
      let {iduser,userrname}=sessionuser;
-     let idpostwatch = sessionStorage.getItem('idpostwatch');
-    const textcomment = document.getElementById('postwatch_textcomment').value;
+     let idvideowatch = sessionStorage.getItem('idvideowatch');
+    const textcomment = document.getElementById('videowatch_textcomment').value;
 
-    const commentPost= await APIRESTPostComment.commentPost(idpostwatch,
+    const commmentVideo= await APIRESTVideoComment.commmentVideo(idvideowatch,
      textcomment,iduser,userrname);
-    if (commentPost) {
+    if (commmentVideo) {
      // let data={
      //   idpostwatch,textcomment,iduser,userrname
 
@@ -365,14 +365,14 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      // console.log(data);
       messagenotification('Comment Added','success',event);
 
-     await this.showAddedCommentPost(idpostwatch,iduser,userrname);
+     await this.showAddedCommentVideo(idvideowatch,iduser,userrname);
       
   
 
      //  setInterval(() => {
      //   location.reload();
      //  }, 1000);
-      document.getElementById('postwatch_textcomment').value="";
+      document.getElementById('videowatch_textcomment').value="";
      }
  }catch (error) {
    alert(error);
@@ -427,7 +427,7 @@ static deleteCommentVideo=async(event)=>
 {
  try {
    event.preventDefault();
-   let idcomment=document.getElementById("idvideo_deletevideomodal_videowatch").value;
+   let idcomment=document.getElementById("videowatch_idcomment_deletecommentmodal").value;
    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
    let {iduser,userrname}=sessionuser;
    let idvideowatch = sessionStorage.getItem('idvideowatch');
@@ -443,16 +443,16 @@ static deleteCommentVideo=async(event)=>
 }
 
 //SHOW SUBCOMMENT AFTER ADD UPDATE REMOVE
-static  showAddedCommentPost=async(idpost,iduser,userrname)=>
+static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
 {
-   let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpost,
+   let listcommentvideo=await  APIRESTVideoComment.getCommentVideoByVideo(idvideo,
      iduser,userrname);
-     let lastcommentpost = listcommentpost[listcommentpost.length - 1];
-       const commentpost = lastcommentpost;
-       let idcomment=commentpost.idusercomment ;
-       let textcomment=commentpost.textcomment ;
-       let likescomment =commentpost.likescomment;
-       let datepublishcomment =commentpost.datepublishcomment;
+     let lastcommentvideo = listcommentvideo[listcommentvideo.length - 1];
+       const commentvideo = lastcommentvideo;
+       let idcomment=commentvideo.idusercomment ;
+       let textcomment=commentvideo.textcomment ;
+       let likescomment =commentvideo.likescomment;
+       let datepublishcomment =commentvideo.datepublishcomment;
 
        //CONERT FORMAT DATE
 
@@ -460,8 +460,8 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
        //USER
-       let namecommentuser  =commentpost.namecommentuser ;
-       let imagecommentuser  =commentpost.imagecommentuser ;
+       let namecommentuser  =commentvideo.namecommentuser ;
+       let imagecommentuser  =commentvideo.imagecommentuser ;
        if (imagecommentuser==="") {
          imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
        }
@@ -475,15 +475,15 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
      
      
 
-     let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduser,userrname);
+     let show_edit_delete_comment =await this.show_edit_delete_comment(idvideo,idcomment,iduser,userrname);
 
-     let html_addcomment_post=`
-   <div id="postwatch_div_listcomment$${idcomment}" >
+     let html_addcomment_video=`
+   <div id="videowatch_div_listcomment$${idcomment}" >
    <!--  Comment -->
    <div class="flex items-start">
    <a 
    href="../profileuser/profileuser.html"
-   onclick="PostWatchJS.passidtoUserProfile();" 
+   onclick="VideoWatchJS.passidtoUserProfile();" 
    >
    <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
    </a>
@@ -492,11 +492,11 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
         <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
         <span class="text-gray-700 text-sm">${formatted_date}</span>
         <br>
-        <p id="postwatch_p_textcomment${idcomment}">
+        <p id="videowatch_p_textcomment${idcomment}">
          ${textcomment}
         </p>
         <div class="flex space-x-4 lg:font-bold">
-         <button onclick="PostWatchJS.like_dislike_Comment('${idcomment}', event);" class="flex items-center space-x-2">
+         <button onclick="VideoWatchJS.like_dislike_Comment('${idcomment}', event);" class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 ">
                  <svg id="svg_postwatch_likecomment${idcomment}"
                   xmlns="http://www.w3.org/2000/svg" 
@@ -507,7 +507,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                      <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
                  </svg>
              </div>
-             <div id="postwatch_numberlikescomment${idcomment}"> ${likescomment}</div>
+             <div id="videowatch_numberlikescomment${idcomment}"> ${likescomment}</div>
          </button>
          <a href="" uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
@@ -531,7 +531,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                
                  <li>
                     <a href="" 
-                    onclick="PostWatchJS.showtextcommentUpdateModalComment('${idcomment}','${textcomment}');"
+                    onclick="VideoWatchJS.showtextcommentUpdateModalComment('${idcomment}','${textcomment}');"
                     uk-toggle="target: #update_comment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                         <i class="uil-edit-alt mr-1"></i>
                          Edit  </a>
@@ -542,7 +542,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                  </li>
                  <li>
                     <a href="" 
-                    onclick="PostWatchJS.showIdDeleteModalComment('${idcomment}');"
+                    onclick="VideoWatchJS.showIdDeleteModalComment('${idcomment}');"
                     uk-toggle="target: #deletecommentmodal" 
                     class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                         <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -556,7 +556,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
    <div class="ml-12 mt-4" hidden id="view-subcomments${idcomment}" >
      <div class="p-4 rounded-md">
       <div >
-       <div id="postwatch_listupdatesubcomments${idcomment}">
+       <div id="videowatch_listupdatesubcomments${idcomment}">
        <!-- Subcomennt 1 -->
        
         </div>
@@ -564,10 +564,10 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
   <br>
        <!-- ADD SUBCOMMENT -->
        <div>
-         <form id="form_postwatch_addsubcomment"
-          onsubmit="PostWatchJS.addSubCommentPost('${idcomment}', event);">
+         <form id="form_videowatch_addsubcomment"
+          onsubmit="VideoWatchJS.addSubCommentPost('${idcomment}', event);">
             <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-              <input type="text" id="postwatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+              <input type="text" id="videowatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
               <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                 <button type="submit" class="btn btn-primary">
                   <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -593,9 +593,9 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
    //  }
 
  
- let comments_postwatch1= document.getElementById(`comments_postwatch1`);
+ let comments_videowatch1= document.getElementById(`comments_videowatch1`);
 
- comments_postwatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_post);
+ comments_videowatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_video);
 
 }
 static  showUpdatedCommentVideo(idcomment,textcomment) {
@@ -834,7 +834,7 @@ this.showRemoveSubComment(idsubcomment)
      <div class="flex space-x-4 lg:font-bold">
       <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
           <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-              <svg id="svg_postwatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
+              <svg id="svg_videowatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
               fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
                   <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
               </svg>
@@ -874,7 +874,7 @@ this.showRemoveSubComment(idsubcomment)
    </div>
  </div>
     `;
-   let idpostwatch_listupdatesubcomments= document.getElementById(`postwatch_listupdatesubcomments${idcomment}`);
+   let idpostwatch_listupdatesubcomments= document.getElementById(`videowatch_listupdatesubcomments${idcomment}`);
    idpostwatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
  }
  static  showUpdatedSubComment(idsubcomment,textsubcomment) {
@@ -945,11 +945,11 @@ this.showRemoveSubComment(idsubcomment)
        sessionuser.iduser,sessionuser.userrname );
       if (deleteComment) {
      
-        document.getElementById(`svg_postwatch_likecomment${idcomment}`).setAttribute("fill","grey");
+        document.getElementById(`svg_videowatch_likecomment${idcomment}`).setAttribute("fill","grey");
         //ADD LIKE HTML
-        let textcontent_numberlikes= document.getElementById(`postwatch_numberlikescomment${idcomment}`).textContent;
+        let textcontent_numberlikes= document.getElementById(`videowatch_numberlikescomment${idcomment}`).textContent;
         let numberoflikes=Number(textcontent_numberlikes)-1;
-        document.getElementById(`postwatch_numberlikescomment${idcomment}`).innerHTML=numberoflikes;
+        document.getElementById(`videowatch_numberlikescomment${idcomment}`).innerHTML=numberoflikes;
       }
      } 
 
@@ -959,11 +959,11 @@ this.showRemoveSubComment(idsubcomment)
        sessionuser.iduser,sessionuser.userrname );
       if (likeComment) {
      
-        document.getElementById(`svg_postwatch_likecomment${idcomment}`).setAttribute("fill","black");
+        document.getElementById(`svg_videowatch_likecomment${idcomment}`).setAttribute("fill","black");
         //ADD LIKE HTML
-        let textcontent_numberlikes= document.getElementById(`postwatch_numberlikescomment${idcomment}`).textContent;
+        let textcontent_numberlikes= document.getElementById(`videowatch_numberlikescomment${idcomment}`).textContent;
         let numberoflikes=Number(textcontent_numberlikes)+1;
-        document.getElementById(`postwatch_numberlikescomment${idcomment}`).innerHTML=numberoflikes;
+        document.getElementById(`videowatch_numberlikescomment${idcomment}`).innerHTML=numberoflikes;
       }
     }
  
@@ -1090,11 +1090,14 @@ const a_userprofile= document.getElementById('videowatch_a_userprofile');
 a_userprofile.addEventListener('click', VideoWatchJS.passidtoUserProfile);
 
 
+const form_addcommentvideo = document.getElementById('form_addcommentvideo');
+form_addcommentvideo.addEventListener('submit', VideoWatchJS.addCommentVideo);
+
 const form_videowatch_updatecomment = document.getElementById('form_videowatch_updatecomment');
 form_videowatch_updatecomment.addEventListener('submit', VideoWatchJS.updateCommentVideo);
 
-const button_deletevideomodal_videowatch = document.getElementById('button_deletevideomodal_videowatch');
-button_deletevideomodal_videowatch.addEventListener('click', VideoWatchJS.deleteCommentVideo);
+const button_videowatch_deletecomment = document.getElementById('button_videowatch_deletecomment');
+button_videowatch_deletecomment.addEventListener('click', VideoWatchJS.deleteCommentVideo);
 
 
 const videowatch_buttonlikevideo = document.getElementById('videowatch_buttonlikevideo');
