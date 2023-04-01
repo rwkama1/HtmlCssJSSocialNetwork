@@ -311,9 +311,10 @@ document.getElementById("videowatch_iduser").value=iduservideo;
   <br>
         <!-- ADD SUBCOMMENT -->
         <div>
-           <form>
+        <form id="form_videowatch_addsubcomment"
+        onsubmit="VideoWatchJS.addSubCommentVideo('${idcomment}', event);">
               <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-              <input type="text" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+              <input type="text" id="videowatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
               <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                  <button type="submit" class="btn btn-primary">
                     <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -327,7 +328,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      </div>
   </div>
   </div>
-     <br>
+     <br> 
    `
    //  //SHOW EXISTLIKECOMMENT
    //  let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,sessionuser.iduser,sessionuser.userrname);
@@ -378,7 +379,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
    alert(error);
  }
  }
-//EDIT DELETE COMMENT POST
+//EDIT DELETE COMMENT VIDEO
 
 
 
@@ -498,7 +499,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
         <div class="flex space-x-4 lg:font-bold">
          <button onclick="VideoWatchJS.like_dislike_Comment('${idcomment}', event);" class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 ">
-                 <svg id="svg_postwatch_likecomment${idcomment}"
+                 <svg id="svg_videowatch_likecomment${idcomment}"
                   xmlns="http://www.w3.org/2000/svg" 
                   viewBox="0 0 20 20" 
                   fill="${svgfill_existlikecomment}"
@@ -608,13 +609,13 @@ static  showRemoveCommentVideo(idcomment) {
 //-------------------------------------------------------------------------
  //SUBCOMMENTS
 
-//ADD SUBCOMMENT POST
-static addSubCommentPost=async(idcomment,event)=>
+//ADD SUBCOMMENT VIDEO
+static addSubCommentVideo=async(idcomment,event)=>
 {
   try {
     event.preventDefault();
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
-   const textsubcomment = document.getElementById(`postwatch_textsubcomment${idcomment}`).value;
+   const textsubcomment = document.getElementById(`videowatch_textsubcomment${idcomment}`).value;
 
    const addSubComment= await APIRESTSubComment.addSubComment
    (idcomment,
@@ -632,69 +633,69 @@ static addSubCommentPost=async(idcomment,event)=>
     //  setInterval(() => {
     //   location.reload();
     //  }, 1000);
-     document.getElementById(`postwatch_textsubcomment${idcomment}`).value="";
+     document.getElementById(`videowatch_textsubcomment${idcomment}`).value="";
     }
 }catch (error) {
   alert(error);
 }
 }
-//EDIT DELETE SUBCOMMENT POST
+//EDIT DELETE SUBCOMMENT VIDEO
 
 static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment)=>
 {
- document.getElementById('postwatch_idcomment_updatesubcomment').value=idcomment;
- document.getElementById('postwatch_idsubcomment_updatesubcomment').value=idsubcomment;
- document.getElementById('postwatch_textsubcomment_updatesubcomment').value=textsubcomment;
+ document.getElementById('videowatch_idcomment_updatesubcomment').value=idcomment;
+ document.getElementById('videowatch_idsubcomment_updatesubcomment').value=idsubcomment;
+ document.getElementById('videowatch_textsubcomment_updatesubcomment').value=textsubcomment;
 
 
 }
 static showsubcommentDeleteModal=async(idsubcomment)=>
 {
- document.getElementById('postwatch_idsubcomment_deletesubcomment').value=idsubcomment;
+ document.getElementById('videowatch_idsubcomment_deletesubcomment').value=idsubcomment;
 
 }
-//UPDATE SUB COMMENT POST
-static updateSubCommentPost=async(event)=>
+//UPDATE SUB COMMENT VIDEO
+static updateSubCommentVideo=async(event)=>
 {
  try {
    event.preventDefault();
    
-   let idcomment=document.getElementById("postwatch_idcomment_updatesubcomment").value;
-   let idsubcomment=document.getElementById("postwatch_idsubcomment_updatesubcomment").value;
+   let idcomment=document.getElementById("videowatch_idcomment_updatesubcomment").value;
+   let idsubcomment=document.getElementById("videowatch_idsubcomment_updatesubcomment").value;
    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
    let {iduser,userrname}=sessionuser;
 
-  const textsubcomment = document.getElementById('postwatch_textsubcomment_updatesubcomment').value;
+  const textsubcomment = document.getElementById('videowatch_textsubcomment_updatesubcomment').value;
 
-  const editsubcommentPost= await APIRESTSubComment.editsubcommentPost(idsubcomment,idcomment,
+  const editsubcomment= await APIRESTSubComment.editsubcommentPost(idsubcomment,idcomment,
    textsubcomment,iduser,userrname);
-  if (editsubcommentPost) {
+  if (editsubcomment) {
 
     messagenotification('SubComment Updated','success',event);
 
     this.showUpdatedSubComment(idsubcomment,textsubcomment);
    //await this.loadCommentPost(idpostwatch,iduser,userrname);
    
-    document.getElementById('postwatch_textsubcomment_updatesubcomment').value="";
+    document.getElementById('videowatch_textsubcomment_updatesubcomment').value="";
    }
 }catch (error) {
  alert(error);
 }
 }
-//DELETE SUB COMMENT POST
-static deleteSubCommentPost=async(event)=>
+//DELETE SUB COMMENT VIDEO
+static deleteSubCommentVideo=async(event)=>
 {
  try {
    event.preventDefault();
-   let idsubcomment=document.getElementById("postwatch_idsubcomment_deletesubcomment").value;
+   let idsubcomment=document.getElementById("videowatch_idsubcomment_deletesubcomment").value;
    let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
    let {iduser,userrname}=sessionuser;
    
  
 
-  const deletesubcommentPost= await APIRESTSubComment.deletesubcommentPost(idsubcomment,
+  const deletesubcomment= await APIRESTSubComment.deletesubcommentPost(idsubcomment,
    iduser,userrname);
-  if (deletesubcommentPost) {
+  if (deletesubcomment) {
 
     messagenotification('SubComment Deleted','success',event);
 this.showRemoveSubComment(idsubcomment)
@@ -821,25 +822,25 @@ this.showRemoveSubComment(idsubcomment)
    const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
        let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
    let html_subcomment = `
-   <div class="flex items-start mt-8" id="postwatch_div_listsubcomment$${idsubusercomment}">
+   <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
    <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
    <div>
      <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
      <span class="text-gray-700 text-sm">${formatted_date}</span>
      <br>
-     <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
+     <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
       ${textsubcomment}
      </p>
      <!-- Like  -->
      <div class="flex space-x-4 lg:font-bold">
-      <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
+      <button onclick="VideoWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
           <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
               <svg id="svg_videowatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
               fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
                   <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
               </svg>
           </div>
-          <div id="postwatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
+          <div id="videowatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
       </button>
  
   </div>
@@ -853,7 +854,7 @@ this.showRemoveSubComment(idsubcomment)
             
               <li>
                  <a href=""
-                 onclick="PostWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
+                 onclick="VideoWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
                   uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                      <i class="uil-edit-alt mr-1"></i>
                       Edit  </a>
@@ -864,7 +865,7 @@ this.showRemoveSubComment(idsubcomment)
               </li>
               <li>
                  <a href=""
-                 onclick="PostWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                 onclick="VideoWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
                   uk-toggle="target: #deletesubcommentmodal" 
                  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                      <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -878,10 +879,10 @@ this.showRemoveSubComment(idsubcomment)
    idpostwatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
  }
  static  showUpdatedSubComment(idsubcomment,textsubcomment) {
-  document.getElementById(`postwatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
+  document.getElementById(`videowatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
  }
  static  showRemoveSubComment(idsubcomment) {
-   document.getElementById(`postwatch_div_listsubcomment$${idsubcomment}`).remove();
+   document.getElementById(`videowatch_div_listsubcomment$${idsubcomment}`).remove();
   }
   //#endregion COMMENTS
 
@@ -989,11 +990,11 @@ this.showRemoveSubComment(idsubcomment)
        sessionuser.iduser,sessionuser.userrname );
       if (deleteSubComment) {
      
-        document.getElementById(`svg_postwatch_likesubcomment${idsubcomment}`).setAttribute("fill","grey");
+        document.getElementById(`svg_videowatch_likesubcomment${idsubcomment}`).setAttribute("fill","grey");
         //ADD LIKE HTML
-        let textcontent_numberlikes= document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).textContent;
+        let textcontent_numberlikes= document.getElementById(`videowatch_numberlikessubcomment${idsubcomment}`).textContent;
         let numberoflikes=Number(textcontent_numberlikes)-1;
-        document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
+        document.getElementById(`videowatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
       }
      } 
 
@@ -1003,11 +1004,11 @@ this.showRemoveSubComment(idsubcomment)
        sessionuser.iduser,sessionuser.userrname );
       if (likeSubComment) {
      
-        document.getElementById(`svg_postwatch_likesubcomment${idsubcomment}`).setAttribute("fill","black");
+        document.getElementById(`svg_videowatch_likesubcomment${idsubcomment}`).setAttribute("fill","black");
         //ADD LIKE HTML
-        let textcontent_numberlikes= document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).textContent;
+        let textcontent_numberlikes= document.getElementById(`videowatch_numberlikessubcomment${idsubcomment}`).textContent;
         let numberoflikes=Number(textcontent_numberlikes)+1;
-        document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
+        document.getElementById(`videowatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
       }
     }
  
@@ -1102,3 +1103,12 @@ button_videowatch_deletecomment.addEventListener('click', VideoWatchJS.deleteCom
 
 const videowatch_buttonlikevideo = document.getElementById('videowatch_buttonlikevideo');
 videowatch_buttonlikevideo.addEventListener('click', VideoWatchJS.like_dislike_Video);
+
+
+
+const form_videowatch_updatesubcoment = document.getElementById('form_videowatch_updatesubcoment');
+form_videowatch_updatesubcoment.addEventListener('submit', VideoWatchJS.updateSubCommentVideo);
+
+
+const button_videowatch_deletesubcomment = document.getElementById('button_videowatch_deletesubcomment');
+button_videowatch_deletesubcomment.addEventListener('click', VideoWatchJS.deleteSubCommentVideo);
