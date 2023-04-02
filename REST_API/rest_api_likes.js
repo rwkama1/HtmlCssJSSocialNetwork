@@ -1,9 +1,93 @@
 class APIRESTLikes
 {
 
+static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
-  static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
+//IMAGE
+ 
+static  likeImage=async(idimage,iduserlogin,usernamelogin)=> {
+   
+  let LIKEURL=this.RESTAPIURL+"/likes/likeimage"
 
+  let headersList = {
+    "Accept": "*/*",
+    "Content-Type": "application/json"
+   }
+   
+
+   let bodyContent = JSON.stringify({
+    "idimage" :idimage,
+  "iduserlogin" :iduserlogin,
+    "usernamelogin": usernamelogin 
+  });
+
+   var requestOptions = {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList
+   };
+
+const response=await fetch(LIKEURL, requestOptions);
+ if(!response.ok)
+ {
+  const error=await response.text();
+  throw new Error(error);
+ }
+ return true;
+}
+static  deletelikeImage=async(idimage,iduserlogin,usernamelogin)=> {
+ 
+  let LIKEURL=this.RESTAPIURL+"/likes/likeimage"
+
+  let headersList = {
+    "Accept": "*/*",
+    "Content-Type": "application/json"
+   }
+   
+
+   let bodyContent = JSON.stringify({
+    "idimage" :idimage,
+  "iduserlogin" :iduserlogin,
+    "usernamelogin": usernamelogin 
+  });
+
+   var requestOptions = {
+    method: "DELETE",
+    body: bodyContent,
+    headers: headersList
+   };
+
+const response=await fetch(LIKEURL, requestOptions);
+ if(!response.ok)
+ {
+  const error=await response.text();
+  throw new Error(error);
+ }
+ return true;
+}
+static existLikeImage=async(idimage,iduserlogin,usernamelogin)=>
+{
+  
+      let LIKEURL=this.RESTAPIURL+`/likes/existLikeImage?idimage=${idimage}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
+
+      let headersList = {
+        "Accept": "*/*",
+       
+       }
+       
+       let response = await fetch(LIKEURL, { 
+         method: "GET",
+         headers: headersList
+       });
+       
+     if(!response.ok)
+     {
+      const error=await response.text();
+      throw new Error(error);
+     }
+     let data = await response.json();
+     return data;
+} 
 
 //POSTS
  

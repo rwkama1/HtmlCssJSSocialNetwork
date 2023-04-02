@@ -4,7 +4,7 @@ class ImageMainPageJS
       //LOAD PAGE
       static loadPage=async()=>
       {
-        setTimeout(async () => {
+       
         try {
          let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
 
@@ -21,7 +21,7 @@ class ImageMainPageJS
         // alert(error);
         // window.location.href="../index.html"; 
          }
-    },1000);
+   
 
       }
          //SEARCH
@@ -234,7 +234,7 @@ class ImageMainPageJS
          //GET TITLE ALBUM IN ADD MODAL IMAGE
          static async loadAlbumImageUserModal(sessionuser) {
             let getAlbumImage = await APIRESTAlbumImage.getAlbumImageByLoginUser(sessionuser.iduser,
-               sessionuser.userrnamw);
+               sessionuser.userrname);
             let load_albums_image = "";
             for (let i = 0; i < getAlbumImage.length; i++) {
             

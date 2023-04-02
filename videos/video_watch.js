@@ -1104,8 +1104,6 @@ button_videowatch_deletecomment.addEventListener('click', VideoWatchJS.deleteCom
 const videowatch_buttonlikevideo = document.getElementById('videowatch_buttonlikevideo');
 videowatch_buttonlikevideo.addEventListener('click', VideoWatchJS.like_dislike_Video);
 
-
-
 const form_videowatch_updatesubcoment = document.getElementById('form_videowatch_updatesubcoment');
 form_videowatch_updatesubcoment.addEventListener('submit', VideoWatchJS.updateSubCommentVideo);
 
