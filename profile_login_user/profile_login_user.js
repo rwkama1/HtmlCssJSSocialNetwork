@@ -21,11 +21,11 @@ class Profile_Login_User
       try {
       
       let getuserlogin=await this.sessionLoginUser();
-      SelectData.userlogin=getuserlogin;
+      
        let {iduser,name,email,ocupattion,urlfacebook,country
          ,urlinstagram,urllinkedin,urltwitter,description,
          userrname,image,coverphoto
-       }=SelectData.getUserLogin();
+       }=getuserlogin;
 
 
   

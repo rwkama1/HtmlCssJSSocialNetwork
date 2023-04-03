@@ -311,7 +311,8 @@ document.getElementById("videowatch_iduser").value=iduservideo;
   <br>
         <!-- ADD SUBCOMMENT -->
         <div>
-        <form id="form_videowatch_addsubcomment"
+        <form 
+        id="form_videowatch_addsubcomment"
         onsubmit="VideoWatchJS.addSubCommentVideo('${idcomment}', event);">
               <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
               <input type="text" id="videowatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
