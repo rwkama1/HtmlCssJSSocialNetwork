@@ -660,6 +660,7 @@ static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment)=>
 }
 static showsubcommentDeleteModal=async(idsubcomment)=>
 {
+  document.getElementById('videowatch_idcomment_deletesubcomment').value=idcomment;
  document.getElementById('videowatch_idsubcomment_deletesubcomment').value=idsubcomment;
 
 }
