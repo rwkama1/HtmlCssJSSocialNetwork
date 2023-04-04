@@ -271,7 +271,7 @@ class PostWatchJS
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                   </svg>
               </div>
-              <div> ${numberofsubcomments} </div>
+              <div id="postwatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments} </div>
           </a>
       </div>
        </div>
@@ -535,7 +535,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                   </svg>
               </div>
-              <div> ${numberofsubcomments} </div>
+              <div id="postwatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments} </div>
           </a>
       </div>
        </div>
@@ -614,12 +614,22 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
 
   comments_postwatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_post);
  
+  
+ //NUMBER COMMENT 
+ let NumberOfComment=listcommentpost.length;
+ document.getElementById("postwatch_div_numbercomments").innerHTML=`Comments (${NumberOfComment})`;
+
 }
 static  showUpdatedCommentPost(idcomment,textcomment) {
   document.getElementById(`postwatch_p_textcomment${idcomment}`).innerHTML=textcomment;
  }
  static  showRemoveCommentPost(idcomment) {
- 
+   //ADD NUMBER COMMENTS HTML
+   let textcontent_numbercomments= document.getElementById("postwatch_div_numbercomments");
+   let stringnumcomments = parseInt(textcontent_numbercomments.textContent.match(/\d+/)[0]);
+   let numcomments=Number(stringnumcomments);
+   textcontent_numbercomments.innerHTML=`Comments (${numcomments-1})`;
+
   document.getElementById(`postwatch_div_listcomment$${idcomment}`).remove();
  }
 //-------------------------------------------------------------------------
@@ -665,8 +675,10 @@ static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment)=>
  
  
 }
-static showsubcommentDeleteModal=async(idsubcomment)=>
+static showsubcommentDeleteModal=async(idcomment,idsubcomment)=>
 {
+  
+  document.getElementById('postwatch_idcomment_deletesubcomment').value=idcomment;
   document.getElementById('postwatch_idsubcomment_deletesubcomment').value=idsubcomment;
 
 }
@@ -796,7 +808,7 @@ this.showRemoveSubComment(idsubcomment)
                 </li>
                 <li>
                    <a href=""
-                   onclick="PostWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                   onclick="PostWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                    uk-toggle="target: #deletesubcommentmodal" 
                    class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -880,7 +892,7 @@ this.showRemoveSubComment(idsubcomment)
                </li>
                <li>
                   <a href=""
-                  onclick="PostWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                  onclick="PostWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                    uk-toggle="target: #deletesubcommentmodal" 
                   class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                       <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -892,13 +904,23 @@ this.showRemoveSubComment(idsubcomment)
      `;
     let idpostwatch_listupdatesubcomments= document.getElementById(`postwatch_listupdatesubcomments${idcomment}`);
     idpostwatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
+
+     
+ //NUMBER SUBCOMMENT 
+ let NumberOfSubComment=listsubcomment.length;
+ document.getElementById(`postwatch_div_numbersubcomments${idcomment}`).innerHTML=`${NumberOfSubComment}`;
   }
   static  showUpdatedSubComment(idsubcomment,textsubcomment) {
    document.getElementById(`postwatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
   }
   static  showRemoveSubComment(idsubcomment) {
     document.getElementById(`postwatch_div_listsubcomment$${idsubcomment}`).remove();
-   }
+
+    let idcommenthtml=  document.getElementById('postwatch_idcomment_deletesubcomment').value;
+    let numbercommenthtml= document.getElementById(`postwatch_div_numbersubcomments${idcommenthtml}`).textContent;
+    let numbercomments=Number(numbercommenthtml);
+     document.getElementById(`postwatch_div_numbersubcomments${idcommenthtml}`).innerHTML=numbercomments-1;
+  }
    //#endregion COMMENTS
 
 //#region  LIKES

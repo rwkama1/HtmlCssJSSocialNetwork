@@ -185,7 +185,7 @@ class ImageWatchJS
   static loadCommentImage=async(listcommentimage,idimage,iduser,userrname)=>
   {
     let html_comments_image="";
-console.log(listcommentimage);
+//console.log(listcommentimage);
       for (let i = 0; i < listcommentimage.length; i++) {
         const commentimage = listcommentimage[i];
         let idcomment=commentimage.IdUserComment ;
@@ -194,7 +194,7 @@ console.log(listcommentimage);
         let datepublishcomment =commentimage.datepublishcomment;
 
 
-        //CONERT FORMAT DATE
+        //CONVERT FORMAT DATE
 
         const dt = new Date(datepublishcomment);
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -254,7 +254,7 @@ console.log(listcommentimage);
                                                     d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <div>  ${numberofsubcomments} </div>
+                                        <div id="imagewatch_div_numbersubcomments${idcomment}">  ${numberofsubcomments} </div>
                                     </a>
                                 </div>
                                  </div>
@@ -371,71 +371,71 @@ console.log(listcommentimage);
     alert(error);
   }
   }
-//EDIT DELETE COMMENT POST
+//EDIT DELETE COMMENT IMAGE
 
 
 
 static  showtextcommentUpdateModalComment=async(idcomment,textcomment)=>
 {
   
-  document.getElementById('postwatch_idcomment_updatecomment').value=idcomment;
-  document.getElementById('postwatch_text_updatecomment').value=textcomment;
+  document.getElementById('imagewatch_idcomment_updatecomment').value=idcomment;
+  document.getElementById('imagewatch_text_updatecomment').value=textcomment;
  
  
 }
 static showIdDeleteModalComment=async(idcomment)=>
 {
-  document.getElementById('postwatch_idcomment_deletecommentmodal').value=idcomment;
+  document.getElementById('imagewatch_idcomment_deletecommentmodal').value=idcomment;
 
 }
-//UPDATE COMMENT POST
-static updateCommentPost=async(event)=>
+//UPDATE COMMENT IMAGE
+static updateCommentImage=async(event)=>
 {
   try {
     event.preventDefault();
-    let idcomment=document.getElementById("postwatch_idcomment_updatecomment").value;
+    let idcomment=document.getElementById("imagewatch_idcomment_updatecomment").value;
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     let {iduser,userrname}=sessionuser;
-    let idpostwatch = sessionStorage.getItem('idpostwatch');
-   const textcomment = document.getElementById('postwatch_text_updatecomment').value;
+    let idimagewatch = sessionStorage.getItem('idimagewatch');
+   const textcomment = document.getElementById('imagewatch_text_updatecomment').value;
 
-   const editcommentPost= await APIRESTPostComment.editcommentPost(idcomment,idpostwatch,
+   const editcommentImage= await APIRESTImageComment.editcommentImage(idcomment,idimagewatch,
     textcomment,iduser,userrname);
-   if (editcommentPost) {
+   if (editcommentImage) {
  
      messagenotification('Comment Updated','success',event);
 
-   this.showUpdatedCommentPost(idcomment,textcomment);
+   this.showUpdatedCommentImage(idcomment,textcomment);
      
  
 
     //  setInterval(() => {
     //   location.reload();
     //  }, 1000);
-     document.getElementById('postwatch_text_updatecomment').value="";
+     document.getElementById('imagewatch_text_updatecomment').value="";
     }
 }catch (error) {
   alert(error);
 }
 }
-//DELETE COMMENT POST
-static deleteCommentPost=async(event)=>
+//DELETE COMMENT IMAGE
+static deleteCommentImage=async(event)=>
 {
   try {
     event.preventDefault();
-    let idcomment=document.getElementById("postwatch_idcomment_deletecommentmodal").value;
+    let idcomment=document.getElementById("imagewatch_idcomment_deletecommentmodal").value;
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     let {iduser,userrname}=sessionuser;
-    let idpostwatch = sessionStorage.getItem('idpostwatch');
+    let idimagewatch = sessionStorage.getItem('idimagewatch');
   
 
-   const deletecommentPost= await APIRESTPostComment.deletecommentPost(idcomment,idpostwatch,
+   const deletecommentImage= await APIRESTImageComment.deletecommentImage(idcomment,idimagewatch,
     iduser,userrname);
-   if (deletecommentPost) {
+   if (deletecommentImage) {
  
      messagenotification('Comment Deleted','success',event);
 
-    this.showRemoveCommentPost(idcomment);
+    this.showRemoveCommentImage(idcomment);
      
 
     
@@ -521,7 +521,7 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                   </svg>
               </div>
-              <div> ${numberofsubcomments} </div>
+              <div id="imagewatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments} </div>
           </a>
       </div>
        </div>
@@ -597,27 +597,38 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
  
   
   let comments_imagewatch1= document.getElementById(`comments_imagewatch1`);
-
   comments_imagewatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_image);
  
+ //NUMBER COMMENT IMAGE
+ let NumberOfCommentIMAGE=listcommentimage.length;
+ document.getElementById("imagewatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentIMAGE})`;
+
 }
-static  showUpdatedCommentPost(idcomment,textcomment) {
-  document.getElementById(`postwatch_p_textcomment${idcomment}`).innerHTML=textcomment;
- }
- static  showRemoveCommentPost(idcomment) {
+static  showUpdatedCommentImage(idcomment,textcomment) {
+  document.getElementById(`imagewatch_p_textcomment${idcomment}`).innerHTML=textcomment;
  
-  document.getElementById(`postwatch_div_listcomment$${idcomment}`).remove();
  }
+ static  showRemoveCommentImage(idcomment) {
+  //ADD NUMBER COMMENTS HTML
+  let textcontent_numbercomments= document.getElementById("imagewatch_div_numbercomments");
+  let stringnumcomments = parseInt(textcontent_numbercomments.textContent.match(/\d+/)[0]);
+  let numcomments=Number(stringnumcomments);
+  textcontent_numbercomments.innerHTML=`Comments (${numcomments-1})`;
+
+
+  document.getElementById(`imagewatch_div_listcomment$${idcomment}`).remove();
+
+}
 //-------------------------------------------------------------------------
   //SUBCOMMENTS
 
- //ADD SUBCOMMENT POST
+ //ADD SUBCOMMENT IMAGE
  static addSubCommentImage=async(idcomment,event)=>
  {
    try {
      event.preventDefault();
      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
-    const textsubcomment = document.getElementById(`postwatch_textsubcomment${idcomment}`).value;
+    const textsubcomment = document.getElementById(`imagewatch_textsubcomment${idcomment}`).value;
 
     const addSubComment= await APIRESTSubComment.addSubComment
     (idcomment,
@@ -635,72 +646,74 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
      //  setInterval(() => {
      //   location.reload();
      //  }, 1000);
-      document.getElementById(`postwatch_textsubcomment${idcomment}`).value="";
+      document.getElementById(`imagewatch_textsubcomment${idcomment}`).value="";
      }
  }catch (error) {
    alert(error);
  }
  }
-//EDIT DELETE SUBCOMMENT POST
+//EDIT DELETE SUBCOMMENT IMAGE
 
 static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment)=>
 {
-  document.getElementById('postwatch_idcomment_updatesubcomment').value=idcomment;
-  document.getElementById('postwatch_idsubcomment_updatesubcomment').value=idsubcomment;
-  document.getElementById('postwatch_textsubcomment_updatesubcomment').value=textsubcomment;
+  document.getElementById('imagewatch_idcomment_updatesubcomment').value=idcomment;
+  document.getElementById('imagewatch_idsubcomment_updatesubcomment').value=idsubcomment;
+  document.getElementById('imagewatch_textsubcomment_updatesubcomment').value=textsubcomment;
  
  
 }
-static showsubcommentDeleteModal=async(idsubcomment)=>
+static showsubcommentDeleteModal=async(idcomment,idsubcomment)=>
 {
-  document.getElementById('postwatch_idsubcomment_deletesubcomment').value=idsubcomment;
+  document.getElementById('imagewatch_idcomment_deletesubcomment').value=idcomment;
+  document.getElementById('imagewatch_idsubcomment_deletesubcomment').value=idsubcomment;
 
 }
-//UPDATE SUB COMMENT POST
-static updateSubCommentPost=async(event)=>
+//UPDATE SUB COMMENT IMAGE
+static updateSubCommentImage=async(event)=>
 {
   try {
     event.preventDefault();
     
-    let idcomment=document.getElementById("postwatch_idcomment_updatesubcomment").value;
-    let idsubcomment=document.getElementById("postwatch_idsubcomment_updatesubcomment").value;
+    let idcomment=document.getElementById("imagewatch_idcomment_updatesubcomment").value;
+    let idsubcomment=document.getElementById("imagewatch_idsubcomment_updatesubcomment").value;
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     let {iduser,userrname}=sessionuser;
 
-   const textsubcomment = document.getElementById('postwatch_textsubcomment_updatesubcomment').value;
+   const textsubcomment = document.getElementById('imagewatch_textsubcomment_updatesubcomment').value;
 
-   const editsubcommentPost= await APIRESTSubComment.editsubcommentPost(idsubcomment,idcomment,
+   const editsubcomment= await APIRESTSubComment.editsubcommentPost(idsubcomment,idcomment,
     textsubcomment,iduser,userrname);
-   if (editsubcommentPost) {
+   if (editsubcomment) {
  
      messagenotification('SubComment Updated','success',event);
 
      this.showUpdatedSubComment(idsubcomment,textsubcomment);
     //await this.loadCommentPost(idpostwatch,iduser,userrname);
     
-     document.getElementById('postwatch_textsubcomment_updatesubcomment').value="";
+     document.getElementById('imagewatch_textsubcomment_updatesubcomment').value="";
     }
 }catch (error) {
   alert(error);
 }
 }
-//DELETE SUB COMMENT POST
-static deleteSubCommentPost=async(event)=>
+//DELETE SUB COMMENT IMAGE
+static deleteSubCommentImage=async(event)=>
 {
   try {
     event.preventDefault();
-    let idsubcomment=document.getElementById("postwatch_idsubcomment_deletesubcomment").value;
+    let idcomment=  document.getElementById('imagewatch_idcomment_deletesubcomment').value;
+    let idsubcomment=document.getElementById("imagewatch_idsubcomment_deletesubcomment").value;
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     let {iduser,userrname}=sessionuser;
     
   
 
-   const deletesubcommentPost= await APIRESTSubComment.deletesubcommentPost(idsubcomment,
+   const deletesubcomment= await APIRESTSubComment.deletesubcommentPost(idsubcomment,
     iduser,userrname);
-   if (deletesubcommentPost) {
+   if (deletesubcomment) {
  
      messagenotification('SubComment Deleted','success',event);
-this.showRemoveSubComment(idsubcomment)
+    this.showRemoveSubComment(idsubcomment)
    // await this.loadCommentPost(idpostwatch,iduser,userrname);
      
 
@@ -782,7 +795,7 @@ this.showRemoveSubComment(idsubcomment)
                 </li>
                 <li>
                    <a href=""
-                   onclick="ImageWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                   onclick="ImageWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                    uk-toggle="target: #deletesubcommentmodal" 
                    class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -802,46 +815,46 @@ this.showRemoveSubComment(idsubcomment)
 
   static async showAddedSubComment(idcomment,iduser,userrname) {
     let listsubcomment = await APIRESTSubComment.getSubCommentByComment(iduser, idcomment);
-    let subcommentpost = listsubcomment[listsubcomment.length - 1];
+    let subcomment = listsubcomment[listsubcomment.length - 1];
 
-    let idsubusercomment = subcommentpost.idsubusercomment;
-    let textsubcomment = subcommentpost.textsubcomment;
-    let likessubcomment = subcommentpost.likessubcomment;
-    let datepublishsubcomment = subcommentpost.datepublishsubcomment;
+    let idsubusercomment = subcomment.idsubusercomment;
+    let textsubcomment = subcomment.textsubcomment;
+    let likessubcomment = subcomment.likessubcomment;
+    let datepublishsubcomment = subcomment.datepublishsubcomment;
 
     //CONERT FORMAT DATE
     const dt = new Date(datepublishsubcomment);
     const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     //USER
-    let namesubcommentuser = subcommentpost.namesubcommentuser;
-    let imagesubcommentuser = subcommentpost.imagesubcommentuser;
+    let namesubcommentuser = subcomment.namesubcommentuser;
+    let imagesubcommentuser = subcomment.imagesubcommentuser;
 
     if (imagesubcommentuser === "") {
       imagesubcommentuser = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
     }
     const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
-        let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+    let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
     let html_subcomment = `
-    <div class="flex items-start mt-8" id="postwatch_div_listsubcomment$${idsubusercomment}">
+    <div class="flex items-start mt-8" id="imagewatch_div_listsubcomment$${idsubusercomment}">
     <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
     <div>
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
       <span class="text-gray-700 text-sm">${formatted_date}</span>
       <br>
-      <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
+      <p id="imagewatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
        ${textsubcomment}
       </p>
       <!-- Like  -->
       <div class="flex space-x-4 lg:font-bold">
-       <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
+       <button onclick="ImageWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
-               <svg id="svg_postwatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
+               <svg id="svg_imagewatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
                fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
                </svg>
            </div>
-           <div id="postwatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
+           <div id="imagewatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
        </button>
   
    </div>
@@ -855,7 +868,7 @@ this.showRemoveSubComment(idsubcomment)
              
                <li>
                   <a href=""
-                  onclick="PostWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
+                  onclick="ImageWatchJS.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}');"
                    uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                       <i class="uil-edit-alt mr-1"></i>
                        Edit  </a>
@@ -866,7 +879,7 @@ this.showRemoveSubComment(idsubcomment)
                </li>
                <li>
                   <a href=""
-                  onclick="PostWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                  onclick="ImageWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                    uk-toggle="target: #deletesubcommentmodal" 
                   class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                       <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -876,14 +889,24 @@ this.showRemoveSubComment(idsubcomment)
     </div>
   </div>
      `;
-    let idpostwatch_listupdatesubcomments= document.getElementById(`postwatch_listupdatesubcomments${idcomment}`);
-    idpostwatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
+    let imagewatch_listupdatesubcomments= document.getElementById(`imagewatch_listupdatesubcomments${idcomment}`);
+    imagewatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
+  
+ //NUMBER SUBCOMMENT 
+ let NumberOfSubComment=listsubcomment.length;
+ document.getElementById(`imagewatch_div_numbersubcomments${idcomment}`).innerHTML=`${NumberOfSubComment}`;
+
   }
   static  showUpdatedSubComment(idsubcomment,textsubcomment) {
-   document.getElementById(`postwatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
+   document.getElementById(`imagewatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
   }
   static  showRemoveSubComment(idsubcomment) {
-    document.getElementById(`postwatch_div_listsubcomment$${idsubcomment}`).remove();
+    document.getElementById(`imagewatch_div_listsubcomment$${idsubcomment}`).remove();
+  
+    let idcommenthtml=  document.getElementById('imagewatch_idcomment_deletesubcomment').value;
+ let numbercommenthtml= document.getElementById(`imagewatch_div_numbersubcomments${idcommenthtml}`).textContent;
+ let numbercomments=Number(numbercommenthtml);
+  document.getElementById(`imagewatch_div_numbersubcomments${idcommenthtml}`).innerHTML=numbercomments-1;
    }
    //#endregion COMMENTS
 
@@ -987,11 +1010,11 @@ this.showRemoveSubComment(idsubcomment)
         sessionuser.iduser,sessionuser.userrname );
        if (deleteSubComment) {
       
-         document.getElementById(`svg_postwatch_likesubcomment${idsubcomment}`).setAttribute("fill","grey");
+         document.getElementById(`svg_imagewatch_likesubcomment${idsubcomment}`).setAttribute("fill","grey");
          //ADD LIKE HTML
-         let textcontent_numberlikes= document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).textContent;
+         let textcontent_numberlikes= document.getElementById(`imagewatch_numberlikessubcomment${idsubcomment}`).textContent;
          let numberoflikes=Number(textcontent_numberlikes)-1;
-         document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
+         document.getElementById(`imagewatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
        }
       } 
 
@@ -1001,11 +1024,11 @@ this.showRemoveSubComment(idsubcomment)
         sessionuser.iduser,sessionuser.userrname );
        if (likeSubComment) {
       
-         document.getElementById(`svg_postwatch_likesubcomment${idsubcomment}`).setAttribute("fill","black");
+         document.getElementById(`svg_imagewatch_likesubcomment${idsubcomment}`).setAttribute("fill","black");
          //ADD LIKE HTML
-         let textcontent_numberlikes= document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).textContent;
+         let textcontent_numberlikes= document.getElementById(`imagewatch_numberlikessubcomment${idsubcomment}`).textContent;
          let numberoflikes=Number(textcontent_numberlikes)+1;
-         document.getElementById(`postwatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
+         document.getElementById(`imagewatch_numberlikessubcomment${idsubcomment}`).innerHTML=numberoflikes;
        }
      }
   
@@ -1096,8 +1119,21 @@ imagewatch_buttonlikeimage.addEventListener('click', ImageWatchJS.like_dislike_I
 const form_addcommentimage = document.getElementById('form_addcommentimage');
 form_addcommentimage.addEventListener('submit', ImageWatchJS.addCommentImage);
 
-// const form_videowatch_updatecomment = document.getElementById('form_videowatch_updatecomment');
-// form_videowatch_updatecomment.addEventListener('submit', VideoWatchJS.updateCommentVideo);
+const form_imagewatch_updatecomment = document.getElementById('form_imagewatch_updatecomment');
+form_imagewatch_updatecomment.addEventListener('submit', ImageWatchJS.updateCommentImage);
 
-// const button_videowatch_deletecomment = document.getElementById('button_videowatch_deletecomment');
-// button_videowatch_deletecomment.addEventListener('click', VideoWatchJS.deleteCommentVideo);
+
+
+const button_imagewatch_deletecomment = document.getElementById('button_imagewatch_deletecomment');
+button_imagewatch_deletecomment.addEventListener('click', ImageWatchJS.deleteCommentImage);
+
+//SUBCOMMENT
+
+
+
+const form_imagewatch_updatesubcoment = document.getElementById('form_imagewatch_updatesubcoment');
+form_imagewatch_updatesubcoment.addEventListener('submit', ImageWatchJS.updateSubCommentImage);
+
+
+const button_imagewatch_deletesubcomment = document.getElementById('button_imagewatch_deletesubcomment');
+button_imagewatch_deletesubcomment.addEventListener('click', ImageWatchJS.deleteSubCommentImage);

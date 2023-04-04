@@ -264,7 +264,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                  </svg>
               </div>
-              <div> ${numberofsubcomments}</div>
+              <div id="videowatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments}</div>
            </a>
      </div>
         </div>
@@ -520,7 +520,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                          d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                  </svg>
              </div>
-             <div> ${numberofsubcomments} </div>
+             <div id="videowatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments} </div>
          </a>
      </div>
       </div>
@@ -599,11 +599,19 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
 
  comments_videowatch1.parentNode.insertAdjacentHTML("beforeend", html_addcomment_video);
 
+ //NUMBER COMMENT IMAGE
+ let NumberOfComment=listcommentvideo.length;
+ document.getElementById("videowatch_div_numbercomments").innerHTML=`Comments (${NumberOfComment})`;
 }
 static  showUpdatedCommentVideo(idcomment,textcomment) {
  document.getElementById(`videowatch_p_textcomment${idcomment}`).innerHTML=textcomment;
 }
 static  showRemoveCommentVideo(idcomment) {
+ //ADD NUMBER COMMENTS HTML
+ let textcontent_numbercomments= document.getElementById("videowatch_div_numbercomments");
+ let stringnumcomments = parseInt(textcontent_numbercomments.textContent.match(/\d+/)[0]);
+ let numcomments=Number(stringnumcomments);
+ textcontent_numbercomments.innerHTML=`Comments (${numcomments-1})`;
 
  document.getElementById(`videowatch_div_listcomment$${idcomment}`).remove();
 }
@@ -782,7 +790,7 @@ this.showRemoveSubComment(idsubcomment)
                </li>
                <li>
                   <a href=""
-                  onclick="VideoWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                  onclick="VideoWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                   uk-toggle="target: #deletesubcommentmodal" 
                   class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                       <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -866,7 +874,7 @@ this.showRemoveSubComment(idsubcomment)
               </li>
               <li>
                  <a href=""
-                 onclick="VideoWatchJS.showsubcommentDeleteModal('${idsubusercomment}');"
+                 onclick="VideoWatchJS.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
                   uk-toggle="target: #deletesubcommentmodal" 
                  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                      <i class="uil-trash-alt mr-1"></i> Delete </a>
@@ -878,12 +886,23 @@ this.showRemoveSubComment(idsubcomment)
     `;
    let idpostwatch_listupdatesubcomments= document.getElementById(`videowatch_listupdatesubcomments${idcomment}`);
    idpostwatch_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
- }
+ 
+    
+ //NUMBER SUBCOMMENT 
+ let NumberOfSubComment=listsubcomment.length;
+ document.getElementById(`videowatch_div_numbersubcomments${idcomment}`).innerHTML=`${NumberOfSubComment}`;
+  }
  static  showUpdatedSubComment(idsubcomment,textsubcomment) {
   document.getElementById(`videowatch_p_textsubcomment$${idsubcomment}`).innerHTML=textsubcomment;
  }
  static  showRemoveSubComment(idsubcomment) {
    document.getElementById(`videowatch_div_listsubcomment$${idsubcomment}`).remove();
+  
+   
+   let idcommenthtml=  document.getElementById('videowatch_idcomment_deletesubcomment').value;
+   let numbercommenthtml= document.getElementById(`videowatch_div_numbersubcomments${idcommenthtml}`).textContent;
+   let numbercomments=Number(numbercommenthtml);
+    document.getElementById(`videowatch_div_numbersubcomments${idcommenthtml}`).innerHTML=numbercomments-1;
   }
   //#endregion COMMENTS
 
