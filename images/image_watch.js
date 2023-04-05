@@ -174,7 +174,32 @@ class ImageWatchJS
          }
           
     }  
-
+    static passidtoUserProfile_Comment=(idusercomment)=>
+    {
+       try {
+      
+        sessionStorage.setItem("iduserwatch",null);
+          sessionStorage.setItem('iduserwatch', idusercomment);
+      
+         }catch (error) {
+          alert(error);
+          
+         }
+          
+    }  
+    static passidtoUserProfile_SubComment=(idsubcommentuser)=>
+    {
+       try {
+      
+        sessionStorage.setItem("iduserwatch",null);
+          sessionStorage.setItem('iduserwatch', idsubcommentuser);
+      
+         }catch (error) {
+          alert(error);
+          
+         }
+          
+    } 
     
 //#region COMMENTS
 //******************************************************** */
@@ -200,6 +225,7 @@ class ImageWatchJS
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
+        let idcommentuser  =commentimage.idcommentuser ;
         let namecommentuser  =commentimage.namecommentuser ;
         let imagecommentuser  =commentimage.imagecommentuser ;
         if (imagecommentuser==="") {
@@ -227,9 +253,20 @@ class ImageWatchJS
     <div id="imagewatch_div_listcomment$${idcomment}"  >
                 <!--  Comment -->
                    <div class="flex items-start">
+                   <a 
+                   href="../profileuser/profileuser.html"
+                   onclick="ImageWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+                   >
                      <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
-                                 <div>
+                   </a>            
+                     <div>
+                                  <a 
+                                  href="../profileuser/profileuser.html"
+                                  onclick="ImageWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+                                  >
                                    <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+                                   </a>  
+
                                    <span class="text-gray-700 text-sm">${formatted_date}</span>
                                    <br>
                                    <p id="imagewatch_p_textcomment${idcomment}">
@@ -463,6 +500,7 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
+        let idcommentuser  =commentimage.idcommentuser;
         let namecommentuser  =commentimage.namecommentuser ;
         let imagecommentuser  =commentimage.imagecommentuser ;
         if (imagecommentuser==="") {
@@ -486,13 +524,18 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
     <div class="flex items-start">
     <a 
     href="../profileuser/profileuser.html"
-    onclick="ImageWatchJS.passidtoUserProfile();" 
+    onclick="ImageWatchJS.passidtoUserProfile_Comment('${idcommentuser}');"  
     >
     <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
     </a>
      
        <div>
+       <a 
+       href="../profileuser/profileuser.html"
+       onclick="ImageWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+       >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+         </a>
          <span class="text-gray-700 text-sm">${formatted_date}</span>
          <br>
          <p id="imagewatch_p_textcomment${idcomment}">
@@ -742,7 +785,8 @@ static deleteSubCommentImage=async(event)=>
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
-        let namesubcommentuser  =subcomment.namesubcommentuser   ;
+        let idsubcommentuser  =subcomment.idsubcommentuser;
+        let namesubcommentuser  =subcomment.namesubcommentuser;
         let imagesubcommentuser  =subcomment.imagesubcommentuser;
       
         if (imagesubcommentuser==="") {
@@ -753,9 +797,19 @@ static deleteSubCommentImage=async(event)=>
 
         html_subcomments+=`
      <div class="flex items-start mt-8" id="imagewatch_div_listsubcomment$${idsubusercomment}">
+     <a 
+     href="../profileuser/profileuser.html"
+     onclick="ImageWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+     >
      <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+     </a>
      <div>
+     <a 
+     href="../profileuser/profileuser.html"
+     onclick="ImageWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+     >
        <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+       </a>
        <span class="text-gray-700 text-sm">${formatted_date}</span>
        <br>
        <p id="imagewatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
@@ -827,6 +881,7 @@ static deleteSubCommentImage=async(event)=>
     const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     //USER
+    let idsubcommentuser = subcomment.idsubcommentuser;
     let namesubcommentuser = subcomment.namesubcommentuser;
     let imagesubcommentuser = subcomment.imagesubcommentuser;
 
@@ -837,9 +892,19 @@ static deleteSubCommentImage=async(event)=>
     let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
     let html_subcomment = `
     <div class="flex items-start mt-8" id="imagewatch_div_listsubcomment$${idsubusercomment}">
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="ImageWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
     <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+    </a>
     <div>
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="ImageWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+      </a>
       <span class="text-gray-700 text-sm">${formatted_date}</span>
       <br>
       <p id="imagewatch_p_textsubcomment$${idsubusercomment}" class="text-sm">

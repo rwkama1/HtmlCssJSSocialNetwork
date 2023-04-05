@@ -180,7 +180,32 @@ class PostWatchJS
           }
           
     }  
-
+    static passidtoUserProfile_Comment=(idusercomment)=>
+    {
+       try {
+      
+        sessionStorage.setItem("iduserwatch",null);
+          sessionStorage.setItem('iduserwatch', idusercomment);
+      
+         }catch (error) {
+          alert(error);
+          
+         }
+          
+    }  
+    static passidtoUserProfile_SubComment=(idsubcommentuser)=>
+    {
+       try {
+      
+        sessionStorage.setItem("iduserwatch",null);
+          sessionStorage.setItem('iduserwatch', idsubcommentuser);
+      
+         }catch (error) {
+          alert(error);
+          
+         }
+          
+    } 
 
 //#region COMMENTS
 //******************************************************** */
@@ -206,6 +231,7 @@ class PostWatchJS
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
+        let idcommentuser  =commentpost.idcommentuser ;
         let namecommentuser  =commentpost.namecommentuser ;
         let imagecommentuser  =commentpost.imagecommentuser ;
         if (imagecommentuser==="") {
@@ -236,13 +262,18 @@ class PostWatchJS
     <div class="flex items-start">
     <a 
     href="../profileuser/profileuser.html"
-    onclick="PostWatchJS.passidtoUserProfile();" 
+    onclick="PostWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
     >
     <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
     </a>
      
        <div>
+       <a 
+       href="../profileuser/profileuser.html"
+       onclick="PostWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+       >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+         </a>
          <span class="text-gray-700 text-sm">${formatted_date}</span>
          <br>
          <p id="postwatch_p_textcomment${idcomment}">
@@ -477,6 +508,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
+        let idcommentuser  =commentpost.idcommentuser ;
         let namecommentuser  =commentpost.namecommentuser ;
         let imagecommentuser  =commentpost.imagecommentuser ;
         if (imagecommentuser==="") {
@@ -500,13 +532,18 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
     <div class="flex items-start">
     <a 
     href="../profileuser/profileuser.html"
-    onclick="PostWatchJS.passidtoUserProfile();" 
+    onclick="PostWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
     >
     <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
     </a>
      
        <div>
+       <a 
+       href="../profileuser/profileuser.html"
+       onclick="PostWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+       >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+         </a>
          <span class="text-gray-700 text-sm">${formatted_date}</span>
          <br>
          <p id="postwatch_p_textcomment${idcomment}">
@@ -744,17 +781,18 @@ this.showRemoveSubComment(idsubcomment)
     
       for (let i = 0; i < listsubcommentpost.length; i++) {
         const subcommentpost = listsubcommentpost[i];
-        let idsubusercomment =subcommentpost.idsubusercomment  ;
+        let idsubusercomment =subcommentpost.idsubusercomment ;
         let textsubcomment= subcommentpost.textsubcomment; 
         let likessubcomment =subcommentpost.likessubcomment;
         let datepublishsubcomment =subcommentpost.datepublishsubcomment ;
 
-        //CONERT FORMAT DATE
+        //CONVERT FORMAT DATE
 
         const dt = new Date(datepublishsubcomment);
         const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
         //USER
+        let idsubcommentuser  =subcommentpost.idsubcommentuser   ;
         let namesubcommentuser  =subcommentpost.namesubcommentuser   ;
         let imagesubcommentuser  =subcommentpost.imagesubcommentuser;
       
@@ -766,9 +804,19 @@ this.showRemoveSubComment(idsubcomment)
 
         html_subcomments_posts+=`
      <div class="flex items-start mt-8" id="postwatch_div_listsubcomment$${idsubusercomment}">
+     <a 
+     href="../profileuser/profileuser.html"
+     onclick="PostWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+     >
      <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+     </a>
      <div>
+     <a 
+     href="../profileuser/profileuser.html"
+     onclick="PostWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+     >
        <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+       </a>
        <span class="text-gray-700 text-sm">${formatted_date}</span>
        <br>
        <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
@@ -840,6 +888,7 @@ this.showRemoveSubComment(idsubcomment)
     const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
     //USER
+    let idsubcommentuser  =subcommentpost.idsubcommentuser;
     let namesubcommentuser = subcommentpost.namesubcommentuser;
     let imagesubcommentuser = subcommentpost.imagesubcommentuser;
 
@@ -850,9 +899,25 @@ this.showRemoveSubComment(idsubcomment)
         let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
     let html_subcomment = `
     <div class="flex items-start mt-8" id="postwatch_div_listsubcomment$${idsubusercomment}">
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="PostWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
+
     <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+    
+    </a>
     <div>
-      <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="PostWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
+
+    <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+   
+    </a>
+
       <span class="text-gray-700 text-sm">${formatted_date}</span>
       <br>
       <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
@@ -860,7 +925,7 @@ this.showRemoveSubComment(idsubcomment)
       </p>
       <!-- Like  -->
       <div class="flex space-x-4 lg:font-bold">
-       <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
+      <button onclick="PostWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
                <svg id="svg_postwatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
                fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
@@ -868,7 +933,7 @@ this.showRemoveSubComment(idsubcomment)
                </svg>
            </div>
            <div id="postwatch_numberlikessubcomment${idsubusercomment}">${likessubcomment}</div>
-       </button>
+        </button>
   
    </div>
     </div>

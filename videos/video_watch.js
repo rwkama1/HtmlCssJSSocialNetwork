@@ -48,9 +48,12 @@ document.getElementById("videowatch_iduser").value=iduservideo;
   this.loadVideo(getVideo,getuser.image);
 
   //LOAD COMMENT VIDEO  
+
   let listcommentvideo=await  APIRESTVideoComment.getCommentVideoByVideo(idvideowatch,
     sessionuser.iduser,sessionuser.userrname);
+
   //NUMBER COMMENT VIDEO
+
   let NumberOfCommentVideo=listcommentvideo.length;
   document.getElementById("videowatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentVideo})`;
 
@@ -72,7 +75,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
        //SHOW NUMBER LIKES
 
    document.getElementById("videowatch_likesvideo").innerHTML=likes;
-    //CONERT FORMAT DATE
+    //CONVERT FORMAT DATE
 
    const dt = new Date(DateTimePublish);
    const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -172,11 +175,37 @@ document.getElementById("videowatch_iduser").value=iduservideo;
        sessionStorage.setItem('iduserwatch', iduser);
    
       }catch (error) {
-       // alert(error);
+       alert(error);
        
       }
        
  }  
+ static passidtoUserProfile_Comment=(idusercomment)=>
+ {
+    try {
+   
+     sessionStorage.setItem("iduserwatch",null);
+       sessionStorage.setItem('iduserwatch', idusercomment);
+   
+      }catch (error) {
+       alert(error);
+       
+      }
+       
+ }  
+ static passidtoUserProfile_SubComment=(idsubcommentuser)=>
+ {
+    try {
+   
+     sessionStorage.setItem("iduserwatch",null);
+       sessionStorage.setItem('iduserwatch', idsubcommentuser);
+   
+      }catch (error) {
+       alert(error);
+       
+      }
+       
+ } 
   //#region COMMENTS
 //******************************************************** */
  //COMMENTS 
@@ -194,12 +223,13 @@ document.getElementById("videowatch_iduser").value=iduservideo;
        let datepublishcomment =commentvideo.datepublishcomment;
 
 
-       //CONERT FORMAT DATE
+       //CONVERT FORMAT DATE
 
        const dt = new Date(datepublishcomment);
        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
        //USER
+       let idcommentuser=commentvideo.idcommentuser;
        let namecommentuser  =commentvideo.namecommentuser ;
        let imagecommentuser  =commentvideo.imagecommentuser ;
        if (imagecommentuser==="") {
@@ -229,12 +259,17 @@ document.getElementById("videowatch_iduser").value=iduservideo;
      <div class="flex items-start">
         <a 
         href="../profileuser/profileuser.html"
-        onclick="VideoWatchJS.passidtoUserProfile();" 
+        onclick="VideoWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
         >
         <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
         </a>
         <div>
+        <a 
+        href="../profileuser/profileuser.html"
+        onclick="VideoWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+        >
         <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+        </a>
         <span class="text-gray-700 text-sm">${formatted_date}</span>
         <br>
         <p id="videowatch_p_textcomment${idcomment}">
@@ -462,6 +497,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
        //USER
+       let idcommentuser=commentvideo.idcommentuser;
        let namecommentuser  =commentvideo.namecommentuser ;
        let imagecommentuser  =commentvideo.imagecommentuser ;
        if (imagecommentuser==="") {
@@ -485,13 +521,18 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
    <div class="flex items-start">
    <a 
    href="../profileuser/profileuser.html"
-   onclick="VideoWatchJS.passidtoUserProfile();" 
+   onclick="VideoWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
    >
    <img src="${imagecommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
    </a>
     
       <div>
+      <a 
+      href="../profileuser/profileuser.html"
+      onclick="VideoWatchJS.passidtoUserProfile_Comment('${idcommentuser}');" 
+      >
         <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
+        </a>
         <span class="text-gray-700 text-sm">${formatted_date}</span>
         <br>
         <p id="videowatch_p_textcomment${idcomment}">
@@ -658,7 +699,7 @@ static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment)=>
 
 
 }
-static showsubcommentDeleteModal=async(idsubcomment)=>
+static showsubcommentDeleteModal=async(idcomment,idsubcomment)=>
 {
   document.getElementById('videowatch_idcomment_deletesubcomment').value=idcomment;
  document.getElementById('videowatch_idsubcomment_deletesubcomment').value=idsubcomment;
@@ -737,6 +778,7 @@ this.showRemoveSubComment(idsubcomment)
        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
        //USER
+       let idsubcommentuser=subcommentvideo.idsubcommentuser ;
        let namesubcommentuser  =subcommentvideo.namesubcommentuser   ;
        let imagesubcommentuser  =subcommentvideo.imagesubcommentuser;
      
@@ -748,9 +790,19 @@ this.showRemoveSubComment(idsubcomment)
 
        html_subcomments_video+=`
     <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="VideoWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
     <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+    </a>
     <div>
+    <a 
+    href="../profileuser/profileuser.html"
+    onclick="VideoWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+    >
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+      </a>
       <span class="text-gray-700 text-sm">${formatted_date}</span>
       <br>
       <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
@@ -811,20 +863,21 @@ this.showRemoveSubComment(idsubcomment)
 
  static async showAddedSubComment(idcomment,iduser,userrname) {
    let listsubcomment = await APIRESTSubComment.getSubCommentByComment(iduser, idcomment);
-   let subcommentpost = listsubcomment[listsubcomment.length - 1];
+   let subcommentvideo = listsubcomment[listsubcomment.length - 1];
 
-   let idsubusercomment = subcommentpost.idsubusercomment;
-   let textsubcomment = subcommentpost.textsubcomment;
-   let likessubcomment = subcommentpost.likessubcomment;
-   let datepublishsubcomment = subcommentpost.datepublishsubcomment;
+   let idsubusercomment = subcommentvideo.idsubusercomment;
+   let textsubcomment = subcommentvideo.textsubcomment;
+   let likessubcomment = subcommentvideo.likessubcomment;
+   let datepublishsubcomment = subcommentvideo.datepublishsubcomment;
 
    //CONERT FORMAT DATE
    const dt = new Date(datepublishsubcomment);
    const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
    //USER
-   let namesubcommentuser = subcommentpost.namesubcommentuser;
-   let imagesubcommentuser = subcommentpost.imagesubcommentuser;
+   let idsubcommentuser=subcommentvideo.idsubcommentuser ;
+   let namesubcommentuser = subcommentvideo.namesubcommentuser;
+   let imagesubcommentuser = subcommentvideo.imagesubcommentuser;
 
    if (imagesubcommentuser === "") {
      imagesubcommentuser = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
@@ -833,9 +886,19 @@ this.showRemoveSubComment(idsubcomment)
        let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
    let html_subcomment = `
    <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
+   <a 
+   href="../profileuser/profileuser.html"
+   onclick="VideoWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+   >
    <img src="${imagesubcommentuser}" alt="" class="rounded-full shadow w-8 h-8 mr-4">
+   </a>
    <div>
+   <a 
+   href="../profileuser/profileuser.html"
+   onclick="VideoWatchJS.passidtoUserProfile_SubComment('${idsubcommentuser}');" 
+   >
      <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
+     </a>
      <span class="text-gray-700 text-sm">${formatted_date}</span>
      <br>
      <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
