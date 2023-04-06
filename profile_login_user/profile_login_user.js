@@ -6,13 +6,7 @@ class Profile_Login_User
       let getuser = await APIRESTUser.getUser(sessionuser.iduser, sessionuser.iduser, sessionuser.userrname);
       return getuser;
     }
-//   static  getLoginUser=async()=>
-//   {
-//     let response_loginuser= await APIRESTLoginUser.getLoginUser();
-//     let getuser= await APIRESTUser.getUser(response_loginuser.iduser);
-//     return getuser
 
-//   }
     //LOAD PAGE
     
     static showdata_getLoginUser=async()=>
@@ -53,44 +47,11 @@ class Profile_Login_User
       document.getElementById("profileloginuser_txtarea_updateabout").value= description;
 
 
-      // CHARGE OPERATIONS SIMULTANEOUSLY
-
-   //   await Promise.all([
-        
-   //       this.load_timeline(iduser),
-   //       this.loadVideosLoginUser(iduser)
-       
-       
-   //     ]);
-
-   //     await Promise.all([
-        
-   //       this.loadAlbumVideosLoginUser(),
-   //       this.loadAlbumVideoUserModal()
-        
-       
-   //     ]);
-
-   //     await Promise.all([
-        
-         
-         
-   //       this.loadAlbumImagesUserModal(),
-   //       this.loadAlbumImagesLoginUser()
-         
-   //     ]);
-
-       
-   //     await Promise.all([
-        
-   //       this.loadImagesLoginUser(iduser),
-   //       this.loadPostLoginUser(iduser)
-   //     ]);
-
+     
 
 
        //TIMELINE
-       await this.load_timeline(iduser);
+       await this.load_timeline(iduser,userrname);
 
     
 
@@ -145,7 +106,7 @@ class Profile_Login_User
 
 //TIMELINE
 
-static load_timeline=async(iduser)=>
+static load_timeline=async(iduser,usernamelogin)=>
 {
   let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser);
   // console.log(getPhotoPostVideoByUser);
@@ -153,40 +114,34 @@ static load_timeline=async(iduser)=>
   let html_load_postvideoimage_more = '';
   for (let i = 0; i < Math.min(getPhotoPostVideoByUser.length, 15); i++) {
     let getpostimagevideo=getPhotoPostVideoByUser[i];
-  //   let userProfileImage = getpostuser[i].user.image;
-  //  let idpost=getpostuser[i].idpost;
-  //   let postTitle = getpostuser[i].title;
-  //   let stringpostedago = getpostuser[i].stringpostedago;
-    
-  //   let postdescription = getpostuser[i].description;
-    // let postdescription = getpostuser[i].description;
-
+ 
     if (i >= 3) {
      
         if (getpostimagevideo.type==="P") {
+
          // let commentposts=await APIRESTPostComment.getCommentPostByPost(getpostimagevideo.id);
-         html_load_postvideoimage_more+=this.html_Post_TimeLine(getpostimagevideo);
+         html_load_postvideoimage_more+= await this.html_Post_TimeLine(getpostimagevideo,usernamelogin);
          
        } else if (getpostimagevideo.type==="I"){
-         html_load_postvideoimage_more+=this.html_Image_TimeLine(getpostimagevideo);
+         html_load_postvideoimage_more+=this.html_Image_TimeLine(getpostimagevideo,usernamelogin);
        }
        else
        {
-         html_load_postvideoimage_more+=this.html_Video_TimeLine(getpostimagevideo);
+         html_load_postvideoimage_more+=this.html_Video_TimeLine(getpostimagevideo,usernamelogin);
        }
   
 
     } else {
       if (getpostimagevideo.type==="P") {
         
-         html_load_postvideoimage+=this.html_Post_TimeLine(getpostimagevideo);
+         html_load_postvideoimage+= await this.html_Post_TimeLine(getpostimagevideo,usernamelogin);
      
       } else if (getpostimagevideo.type==="I"){
-        html_load_postvideoimage+=this.html_Image_TimeLine(getpostimagevideo);
+        html_load_postvideoimage+=this.html_Image_TimeLine(getpostimagevideo,usernamelogin);
       }
       else
       {
-        html_load_postvideoimage+=this.html_Video_TimeLine(getpostimagevideo);
+        html_load_postvideoimage+=this.html_Video_TimeLine(getpostimagevideo,usernamelogin);
       }
     }
   }
@@ -1038,17 +993,30 @@ static forAddImagesFromAlbum(images)
    
    }
 //******************************************************** */
-  static html_Post_TimeLine(getpost)
+// SHOW POST VIDEO IMAGE HTML
+  static async html_Post_TimeLine(getpost,usernamelogin)
 {
+
+   //GET POST
    let userImageProfile=getpost.user.image;
    if(userImageProfile==="")
    {
       userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
    }
    let idpost=getpost.id;
+   let iduserlogin=getpost.user.iduser;
    let userName=getpost.user.name;
    let stringpostedago=getpost.stringpostedago;
    let description=getpost.description;
+
+   //GET COMMENT POSTS
+ 
+      let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpost,
+         iduserlogin,usernamelogin);
+         let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
+
+        // SHOW EDIT DELETE COMMENT
+        
   let html_post=`
   <div class="card lg:mx-0 uk-animation-slide-bottom-small">
                
@@ -1137,8 +1105,8 @@ static forAddImagesFromAlbum(images)
         </div>
      </div>
      <div hidden id="view-commentspost${idpost}" class="border-t py-4 space-y-4 dark:border-gray-600">
-         
-      ${this.forCommentsPost()}
+     <!-- SUBCOMMENT --> 
+      ${forCommentsPost}
         <!-- COMMENT -->
        
      </div>   <!-- END VIEWCOMMENTPOST -->
@@ -1159,7 +1127,7 @@ static forAddImagesFromAlbum(images)
   `;
   return html_post;
 }
-  static html_Image_TimeLine(getimage)
+  static html_Image_TimeLine(getimage,usernamelogin)
 {
    let userImageProfile=getimage.user.image;
    
@@ -1292,7 +1260,7 @@ static forAddImagesFromAlbum(images)
   `;
   return html_image
   }
-  static html_Video_TimeLine(getvideo)
+  static html_Video_TimeLine(getvideo,usernamelogin)
   {
    let userImageProfile=getvideo.user.image;
    if(userImageProfile==="")
@@ -1417,43 +1385,128 @@ static forAddImagesFromAlbum(images)
     return html_video
     }
 //********************************************* */
+//COMMENTS
+ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
+   let html_comments_post=""; 
+   for (let i = 0; i < listcommentpost.length; i++) {
+      const commentpost = listcommentpost[i];
+      let idcomment=commentpost.idusercomment ;
+      let textcomment=commentpost.textcomment ;
 
- static forCommentsPost(){
-   let html_comments_post="";
-   for (let i = 0; i < 3; i++) {
-   //   const commentpost = getcommentsposts[i];
+      let likescomment =commentpost.likescomment;
+      let datepublishcomment =commentpost.datepublishcomment;
+
+
+      //CONVERT FORMAT DATE
+
+      const dt = new Date(datepublishcomment);
+      const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+      //USER
+      let idcommentuser  =commentpost.idcommentuser ;
+      let namecommentuser  =commentpost.namecommentuser ;
+      let imagecommentuser  =commentpost.imagecommentuser ;
+      if (imagecommentuser==="") {
+        imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      let listsubcommentpost=await APIRESTSubComment.getSubCommentByComment(
+         iduserlogin,
+         idcomment);
+         let numberofsubcomments=listsubcommentpost.length;
+         // let loadSubCommentPost="";
+         // if(numberofsubcomments!==0)
+         // {
+         //   loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
+         // }
+         let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduserlogin,username);
      html_comments_post += `
      <div >
 
          
      <div class="flex">
-        <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-        <div>
+        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+         <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+          </div>
+        <div >
            <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-              <p class="leading-6">
-                sagsdadsagdsgdsg
+           <div class="flex">
+           <p class="leading-6">
+              ${textcomment}
               
               </p>
               <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+              <div ${show_edit_delete_comment} class="ml-auto">
+              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                   <ul class="space-y-1">
+                    
+                      <li>
+                         <a href="" uk-toggle="target: #update_comment_modal" 
+                         class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                             <i class="uil-edit-alt mr-1"></i>
+                              Edit  </a>
+                      </li>
+                
+                      <li>
+                         <hr class="-mx-2 my-2 dark:border-gray-800">
+                      </li>
+                      <li>
+                         <a href="" uk-toggle="target: #deletecommentmodal" 
+                         class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                             <i class="uil-trash-alt mr-1"></i> Delete </a>
+                      </li>
+                   </ul>
+                </div>
+             </div>
+           </div>
            </div>
            <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
               <button  class="text-black-600">
-                 3
+                ${likescomment}
                  <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
                  <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
               </button>
-              <button uk-toggle="target: #view_subcommentpost${i}" >
+              <button uk-toggle="target: #view_subcommentpost${idcomment}" >
                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                 3
+               ${numberofsubcomments}
               </button>
-              <span> 3d </span> 
+              <span> ${formatted_date} </span> 
            </div>
         </div>
      </div>
      <br>
      <!-- SUBCOMMENTS -->
-     <div hidden id="view_subcommentpost${i}"  class="flex-col">
+     <div hidden id="view_subcommentpost${idcomment}"  class="flex-col">
        
+     <div class="flex">
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+        <img src="../assets/images/avatars/avatar-1.jpg" alt=""
+           class="absolute h-full rounded-full w-full">
+     </div>
+     <div>
+        <div style="text-align: center;">
+           <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+              <label style="text-align: center;" >
+              <small   class="leading-6"> 
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
+              </small>
+              </label>
+              <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+           </div>
+           <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
+              <a href="" class="text-black-600">
+                 3
+                 <iconify-icon icon="ant-design:like-filled"></iconify-icon>
+                 <!-- Like  -->
+              </a>
+              <span> 3d </span>
+           </div>
+        </div>
+        <br>
+     </div>
+  </div>
         <!-- SEND MESSAGE INPUT -->
         <div class="flex">
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
@@ -1508,7 +1561,34 @@ static forAddImagesFromAlbum(images)
         <br>
         <!-- SUBCOMMENTS -->
         <div hidden id="view_subcommentimage${i}"  class="flex-col">
-          
+        <div class="flex">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+           <img src="../assets/images/avatars/avatar-1.jpg" alt=""
+              class="absolute h-full rounded-full w-full">
+        </div>
+        <div>
+           <div style="text-align: center;">
+              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                 <label style="text-align: center;" >
+                 <small   class="leading-6"> 
+                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
+                 </small>
+                 </label>
+                 <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+              </div>
+              <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
+                 <a href="" class="text-black-600">
+                    3
+                    <iconify-icon icon="ant-design:like-filled"></iconify-icon>
+                    <!-- Like  -->
+                 </a>
+                 <span> 3d </span>
+              </div>
+           </div>
+           <br>
+        </div>
+     </div>
            <!-- SEND MESSAGE INPUT -->
            <div class="flex">
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
@@ -1563,7 +1643,38 @@ static forAddImagesFromAlbum(images)
            <br>
            <!-- SUBCOMMENTS -->
            <div hidden id="view_subcommentvideo${i}"  class="flex-col">
-             
+
+
+           <div class="flex">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+              <img src="../assets/images/avatars/avatar-1.jpg" alt=""
+                 class="absolute h-full rounded-full w-full">
+           </div>
+           <div>
+              <div style="text-align: center;">
+                 <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                    <label style="text-align: center;" >
+                    <small   class="leading-6"> 
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
+                    </small>
+                    </label>
+                    <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+                 </div>
+                 <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
+                    <a href="" class="text-black-600">
+                       3
+                       <iconify-icon icon="ant-design:like-filled"></iconify-icon>
+                       <!-- Like  -->
+                    </a>
+                    <span> 3d </span>
+                 </div>
+              </div>
+              <br>
+           </div>
+        </div>
+
+
               <!-- SEND MESSAGE INPUT -->
               <div class="flex">
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
@@ -1583,7 +1694,35 @@ static forAddImagesFromAlbum(images)
         }
          return html_comment_video;
           }
+   // SHOW EDIT DELETE COMMENT
+    static show_edit_delete_comment=async(idpost,idcomment,iduserlogin,userrname)=>
+          {
+            let hidden="";
+            let existLikeComment=await APIRESTPostComment.existCommentPost(idpost,idcomment,iduserlogin,userrname);
+            if (existLikeComment) {
+              hidden="";
+            } else {
+              hidden="hidden"  
+            }
+            return hidden;
+          }
+ static svgfill_existlikecomment=async(idcomment,iduser,username)=>
+          {
+           let fill="";
+           let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
+           if(existLikeComment)
+           {
+            fill="black"
+           }
+           else{
+             fill="grey"
+           }
+           return fill;
+         }
+
+                  
  //*************************************************** */
+//  REDIRECT TO IMAMGE POST VIDEO WATCH
  static passidtoPostWatch=(idpost)=>
         {
           try {
