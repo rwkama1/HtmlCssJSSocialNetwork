@@ -3136,12 +3136,17 @@
                </div>
             </div>
             <div class="create-post-modal-body space-x-6 p-5 overflow-x-hidden mr-1" data-simplebar>
-               <form onsubmit="alert('Updated Added')" class="space-y-4 g:w-8/12">
+               <form id="form_profileloginuser_updatecomment" class="space-y-4 g:w-8/12">
                  
-                  
+                  <input id="profileloginuser_idpost_updatecomment"  type="hidden" >
+                  <input id="profileloginuser_idcomment_updatecomment"  type="hidden" >
+                  <input id="profileloginuser_iduserlogin_updatecomment"  type="hidden" >
+                  <input id="profileloginuser_usernamelogin_updatecomment"  type="hidden" >
+                
+
                   <div class="border focus-within:bg-white focus-within:border-blue-300 p-3 rounded-md">
                      <label for="" class="mb-0 ml-2 text-gray-600 text-sm"> Comment</label>
-                     <textarea type="text" rows="5"  required 
+                     <textarea id="profileloginuser_text_updatecomment"  type="text" rows="5"  required 
                      class="bg-transparent focus:bg-white focus:ring-gray-300 focus:shadow-none outline-none p-2 resize-none shadow-none text-base w-full"></textarea>
                   </div>
                  
@@ -3199,11 +3204,17 @@
       
          </div>
 
-                <!-- DELETE  COMMENT MODAL -->
+     <!-- DELETE  COMMENT MODAL -->
 
     <div id="deletecommentmodal"  uk-modal tabindex="-1">
       <div id="centerdiv" class="relative p-4 w-full max-w-md h-full md:h-auto">
           <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            
+            <input id="profileloginuser_idcomment_deletecommentmodal"  type="hidden" >
+            <input id="profileloginuser_idpost_deletecommentmodal"  type="hidden" >
+            <input id="profileloginuser_iduserlogin_deletecommentmodal"  type="hidden" >
+            <input id="profileloginuser_usernamelogin_deletecommentmodal"  type="hidden" >
+
             <button class="uk-modal-close-default hover:bg-gray-100 rounded-full p-2.5 block uk-icon uk-close mt-0.5"
             type="button" uk-close>
             <i class="icon-feather-close"></i>
@@ -3213,7 +3224,9 @@
                   <h3 
                   class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                   Are you sure you want to delete the comment?</h3>
-                  <button data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                  <button 
+                  id="button_profileloginuser_deletecomment"
+                   data-modal-toggle="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                       Delete
                   </button>
                   <!-- <button 

@@ -1389,9 +1389,11 @@ static forAddImagesFromAlbum(images)
     `;
     return html_video
     }
+
 //********************************************* */
 //COMMENTS
- static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
+
+   static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
    let html_comments_post=""; 
    for (let i = 0; i < listcommentpost.length; i++) {
       const commentpost = listcommentpost[i];
@@ -1425,7 +1427,7 @@ static forAddImagesFromAlbum(images)
          // }
          let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduserlogin,username);
      html_comments_post += `
-     <div >
+     <div id="profileloginuser_div_listcommentpost${idcomment}" >
 
          
      <div class="flex">
@@ -1435,7 +1437,7 @@ static forAddImagesFromAlbum(images)
         <div >
            <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
            <div class="flex">
-           <p class="leading-6">
+           <p id="profileloginuser_p_textcommentpost${idcomment}" class="leading-6">
               ${textcomment}
               
               </p>
@@ -1447,7 +1449,11 @@ static forAddImagesFromAlbum(images)
                    <ul class="space-y-1">
                     
                       <li>
-                         <a href="" uk-toggle="target: #update_comment_modal" 
+                         <a href=""idcomment,textcomment,idpost,iduserlogin,username
+                         onclick="Profile_Login_User.showtextcommentUpdateModalComment_Post
+                         ('${idcomment}','${textcomment}','${idpost}','${iduserlogin}'
+                         ,'${username}');"
+                          uk-toggle="target: #update_comment_modal" 
                          class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                              <i class="uil-edit-alt mr-1"></i>
                               Edit  </a>
@@ -1457,7 +1463,11 @@ static forAddImagesFromAlbum(images)
                          <hr class="-mx-2 my-2 dark:border-gray-800">
                       </li>
                       <li>
-                         <a href="" uk-toggle="target: #deletecommentmodal" 
+                     
+                         <a href="" 
+                         onclick="Profile_Login_User.showIdDeleteModalComment_Post('${idcomment}',
+                         '${iduserlogin}','${username}','${idpost}');"
+                         uk-toggle="target: #deletecommentmodal" 
                          class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                              <i class="uil-trash-alt mr-1"></i> Delete </a>
                       </li>
@@ -1700,6 +1710,7 @@ static forAddImagesFromAlbum(images)
          return html_comment_video;
           }
    // SHOW EDIT DELETE COMMENT
+
     static show_edit_delete_comment=async(idpost,idcomment,iduserlogin,userrname)=>
           {
             let hidden="";
@@ -1711,6 +1722,7 @@ static forAddImagesFromAlbum(images)
             }
             return hidden;
           }
+
  //ADD COMMENT
   static addCommentPost=async(idpost,iduserlogin,usernamelogin,event)=>
      {
@@ -1732,8 +1744,65 @@ static forAddImagesFromAlbum(images)
        alert(error);
      }
      }
+
+//UPDATE COMMENT
+
+static updateCommentPost=async(event)=>
+{
+  try {
+    event.preventDefault();
+    let idcomment=document.getElementById("profileloginuser_idcomment_updatecomment").value;
+    let idpost=document.getElementById("profileloginuser_idpost_updatecomment").value;
+    let iduserlogin=document.getElementById("profileloginuser_iduserlogin_updatecomment").value;
+    let usernamelogin=document.getElementById("profileloginuser_usernamelogin_updatecomment").value;
+   const textcomment = document.getElementById('profileloginuser_text_updatecomment').value;
+
+   const editcommentPost= await APIRESTPostComment.editcommentPost(idcomment,idpost,
+    textcomment,iduserlogin,usernamelogin);
+   if (editcommentPost) {
+ 
+     messagenotification('Comment Updated','success',event);
+
+   this.showUpdatedCommentPost(idcomment,textcomment);
      
+ 
+
+    //  setInterval(() => {
+    //   location.reload();
+    //  }, 1000);
+     document.getElementById('profileloginuser_text_updatecomment').value="";
+    }
+}catch (error) {
+  alert(error);
+}
+}   
+//DELETE COMMENT  
+static deleteCommentPost=async(event)=>
+{
+  try {
+    event.preventDefault();
+    let idcomment=document.getElementById("profileloginuser_idcomment_deletecommentmodal").value;
+    let idpost=document.getElementById("profileloginuser_idpost_deletecommentmodal").value;
+    let iduserlogin=document.getElementById("profileloginuser_iduserlogin_deletecommentmodal").value;
+    let usernamelogin=document.getElementById("profileloginuser_usernamelogin_deletecommentmodal").value;
+  
+
+   const deletecommentPost= await APIRESTPostComment.deletecommentPost(idcomment,idpost,
+      iduserlogin,usernamelogin);
+   if (deletecommentPost) {
+ 
+     messagenotification('Comment Deleted','success',event);
+
+    this.showRemoveCommentPost(idcomment);
      
+
+    
+    }
+}catch (error) {
+  alert(error);
+}
+}
+
  static svgfill_existlikecomment=async(idcomment,iduser,username)=>
           {
            let fill="";
@@ -1906,10 +1975,44 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
   
 
 }
+//SHOW COMMENT AFTER UPDATE
 
+static  showUpdatedCommentPost(idcomment,textcomment) {
+   document.getElementById(`profileloginuser_p_textcommentpost${idcomment}`).innerHTML=textcomment;
+  }
+//SHOW COMMENT AFTER DELETE
+  static  showRemoveCommentPost(idcomment) {
+  
+
+  document.getElementById(`profileloginuser_div_listcommentpost${idcomment}`).remove();
+ }
+//SHOW INFORMATION UPDATE COMMENT MODAL
+
+static  showtextcommentUpdateModalComment_Post=async(idcomment,textcomment,idpost,iduserlogin,username)=>
+{
+  
+  document.getElementById('profileloginuser_idcomment_updatecomment').value=idcomment;
+  document.getElementById('profileloginuser_iduserlogin_updatecomment').value=iduserlogin;
+  document.getElementById('profileloginuser_usernamelogin_updatecomment').value=username;
+  document.getElementById('profileloginuser_text_updatecomment').value=textcomment;
+  document.getElementById('profileloginuser_idpost_updatecomment').value=idpost;
+  
+ 
+  
+}
+
+//SHOW INFORMATION DELETE  COMMENT MODAL
+
+static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,idpost)=>
+{
+  document.getElementById('profileloginuser_idcomment_deletecommentmodal').value=idcomment;
+  document.getElementById('profileloginuser_iduserlogin_deletecommentmodal').value=iduserlogin;
+  document.getElementById('profileloginuser_usernamelogin_deletecommentmodal').value=usernamelogin;
+  document.getElementById('profileloginuser_idpost_deletecommentmodal').value=idpost;
+}
 
  //*************************************************** */
-//  REDIRECT TO IMAMGE POST VIDEO WATCH
+//  REDIRECT TO IMAGE POST VIDEO WATCH
 
 static passidtoPostWatch=(idpost)=>
         {
@@ -1990,3 +2093,11 @@ updatepostform.addEventListener('submit', Profile_Login_User.updatePost);
 //POST
 const buttonDeletePost= document.getElementById('button_deletepostmodal_profileuser');
 buttonDeletePost.addEventListener('click', Profile_Login_User.deletePost);
+
+//UPDATE COMMENT
+const form_profileloginuser_updatecomment= document.getElementById('form_profileloginuser_updatecomment');
+form_profileloginuser_updatecomment.addEventListener('submit', Profile_Login_User.updateCommentPost);
+
+//DELETE COMMENT
+const button_profileloginuser_deletecomment= document.getElementById('button_profileloginuser_deletecomment');
+button_profileloginuser_deletecomment.addEventListener('click', Profile_Login_User.deleteCommentPost);
