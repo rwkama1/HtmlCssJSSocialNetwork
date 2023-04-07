@@ -1004,6 +1004,7 @@ static forAddImagesFromAlbum(images)
       userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
    }
    let idpost=getpost.id;
+   let likespost=getpost.likes;
    let iduserlogin=getpost.user.iduser;
    let userName=getpost.user.name;
    let stringpostedago=getpost.stringpostedago;
@@ -1013,6 +1014,10 @@ static forAddImagesFromAlbum(images)
  
       let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpost,
          iduserlogin,usernamelogin);
+
+//NUMBER COMMENT POSTS
+let NumberOfCommentPost=listcommentpost.length;
+
          let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
 
         // SHOW EDIT DELETE COMMENT
@@ -1077,7 +1082,7 @@ static forAddImagesFromAlbum(images)
                  <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
               </svg>
            </div>
-           <div> Like</div>
+           <div id="profileloginuser_timeline_numberlikespost"> ${likespost}</div>
         </a>
         <a href="" uk-toggle="target: #view-commentspost${idpost}" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
@@ -1086,7 +1091,7 @@ static forAddImagesFromAlbum(images)
                     d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
               </svg>
            </div>
-           <div> Comments </div>
+           <div id="profileloginuser_timeline_numbercommentpost"> ${NumberOfCommentPost} </div>
         </a>
 
 
@@ -1391,7 +1396,9 @@ static forAddImagesFromAlbum(images)
     }
 
 //********************************************* */
+//#region COMMENTS
 //COMMENTS
+
 
    static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
    let html_comments_post=""; 
@@ -1538,7 +1545,9 @@ static forAddImagesFromAlbum(images)
      </div>
  </div>
      `;
+
   }
+  
    return html_comments_post
     }
     static forCommentImage(){
@@ -1803,19 +1812,7 @@ static deleteCommentPost=async(event)=>
 }
 }
 
- static svgfill_existlikecomment=async(idcomment,iduser,username)=>
-          {
-           let fill="";
-           let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
-           if(existLikeComment)
-           {
-            fill="black"
-           }
-           else{
-             fill="grey"
-           }
-           return fill;
-         }
+
 
 //SHOW COMMENT AFTER ADD
 
@@ -1972,7 +1969,10 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
 
   profileloginuser_commentspost.parentNode.insertAdjacentHTML("beforeend", html_addcomment_post);
  
-  
+   
+ //NUMBER COMMENT 
+ let NumberOfComment=listcommentpost.length;
+ document.getElementById("profileloginuser_timeline_numbercommentpost").innerHTML=`${NumberOfComment}`;
 
 }
 //SHOW COMMENT AFTER UPDATE
@@ -1982,7 +1982,11 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
   }
 //SHOW COMMENT AFTER DELETE
   static  showRemoveCommentPost(idcomment) {
-  
+   //ADD NUMBER COMMENTS HTML
+   let textcontent_numbercomments= document.getElementById("profileloginuser_timeline_numbercommentpost");
+   let stringnumcomments = parseInt(textcontent_numbercomments.textContent.match(/\d+/)[0]);
+   let numcomments=Number(stringnumcomments);
+   textcontent_numbercomments.innerHTML=`${numcomments-1}`;
 
   document.getElementById(`profileloginuser_div_listcommentpost${idcomment}`).remove();
  }
@@ -2000,7 +2004,6 @@ static  showtextcommentUpdateModalComment_Post=async(idcomment,textcomment,idpos
  
   
 }
-
 //SHOW INFORMATION DELETE  COMMENT MODAL
 
 static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,idpost)=>
@@ -2011,6 +2014,27 @@ static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,i
   document.getElementById('profileloginuser_idpost_deletecommentmodal').value=idpost;
 }
 
+//#endregion COMMENTS
+//************************************************************* */
+//#region LIKES
+
+// LIKES POST IMAGE VIDEOS
+
+static svgfill_existlikecomment=async(idcomment,iduser,username)=>
+{
+ let fill="";
+ let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
+ if(existLikeComment)
+ {
+  fill="black"
+ }
+ else{
+   fill="grey"
+ }
+ return fill;
+}
+
+//#endregion LIKES
  //*************************************************** */
 //  REDIRECT TO IMAGE POST VIDEO WATCH
 
