@@ -13,6 +13,10 @@ class SelectData
   static selectvideo=0;
 
   static userlogin={};
+   
+  static showsubcommentUpdateModal={};
+
+  static showsubcommentDeleteModal={};
 
   //GETS
   static getSelectMultipleImages()
@@ -39,4 +43,5 @@ class SelectData
   {
     return this.loadSubCommentByComment;
   }
+  
 }

@@ -1504,7 +1504,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                   </button>
                   <button uk-toggle="target: #view_subcommentpost${idcomment}" >
                      <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                     <span id="profileloginuser_span_numbersubcomments" > ${numberofsubcomments} </span>
+                     <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
                      
                   </button>
                   <span> ${formatted_date} </span> 
@@ -1909,7 +1909,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
 
               <button uk-toggle="target: #view_subcommentpost${idcomment}" >
                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
-               ${numberofsubcomments}
+                 <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
               </button>
               <span> ${formatted_date} </span> 
            </div>
@@ -2053,7 +2053,9 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
       //   let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
 
         html_subcomments_posts+=`
-        <div class="flex">
+        <div id="profileloginuser_div_subcomment${idsubusercomment}">
+
+        <div  class="flex">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
            <img src="${imagesubcommentuser}" alt=""
@@ -2061,6 +2063,7 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         </div>
         <div>
            <div style="text-align: center;">
+           <div class="flex">
               <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
                  <label style="text-align: center;" >
                  <small id="profileloginuser_small_textsubcommentpost${idsubusercomment}"   class="leading-6"> 
@@ -2069,10 +2072,38 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
                  </label>
                  <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
               </div>
+              <div>
+              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                   <ul class="space-y-1">
+                     
+                      <li>
+                         <a href=""
+                       
+                         onclick="Profile_Login_User.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}','${iduser}','${userrname}');"
+                          uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                             <i class="uil-edit-alt mr-1"></i>
+                              Edit  </a>
+                      </li>
+                
+                      <li>
+                         <hr class="-mx-2 my-2 dark:border-gray-800">
+                      </li>
+                      <li>
+                         <a href=""
+                         onclick="Profile_Login_User.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}','${iduser}','${userrname}');"
+                          uk-toggle="target: #deletesubcommentmodal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                             <i class="uil-trash-alt mr-1"></i> Delete </a>
+                      </li>
+                   </ul>
+                </div>
+              </div>
+              </div>
               <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
                  <button  class="text-black-600">
                   
-                    <iconify-icon icon="ant-design:like-filled"></iconify-icon>
+                    <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
                     <span id="profileloginuser_span_likesubcomment${idsubusercomment}"> ${likessubcomment} </span>  
                     <!-- Like  -->
                  </button>
@@ -2080,6 +2111,7 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
               </div>
            </div>
            <br>
+        </div>
         </div>
         </div>
            `;
@@ -2131,7 +2163,7 @@ static async showAddedSubComment(idcomment,iduser,userrname) {
    let likessubcomment = subcommentpost.likessubcomment;
    let datepublishsubcomment = subcommentpost.datepublishsubcomment;
 
-   //CONERT FORMAT DATE
+   //CONVERT FORMAT DATE
    const dt = new Date(datepublishsubcomment);
    const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -2146,7 +2178,64 @@ static async showAddedSubComment(idcomment,iduser,userrname) {
    // const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
    //     let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
    let html_subcomment = `
-  
+   <div class="flex">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+           <img src="${imagesubcommentuser}" alt=""
+              class="absolute h-full rounded-full w-full">
+        </div>
+        <div>
+       
+           <div style="text-align: center;">
+           <div class="flex">
+              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                 <label style="text-align: center;" >
+                 <small id="profileloginuser_small_textsubcommentpost${idsubusercomment}"   class="leading-6"> 
+                  ${textsubcomment}
+                 </small>
+                 </label>
+                 <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+              </div>
+              <div>
+              <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                   <ul class="space-y-1">
+                     
+                      <li>
+                         <a href=""
+                         onclick="Profile_Login_User.showsubcommentUpdateModal('${idcomment}','${idsubusercomment}','${textsubcomment}','${iduser}','${userrname}');"
+                          uk-toggle="target: #update_subcomment_modal" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                             <i class="uil-edit-alt mr-1"></i>
+                              Edit  </a>
+                      </li>
+                
+                      <li>
+                         <hr class="-mx-2 my-2 dark:border-gray-800">
+                      </li>
+                      <li>
+                         <a href=""
+                         onclick="Profile_Login_User.showsubcommentDeleteModal('${idcomment}','${idsubusercomment}');"
+                          uk-toggle="target: #deletesubcommentmodal" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                             <i class="uil-trash-alt mr-1"></i> Delete </a>
+                      </li>
+                   </ul>
+                </div>
+              </div>
+              </div>
+              <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
+                 <button  class="text-black-600">
+                  
+                    <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
+                    <span id="profileloginuser_span_likesubcomment${idsubusercomment}"> ${likessubcomment} </span>  
+                    <!-- Like  -->
+                 </button>
+                 <span>${formatted_date}</span>
+              </div>
+           </div>
+           <br>
+        </div>
+        </div>
     `;
    let profileloginuser_listupdatesubcomments= document.getElementById(`profileloginuser_listupdatesubcomments${idcomment}`);
    profileloginuser_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
@@ -2156,7 +2245,102 @@ static async showAddedSubComment(idcomment,iduser,userrname) {
 let NumberOfSubComment=listsubcomment.length;
 document.getElementById(`profileloginuser_span_numbersubcomments${idcomment}`).innerHTML=`${NumberOfSubComment}`;
  }
+ static  showUpdatedSubComment(idsubcomment,textsubcomment) {
+   document.getElementById(`profileloginuser_small_textsubcommentpost${idsubcomment}`).innerHTML=textsubcomment;
+  }
+  static  showRemoveSubComment(idcomment,idsubcomment) {
+   document.getElementById(`profileloginuser_div_subcomment${idsubcomment}`).remove();
+
+
+   let numbercommenthtml= document.getElementById(`profileloginuser_span_numbersubcomments${idcomment}`).textContent;
+   let numbercomments=Number(numbercommenthtml);
+    document.getElementById(`profileloginuser_span_numbersubcomments${idcomment}`).innerHTML=numbercomments-1;
+ }
+//SHOW EDIT DELETE SUBCOMMENT 
+
+static  showsubcommentUpdateModal=async(idcomment,idsubcomment,textsubcomment,iduserlogin,usernamelogin)=>
+{
+   SelectData.showsubcommentUpdateModal=
+   {
+      iduserlogin,
+      usernamelogin,
+      idcomment,
+      idsubcomment
+   }
+//    document.getElementById('profileloginuser_iduserlogin_updatesubcomment').value=iduserlogin;
+//   document.getElementById('profileloginuser_usernamelogin_updatesubcomment').value=usernamelogin;
+//   document.getElementById('profileloginuser_idcomment_updatesubcomment').value=idcomment;
+//   document.getElementById('profileloginuser_idsubcomment_updatesubcomment').value=idsubcomment;
+  document.getElementById('profileloginuser_textsubcomment_updatesubcomment').value=textsubcomment;
+ 
+ 
+}
+static showsubcommentDeleteModal=async(idcomment,idsubcomment,iduserlogin,usernamelogin)=>
+{
+  SelectData.showsubcommentDeleteModal={
+   idcomment,idsubcomment,iduserlogin,usernamelogin
+  }
+//   document.getElementById('postwatch_idcomment_deletesubcomment').value=idcomment;
+//   document.getElementById('postwatch_idsubcomment_deletesubcomment').value=idsubcomment;
+
+}
+//UPDATE SUB COMMENT 
+static updateSubComment=async(event)=>
+{
+  try {
+    event.preventDefault();
+    
+    let idcomment=SelectData.showsubcommentUpdateModal.idcomment;
+    let iduserlogin=SelectData.showsubcommentUpdateModal.iduserlogin;
+    let usernamelogin=SelectData.showsubcommentUpdateModal.usernamelogin;
+    let idsubcomment=SelectData.showsubcommentUpdateModal.idsubcomment;
+   const textsubcomment = document.getElementById('profileloginuser_textsubcomment_updatesubcomment').value;
+
+   const editsubcommentPost= await APIRESTSubComment.editsubcommentPost(idsubcomment,idcomment,
+    textsubcomment,iduserlogin,usernamelogin);
+   if (editsubcommentPost) {
+ 
+     messagenotification('SubComment Updated','success',event);
+
+     this.showUpdatedSubComment(idsubcomment,textsubcomment);
+    //await this.loadCommentPost(idpostwatch,iduser,userrname);
+    SelectData.showsubcommentUpdateModal={};
+     document.getElementById('profileloginuser_textsubcomment_updatesubcomment').value="";
+    }
+}catch (error) {
+  alert(error);
+}
+}
+//DELETE SUB COMMENT 
+static deleteSubComment=async(event)=>
+{
+  try {
+    event.preventDefault();
+   
+   let idcomment=SelectData.showsubcommentDeleteModal.idcomment;
+   let idsubcomment=SelectData.showsubcommentDeleteModal.idsubcomment;
+   let iduserlogin=SelectData.showsubcommentDeleteModal.iduserlogin;
+   let usernamelogin=SelectData.showsubcommentDeleteModal.usernamelogin;
+   const deletesubcommentPost= await APIRESTSubComment.deletesubcommentPost(idsubcomment,
+      iduserlogin,usernamelogin);
+   if (deletesubcommentPost) {
+ 
+     messagenotification('SubComment Deleted','success',event);
+this.showRemoveSubComment(idcomment,idsubcomment)
+   // await this.loadCommentPost(idpostwatch,iduser,userrname);
+     
+
+    
+    }
+}catch (error) {
+  alert(error);
+}
+}
+
+
+
 //#endregion COMMENTS
+
 //************************************************************* */
 //#region LIKES
 
@@ -2358,3 +2542,13 @@ form_profileloginuser_updatecomment.addEventListener('submit', Profile_Login_Use
 //DELETE COMMENT
 const button_profileloginuser_deletecomment= document.getElementById('button_profileloginuser_deletecomment');
 button_profileloginuser_deletecomment.addEventListener('click', Profile_Login_User.deleteCommentPost);
+
+//UPDATE SUBCOMMENT
+
+
+const form_profileloginuser_updatesubcomment = document.getElementById('form_profileloginuser_updatesubcomment');
+form_profileloginuser_updatesubcomment.addEventListener('submit', Profile_Login_User.updateSubComment);
+
+//DELETE SUBCOMMENT
+const profileloginuser_button_deletesubcomment = document.getElementById('profileloginuser_button_deletesubcomment');
+profileloginuser_button_deletesubcomment.addEventListener('click', Profile_Login_User.deleteSubComment);
