@@ -815,8 +815,8 @@ static async loadAlbumVideosLoginUser() {
   for (let i = 0; i < getalbumvideosuser.length; i++) {
     const idalbumvideo = getalbumvideosuser[i].idalbumvideo  ;
     let getVideosByAlbum = await APIRESTVideo.getVideosByAlbum(idalbumvideo);
-if(getVideosByAlbum.length!==0)
-{
+   if(getVideosByAlbum.length!==0)
+   {
 
     if (i >= 3) {
       html_load_albumvideo += `
@@ -1117,7 +1117,8 @@ let NumberOfCommentPost=listcommentpost.length;
       ${forCommentsPost}
         <!-- COMMENT -->
         </div>   
-     </div>   <!-- END VIEWCOMMENTPOST -->
+     </div> 
+       <!-- END VIEWCOMMENTPOST -->
      
      <!-- <a href="" class="hover:text-blue-600 hover:underline">  View more comments </a> -->
      <form
@@ -1404,7 +1405,7 @@ let NumberOfCommentPost=listcommentpost.length;
 //COMMENTS
 
 
-   static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
+static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
    let html_comments_post=""; 
    for (let i = 0; i < listcommentpost.length; i++) {
       const commentpost = listcommentpost[i];
@@ -1431,11 +1432,12 @@ let NumberOfCommentPost=listcommentpost.length;
          iduserlogin,
          idcomment);
          let numberofsubcomments=listsubcommentpost.length;
-         // let loadSubCommentPost="";
-         // if(numberofsubcomments!==0)
-         // {
-         //   loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
-         // }
+         let forSubCommentPost="";
+         if(numberofsubcomments!==0)
+         {
+            forSubCommentPost = await this.forSubCommentPost(listsubcommentpost,idcomment, iduserlogin,username);
+         }
+         const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
          let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduserlogin,username);
          html_comments_post += `
          <div id="profileloginuser_div_listcommentpost${idcomment}" >
@@ -1460,7 +1462,7 @@ let NumberOfCommentPost=listcommentpost.length;
                         <ul class="space-y-1">
                         
                            <li>
-                              <a href=""idcomment,textcomment,idpost,iduserlogin,username
+                              <a href=""
                               onclick="Profile_Login_User.showtextcommentUpdateModalComment_Post
                               ('${idcomment}','${textcomment}','${idpost}','${iduserlogin}'
                               ,'${username}');"
@@ -1488,14 +1490,22 @@ let NumberOfCommentPost=listcommentpost.length;
                </div>
                </div>
                <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                  <button  class="text-black-600">
-                     ${likescomment}
-                     <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                     <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
+                  <button 
+                  onclick="Profile_Login_User.like_dislike_Comment('${idcomment}',
+                    '${iduserlogin}','${username}',event);"
+                   class="text-black-600">
+                 
+                     <iconify-icon id="profileloginuser_icon_likecomment${idcomment}" icon="ant-design:like-${exist_like_comment}"></iconify-icon>               
+                     <span id="profileloginuser_span_likecomment${idcomment}">${likescomment}</span>
+                  
+                    
+              
+                     
                   </button>
                   <button uk-toggle="target: #view_subcommentpost${idcomment}" >
                      <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                     ${numberofsubcomments}
+                     <span id="profileloginuser_span_numbersubcomments" > ${numberofsubcomments} </span>
+                     
                   </button>
                   <span> ${formatted_date} </span> 
                </div>
@@ -1503,43 +1513,23 @@ let NumberOfCommentPost=listcommentpost.length;
          </div>
          <br>
          <!-- SUBCOMMENTS -->
-         <div hidden id="view_subcommentpost${idcomment}"  class="flex-col">
+         <div hidden id="view_subcommentpost${idcomment}" class="flex-col">
             
-         <div class="flex">
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
-            <img src="../assets/images/avatars/avatar-1.jpg" alt=""
-               class="absolute h-full rounded-full w-full">
-         </div>
-         <div>
-            <div style="text-align: center;">
-               <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                  <label style="text-align: center;" >
-                  <small   class="leading-6"> 
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur illo
-                  </small>
-                  </label>
-                  <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+               <div>
+                  <div id="profileloginuser_listupdatesubcomments${idcomment}">
+                  ${forSubCommentPost}
+                  </div>
                </div>
-               <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
-                  <a href="" class="text-black-600">
-                     3
-                     <iconify-icon icon="ant-design:like-filled"></iconify-icon>
-                     <!-- Like  -->
-                  </a>
-                  <span> 3d </span>
-               </div>
-            </div>
-            <br>
-         </div>
-      </div>
             <!-- SEND MESSAGE INPUT -->
+            <form        
+           onsubmit="Profile_Login_User.addSubComment('${idcomment}','${iduserlogin}','${username}', event);"
+           >
             <div class="flex">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                  <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                  <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                     <button>
+                     <button type="submit">
                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
                      </button>
                   </div>
@@ -1554,7 +1544,7 @@ let NumberOfCommentPost=listcommentpost.length;
   
    return html_comments_post
     }
-    static forCommentImage(){
+ static forCommentImage(){
       let html_comment_image="";
       for (let i = 0; i < 3; i++) {
 
@@ -1636,7 +1626,7 @@ let NumberOfCommentPost=listcommentpost.length;
      }
       return html_comment_image
   }
-   static forCommentVideo(){
+ static forCommentVideo(){
          let html_comment_video="";
          for (let i = 0; i < 3; i++) {
    
@@ -1816,8 +1806,6 @@ static deleteCommentPost=async(event)=>
 }
 }
 
-
-
 //SHOW COMMENT AFTER ADD
 
 static  showAddedCommentPost=async(idpost,iduser,userrname)=>
@@ -1852,11 +1840,12 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
     //  const svgfill_existlikecomment = await  this.svgfill_existlikecomment(idcomment, iduser, userrname);
       
       
-
+      
       let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduser,userrname);
 
       let html_addcomment_post=`
-      <div >
+
+      <div id="profileloginuser_div_listcommentpost${idcomment}" >
 
          
      <div class="flex">
@@ -1878,7 +1867,11 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                    <ul class="space-y-1">
                     
                       <li>
-                         <a href="" uk-toggle="target: #update_comment_modal" 
+                         <a href=""
+                         onclick="Profile_Login_User.showtextcommentUpdateModalComment_Post
+                         ('${idcomment}','${textcomment}','${idpost}','${iduser}'
+                         ,'${userrname}');"
+                          uk-toggle="target: #update_comment_modal" 
                          class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
                              <i class="uil-edit-alt mr-1"></i>
                               Edit  </a>
@@ -1888,7 +1881,10 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                          <hr class="-mx-2 my-2 dark:border-gray-800">
                       </li>
                       <li>
-                         <a href="" uk-toggle="target: #deletecommentmodal" 
+                         <a href="" 
+                         onclick="Profile_Login_User.showIdDeleteModalComment_Post('${idcomment}',
+                              '${iduser}','${userrname}','${idpost}');"
+                         uk-toggle="target: #deletecommentmodal" 
                          class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                              <i class="uil-trash-alt mr-1"></i> Delete </a>
                       </li>
@@ -1898,11 +1894,19 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
            </div>
            </div>
            <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-              <button  class="text-black-600">
-                ${likescomment}
-                 <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                 <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
+
+           <!-- LIKE BUTTON -->
+
+              <button  
+              onclick="Profile_Login_User.like_dislike_Comment('${idcomment}',
+              '${iduser}','${userrname}',event);"
+                   class="text-black-600">
+               <iconify-icon id="profileloginuser_icon_likecomment${idcomment}" icon="ant-design:like-outlined"></iconify-icon>               
+               <span id="profileloginuser_span_likecomment${idcomment}">${likescomment}</span>
               </button>
+
+             <!-- COMMENT BUTTON -->
+
               <button uk-toggle="target: #view_subcommentpost${idcomment}" >
                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
                ${numberofsubcomments}
@@ -2018,12 +2022,145 @@ static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,i
   document.getElementById('profileloginuser_idpost_deletecommentmodal').value=idpost;
 }
 
+//********************************** */
+//SUBCOMMENTS
+ 
+static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
+  {
+    let html_subcomments_posts="";
+    
+      for (let i = 0; i < listsubcommentpost.length; i++) {
+        const subcommentpost = listsubcommentpost[i];
+        let idsubusercomment =subcommentpost.idsubusercomment ;
+        let textsubcomment= subcommentpost.textsubcomment; 
+        let likessubcomment =subcommentpost.likessubcomment;
+        let datepublishsubcomment =subcommentpost.datepublishsubcomment ;
+
+        //CONVERT FORMAT DATE
+
+        const dt = new Date(datepublishsubcomment);
+        const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+        //USER
+        let idsubcommentuser  =subcommentpost.idsubcommentuser   ;
+        let namesubcommentuser  =subcommentpost.namesubcommentuser   ;
+        let imagesubcommentuser  =subcommentpost.imagesubcommentuser;
+      
+        if (imagesubcommentuser==="") {
+          imagesubcommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+        }
+      //   const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
+      //   let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+
+        html_subcomments_posts+=`
+        <div class="flex">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+           <img src="${imagesubcommentuser}" alt=""
+              class="absolute h-full rounded-full w-full">
+        </div>
+        <div>
+           <div style="text-align: center;">
+              <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+                 <label style="text-align: center;" >
+                 <small id="profileloginuser_small_textsubcommentpost${idsubusercomment}"   class="leading-6"> 
+                  ${textsubcomment}
+                 </small>
+                 </label>
+                 <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+              </div>
+              <div class="text-xs flex items-center space-x-3 mt-2 ml-5">
+                 <button  class="text-black-600">
+                  
+                    <iconify-icon icon="ant-design:like-filled"></iconify-icon>
+                    <span id="profileloginuser_span_likesubcomment${idsubusercomment}"> ${likessubcomment} </span>  
+                    <!-- Like  -->
+                 </button>
+                 <span>${formatted_date}</span>
+              </div>
+           </div>
+           <br>
+        </div>
+        </div>
+           `;
+  }
+  return html_subcomments_posts;
+  
+  
+  }
+
+   //ADD SUBCOMMENT
+ static addSubComment=async(idcomment,iduserlogin,usernamelogin,event)=>
+ {
+   try {
+     event.preventDefault();
+  
+    const textsubcomment = document.getElementById(`profileloginuser_textsubcommentpost${idcomment}`).value;
+
+    const addSubComment= await APIRESTSubComment.addSubComment
+    (idcomment,
+      textsubcomment,iduserlogin,usernamelogin);
+    if (addSubComment) {
+  
+      messagenotification('Added comment answer','success',event);
+
+      await this.showAddedSubComment(idcomment,iduserlogin,usernamelogin);
+      
+     //await this.loadSubCommentPost(idcomment,sessionuser.iduser);
+      
+  
+
+     //  setInterval(() => {
+     //   location.reload();a
+     //  }, 1000);
+      document.getElementById(`profileloginuser_textsubcommentpost${idcomment}`).value="";
+     }
+ }catch (error) {
+   alert(error);
+ }
+ } 
+
+//SHOW SUBCOMMENT AFTER ADD UPDATE REMOVE
+
+static async showAddedSubComment(idcomment,iduser,userrname) {
+   let listsubcomment = await APIRESTSubComment.getSubCommentByComment(iduser, idcomment);
+   let subcommentpost = listsubcomment[listsubcomment.length - 1];
+
+   let idsubusercomment = subcommentpost.idsubusercomment;
+   let textsubcomment = subcommentpost.textsubcomment;
+   let likessubcomment = subcommentpost.likessubcomment;
+   let datepublishsubcomment = subcommentpost.datepublishsubcomment;
+
+   //CONERT FORMAT DATE
+   const dt = new Date(datepublishsubcomment);
+   const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+   //USER
+   let idsubcommentuser  =subcommentpost.idsubcommentuser;
+   let namesubcommentuser = subcommentpost.namesubcommentuser;
+   let imagesubcommentuser = subcommentpost.imagesubcommentuser;
+
+   if (imagesubcommentuser === "") {
+     imagesubcommentuser = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
+   // const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
+   //     let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+   let html_subcomment = `
+  
+    `;
+   let profileloginuser_listupdatesubcomments= document.getElementById(`profileloginuser_listupdatesubcomments${idcomment}`);
+   profileloginuser_listupdatesubcomments.parentNode.insertAdjacentHTML("beforeend", html_subcomment);
+
+    
+//NUMBER SUBCOMMENT 
+let NumberOfSubComment=listsubcomment.length;
+document.getElementById(`profileloginuser_span_numbersubcomments${idcomment}`).innerHTML=`${NumberOfSubComment}`;
+ }
 //#endregion COMMENTS
 //************************************************************* */
 //#region LIKES
 
-// LIKES POST IMAGE VIDEOS
-
+// LIKES POST IMAGE VIDEOS COMMENTS SUBCOMMENTS
 
   static like_dislike_Post= async(idpost,iduserlogin,usernamelogin,event)=>
   {
@@ -2062,7 +2199,48 @@ static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,i
     }
   }
 
+  static like_dislike_Comment= async(idcomment,iduserlogin,usernamelogin,event)=>
+  {
+    try {
+      event.preventDefault();
 
+    
+      let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduserlogin,usernamelogin)
+     
+      if (existLikeComment) {
+ 
+      const deleteComment= await APIRESTLikes.deleteComment(idcomment,
+         iduserlogin,usernamelogin );
+       if (deleteComment) {
+         
+         document.getElementById(`profileloginuser_icon_likecomment${idcomment}`).setAttribute("icon","ant-design:like-outlined");
+         //ADD LIKE HTML
+         let textcontent_numberlikes= document.getElementById(`profileloginuser_span_likecomment${idcomment}`).textContent;
+         let numberoflikes=Number(textcontent_numberlikes)-1;
+         document.getElementById(`profileloginuser_span_likecomment${idcomment}`).innerHTML=numberoflikes;
+       }
+      } 
+ 
+     else{
+ 
+      const likeComment= await APIRESTLikes.likeComment(idcomment,
+         iduserlogin,usernamelogin);
+       if (likeComment) {
+      
+         document.getElementById(`profileloginuser_icon_likecomment${idcomment}`).setAttribute("icon","ant-design:like-filled");
+         //ADD LIKE HTML
+         let textcontent_numberlikes= document.getElementById(`profileloginuser_span_likecomment${idcomment}`).textContent;
+         let numberoflikes=Number(textcontent_numberlikes)+1;
+         document.getElementById(`profileloginuser_span_likecomment${idcomment}`).innerHTML=numberoflikes;
+       }
+     }
+  
+     
+    }catch (error) {
+      alert(error);
+    }
+  }
+//EXIST LIKE 
 static exist_like_post=async(idpost,iduser,username)=>
 {
  let fill="";
@@ -2076,7 +2254,19 @@ static exist_like_post=async(idpost,iduser,username)=>
  }
  return fill;
 }
-
+static exist_like_comment=async(idcomment,iduser,username)=>
+{
+ let fill="";
+ let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
+ if(existLikeComment)
+ {
+  fill="filled"
+ }
+ else{
+   fill="outlined"
+ }
+ return fill;
+}
 //#endregion LIKES
  //*************************************************** */
 //  REDIRECT TO IMAGE POST VIDEO WATCH
