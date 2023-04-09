@@ -36,7 +36,6 @@ class APIRESTAlbumVideo
          return true;
         }
 
-        
        //GETS
        static getAlbumVideoseByLoginUser=async(iduserlogin,username)=>
        {

@@ -773,9 +773,7 @@ this.showRemoveSubComment(idsubcomment)
   alert(error);
 }
 }
-
-
-  static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
+static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
   {
     let html_subcomments_posts="";
     
