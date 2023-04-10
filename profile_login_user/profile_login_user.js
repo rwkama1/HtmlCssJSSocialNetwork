@@ -1010,13 +1010,12 @@ static forAddImagesFromAlbum(images)
    let stringpostedago=getpost.stringpostedago;
    let description=getpost.description;
 
-   //GET COMMENT POSTS
  
-      let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpost,
-         iduserlogin,usernamelogin);
-
 //NUMBER COMMENT POSTS
-let NumberOfCommentPost=listcommentpost.length;
+ 
+      let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpost);
+
+
  // let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
 //  ${forCommentsPost}
   //SHOW EXISTLIKEPOST
@@ -1440,15 +1439,18 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
       if (imagecommentuser==="") {
         imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
       }
-      let listsubcommentpost=await APIRESTSubComment.getSubCommentByComment(
-         iduserlogin,
-         idcomment);
-         let numberofsubcomments=listsubcommentpost.length;
-         let forSubCommentPost="";
-         if(numberofsubcomments!==0)
-         {
-            forSubCommentPost = await this.forSubCommentPost(listsubcommentpost,idcomment, iduserlogin,username);
-         }
+      // let listsubcommentpost=await APIRESTSubComment.getSubCommentByComment(
+      //    iduserlogin,
+      //    idcomment);
+      //    let numberofsubcomments=listsubcommentpost.length;
+      //    let forSubCommentPost="";
+      //    if(numberofsubcomments!==0)
+      //    {
+      //       forSubCommentPost = await this.forSubCommentPost(listsubcommentpost,idcomment, iduserlogin,username);
+      //    }
+            let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+            (idcomment);
+   
          const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
          let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduserlogin,username);
          html_comments_post += `
@@ -1512,9 +1514,12 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                   
 
                   </button>
-                  <button uk-toggle="target: #view_subcommentpost${idcomment}" >
+                  <button 
+                  onclick="Profile_Login_User.show_subcomment_post('${idcomment}',
+                    '${iduserlogin}','${username}');"
+                  uk-toggle="target: #view_subcommentpost${idcomment}" >
                      <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                     <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
+                     <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${NumberOfSubComments} </span>
                      
                   </button>
                   <span> ${formatted_date} </span> 
@@ -1527,7 +1532,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
             
                <div>
                   <div id="profileloginuser_listupdatesubcomments${idcomment}">
-                  ${forSubCommentPost}
+                 
                   </div>
                </div>
             <!-- SEND MESSAGE INPUT -->
@@ -2013,6 +2018,17 @@ static showIdDeleteModalComment_Post=async(idcomment,iduserlogin,usernamelogin,i
 
 //********************************** */
 //SUBCOMMENTS
+static async show_subcomment_post(idcomment,iduserlogin,usernamelogin)
+{
+   let listsubcommentpost=await APIRESTSubComment.getSubCommentByComment(
+         iduserlogin,
+         idcomment);
+
+ let forSubCommentPost=await this.forSubCommentPost(listsubcommentpost,idcomment,iduserlogin,usernamelogin);
+ document.getElementById(`profileloginuser_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentPost;
+// profileloginuser_commentspost${idpost}
+}
+
  
 static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
   {
