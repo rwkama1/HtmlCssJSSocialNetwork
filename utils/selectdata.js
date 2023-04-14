@@ -18,6 +18,13 @@ class SelectData
 
   static showsubcommentDeleteModal={};
 
+  static showcommentUpdateModal={};
+
+  static showcommentDeleteModal={};
+
+  
+  static showcommentDeleteModalVideo={};
+
   //GETS
   static getSelectMultipleImages()
   {
