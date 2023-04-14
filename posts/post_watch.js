@@ -3,7 +3,7 @@ class PostWatchJS
   //LOAD PAGE
   static loadPage=async()=>
   {
-   setTimeout(async () => {
+
     try {
       let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
       let {iduser,userrname}=sessionuser;
@@ -55,7 +55,7 @@ class PostWatchJS
       document.getElementById("postwatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentPost})`;
 
   
-  await this.loadCommentPost(listcommentpost,idpostwatch,iduser,userrname);
+  // await this.loadCommentPost(listcommentpost,idpostwatch,iduser,userrname);
 
 
       
@@ -65,7 +65,7 @@ class PostWatchJS
     console.log(error);
     //window.location.href="../index.html"; 
        }
-   },1000);
+   
   }
 
   static loadPost=async(getPost,userimage)=>
@@ -209,8 +209,20 @@ class PostWatchJS
 
 //#region COMMENTS
 //******************************************************** */
- //COMMENTS 
 
+//SHOW COMMENTS 
+static async show_comment_post()
+{
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let {iduser,userrname}=sessionuser;
+    let idpostwatch = sessionStorage.getItem('idpostwatch');
+   let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpostwatch,
+    iduser,userrname);
+
+  await PostWatchJS.loadCommentPost(listcommentpost,idpostwatch,iduser,userrname);
+
+// profileloginuser_commentspost${idpost}
+}
 
  //LOAD COMMENT POSTS
   static loadCommentPost=async(listcommentpost,idpost,iduser,userrname)=>
@@ -223,6 +235,7 @@ class PostWatchJS
         let textcomment=commentpost.textcomment ;
         let likescomment =commentpost.likescomment;
         let datepublishcomment =commentpost.datepublishcomment;
+        let stringpostedago =commentpost.stringpostedago;
 
 
         //CONERT FORMAT DATE
@@ -239,20 +252,21 @@ class PostWatchJS
         }
 
      
-
-        let listsubcommentpost=await  APIRESTSubComment.getSubCommentByComment(
-          iduser,
-          idcomment);
-          let numberofsubcomments=listsubcommentpost.length;
-          let loadSubCommentPost="";
-          if(numberofsubcomments!==0)
-          {
-            loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
-          }
+        let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+        (idcomment);
+        // let listsubcommentpost=await  APIRESTSubComment.getSubCommentByComment(
+        //   iduser,
+        //   idcomment);
+        //   let numberofsubcomments=listsubcommentpost.length;
+        //   let loadSubCommentPost="";
+        //   if(numberofsubcomments!==0)
+        //   {
+        //     loadSubCommentPost = await this.loadSubCommentPost(listsubcommentpost,idcomment, iduser,userrname);
+        //   }
       
       const svgfill_existlikecomment = await this.svgfill_existlikecomment(idcomment, iduser, userrname);
       
-     
+      // ${loadSubCommentPost}
 
       let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduser,userrname);
 
@@ -274,7 +288,7 @@ class PostWatchJS
        >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
          </a>
-         <span class="text-gray-700 text-sm">${formatted_date}</span>
+         <span class="text-gray-700 text-sm">${stringpostedago}</span>
          <br>
          <p id="postwatch_p_textcomment${idcomment}">
           ${textcomment}
@@ -293,7 +307,9 @@ class PostWatchJS
               </div>
               <div id="postwatch_numberlikescomment${idcomment}"> ${likescomment}</div>
           </button>
-          <a href="" uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
+          <a href=""
+
+           uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
               <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
                   fill="grey"
@@ -302,7 +318,7 @@ class PostWatchJS
                           d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path>
                   </svg>
               </div>
-              <div id="postwatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments} </div>
+              <div id="postwatch_div_numbersubcomments${idcomment}"> ${NumberOfSubComments} </div>
           </a>
       </div>
        </div>
@@ -342,7 +358,7 @@ class PostWatchJS
        <div >
         <div id="postwatch_listupdatesubcomments${idcomment}">
         <!-- Subcomennt 1 -->
-        ${loadSubCommentPost}
+        
          </div>
        </div>
    <br>
@@ -416,9 +432,10 @@ class PostWatchJS
     alert(error);
   }
   }
+
+
+
 //EDIT DELETE COMMENT POST
-
-
 
 static  showtextcommentUpdateModalComment=async(idcomment,textcomment)=>
 {
@@ -671,7 +688,16 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
  }
 //-------------------------------------------------------------------------
   //SUBCOMMENTS
-
+  static async show_subcomment_post(idcomment,iduserlogin,usernamelogin)
+  {
+     let listsubcommentpost=await APIRESTSubComment.getSubCommentByComment(
+           iduserlogin,
+           idcomment);
+  
+   let forSubCommentPost=await this.forSubCommentPost(listsubcommentpost,idcomment,iduserlogin,usernamelogin);
+   document.getElementById(`postwatch_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentPost;
+  // profileloginuser_commentspost${idpost}
+  }
  //ADD SUBCOMMENT POST
  static addSubCommentPost=async(idcomment,event)=>
  {
@@ -1212,3 +1238,6 @@ button_postwatch_deletecomment.addEventListener('click', PostWatchJS.deleteComme
 
 const button_postwatch_deletesubcomment = document.getElementById('button_postwatch_deletesubcomment');
 button_postwatch_deletesubcomment.addEventListener('click', PostWatchJS.deleteSubCommentPost);
+
+const postwatch_a_viewcomments = document.getElementById('postwatch_a_viewcomments');
+postwatch_a_viewcomments.addEventListener('click', PostWatchJS.show_comment_post);

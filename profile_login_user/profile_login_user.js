@@ -1087,7 +1087,7 @@ static forAddImagesFromAlbum(images)
            </div>
            <div id="profileloginuser_timeline_numberlikespost${idpost}"> ${likespost}</div>
         </button>
-        <a href="" 
+        <button 
         onclick="Profile_Login_User.show_comment_posts('${idpost}','${iduserlogin}','${usernamelogin}');"  
          uk-toggle="target: #view-commentspost${idpost}" class="flex items-center space-x-2">
            <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
@@ -1097,7 +1097,7 @@ static forAddImagesFromAlbum(images)
               </svg>
            </div>
            <div id="profileloginuser_timeline_numbercommentpost${idpost}"> ${NumberOfCommentPost} </div>
-        </a>
+        </button>
 
 
      </div>
@@ -1210,7 +1210,9 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
   <!-- <div uk-lightbox>     -->
      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
        
-              <a href="">
+              <a href="../images/image_watch.html"
+              onclick="Profile_Login_User.passidtoImageWatch('${idimage}');"
+              >
                  <img src="${urlimage}" alt="" uk-responsive>
                  </a>
       
@@ -1343,7 +1345,10 @@ let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo
 
           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
          
-               <a href="../feed/feed.html">
+               <a 
+               href="../videos/video_watch.html"
+               onclick="Profile_Login_User.passidtoVideoWatch('${idvideo}');"
+               >
                 <video src="${urlvideo}" autoplay loop muted playsinline >
 
                 </video>
@@ -1575,7 +1580,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
             <div class="flex">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                  <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                  <input id="profileloginuser_textsubcommentpost${idcomment}" required  placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                      <button type="submit">
                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -1712,7 +1717,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
             <div class="flex">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                  <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
+                  <input id="profileloginuser_textsubcommentpost${idcomment}" required  placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                      <button type="submit">
                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -1847,7 +1852,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                <div class="flex">
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                   <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                     <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
+                     <input id="profileloginuser_textsubcommentpost${idcomment}" required  placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
                      <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                         <button type="submit">
                            <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -2136,7 +2141,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
         let textcomment=commentpost.textcomment ;
         let likescomment =commentpost.likescomment;
         let datepublishcomment =commentpost.datepublishcomment;
-
+        let stringpostedago=commentpost.stringpostedago;
         //CONVERT FORMAT DATE
 
         const dt = new Date(datepublishcomment);
@@ -2223,7 +2228,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
                      <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
                      
                   </button>
-                  <span> ${formatted_date} </span> 
+                  <span> ${stringpostedago} </span> 
                </div>
             </div>
          </div>
@@ -2244,7 +2249,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
             <div class="flex">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                  <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                  <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." required  class="bg-transparent max-h-10 shadow-none px-5">
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                      <button type="submit">
                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -2285,7 +2290,7 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
       const commentimage = lastcommentimage;
       let idcomment=commentimage.IdUserComment  ;
       let textcomment=commentimage.Textt  ;
-
+      let stringpostedago=commentimage.stringpostedago;
       let likescomment =commentimage.Likes;
       let datepublishcomment =commentimage.datepublishcomment;
 
@@ -2375,13 +2380,13 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
                      <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
                      
                   </button>
-                  <span> ${formatted_date} </span> 
+                  <span> ${stringpostedago} </span> 
                </div>
             </div>
          </div>
          <br>
          <!-- SUBCOMMENTS -->
-         <div hidden id="view_subcommentpost${idcomment}" class="flex-col">
+         <div hidden id="view_subcommentimage${idcomment}" class="flex-col">
             
                <div>
                   <div id="profileloginuser_listupdatesubcomments${idcomment}">
@@ -2390,13 +2395,13 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
                </div>
             <!-- SEND MESSAGE INPUT -->
             <form 
-            id="form_profileloginuser_addSubCommentImage${idcomment}"
+            id="form_profileloginuser_addSubCommentPost${idcomment}"
            onsubmit="Profile_Login_User.addSubComment('${idcomment}','${iduser}','${userrname}', event);"
            >
             <div class="flex">
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                  <input id="profileloginuser_textsubcommentimage${idcomment}" placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
+                  <input id="profileloginuser_textsubcommentpost${idcomment}" required placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
                   <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                      <button type="submit">
                         <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -2440,7 +2445,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
       
             let likescomment =commentvideo.likescomment ;
             let datepublishcomment =commentvideo.datepublishcomment;
-      
+            let stringpostedago=commentvideo.stringpostedago;
       
             //CONVERT FORMAT DATE
       
@@ -2527,7 +2532,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                         <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
                         
                      </button>
-                     <span> ${formatted_date} </span> 
+                     <span> ${stringpostedago} </span> 
                   </div>
                </div>
             </div>
@@ -2833,7 +2838,7 @@ static async showAddedSubComment(idcomment,iduser,userrname) {
    let textsubcomment = subcommentpost.textsubcomment;
    let likessubcomment = subcommentpost.likessubcomment;
    let datepublishsubcomment = subcommentpost.datepublishsubcomment;
-
+   let stringpostedagosubcomment= subcommentpost.stringpostedagosubcomment; 
    //CONVERT FORMAT DATE
    const dt = new Date(datepublishsubcomment);
    const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -2905,7 +2910,7 @@ static async showAddedSubComment(idcomment,iduser,userrname) {
                     <span id="profileloginuser_span_likesubcomment${idsubusercomment}"> ${likessubcomment} </span>  
                     <!-- Like  -->
                  </button>
-                 <span>${formatted_date}</span>
+                 <span>${stringpostedagosubcomment}</span>
               </div>
            </div>
            <br>
