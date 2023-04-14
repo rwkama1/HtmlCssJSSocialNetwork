@@ -307,8 +307,8 @@ static async show_comment_post()
               </div>
               <div id="postwatch_numberlikescomment${idcomment}"> ${likescomment}</div>
           </button>
-          <a href=""
-
+          <button 
+          onclick="PostWatchJS.show_subcomment_post('${idcomment}','${iduser}','${userrname}');"
            uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
               <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
@@ -319,7 +319,7 @@ static async show_comment_post()
                   </svg>
               </div>
               <div id="postwatch_div_numbersubcomments${idcomment}"> ${NumberOfSubComments} </div>
-          </a>
+          </button>
       </div>
        </div>
        <!-- EDIT AND DELETE COMMENT  -->
@@ -367,7 +367,7 @@ static async show_comment_post()
           <form id="form_postwatch_addsubcomment"
            onsubmit="PostWatchJS.addSubCommentPost('${idcomment}', event);">
              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-               <input type="text" id="postwatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+               <input type="text" id="postwatch_textsubcomment${idcomment}" required placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
                <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                  <button type="submit" class="btn btn-primary">
                    <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -518,7 +518,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
         let textcomment=commentpost.textcomment ;
         let likescomment =commentpost.likescomment;
         let datepublishcomment =commentpost.datepublishcomment;
-
+        let stringpostedago =commentpost.stringpostedago;
         //CONERT FORMAT DATE
 
         const dt = new Date(datepublishcomment);
@@ -561,7 +561,7 @@ static  showAddedCommentPost=async(idpost,iduser,userrname)=>
        >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
          </a>
-         <span class="text-gray-700 text-sm">${formatted_date}</span>
+         <span class="text-gray-700 text-sm">${stringpostedago}</span>
          <br>
          <p id="postwatch_p_textcomment${idcomment}">
           ${textcomment}
@@ -694,7 +694,7 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
            iduserlogin,
            idcomment);
   
-   let forSubCommentPost=await this.forSubCommentPost(listsubcommentpost,idcomment,iduserlogin,usernamelogin);
+   let forSubCommentPost=await this.loadSubCommentPost(listsubcommentpost,idcomment,iduserlogin,usernamelogin);
    document.getElementById(`postwatch_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentPost;
   // profileloginuser_commentspost${idpost}
   }
@@ -809,7 +809,7 @@ static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         let textsubcomment= subcommentpost.textsubcomment; 
         let likessubcomment =subcommentpost.likessubcomment;
         let datepublishsubcomment =subcommentpost.datepublishsubcomment ;
-
+        let stringpostedagosubcomment= subcommentpost.stringpostedagosubcomment; 
         //CONVERT FORMAT DATE
 
         const dt = new Date(datepublishsubcomment);
@@ -841,7 +841,7 @@ static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
      >
        <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
        </a>
-       <span class="text-gray-700 text-sm">${formatted_date}</span>
+       <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
        <br>
        <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
         ${textsubcomment}
@@ -901,7 +901,7 @@ static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
   static async showAddedSubComment(idcomment,iduser,userrname) {
     let listsubcomment = await APIRESTSubComment.getSubCommentByComment(iduser, idcomment);
     let subcommentpost = listsubcomment[listsubcomment.length - 1];
-
+    let stringpostedagosubcomment= subcommentpost.stringpostedagosubcomment; 
     let idsubusercomment = subcommentpost.idsubusercomment;
     let textsubcomment = subcommentpost.textsubcomment;
     let likessubcomment = subcommentpost.likessubcomment;
@@ -942,7 +942,7 @@ static loadSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
    
     </a>
 
-      <span class="text-gray-700 text-sm">${formatted_date}</span>
+      <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
       <br>
       <p id="postwatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
        ${textsubcomment}
