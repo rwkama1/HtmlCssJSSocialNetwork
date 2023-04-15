@@ -58,7 +58,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
   document.getElementById("videowatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentVideo})`;
 
  
-  await this.loadCommentVideo(listcommentvideo,idvideowatch,sessionuser.iduser,sessionuser.userrname);
+ // await this.loadCommentVideo(listcommentvideo,idvideowatch,sessionuser.iduser,sessionuser.userrname);
 
    } catch (error) {
      console.log(error);
@@ -208,7 +208,22 @@ document.getElementById("videowatch_iduser").value=iduservideo;
  } 
   //#region COMMENTS
 //******************************************************** */
- //COMMENTS 
+ 
+//SHOW COMMENTS 
+static async show_comment_video()
+{
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let {iduser,userrname}=sessionuser;
+  let idvideowatch = sessionStorage.getItem('idvideowatch');
+  let listcommentvideo=await  APIRESTVideoComment.getCommentVideoByVideo(idvideowatch,
+    iduser,userrname);
+
+  await VideoWatchJS.loadCommentVideo(listcommentvideo,idvideowatch,iduser,userrname);
+
+// profileloginuser_commentspost${idpost}
+}
+
+
 
  //LOAD COMMENT VIDEO
  static loadCommentVideo=async(listcommentvideo,idvideo,iduser,userrname)=>
@@ -221,7 +236,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
        let textcomment=commentvideo.textcomment ;
        let likescomment =commentvideo.likescomment;
        let datepublishcomment =commentvideo.datepublishcomment;
-
+       let stringpostedago =commentvideo.stringpostedago;
 
        //CONVERT FORMAT DATE
 
@@ -236,17 +251,18 @@ document.getElementById("videowatch_iduser").value=iduservideo;
          imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
        }
 
-    
-
-       let listsubcommentvideo=await  APIRESTSubComment.getSubCommentByComment(
-        iduser,
-        idcomment);
-        let numberofsubcomments=listsubcommentvideo.length;
-        let loadSubCommentVideo="";
-        if(numberofsubcomments!==0)
-        {
-          loadSubCommentVideo = await this.loadSubCommentVideo(listsubcommentvideo,idcomment, iduser,userrname);
-        }
+ 
+       let numberofsubcomments=await APIRESTSubComment.NumberOfSubComments
+       (idcomment);
+      //  let listsubcommentvideo=await  APIRESTSubComment.getSubCommentByComment(
+      //   iduser,
+      //   idcomment);
+      //   let numberofsubcomments=listsubcommentvideo.length;
+      //   let loadSubCommentVideo="";
+      //   if(numberofsubcomments!==0)
+      //   {
+      //     loadSubCommentVideo = await this.loadSubCommentVideo(listsubcommentvideo,idcomment, iduser,userrname);
+      //   }
    
      const svgfill_existlikecomment =await this.svgfill_existlikecomment(idcomment, iduser, userrname);
      
@@ -270,7 +286,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
         >
         <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
         </a>
-        <span class="text-gray-700 text-sm">${formatted_date}</span>
+        <span class="text-gray-700 text-sm">${stringpostedago}</span>
         <br>
         <p id="videowatch_p_textcomment${idcomment}">
           ${textcomment}
@@ -291,7 +307,9 @@ document.getElementById("videowatch_iduser").value=iduservideo;
               </div>
               <div id="videowatch_numberlikescomment${idcomment}"> ${likescomment}</div>
            </button>
-           <a href="" uk-toggle="target: #view-subcomments${idcomment}"
+           <button 
+           onclick="VideoWatchJS.show_subcomment_video('${idcomment}','${iduser}','${userrname}');"
+            uk-toggle="target: #view-subcomments${idcomment}"
             class="flex items-center space-x-2">
               <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
@@ -300,7 +318,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
                  </svg>
               </div>
               <div id="videowatch_div_numbersubcomments${idcomment}"> ${numberofsubcomments}</div>
-           </a>
+           </button>
      </div>
         </div>
         <!-- EDIT AND DELETE COMMENT  -->
@@ -339,7 +357,7 @@ document.getElementById("videowatch_iduser").value=iduservideo;
          <div >
         <div id="videowatch_listupdatesubcomments${idcomment}">
         <!-- Subcoment 1 -->
-           ${loadSubCommentVideo}
+          
           </div>
 
        </div> 
@@ -350,7 +368,9 @@ document.getElementById("videowatch_iduser").value=iduservideo;
         id="form_videowatch_addsubcomment"
         onsubmit="VideoWatchJS.addSubCommentVideo('${idcomment}', event);">
               <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-              <input type="text" id="videowatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+              <input type="text" id="videowatch_textsubcomment${idcomment}"
+              required
+               placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
               <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                  <button type="submit" class="btn btn-primary">
                     <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -490,7 +510,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
        let textcomment=commentvideo.textcomment ;
        let likescomment =commentvideo.likescomment;
        let datepublishcomment =commentvideo.datepublishcomment;
-
+       let stringpostedago =commentvideo.stringpostedago;
        //CONERT FORMAT DATE
 
        const dt = new Date(datepublishcomment);
@@ -533,7 +553,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
       >
         <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
         </a>
-        <span class="text-gray-700 text-sm">${formatted_date}</span>
+        <span class="text-gray-700 text-sm">${stringpostedago}</span>
         <br>
         <p id="videowatch_p_textcomment${idcomment}">
          ${textcomment}
@@ -608,9 +628,11 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
        <!-- ADD SUBCOMMENT -->
        <div>
          <form id="form_videowatch_addsubcomment"
-          onsubmit="VideoWatchJS.addSubCommentPost('${idcomment}', event);">
+          onsubmit="VideoWatchJS.addSubCommentVideo('${idcomment}', event);">
             <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-              <input type="text" id="videowatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+              <input type="text" id="videowatch_textsubcomment${idcomment}"
+              required
+               placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
               <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                 <button type="submit" class="btn btn-primary">
                   <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -658,7 +680,16 @@ static  showRemoveCommentVideo(idcomment) {
 }
 //-------------------------------------------------------------------------
  //SUBCOMMENTS
-
+ static async show_subcomment_video(idcomment,iduserlogin,usernamelogin)
+  {
+     let listsubcommentvideo=await APIRESTSubComment.getSubCommentByComment(
+           iduserlogin,
+           idcomment);
+  
+   let forSubCommentVideo=await this.loadSubCommentVideo(listsubcommentvideo,idcomment,iduserlogin,usernamelogin);
+   document.getElementById(`videowatch_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentVideo;
+  // profileloginuser_commentspost${idpost}
+  }
 //ADD SUBCOMMENT VIDEO
 static addSubCommentVideo=async(idcomment,event)=>
 {
@@ -771,7 +802,7 @@ this.showRemoveSubComment(idsubcomment)
        let textsubcomment= subcommentvideo.textsubcomment; 
        let likessubcomment =subcommentvideo.likessubcomment;
        let datepublishsubcomment =subcommentvideo.datepublishsubcomment ;
-
+       let stringpostedagosubcomment= subcommentvideo.stringpostedagosubcomment; 
        //CONERT FORMAT DATE
 
        const dt = new Date(datepublishsubcomment);
@@ -803,7 +834,7 @@ this.showRemoveSubComment(idsubcomment)
     >
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
       </a>
-      <span class="text-gray-700 text-sm">${formatted_date}</span>
+      <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
       <br>
       <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
        ${textsubcomment}
@@ -869,7 +900,7 @@ this.showRemoveSubComment(idsubcomment)
    let textsubcomment = subcommentvideo.textsubcomment;
    let likessubcomment = subcommentvideo.likessubcomment;
    let datepublishsubcomment = subcommentvideo.datepublishsubcomment;
-
+   let stringpostedagosubcomment= subcommentvideo.stringpostedagosubcomment; 
    //CONERT FORMAT DATE
    const dt = new Date(datepublishsubcomment);
    const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -899,7 +930,7 @@ this.showRemoveSubComment(idsubcomment)
    >
      <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
      </a>
-     <span class="text-gray-700 text-sm">${formatted_date}</span>
+     <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
      <br>
      <p id="videowatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
       ${textsubcomment}
@@ -1194,3 +1225,7 @@ form_videowatch_updatesubcoment.addEventListener('submit', VideoWatchJS.updateSu
 
 const button_videowatch_deletesubcomment = document.getElementById('button_videowatch_deletesubcomment');
 button_videowatch_deletesubcomment.addEventListener('click', VideoWatchJS.deleteSubCommentVideo);
+
+
+const videowatch_a_viewcomments = document.getElementById('videowatch_a_viewcomments');
+videowatch_a_viewcomments.addEventListener('click', VideoWatchJS.show_comment_video);

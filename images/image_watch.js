@@ -51,7 +51,7 @@ class ImageWatchJS
   document.getElementById("imagewatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentIMAGE})`;
 
  
-  await this.loadCommentImage(listcommentIMAGE,idimagewatch,sessionuser.iduser,sessionuser.userrname);
+  //await this.loadCommentImage(listcommentIMAGE,idimagewatch,sessionuser.iduser,sessionuser.userrname);
 
   } catch (error) {
     console.log(error);
@@ -203,7 +203,20 @@ class ImageWatchJS
     
 //#region COMMENTS
 //******************************************************** */
- //COMMENTS 
+
+//SHOW COMMENTS 
+static async show_comment_images()
+{
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let {iduser,userrname}=sessionuser;
+  let idimagewatch=sessionStorage.getItem('idimagewatch');
+  let listcommentIMAGE=await  APIRESTImageComment.getCommentImageByImage(idimagewatch,
+    iduser,userrname);
+
+  await ImageWatchJS.loadCommentImage(listcommentIMAGE,idimagewatch,iduser,userrname);
+
+// profileloginuser_commentspost${idpost}
+}
 
 
  //LOAD COMMENT IMAGE
@@ -217,7 +230,7 @@ class ImageWatchJS
         let textcomment=commentimage.Textt ;
         let likescomment =commentimage.Likes ;
         let datepublishcomment =commentimage.datepublishcomment;
-
+        let stringpostedago =commentimage.stringpostedago;
 
         //CONVERT FORMAT DATE
 
@@ -231,21 +244,25 @@ class ImageWatchJS
         if (imagecommentuser==="") {
           imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
         }
-
+        let numberofsubcomments=await APIRESTSubComment.NumberOfSubComments
+        (idcomment);
+        // ${loadSubCommentImage}
      
 
-        let listsubcomment=await  APIRESTSubComment.getSubCommentByComment(
-          iduser,
-          idcomment);
-          let numberofsubcomments=listsubcomment.length;
-          let loadSubCommentImage="";
-          if(numberofsubcomments!==0)
-          {
-            loadSubCommentImage = await this.loadSubCommentImage(listsubcomment,idcomment, iduser,userrname);
-          }
+        // let listsubcomment=await  APIRESTSubComment.getSubCommentByComment(
+        //   iduser,
+        //   idcomment);
+        //   let numberofsubcomments=listsubcomment.length;
+        //   let loadSubCommentImage="";
+        //   if(numberofsubcomments!==0)
+        //   {
+        //     loadSubCommentImage = await this.loadSubCommentImage(listsubcomment,idcomment, iduser,userrname);
+        //   }
+        // let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+        // (idcomment);
        const svgfill_existlikecomment= await this.svgfill_existlikecomment(idcomment, iduser, userrname);
       
-      // ${loadSubCommentPost}
+  
 
       let show_edit_delete_comment =await this.show_edit_delete_comment(idimage,idcomment,iduser,userrname);
 
@@ -267,7 +284,7 @@ class ImageWatchJS
                                    <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
                                    </a>  
 
-                                   <span class="text-gray-700 text-sm">${formatted_date}</span>
+                                   <span class="text-gray-700 text-sm">${stringpostedago}</span>
                                    <br>
                                    <p id="imagewatch_p_textcomment${idcomment}">
                                    ${textcomment}
@@ -284,7 +301,9 @@ class ImageWatchJS
                                         </div>
                                         <div id="imagewatch_numberlikescomment${idcomment}"> ${likescomment}</div>
                                     </button>
-                                    <a href="" uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
+                                    <button
+                                    onclick="ImageWatchJS.show_subcomment_image('${idcomment}','${iduser}','${userrname}');"
+                                     uk-toggle="target: #view-subcomments${idcomment}" class="flex items-center space-x-2">
                                         <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
                                                 <path fill-rule="evenodd"
@@ -292,7 +311,7 @@ class ImageWatchJS
                                             </svg>
                                         </div>
                                         <div id="imagewatch_div_numbersubcomments${idcomment}">  ${numberofsubcomments} </div>
-                                    </a>
+                                    </button>
                                 </div>
                                  </div>
                                  <!-- EDIT AND DELETE COMMENT  -->
@@ -331,7 +350,7 @@ class ImageWatchJS
                                   <div >
                                  <div id="imagewatch_listupdatesubcomments${idcomment}">
                                  <!-- Subcoment 1 -->
-                                    ${loadSubCommentImage}
+                                  
                                    </div>
                          
                                 </div> 
@@ -343,7 +362,8 @@ class ImageWatchJS
                                     onsubmit="ImageWatchJS.addSubCommentImage('${idcomment}', event);">
                                     
                                        <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                                         <input type="text" 
+                                         <input type="text"
+                                         required 
                                          id="imagewatch_textsubcomment${idcomment}"
                                          placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
                                          <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
@@ -493,7 +513,7 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
         let textcomment=commentimage.Textt ;
         let likescomment =commentimage.Likes ;
         let datepublishcomment =commentimage.datepublishcomment;
-
+        let stringpostedago =commentimage.stringpostedago;
         //CONERT FORMAT DATE
 
         const dt = new Date(datepublishcomment);
@@ -536,7 +556,7 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
        >
          <h4 class="text-base m-0 font-semibold">${namecommentuser}</h4>
          </a>
-         <span class="text-gray-700 text-sm">${formatted_date}</span>
+         <span class="text-gray-700 text-sm">${stringpostedago}</span>
          <br>
          <p id="imagewatch_p_textcomment${idcomment}">
           ${textcomment}
@@ -613,7 +633,10 @@ static  showAddedCommentImage=async(idimage,iduser,userrname)=>
           <form id="form_imagewatch_addsubcomment"
            onsubmit="ImageWatchJS.addSubCommentImage('${idcomment}', event);">
              <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-               <input type="text" id="imagewatch_textsubcomment${idcomment}" placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
+               <input 
+               type="text" id="imagewatch_textsubcomment${idcomment}" 
+               required
+               placeholder="Add your Sub Comment.." class="bg-transparent max-h-10 shadow-none px-5 w-1/2">
                <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                  <button type="submit" class="btn btn-primary">
                    <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -664,6 +687,17 @@ static  showUpdatedCommentImage(idcomment,textcomment) {
 }
 //-------------------------------------------------------------------------
   //SUBCOMMENTS
+
+  static async show_subcomment_image(idcomment,iduserlogin,usernamelogin)
+  {
+     let listsubcomment=await APIRESTSubComment.getSubCommentByComment(
+           iduserlogin,
+           idcomment);
+  
+   let forSubCommentImage=await this.loadSubCommentImage(listsubcomment,idcomment,iduserlogin,usernamelogin);
+   document.getElementById(`imagewatch_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentImage;
+  // profileloginuser_commentspost${idpost}
+  }
 
  //ADD SUBCOMMENT IMAGE
  static addSubCommentImage=async(idcomment,event)=>
@@ -778,7 +812,7 @@ static deleteSubCommentImage=async(event)=>
         let textsubcomment= subcomment.textsubcomment; 
         let likessubcomment =subcomment.likessubcomment;
         let datepublishsubcomment =subcomment.datepublishsubcomment ;
-
+        let stringpostedagosubcomment= subcomment.stringpostedagosubcomment; 
         //CONERT FORMAT DATE
 
         const dt = new Date(datepublishsubcomment);
@@ -810,7 +844,7 @@ static deleteSubCommentImage=async(event)=>
      >
        <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
        </a>
-       <span class="text-gray-700 text-sm">${formatted_date}</span>
+       <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
        <br>
        <p id="imagewatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
         ${textsubcomment}
@@ -875,7 +909,7 @@ static deleteSubCommentImage=async(event)=>
     let textsubcomment = subcomment.textsubcomment;
     let likessubcomment = subcomment.likessubcomment;
     let datepublishsubcomment = subcomment.datepublishsubcomment;
-
+    let stringpostedagosubcomment= subcomment.stringpostedagosubcomment; 
     //CONERT FORMAT DATE
     const dt = new Date(datepublishsubcomment);
     const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -905,7 +939,7 @@ static deleteSubCommentImage=async(event)=>
     >
       <h4 class="text-sm m-0 font-semibold">${namesubcommentuser}</h4>
       </a>
-      <span class="text-gray-700 text-sm">${formatted_date}</span>
+      <span class="text-gray-700 text-sm">${stringpostedagosubcomment}</span>
       <br>
       <p id="imagewatch_p_textsubcomment$${idsubusercomment}" class="text-sm">
        ${textsubcomment}
@@ -1202,3 +1236,7 @@ form_imagewatch_updatesubcoment.addEventListener('submit', ImageWatchJS.updateSu
 
 const button_imagewatch_deletesubcomment = document.getElementById('button_imagewatch_deletesubcomment');
 button_imagewatch_deletesubcomment.addEventListener('click', ImageWatchJS.deleteSubCommentImage);
+
+
+const imagewatch_a_viewcomments = document.getElementById('imagewatch_a_viewcomments');
+imagewatch_a_viewcomments.addEventListener('click', ImageWatchJS.show_comment_images);
