@@ -47,11 +47,9 @@ class PostWatchJS
       //GET POST
        this.loadPost(getPost,getuser.image);
 
-         //LOAD COMMENT POSTS  
-       let listcommentpost=await  APIRESTPostComment.getCommentPostByPost(idpostwatch,
-        iduser,userrname);
+ 
       //NUMBER COMMENT POSTS
-      let NumberOfCommentPost=listcommentpost.length;
+      let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpostwatch);
       document.getElementById("postwatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentPost})`;
 
   

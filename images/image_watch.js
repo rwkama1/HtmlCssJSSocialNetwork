@@ -43,11 +43,9 @@ class ImageWatchJS
     this.loadImage(getImage,getuser.image);
 
 
-  // //LOAD COMMENT IMAGE  
-  let listcommentIMAGE=await  APIRESTImageComment.getCommentImageByImage(idimagewatch,
-    sessionuser.iduser,sessionuser.userrname);
+
   //NUMBER COMMENT IMAGE
-  let NumberOfCommentIMAGE=listcommentIMAGE.length;
+  let NumberOfCommentIMAGE= await  APIRESTImageComment.NumberOfCommentImage(idimagewatch);
   document.getElementById("imagewatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentIMAGE})`;
 
  

@@ -47,14 +47,10 @@ document.getElementById("videowatch_iduser").value=iduservideo;
 
   this.loadVideo(getVideo,getuser.image);
 
-  //LOAD COMMENT VIDEO  
-
-  let listcommentvideo=await  APIRESTVideoComment.getCommentVideoByVideo(idvideowatch,
-    sessionuser.iduser,sessionuser.userrname);
-
+   
   //NUMBER COMMENT VIDEO
 
-  let NumberOfCommentVideo=listcommentvideo.length;
+  let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideowatch);
   document.getElementById("videowatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentVideo})`;
 
  
