@@ -2694,8 +2694,6 @@ static async show_subcomment_post(idcomment,iduserlogin,usernamelogin)
  document.getElementById(`profileloginuser_listupdatesubcomments${idcomment}`).innerHTML=forSubCommentPost;
 // profileloginuser_commentspost${idpost}
 }
-
- 
 static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
   {
     let html_subcomments_posts="";
