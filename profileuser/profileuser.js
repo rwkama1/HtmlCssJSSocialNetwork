@@ -554,9 +554,19 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
       userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
    }
    let idvideo=getvideo.id;
+   let likevideo=getvideo.likes;
    let userName=getvideo.user.name;
+   let iduser=getvideo.user.iduser;
    let stringpostedago=getvideo.stringpostedago;
    let urlvideo=getvideo.url;
+
+  // NUMBER COMMENT VIDEO
+ 
+let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo);
+
+
+ //SHOW EXISTLIKEVIDEO
+ let exist_like_video=await this.exist_like_video(idvideo,iduserlogin,usernamelogin);
     let html_video=`
     <div  class="card lg:mx-0 uk-animation-slide-bottom-small">
     <!-- post header-->
@@ -571,7 +581,7 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
            </div>
           </div>
        </div>
-     
+   
     </div>
     <!-- VIDEO -->
     <div class="w-full h-full">
@@ -580,7 +590,7 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
          
                <a 
                href="../videos/video_watch.html"
-              onclick="ProfileUserJS.passidtoVideoWatch('${idvideo}');"
+               onclick="ProfileUserJS.passidtoVideoWatch('${idvideo}');"
                >
                 <video src="${urlvideo}" autoplay loop muted playsinline >
 
@@ -592,63 +602,69 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
        </div>
     <div class="p-4 space-y-3">
        <div class="flex space-x-4 lg:font-bold">
-          <a href="#" class="flex items-center space-x-2">
+          <button 
+          onclick="ProfileUserJS.like_dislike_Video('${idvideo}','${iduserlogin}','${usernamelogin}',event);"  
+          
+          class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
+                <svg 
+                id="svg_profileuser_timeline_likevideo${idvideo}"
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 20 20" 
+                fill="${exist_like_video}"
+                 width="22" height="22" class="dark:text-gray-100">
                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                 </svg>
              </div>
-             <div> Like</div>
-          </a>
-          <a href="" uk-toggle="target: #view-commentsvideo${idvideo}" class="flex items-center space-x-2">
+             <div id="profileuser_timeline_numberlikesvideo${idvideo}" > ${likevideo}</div>
+          </button>
+
+          <a href="" 
+          onclick="ProfileUserJS.show_comment_videos('${idvideo}','${iduserlogin}','${usernamelogin}');"  
+          uk-toggle="target: #view-commentsvideo${idvideo}"
+           class="flex items-center space-x-2">
              <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="gray" width="22" height="22" class="dark:text-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 20 20"
+                 fill="gray"
+                 width="22" height="22" class="dark:text-gray-100">
                    <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
                 </svg>
              </div>
-             <div> Comment</div>
+             <div id="profileuser_timeline_numbercommentvideo${idvideo}"> ${NumberOfCommentVideo}</div>
           </a>
-          <!-- <a href="#" class="flex items-center space-x-2 flex-1 justify-end">
-             <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600">
-                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="22" height="22" class="dark:text-gray-100">
-                     <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                 </svg>
-             </div>
-             <div> Share</div>
-             </a> -->
+          
        </div>
-       <div class="flex items-center space-x-3 pt-2">
-          <div class="flex items-center"> 
-             <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900"> 
-             <img src="../assets/images/avatars/avatar-4.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-             <img src="../assets/images/avatars/avatar-2.jpg" alt="" class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-          </div>
-          <div class="dark:text-gray-100">  
-             <a href="" uk-toggle="target: #see_user_liked">
-                <strong> 209 Liked it </strong>
-             </a>
+      
+       <div hidden id="view-commentsvideo${idvideo}" class="border-t py-4 space-y-4 dark:border-gray-600">
+     
+       <div id="profileuser_commentvideo${idvideo}">  
+    
+   
+       </div>  
+     
+       </div>
+
+       <form
+       id="form_profileuser_addCommentVideo${idvideo}"
+       onsubmit="ProfileUserJS.addCommentVideo('${idvideo}','${iduserlogin}','${usernamelogin}', event);"
+       >
+       <div  class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+          <input id="profileuser_textcommentvideo${idvideo}" placeholder="Add your Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
+          <div   class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+             <button id="profileuser_buttonaddcomment_${idvideo}" type="submit">
+                <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+             </button>
           
           </div>
        </div>
-       <div hidden id="view-commentsvideo${idvideo}" class="border-t py-4 space-y-4 dark:border-gray-600">
-       ${this.forCommentVideo()}
-       </div>
-
-   
-       <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-          <input placeholder="Add your Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-          <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-             <a href="#">
-                <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-             </a>
-          </div>
-       </div>
+       </form>
     </div>
  </div>
  <br>
     `;
     return html_video
-    }
+}
 
 //********************************************* */
 //#region COMMENTS
@@ -676,7 +692,7 @@ static async show_comment_videos(idvideo,iduserlogin,usernamelogin)
    let listcommentvideo=await  APIRESTVideoComment.getCommentVideoByVideo(idvideo,
       iduserlogin,usernamelogin);
  let forCommentVideo=await this.forCommentVideo(listcommentvideo,idvideo,iduserlogin,usernamelogin);
- document.getElementById(`profilenuser_commentvideo${idvideo}`).innerHTML=forCommentVideo;
+ document.getElementById(`profileuser_commentvideo${idvideo}`).innerHTML=forCommentVideo;
 // profileloginuser_commentspost${idpost}
 }
 //FOR COMMENTS
@@ -960,61 +976,141 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
      }
       return html_comment_image
   }
-   static forCommentVideo(){
-         let html_comment_video="";
-         for (let i = 0; i < 3; i++) {
-   
-            html_comment_video += `
-           <div >
-      
+  static async forCommentVideo(listcommentvideos,idvideo,iduserlogin,username){
+   let html_comment_video="";
+   for (let i = 0; i < listcommentvideos.length; i++) {
+      const commentvideo = listcommentvideos[i];
+      let idcomment=commentvideo.idusercomment ;
+      let textcomment=commentvideo.textcomment;
+      let stringpostedago=commentvideo.stringpostedago;
+      let likescomment =commentvideo.likescomment ;
+      let datepublishcomment =commentvideo.datepublishcomment;
+
+
+      //CONVERT FORMAT DATE
+
+      const dt = new Date(datepublishcomment);
+      const formatted_date = dt.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+      //USER
+      let idcommentuser  =commentvideo.idcommentuser ;
+      let namecommentuser  =commentvideo.namecommentuser ;
+      let imagecommentuser  =commentvideo.imagecommentuser ;
+      if (imagecommentuser==="") {
+        imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+      (idcomment);
+
+   const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
+   let show_edit_delete_comment =await this.show_edit_delete_commentVideo(idvideo,idcomment,iduserlogin,username);
+
+      html_comment_video += `
+      <div id="profileuser_div_listcommentvideo${idcomment}" >
+
+         
+      <div class="flex">
+         <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+            <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+            </div>
+         <div >
+            <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+            <div class="flex">
+            <p id="profileuser_p_textcommentvideo${idcomment}" class="leading-6">
+               ${textcomment}
                
-           <div class="flex">
-              <div class="w-10 h-10 rounded-full relative flex-shrink-0"> <img src="../assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full"> </div>
-              <div>
-                 <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
-                    <p class="leading-6">
-                      sagsdadsagdsgdsg
-                    
-                    </p>
-                    <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
-                 </div>
-                 <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
-                    <button  class="text-black-600">
-                       3
-                       <iconify-icon icon="ant-design:like-outlined"></iconify-icon>
-                       <!-- <iconify-icon icon="ant-design:like-filled"></iconify-icon> -->
-                    </button>
-                    <button uk-toggle="target: #view_subcommentvideo${i}" >
-                       <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                       3
-                    </button>
-                    <span> 3d </span> 
-                 </div>
-              </div>
-           </div>
-           <br>
-           <!-- SUBCOMMENTS -->
-           <div hidden id="view_subcommentvideo${i}"  class="flex-col">
-             
-              <!-- SEND MESSAGE INPUT -->
-              <div class="flex">
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
-                 <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                    <input placeholder="Reply Comment.." class="bg-transparent max-h-10 shadow-none px-5">
-                    <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
-                       <button>
-                          <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
-                       </button>
-                    </div>
-                 </div>
-              </div>
-              <br>
-           </div>
-       </div>
-           `;
-        }
-         return html_comment_video;
-          }
+               </p>
+               <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 dark:bg-gray-800"></div>
+               <div ${show_edit_delete_comment} class="ml-auto">
+               <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
+                  <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
+                  uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
+                     <ul class="space-y-1">
+                     
+                        <li>
+                           <a href=""
+                           onclick="ProfileUserJS.showtextcommentUpdateModalComment_Video
+                           ('${idcomment}','${textcomment}','${idvideo}','${iduserlogin}'
+                           ,'${username}');"
+                           uk-toggle="target: #update_comment_modalVideo" 
+                           class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+                              <i class="uil-edit-alt mr-1"></i>
+                                 Edit  </a>
+                        </li>
+                  
+                        <li>
+                           <hr class="-mx-2 my-2 dark:border-gray-800">
+                        </li>
+                        <li>
+                        
+                           <a href="" 
+                           onclick="ProfileUserJS.showIdDeleteModalComment_Video('${idcomment}',
+                           '${iduserlogin}','${username}','${idvideo}');"
+                           uk-toggle="target: #deletecommentmodalVideo" 
+                           class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                              <i class="uil-trash-alt mr-1"></i> Delete </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            </div>
+            <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
+               <button 
+               onclick="ProfileUserJS.like_dislike_Comment('${idcomment}',
+                 '${iduserlogin}','${username}',event);"
+                class="text-black-600">
+              
+                  <iconify-icon id="profileuser_icon_likecomment${idcomment}" icon="ant-design:like-${exist_like_comment}"></iconify-icon>               
+                  <span id="profileuser_span_likecomment${idcomment}">${likescomment}</span>
+               
+
+               </button>
+               <button 
+               onclick="ProfileUserJS.show_subcomment_post('${idcomment}',
+                 '${iduserlogin}','${username}');"
+               uk-toggle="target: #view_subcommentvideo${idcomment}" >
+                  <iconify-icon icon="akar-icons:comment"></iconify-icon>
+                  <span id="profileuser_span_numbersubcomments${idcomment}" > ${NumberOfSubComments} </span>
+                  
+               </button>
+               <span> ${stringpostedago} </span> 
+            </div>
+         </div>
+      </div>
+      <br>
+      <!-- SUBCOMMENTS -->
+      <div hidden id="view_subcommentvideo${idcomment}" class="flex-col">
+         
+            <div>
+               <div id="profileuser_listupdatesubcomments${idcomment}">
+              
+               </div>
+            </div>
+         <!-- SEND MESSAGE INPUT -->
+         <form 
+         id="form_profileuser_addSubCommentPost${idcomment}"
+        onsubmit="ProfileUserJS.addSubComment('${idcomment}','${iduserlogin}','${username}', event);"
+        >
+         <div class="flex">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
+            <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
+               <input id="profileuser_textsubcommentpost${idcomment}" required  placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
+               <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
+                  <button type="submit">
+                     <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
+                  </button>
+               </div>
+            </div>
+         </div>
+         </form>
+         <br>
+      </div>
+   </div>
+     `;
+  }
+   return html_comment_video;
+    }
 
        // SHOW EDIT DELETE COMMENT
   static show_edit_delete_comment=async(idpost,idcomment,iduserlogin,userrname)=>
@@ -1097,7 +1193,7 @@ static show_edit_delete_commentVideo=async(idvideo,idcomment,iduserlogin,userrna
      {
        try {
          event.preventDefault();
-        const textcomment = document.getElementById(`profileloginuser_textcommentvideo${idvideo}`).value;
+        const textcomment = document.getElementById(`profileuser_textcommentvideo${idvideo}`).value;
 
         const commmentVideo= await APIRESTVideoComment.commmentVideo(idvideo,
          textcomment,iduserlogin,usernamelogin);
@@ -1107,7 +1203,7 @@ static show_edit_delete_commentVideo=async(idvideo,idcomment,iduserlogin,userrna
    
          await this.showAddedCommentVideo(idvideo,iduserlogin,usernamelogin);
          
-          document.getElementById(`profileloginuser_textcommentvideo${idvideo}`).value="";
+          document.getElementById(`profileuser_textcommentvideo${idvideo}`).value="";
          }
      }
      catch (error) {
@@ -1198,14 +1294,14 @@ static updateCommentVideo=async(event)=>
     //  setInterval(() => {
     //   location.reload();
     //  }, 1000);
-     document.getElementById('profileloginuser_text_updatecommentVideo').value="";
+     document.getElementById('profileuser_text_updatecommentVideo').value="";
     }
 }catch (error) {
   alert(error);
 }
 }
 
-     //DELETE COMMENT
+   
 
   //DELETE COMMENT  
 static deleteCommentPost=async(event)=>
@@ -1262,10 +1358,10 @@ static deleteCommentVideo=async(event)=>
 {
   try {
     event.preventDefault();
-    let idcomment=document.getElementById("profileloginuser_idcomment_deletecommentmodalVideo").value;
-    let idvideo=document.getElementById("profileloginuser_idvideo_deletecommentmodalVideo").value;
-    let iduserlogin=document.getElementById("profileloginuser_iduserlogin_deletecommentmodalVideo").value;
-    let usernamelogin=document.getElementById("profileloginuser_usernamelogin_deletecommentmodalVideo").value;
+    let idcomment=document.getElementById("profileuser_idcomment_deletecommentmodalVideo").value;
+    let idvideo=document.getElementById("profileuser_idvideo_deletecommentmodalVideo").value;
+    let iduserlogin=document.getElementById("profileuser_iduserlogin_deletecommentmodalVideo").value;
+    let usernamelogin=document.getElementById("profileuser_usernamelogin_deletecommentmodalVideo").value;
 
    const deletecommentVideo= await APIRESTVideoComment.deletecommentVideo(idcomment,idvideo,
       iduserlogin,usernamelogin);
@@ -1617,7 +1713,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
 
 
         let html_comment_video = `
-        <div id="profileloginuser_div_listcommentvideo${idcomment}" >
+        <div id="profileuser_div_listcommentvideo${idcomment}" >
 
                
             <div class="flex">
@@ -1627,7 +1723,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                <div >
                   <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
                   <div class="flex">
-                  <p id="profileloginuser_p_textcommentvideo${idcomment}" class="leading-6">
+                  <p id="profileuser_p_textcommentvideo${idcomment}" class="leading-6">
                      ${textcomment}
                      
                      </p>
@@ -1640,7 +1736,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                            
                               <li>
                                  <a href=""
-                                 onclick="Profile_Login_User.showtextcommentUpdateModalComment_Video
+                                 onclick="ProfileUserJS.showtextcommentUpdateModalComment_Video
                                  ('${idcomment}','${textcomment}','${idvideo}','${iduser}'
                                  ,'${userrname}');"
                                  uk-toggle="target: #update_comment_modalVideo" 
@@ -1655,7 +1751,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                               <li>
                               
                                  <a href="" 
-                                 onclick="Profile_Login_User.showIdDeleteModalComment_Video('${idcomment}',
+                                 onclick="ProfileUserJS.showIdDeleteModalComment_Video('${idcomment}',
                                  '${iduser}','${userrname}','${idvideo}');"
                                  uk-toggle="target: #deletecommentmodalVideo" 
                                  class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
@@ -1668,21 +1764,21 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                   </div>
                   <div class="text-sm flex items-center space-x-3 mt-2 ml-5">
                      <button 
-                     onclick="Profile_Login_User.like_dislike_Comment('${idcomment}',
+                     onclick="ProfileUserJS.like_dislike_Comment('${idcomment}',
                        '${iduser}','${userrname}',event);"
                       class="text-black-600">
                     
-                        <iconify-icon id="profileloginuser_icon_likecomment${idcomment}" icon="ant-design:like-outlined"></iconify-icon>               
-                        <span id="profileloginuser_span_likecomment${idcomment}">${likescomment}</span>
+                        <iconify-icon id="profileuser_icon_likecomment${idcomment}" icon="ant-design:like-outlined"></iconify-icon>               
+                        <span id="profileuser_span_likecomment${idcomment}">${likescomment}</span>
                      
    
                      </button>
                      <button 
-                     onclick="Profile_Login_User.show_subcomment_post('${idcomment}',
+                     onclick="ProfileUserJS.show_subcomment_post('${idcomment}',
                        '${iduser}','${userrname}');"
                      uk-toggle="target: #view_subcommentvideo${idcomment}" >
                         <iconify-icon icon="akar-icons:comment"></iconify-icon>
-                        <span id="profileloginuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
+                        <span id="profileuser_span_numbersubcomments${idcomment}" > ${numberofsubcomments} </span>
                         
                      </button>
                      <span> ${stringpostedago} </span> 
@@ -1694,19 +1790,19 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
             <div hidden id="view_subcommentvideo${idcomment}" class="flex-col">
                
                   <div>
-                     <div id="profileloginuser_listupdatesubcomments${idcomment}">
+                     <div id="profileuser_listupdatesubcomments${idcomment}">
                     
                      </div>
                   </div>
                <!-- SEND MESSAGE INPUT -->
                <form 
-               id="form_profileloginuser_addSubCommentPost${idcomment}"
-              onsubmit="Profile_Login_User.addSubComment('${idcomment}','${iduser}','${userrname}', event);"
+               id="form_profileuser_addSubCommentPost${idcomment}"
+              onsubmit="ProfileUserJS.addSubComment('${idcomment}','${iduser}','${userrname}', event);"
               >
                <div class="flex">
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;                                       
                   <div class="bg-gray-100 rounded-full relative dark:bg-gray-800 border-t">
-                     <input id="profileloginuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
+                     <input id="profileuser_textsubcommentpost${idcomment}" placeholder="Reply Comment.." required class="bg-transparent max-h-10 shadow-none px-5">
                      <div class="-m-0.5 absolute bottom-0 flex items-center right-3 text-xl">
                         <button type="submit">
                            <ion-icon name="paper-plane-outline" class="hover:bg-gray-200 p-1.5 rounded-full md hydrated" role="img" aria-label="happy outline"></ion-icon>
@@ -1729,14 +1825,14 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
     //  }
  
   
-  let profileloginuser_commentvideo= document.getElementById(`profileloginuser_commentvideo${idvideo}`);
+  let profileuser_commentvideo= document.getElementById(`profileuser_commentvideo${idvideo}`);
 
-  profileloginuser_commentvideo.parentNode.insertAdjacentHTML("beforeend", html_comment_video);
+  profileuser_commentvideo.parentNode.insertAdjacentHTML("beforeend", html_comment_video);
  
    
  //NUMBER COMMENT 
  let NumberOfComment=listcommentvideo.length;
- document.getElementById(`profileloginuser_timeline_numbercommentvideo${idvideo}`).innerHTML=`${NumberOfComment}`;
+ document.getElementById(`profileuser_timeline_numbercommentvideo${idvideo}`).innerHTML=`${NumberOfComment}`;
 
 }
 //SHOW COMMENT AFTER UPDATE
@@ -2503,8 +2599,8 @@ form_profileuser_updatecomment.addEventListener('submit', ProfileUserJS.updateCo
 const form_profileuser_updatecommentImage= document.getElementById('form_profileuser_updatecommentImage');
 form_profileuser_updatecommentImage.addEventListener('submit', ProfileUserJS.updateCommentImage);
 
-// const form_profileloginuser_updatecommentVideo= document.getElementById('form_profileuser_updatecommentVideo');
-// form_profileloginuser_updatecommentVideo.addEventListener('submit', ProfileUserJS.updateCommentVideo);
+const form_profileloginuser_updatecommentVideo= document.getElementById('form_profileuser_updatecommentVideo');
+form_profileloginuser_updatecommentVideo.addEventListener('submit', ProfileUserJS.updateCommentVideo);
 
 
 //DELETE COMMENT
@@ -2516,8 +2612,8 @@ const button_profileuser_deletecommentImage= document.getElementById('button_pro
 button_profileuser_deletecommentImage.addEventListener('click', ProfileUserJS.deleteCommentImage);
 
 
-// const button_profileloginuser_deletecommentVideo= document.getElementById('button_profileloginuser_deletecommentVideo');
-// button_profileloginuser_deletecommentVideo.addEventListener('click', Profile_Login_User.deleteCommentVideo);
+const button_profileuser_deletecommentVideo= document.getElementById('button_profileuser_deletecommentVideo');
+button_profileuser_deletecommentVideo.addEventListener('click', ProfileUserJS.deleteCommentVideo);
 
 //UPDATE SUBCOMMENT
 

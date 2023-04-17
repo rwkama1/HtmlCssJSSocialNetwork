@@ -12,7 +12,7 @@
     
     static showdata_getLoginUser=async()=>
     {
-      setTimeout(async () => {
+     
       try {
       
       let getuserlogin=await this.sessionLoginUser();
@@ -102,18 +102,18 @@
    //   window.location.href="../index.html";
    
      }
-   },1000);
+ 
      } 
 
 //TIMELINE
 
 static load_timeline=async(iduser,usernamelogin)=>
 {
-  let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser);
+  let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser,iduser);
   // console.log(getPhotoPostVideoByUser);
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
-  for (let i = 0; i < Math.min(getPhotoPostVideoByUser.length, 15); i++) {
+  for (let i = 0; i <getPhotoPostVideoByUser.length; i++) {
     let getpostimagevideo=getPhotoPostVideoByUser[i];
  
     if (i >= 3) {
@@ -1014,14 +1014,12 @@ static forAddImagesFromAlbum(images)
  
 //NUMBER COMMENT POSTS
  
-      let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpost);
+      //let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpost);
+   let NumberOfCommentPost=getpost.numbercomments;
 
-
- // let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
-//  ${forCommentsPost}
   //SHOW EXISTLIKEPOST
-  let existLikePost=await this.exist_like_post(idpost,iduserlogin,usernamelogin);
-
+ let existLikePost= this.exist_like_post(getpost.existlikeloginuser);
+  
   let html_post=`
   <div class="card lg:mx-0 uk-animation-slide-bottom-small">
                
@@ -1151,14 +1149,20 @@ static forAddImagesFromAlbum(images)
 
 //NUMBER COMMENT IMAGE
  
-let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage);
+//let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage);
 
+let NumberOfCommentImage=getimage.numbercomments;
 
 // let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
 //  ${forCommentsPost}
- //SHOW EXISTLIKEIMAGE
- let exist_like_image=await this.exist_like_image(idimage,iduserlogin,usernamelogin);
 
+ //SHOW EXISTLIKEIMAGE
+
+
+ let exist_like_image= this.exist_like_image(getimage.existlikeloginuser);
+
+
+ //let exist_like_image=getimage.existlikeloginuser;
 
   let html_image=`
   <div class="card lg:mx-0 uk-animation-slide-bottom-small">
@@ -1295,11 +1299,16 @@ let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage
 
   // NUMBER COMMENT VIDEO
  
-let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo);
+//let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo);
 
+let NumberOfCommentVideo=getvideo.numbercomments;
 
  //SHOW EXISTLIKEVIDEO
- let exist_like_video=await this.exist_like_video(idvideo,iduserlogin,usernamelogin);
+
+ //let exist_like_video=await this.exist_like_video(idvideo,iduserlogin,usernamelogin);
+ 
+ let exist_like_video=getvideo.existlikeloginuser;
+
     let html_video=`
     <div  class="card lg:mx-0 uk-animation-slide-bottom-small">
     <!-- post header-->
@@ -1421,7 +1430,7 @@ let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo
  <br>
     `;
     return html_video
-    }
+ }
 
 //********************************************* */
 //#region COMMENTS
@@ -1485,11 +1494,15 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
       //    {
       //       forSubCommentPost = await this.forSubCommentPost(listsubcommentpost,idcomment, iduserlogin,username);
       //    }
-            let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
-            (idcomment);
+            let NumberOfSubComments=commentpost.numbersubcomment;
+            // let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+            // (idcomment);
    
-         const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
-         let show_edit_delete_comment =await this.show_edit_delete_comment(idpost,idcomment,iduserlogin,username);
+         //const exist_like_comment = commentpost.existlikeloginuser;
+         const exist_like_comment =  this.exist_like_comment(commentpost.existlikeloginuser);
+         
+        // let show_edit_delete_comment =commentpost.existcommentloginuser;
+         let show_edit_delete_comment = this.show_edit_delete_comment(commentpost.existcommentloginuser);
          html_comments_post += `
          <div id="profileloginuser_div_listcommentpost${idcomment}" >
 
@@ -1621,11 +1634,15 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
          if (imagecommentuser==="") {
            imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
          }
-         let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
-         (idcomment);
+         let NumberOfSubComments=commentimage.numbersubcomment;
+         // let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+         // (idcomment);
 
-      const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
-      let show_edit_delete_comment =await this.show_edit_delete_commentImage(idimage,idcomment,iduserlogin,username);
+      //const exist_like_comment = commentpost.existlikeloginuser;
+      const exist_like_comment =  this.exist_like_comment(commentimage.existlikeloginuser);
+      
+     // let show_edit_delete_comment =commentpost.existcommentloginuser;
+      let show_edit_delete_comment = this.show_edit_delete_comment(commentimage.existcommentloginuser);
 
          html_comment_image += `
          <div id="profileloginuser_div_listcommentimage${idcomment}" >
@@ -1756,11 +1773,15 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
             if (imagecommentuser==="") {
               imagecommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
             }
-            let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
-            (idcomment);
+            let NumberOfSubComments=commentvideo.numbersubcomment;
+            // let NumberOfSubComments=await APIRESTSubComment.NumberOfSubComments
+            // (idcomment);
    
-         const exist_like_comment = await this.exist_like_comment(idcomment,iduserlogin,username);
-         let show_edit_delete_comment =await this.show_edit_delete_commentVideo(idvideo,idcomment,iduserlogin,username);
+         //const exist_like_comment = commentpost.existlikeloginuser;
+         const exist_like_comment =  this.exist_like_comment(commentvideo.existlikeloginuser);
+         
+        // let show_edit_delete_comment =commentpost.existcommentloginuser;
+         let show_edit_delete_comment = this.show_edit_delete_comment(commentvideo.existcommentloginuser);
    
             html_comment_video += `
             <div id="profileloginuser_div_listcommentvideo${idcomment}" >
@@ -1869,33 +1890,33 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
          return html_comment_video;
           }
    // SHOW EDIT DELETE COMMENT
-  static show_edit_delete_comment=async(idpost,idcomment,iduserlogin,userrname)=>
+  static show_edit_delete_comment=(existcommentpost)=>
           {
             let hidden="";
-            let existLikeComment=await APIRESTPostComment.existCommentPost(idpost,idcomment,iduserlogin,userrname);
-            if (existLikeComment) {
+           // let existLikeComment=await APIRESTPostComment.existCommentPost(idpost,idcomment,iduserlogin,userrname);
+            if (existcommentpost) {
               hidden="";
             } else {
               hidden="hidden"  
             }
             return hidden;
           }
- static show_edit_delete_commentImage=async(idimage,idcomment,iduserlogin,userrname)=>
+ static show_edit_delete_commentImage=(existcommentimage)=>
           {
             let hidden="";
-            let existLikeComment=await APIRESTImageComment.existCommentImage(idimage,idcomment,iduserlogin,userrname);
-            if (existLikeComment) {
+            //let existLikeComment=await APIRESTImageComment.existCommentImage(idimage,idcomment,iduserlogin,userrname);
+            if (existcommentimage) {
               hidden="";
             } else {
               hidden="hidden"  
             }
             return hidden;
  }
- static show_edit_delete_commentVideo=async(idvideo,idcomment,iduserlogin,userrname)=>
+ static show_edit_delete_commentVideo=(existcommentvideo)=>
           {
             let hidden="";
-            let existLikeComment=await APIRESTVideoComment.existCommentVideo(idvideo,idcomment,iduserlogin,userrname);
-            if (existLikeComment) {
+           // let existLikeComment=await APIRESTVideoComment.existCommentVideo(idvideo,idcomment,iduserlogin,userrname);
+            if (existcommentvideo) {
               hidden="";
             } else {
               hidden="hidden"  
@@ -2718,9 +2739,9 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         if (imagesubcommentuser==="") {
           imagesubcommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
         }
-        const exist_like_subcomment = await this.exist_like_subcomment(idsubusercomment,iduser,userrname);
+        const exist_like_subcomment =  this.exist_like_subcomment(subcommentpost.existlikeloginuser);
         
-        let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+        let show_edit_delete_subcomment = this.show_edit_delete_subcomment(subcommentpost.existsubcommentloginuser);
 
         html_subcomments_posts+=`
         <div id="profileloginuser_div_subcomment${idsubusercomment}">
@@ -2937,11 +2958,11 @@ document.getElementById(`profileloginuser_span_numbersubcomments${idcomment}`).i
  }
 //SHOW EDIT DELETE SUBCOMMENT 
 
-static show_edit_delete_subcomment=async(idsubcomment,iduserlogin,userrname)=>
+static show_edit_delete_subcomment=(existsubcommentloginuser)=>
    {
      let hidden="";
-     let existSubComment=await APIRESTSubComment.existSubComment(idsubcomment,iduserlogin,userrname);
-     if (existSubComment) {
+    // let existSubComment=await APIRESTSubComment.existSubComment(idsubcomment,iduserlogin,userrname);
+     if (existsubcommentloginuser) {
        hidden="";
      } else {
        hidden="hidden"  
@@ -3230,11 +3251,11 @@ static deleteSubComment=async(event)=>
   }
 
 //EXIST LIKE 
-static exist_like_post=async(idpost,iduser,username)=>
+static exist_like_post=(existlikepost)=>
 {
  let fill="";
- let existLikeComment=await APIRESTLikes.existLikePost(idpost,iduser,username);
- if(existLikeComment)
+ 
+ if(existlikepost)
  {
   fill="black"
  }
@@ -3243,11 +3264,11 @@ static exist_like_post=async(idpost,iduser,username)=>
  }
  return fill;
 }
-static exist_like_image=async(idimage,iduser,username)=>
+static exist_like_image=(existlikeimage)=>
 {
  let fill="";
- let existLikeImage=await APIRESTLikes.existLikeImage(idimage,iduser,username);
- if(existLikeImage)
+ 
+ if(existlikeimage)
  {
   fill="black"
  }
@@ -3256,11 +3277,11 @@ static exist_like_image=async(idimage,iduser,username)=>
  }
  return fill;
 }
-static exist_like_video=async(idvideo,iduser,username)=>
+static exist_like_video=(existlikevideo)=>
 {
  let fill="";
- let existLikeVideo=await APIRESTLikes.existLikeVideo(idvideo,iduser,username);
- if(existLikeVideo)
+ 
+ if(existlikevideo)
  {
   fill="black"
  }
@@ -3269,11 +3290,11 @@ static exist_like_video=async(idvideo,iduser,username)=>
  }
  return fill;
 }
-static exist_like_comment=async(idcomment,iduser,username)=>
+static exist_like_comment=(existlikecomment)=>
 {
  let fill="";
- let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
- if(existLikeComment)
+ 
+ if(existlikecomment)
  {
   fill="filled"
  }
@@ -3282,11 +3303,11 @@ static exist_like_comment=async(idcomment,iduser,username)=>
  }
  return fill;
 }
-static exist_like_subcomment=async(idsubcomment,iduser,username)=>
+static exist_like_subcomment=(existlikesubcomment)=>
 {
  let fill="";
- let existLikeSubComment=await APIRESTLikes.existLikeSubComment(idsubcomment,iduser,username);
- if(existLikeSubComment)
+ 
+ if(existlikesubcomment)
  {
   fill="filled"
  }
