@@ -18,7 +18,7 @@ static  logout=async()=>
   
 static  show_image_and_name_user=async()=>
  {
-  setTimeout(async () => {
+  
   try {
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
     let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
@@ -41,7 +41,7 @@ static  show_image_and_name_user=async()=>
  catch (error) {
   alert(error);
   window.location.href="../index.html";
- }},200);
+ }
 }
 }
 window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);

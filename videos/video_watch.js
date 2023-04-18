@@ -248,8 +248,8 @@ static async show_comment_video()
        }
 
  
-       let numberofsubcomments=await APIRESTSubComment.NumberOfSubComments
-       (idcomment);
+       let numberofsubcomments=commentvideo.numbersubcomment ;
+      
       //  let listsubcommentvideo=await  APIRESTSubComment.getSubCommentByComment(
       //   iduser,
       //   idcomment);
@@ -260,10 +260,11 @@ static async show_comment_video()
       //     loadSubCommentVideo = await this.loadSubCommentVideo(listsubcommentvideo,idcomment, iduser,userrname);
       //   }
    
-     const svgfill_existlikecomment =await this.svgfill_existlikecomment(idcomment, iduser, userrname);
-     
+      const svgfill_existlikecomment =  this.svgfill_existlikecomment(commentvideo.existcommentloginuser);
+      
 
-     let show_edit_delete_comment =await this.show_edit_delete_comment(idvideo,idcomment,iduser,userrname);
+
+      let show_edit_delete_comment = this.show_edit_delete_comment(commentvideo.existcommentloginuser);
 
      html_comments_videos+=`
      <div id="videowatch_div_listcomment$${idcomment}">
@@ -525,11 +526,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
      //   let loadSubCommentPost =await this.loadSubCommentPost(idcomment,iduser);
      //  let svgfill_existlikecomment= await this.svgfill_existlikecomment(idcomment,iduser,userrname);
     
-     const svgfill_existlikecomment = await  this.svgfill_existlikecomment(idcomment, iduser, userrname);
-     
-     
-
-     let show_edit_delete_comment =await this.show_edit_delete_comment(idvideo,idcomment,iduser,userrname);
+   
 
      let html_addcomment_video=`
    <div id="videowatch_div_listcomment$${idcomment}" >
@@ -560,7 +557,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
                  <svg id="svg_videowatch_likecomment${idcomment}"
                   xmlns="http://www.w3.org/2000/svg" 
                   viewBox="0 0 20 20" 
-                  fill="${svgfill_existlikecomment}"
+                  fill="grey"
                    width="22" height="22" 
                    class="dark:text-gray-100">
                      <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
@@ -582,7 +579,7 @@ static  showAddedCommentVideo=async(idvideo,iduser,userrname)=>
      </div>
       </div>
       <!-- EDIT AND DELETE COMMENT  -->
-      <div ${show_edit_delete_comment} >
+      <div  >
          <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
            <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
            uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
@@ -812,8 +809,8 @@ this.showRemoveSubComment(idsubcomment)
        if (imagesubcommentuser==="") {
          imagesubcommentuser="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
        }
-       const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
-       let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+       const svgfill_existlikesubcomment = this.svgfill_existlikesubcomment(subcommentvideo.existlikeloginuser);
+       let show_edit_delete_subcomment = this.show_edit_delete_subcomment(subcommentvideo.existsubcommentloginuser);
 
        html_subcomments_video+=`
     <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
@@ -909,8 +906,7 @@ this.showRemoveSubComment(idsubcomment)
    if (imagesubcommentuser === "") {
      imagesubcommentuser = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
    }
-   const svgfill_existlikesubcomment =await this.svgfill_existlikesubcomment(idsubusercomment, iduser, userrname);
-       let show_edit_delete_subcomment =await this.show_edit_delete_subcomment(idsubusercomment,iduser,userrname);
+ 
    let html_subcomment = `
    <div class="flex items-start mt-8" id="videowatch_div_listsubcomment$${idsubusercomment}">
    <a 
@@ -936,7 +932,7 @@ this.showRemoveSubComment(idsubcomment)
       <button onclick="VideoWatchJS.like_dislike_SubComment('${idsubusercomment}', event);" class="flex items-center space-x-2">
           <div class="p-2 rounded-full  text-black lg:bg-gray-100 dark:bg-gray-600 w-8">
               <svg id="svg_videowatch_likesubcomment${idsubusercomment}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" 
-              fill="${svgfill_existlikesubcomment}" width="22" height="22" class="dark:text-gray-100">
+              fill="grey" width="22" height="22" class="dark:text-gray-100">
                   <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
               </svg>
           </div>
@@ -946,7 +942,7 @@ this.showRemoveSubComment(idsubcomment)
   </div>
    </div>
    <!-- EDIT AND DELETE SUBCOMENT -->
-   <div ${show_edit_delete_subcomment}>
+   <div >
       <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700"></i> 
         <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 uk-drop" 
         uk-drop="mode: hover;pos: bottom-right;animation: uk-animation-slide-bottom-small">
@@ -1137,11 +1133,11 @@ this.showRemoveSubComment(idsubcomment)
 //OTHERS
 
 //COMMENT
-static svgfill_existlikecomment=async(idcomment,iduser,username)=>
+static svgfill_existlikecomment=(existlikecomment)=>
 {
  let fill="";
- let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
- if(existLikeComment)
+ //let existLikeComment=await APIRESTLikes.existLikeComment(idcomment,iduser,username);
+ if(existlikecomment)
  {
   fill="black"
  }
@@ -1150,26 +1146,25 @@ static svgfill_existlikecomment=async(idcomment,iduser,username)=>
  }
  return fill;
 }
-static show_edit_delete_comment=async(idvideo,idcomment,iduserlogin,userrname)=>
+static show_edit_delete_comment=(existcommentsloginuser)=>
 {
  let hidden="";
-
- let existCommentVideo=await APIRESTVideoComment.existCommentVideo(idvideo,idcomment,iduserlogin,userrname);
- if (existCommentVideo) {
+ 
+ if (existcommentsloginuser) {
    hidden="";
  } else {
-   hidden="hidden" ; 
+   hidden="hidden"  
  }
  return hidden;
 }
 
 //SUBCOMMENTS
 
-static svgfill_existlikesubcomment=async(idsubcomment,iduser,username)=>
+static svgfill_existlikesubcomment=(existlikesubcomment)=>
 {
 let fill="";
-let existLikeSubComment=await APIRESTLikes.existLikeSubComment(idsubcomment,iduser,username);
-if(existLikeSubComment)
+
+if(existlikesubcomment)
 {
  fill="black"
 }
@@ -1178,11 +1173,11 @@ else{
 }
 return fill;
 }
-static show_edit_delete_subcomment=async(idsubcomment,iduserlogin,userrname)=>
+static show_edit_delete_subcomment=(existsubcomment)=>
 {
  let hidden="";
- let existSubComment=await APIRESTSubComment.existSubComment(idsubcomment,iduserlogin,userrname);
- if (existSubComment) {
+ 
+ if (existsubcomment) {
    hidden="";
  } else {
    hidden="hidden"  
