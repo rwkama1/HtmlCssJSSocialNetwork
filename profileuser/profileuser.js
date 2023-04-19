@@ -1134,7 +1134,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
     }
 
        // SHOW EDIT DELETE COMMENT
-       static show_edit_delete_comment=(existcommentpost)=>
+static show_edit_delete_comment=(existcommentpost)=>
        {
          let hidden="";
         // let existLikeComment=await APIRESTPostComment.existCommentPost(idpost,idcomment,iduserlogin,userrname);
@@ -2583,7 +2583,7 @@ static passidtoVideoWatch=(idvideo)=>
             
            }
             
-          }    
+  }    
 static passidtoImageWatch=(idimage)=>
 {
   try {
