@@ -756,7 +756,7 @@ static async loadPostLoginUser() {
      let postdescription = getpostuser[i].description;
      // let postdescription = getpostuser[i].description;
 
- let countpostcomments=await APIRESTPostComment.NumberOfCommentPost(idpost);
+ let countpostcomments= getpostuser[i].numbercomments;
      if (i >= 3) {
        html_load_post += `
            <li hidden id="morepost">
@@ -1509,11 +1509,19 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                
          <div class="flex">
             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+               <a 
+               title="${namecommentuser}"
+               onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+               href="../profileuser/profileuser.html">
+
                <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+               </a>
                </div>
             <div >
                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
+
                <div class="flex">
+               
                <p id="profileloginuser_p_textcommentpost${idcomment}" class="leading-6">
                   ${textcomment}
                   
@@ -1650,8 +1658,14 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                
          <div class="flex">
             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-               <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
-               </div>
+            <a 
+            title="${namecommentuser}"
+            onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+            href="../profileuser/profileuser.html">
+
+            <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+            </a>
+          </div>
             <div >
                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
                <div class="flex">
@@ -1789,7 +1803,13 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                
             <div class="flex">
                <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                  <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+               <a 
+               title="${namecommentuser}"
+               onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+               href="../profileuser/profileuser.html"
+
+               <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+               </a>
                   </div>
                <div >
                   <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
@@ -2749,8 +2769,13 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         <div  class="flex">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+        <a 
+        title="${namesubcommentuser}"
+        onclick="Head_SidebarJS.passidtoUserProfile('${idsubcommentuser}');" 
+        href="../profileuser/profileuser.html">
            <img src="${imagesubcommentuser}" alt=""
               class="absolute h-full rounded-full w-full">
+              </a>
         </div>
         <div>
            <div style="text-align: center;">
@@ -3356,7 +3381,11 @@ static passidtoVideoWatch=(idvideo)=>
  }
   
 }
-
+static passidtoUserProfile=(iduser)=>
+{
+  sessionStorage.setItem('iduserwatch', null);
+  sessionStorage.setItem('iduserwatch', iduser);
+}
 }
 
 window.addEventListener("load",Profile_Login_User.showdata_getLoginUser);

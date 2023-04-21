@@ -15,8 +15,28 @@ class ProfileUserJS
        ,urlinstagram,urllinkedin,urltwitter,description,
        userrname,image,coverphoto
      }=getuser;
+  
 
+   if(sessionuser.iduser===getuser.iduser)
+   {
+      document.getElementById("headersidebar_a_addfriendandmore").hidden=true;
+   }
 
+   //EXIST FRIEND BY USERLOGIN
+   let existconfirmfriendloginusersender=await APIRESTUserFriends.existconfirmfriendloginusersender
+   (getuser.iduser,sessionuser.iduser,sessionuser.userrname);
+   if(existconfirmfriendloginusersender===1)
+   {
+     this.showOptionsConfirmedFriend();
+   }
+   else if(existconfirmfriendloginusersender===2){
+      this.showOptionsLoginUserSender();
+   }
+   else if(existconfirmfriendloginusersender===3){
+      this.showOptionsNoLoginUserSender(sessionuser.iduser,sessionuser.userrname,
+         getuser.iduser);
+   }
+   
    //EXIST LOGIN USER
    let existloginuser=await APIRESTLoginUser.existloginuser(getuser.iduser,getuser.userrname);
    const div_green_circle = document.getElementById('profileuser_existloginuser');
@@ -58,6 +78,88 @@ this.showImageCoverProfile(image, coverphoto);
    }
  
    }
+//#region UserFriend
+   //USER FRIEND
+
+   static async addFriend(iduserlogin,usernamelogin,idfriend,event)
+   {
+      try {
+         event.preventDefault();
+
+        const addUserRelation= await APIRESTUserFriends.addUserRelation(idfriend,iduserlogin,
+         usernamelogin);
+        if (addUserRelation===2) {
+      
+          messagenotification('The friend request has been confirmed','success',event);
+     
+          this.showOptionsConfirmedFriend();
+         }
+         else if(addUserRelation===1)
+         {
+            messagenotification('The friend request has been sent','success',event);
+            this.showOptionsLoginUserSender(iduserlogin,usernamelogin,idfriend);
+         }
+     }catch (error) {
+      alert(error);
+     }
+   }
+
+   static showOptionsConfirmedFriend()
+   {
+      document.getElementById("headsidebar_li_addfriend").hidden=true;
+      document.getElementById("headsidebar_li_addfriend").hidden="";
+      document.getElementById("headsidebar_li_removefriend").hidden=false;
+      document.getElementById("headsidebar_li_removefriend").innerHTML=
+      `
+         <a href="" uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+         <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
+         Remove Friend 
+        </a>
+      `;
+      document.getElementById("headsidebar_li_cancelfriend").hidden=true;
+      document.getElementById("headsidebar_li_cancelfriend").innerHTML="";
+   }
+
+   static showOptionsLoginUserSender()
+   {
+      document.getElementById("headsidebar_li_addfriend").hidden=true;
+      document.getElementById("headsidebar_li_addfriend").innerHTML="";
+      document.getElementById("headsidebar_li_cancelfriend").hidden=false;
+      document.getElementById("headsidebar_li_cancelfriend").innerHTML=
+      `
+      <button  class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+      <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
+         Cancel request sent 
+      </button>
+      `
+
+      ;
+      document.getElementById("headsidebar_li_removefriend").hidden=true;
+      document.getElementById("headsidebar_li_removefriend").innerHTML="";
+   }
+
+   static showOptionsNoLoginUserSender(iduserlogin,usernamelogin,iduser)
+   {
+      document.getElementById("headsidebar_li_addfriend").hidden=false;
+      document.getElementById("headsidebar_li_addfriend").innerHTML=
+      `
+      <button 
+        onclick="ProfileUserJS.addFriend('${iduserlogin}','${usernamelogin}','${iduser}',event); this.disabled=true;"
+      class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+         <ion-icon name="person-add-outline" class="pr-2 text-xl"></ion-icon>
+        Add Friend 
+      </button>
+      `;
+      document.getElementById("headsidebar_li_removefriend").hidden=true;
+      document.getElementById("headsidebar_li_removefriend").innerHTML="";
+
+      document.getElementById("headsidebar_li_cancelfriend").hidden=true;
+      document.getElementById("headsidebar_li_cancelfriend").innerHTML="";
+   }
+
+//#endregion UserFriend
+
+
    //GET VIDEOS  USER
 static async loadVideosUser(iduser) {
    let getVideosByUser = await APIRESTVideo.getVideosByUser(iduser);
@@ -176,7 +278,7 @@ static async loadImagesUser(iduserLogin,iduser) {
      let postdescription = getpostuser[i].description;
      // let postdescription = getpostuser[i].description;
 
- let countpostcomments=await APIRESTPostComment.NumberOfCommentPost(idpost);
+ let countpostcomments=getpostuser[i].numbercomments;
      if (i >= 3) {
        html_load_post += `
            <li hidden id="morepost">
@@ -753,7 +855,12 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                
          <div class="flex">
             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+            <a 
+            title="${namecommentuser}"
+            onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+            href="../profileuser/profileuser.html">
                <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+               </a>
                </div>
             <div >
                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
@@ -894,7 +1001,13 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
                
          <div class="flex">
             <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+
+               <a 
+            title="${namecommentuser}"
+            onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+            href="../profileuser/profileuser.html">
                <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+               </a>
                </div>
             <div >
                <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
@@ -1032,7 +1145,13 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
          
       <div class="flex">
          <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+         
+         <a 
+         title="${namecommentuser}"
+         onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
+         href="../profileuser/profileuser.html">
             <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
+            </a>
             </div>
          <div >
             <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 relative lg:ml-5 ml-2 lg:mr-12 dark:bg-gray-800 dark:text-gray-100">
@@ -2000,8 +2119,13 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         <div  class="flex">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="w-7 h-7 rounded-full relative flex-shrink-0"> 
+        <a 
+        title="${namesubcommentuser}"
+        onclick="Head_SidebarJS.passidtoUserProfile('${idsubcommentuser}');" 
+        href="../profileuser/profileuser.html">
            <img src="${imagesubcommentuser}" alt=""
               class="absolute h-full rounded-full w-full">
+              </a>
         </div>
         <div>
            <div style="text-align: center;">

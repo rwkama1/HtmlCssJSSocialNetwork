@@ -142,11 +142,10 @@ static passidtoPostWatch=(idpost)=>
     sessionStorage.setItem('idpostwatch', idpost);
   
 }
-
 static passidtoUserProfile=(iduser)=>
 {
-  sessionStorage.setItem('idpostwatch', null);
-  sessionStorage.setItem('idpostwatch', iduser);
+  sessionStorage.setItem('iduserwatch', null);
+  sessionStorage.setItem('iduserwatch', iduser);
 }
 }
 window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);
