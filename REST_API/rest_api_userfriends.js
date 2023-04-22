@@ -38,6 +38,40 @@ class APIRESTUserFriends
        let data = await response.json();
        return data;
        } 
+       static deleteUserRelation=async(idfriend,iduserlogin,usernamelogin)=>
+       {
+        let USERFRIENDURL=this.RESTAPIURL+"/userrelation/deleteuserrelation"
+
+        let headersList = {
+          "Accept": "*/*",
+          "Content-Type": "application/json"
+         }
+
+         let bodyContent = JSON.stringify({
+          "idfriend" :idfriend,
+          "iduserlogin" :iduserlogin,
+          "usernamelogin": usernamelogin 
+          
+        
+        });
+ 
+         var requestOptions = {
+          method: "DELETE",
+          body: bodyContent,
+          headers: headersList
+         };
+ 
+      const response=await fetch(USERFRIENDURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       
+       return true;
+       } 
+
+
        static existconfirmfriendloginusersender=async(idfriend,iduserlogin,usernamelogin)=>
        {
         let USERFRIENDURL=this.RESTAPIURL+`/userrelation/existconfirmfriendloginusersender?pidfriend=${idfriend}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`
@@ -61,4 +95,5 @@ class APIRESTUserFriends
        let data = await response.json();
        return data;
        } 
+       
 }

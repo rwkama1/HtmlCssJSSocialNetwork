@@ -27,10 +27,10 @@ class ProfileUserJS
    (getuser.iduser,sessionuser.iduser,sessionuser.userrname);
    if(existconfirmfriendloginusersender===1)
    {
-     this.showOptionsConfirmedFriend();
+     this.showOptionsConfirmedFriend(sessionuser.iduser,sessionuser.userrname,iduser);
    }
    else if(existconfirmfriendloginusersender===2){
-      this.showOptionsLoginUserSender();
+      this.showOptionsLoginUserSender(sessionuser.iduser,iduser,sessionuser.userrname);
    }
    else if(existconfirmfriendloginusersender===3){
       this.showOptionsNoLoginUserSender(sessionuser.iduser,sessionuser.userrname,
@@ -78,7 +78,7 @@ this.showImageCoverProfile(image, coverphoto);
    }
  
    }
-//#region UserFriend
+//#region USERFRIEND
    //USER FRIEND
 
    static async addFriend(iduserlogin,usernamelogin,idfriend,event)
@@ -92,48 +92,97 @@ this.showImageCoverProfile(image, coverphoto);
       
           messagenotification('The friend request has been confirmed','success',event);
      
-          this.showOptionsConfirmedFriend();
+          this.showOptionsConfirmedFriend(iduserlogin,usernamelogin,idfriend);
          }
          else if(addUserRelation===1)
          {
             messagenotification('The friend request has been sent','success',event);
-            this.showOptionsLoginUserSender(iduserlogin,usernamelogin,idfriend);
+            this.showOptionsLoginUserSender(iduserlogin,idfriend,usernamelogin);
          }
      }catch (error) {
       alert(error);
      }
    }
+   static async deleteUserRelation(iduserlogin,usernamelogin,idfriend,event)
+   {
+      try {
+         event.preventDefault();
 
-   static showOptionsConfirmedFriend()
+        const deleteUserRelation= await APIRESTUserFriends.deleteUserRelation(idfriend,iduserlogin,
+         usernamelogin);
+        if (deleteUserRelation) {
+      
+          messagenotification('The friend request has been canceled','success',event);
+     
+          this.showOptionsNoLoginUserSender(iduserlogin,usernamelogin,idfriend);
+         }
+        
+     }catch (error) {
+      alert(error);
+     }
+   }
+   static async deleteFriendConfirmed(event)
+   {
+      let iduserlogin=document.getElementById("profileuser_userfriend_iduserlogin").value;
+      let usernamelogin=document.getElementById("profileuser_userfriend_usernamelogin").value;
+      let iduser=document.getElementById("profileuser_userfriend_iduser").value;
+
+      try {
+         event.preventDefault();
+
+
+        const deleteUserRelation= await APIRESTUserFriends.deleteUserRelation(iduser,iduserlogin,
+         usernamelogin);
+        if (deleteUserRelation) {
+      
+          messagenotification("You have removed the user from your friends list"
+            ,'success',event);
+     
+          ProfileUserJS.showOptionsNoLoginUserSender(iduserlogin,usernamelogin,iduser);
+         }
+        
+     }catch (error) {
+      alert(error);
+     }
+   }
+   //SHOW 
+
+   static showOptionsConfirmedFriend(iduserlogin,usernamelogin,iduser)
    {
       document.getElementById("headsidebar_li_addfriend").hidden=true;
-      document.getElementById("headsidebar_li_addfriend").hidden="";
+      document.getElementById("headsidebar_li_addfriend").innerHTML="";
+      
       document.getElementById("headsidebar_li_removefriend").hidden=false;
       document.getElementById("headsidebar_li_removefriend").innerHTML=
       `
-         <a href="" uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+         <a href="" 
+         onclick="ProfileUserJS.showDataModalRemoveFriend('${iduserlogin}','${usernamelogin}','${iduser}',event);"
+         uk-toggle="target: #unfriendmodal" class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
          <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
          Remove Friend 
         </a>
       `;
+
       document.getElementById("headsidebar_li_cancelfriend").hidden=true;
       document.getElementById("headsidebar_li_cancelfriend").innerHTML="";
    }
 
-   static showOptionsLoginUserSender()
+   static showOptionsLoginUserSender(iduserlogin,iduser,usernamelogin)
    {
       document.getElementById("headsidebar_li_addfriend").hidden=true;
       document.getElementById("headsidebar_li_addfriend").innerHTML="";
+
       document.getElementById("headsidebar_li_cancelfriend").hidden=false;
       document.getElementById("headsidebar_li_cancelfriend").innerHTML=
       `
-      <button  class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+      <button 
+      onclick="ProfileUserJS.deleteUserRelation('${iduserlogin}','${usernamelogin}','${iduser}',event);"
+       class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
       <ion-icon name="person-remove-outline" class="pr-2 text-xl"></ion-icon>
          Cancel request sent 
       </button>
-      `
+      `;
 
-      ;
       document.getElementById("headsidebar_li_removefriend").hidden=true;
       document.getElementById("headsidebar_li_removefriend").innerHTML="";
    }
@@ -150,14 +199,22 @@ this.showImageCoverProfile(image, coverphoto);
         Add Friend 
       </button>
       `;
+
       document.getElementById("headsidebar_li_removefriend").hidden=true;
       document.getElementById("headsidebar_li_removefriend").innerHTML="";
 
       document.getElementById("headsidebar_li_cancelfriend").hidden=true;
       document.getElementById("headsidebar_li_cancelfriend").innerHTML="";
    }
+   //MODAL REMOVE FRIEND
+   static showDataModalRemoveFriend(iduserlogin,usernamelogin,iduser)
+   {
+      document.getElementById("profileuser_userfriend_iduserlogin").value=iduserlogin;
+      document.getElementById("profileuser_userfriend_usernamelogin").value=usernamelogin;
+      document.getElementById("profileuser_userfriend_iduser").value=iduser;
+   }
 
-//#endregion UserFriend
+//#endregion USERFRIEND
 
 
    //GET VIDEOS  USER
@@ -2734,6 +2791,13 @@ static passidtoPostWatch=(idpost)=>
 }
 
 window.addEventListener("load",ProfileUserJS.loadPage);
+
+
+
+
+//DELETE FRIEND
+const profileuser_userfriend_deletefriend = document.getElementById('profileuser_userfriend_deletefriend');
+profileuser_userfriend_deletefriend.addEventListener('click', ProfileUserJS.deleteFriendConfirmed);
 
 
 //UPDATE COMMENT
