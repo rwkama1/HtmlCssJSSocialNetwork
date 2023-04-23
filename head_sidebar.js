@@ -95,11 +95,33 @@ static  logout=async()=>
  
   }
   
-static  show_image_and_name_user=async()=>
+static  load_headersidebar=async()=>
  {
   
   try {
     let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+
+    // REAL TIME NOTIFICATION PENDING FRIEND RECEIVED
+
+    const ably = new Ably.Realtime(`rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A`);
+    const presenceChannel = ably.channels.get(`pending_friend_requests${sessionuser.iduser}`);
+    
+   // Listen for channel events
+    presenceChannel.subscribe(`friend-request${sessionuser.iduser}`, async function(message) {
+      // Update the list of pending friend requests 
+      //Call the `forPendingFriends` function  to update the list
+      await Head_SidebarJS.forPendingFriends(sessionuser);
+      messagenotification_withoutevent('You have received a friend request','success');
+    }); 
+    presenceChannel.subscribe(`friend-deleterequest${sessionuser.iduser}`, async function(message) {
+      // Update the list of pending friend requests 
+      //Call the `forPendingFriends` function  to update the list
+      await Head_SidebarJS.forPendingFriends(sessionuser);
+    
+    }); 
+    await Head_SidebarJS.forPendingFriends(sessionuser);
+
+  
     let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
   // SHOW NAME AND IMAGE PROFILE
   //const getuser= await APIRESTLoginUser.getLoginUser();
@@ -147,8 +169,42 @@ static passidtoUserProfile=(iduser)=>
   sessionStorage.setItem('iduserwatch', null);
   sessionStorage.setItem('iduserwatch', iduser);
 }
+
+  static async forPendingFriends(sessionuser) {
+
+    
+    let html_friendrequest="";
+    let getPendingFriendsbyUserLoginUser = await APIRESTUserFriends.getPendingFriendsbyUserLoginUser(sessionuser.iduser, sessionuser.userrname);
+   document.getElementById("headersidebar_span_numberpendingfriends").innerHTML=getPendingFriendsbyUserLoginUser.length;
+    for (let i = 0; i < getPendingFriendsbyUserLoginUser.length; i++) {
+      let {iduser,image,name } = getPendingFriendsbyUserLoginUser[i];
+      if (image==="") {
+        image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      html_friendrequest+=`
+      <li>                                                     
+      <a 
+      href="../profileuser/profileuser.html"
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');"  
+      >
+         <div class="contact-avatar">
+            <img src="${image}" alt="">
+           
+         </div>
+         <div class="contact-username">
+            ${name}
+  
+         </div>
+        </a>
+      </li>
+      `;
+
+    }
+    document.getElementById("headersidebar_ul_listpendingfriendrequest").innerHTML=html_friendrequest;
+
+  }
 }
-window.addEventListener("load",Head_SidebarJS.show_image_and_name_user);
+window.addEventListener("load",Head_SidebarJS.load_headersidebar);
 
 
 //SEARCH TEXT

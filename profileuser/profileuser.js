@@ -96,7 +96,15 @@ this.showImageCoverProfile(image, coverphoto);
          }
          else if(addUserRelation===1)
          {
+             //#region REAL TIME NOTIFICATION SENDING TO FRIEND
+            var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+      
+            const friendChannelName = `pending_friend_requests${idfriend}`;
+            const friendChannel = ably.channels.get(friendChannelName);
+            const friendRequestMessage = { name: `friend-request${idfriend}` };
+         friendChannel.publish(friendRequestMessage);
             messagenotification('The friend request has been sent','success',event);
+            //#endregion REAL TIME NOTIFICATION SENDING TO FRIEND
             this.showOptionsLoginUserSender(iduserlogin,idfriend,usernamelogin);
          }
      }catch (error) {
@@ -111,7 +119,16 @@ this.showImageCoverProfile(image, coverphoto);
         const deleteUserRelation= await APIRESTUserFriends.deleteUserRelation(idfriend,iduserlogin,
          usernamelogin);
         if (deleteUserRelation) {
+         //#region REAL TIME NOTIFICATION SENDING TO FRIEND
+
+         var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
       
+         const friendChannelName = `pending_friend_requests${idfriend}`;
+         const friendChannel = ably.channels.get(friendChannelName);
+         const friendRequestMessage = { name: `friend-deleterequest${idfriend}` };
+         friendChannel.publish(friendRequestMessage);
+
+      //#endregion REAL TIME NOTIFICATION SENDING TO FRIEND
           messagenotification('The friend request has been canceled','success',event);
      
           this.showOptionsNoLoginUserSender(iduserlogin,usernamelogin,idfriend);
@@ -1019,7 +1036,7 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
   
    return html_comments_post
     }
-    static async forCommentImage(listcommentimage,idimage,iduserlogin,username){
+   static async forCommentImage(listcommentimage,idimage,iduserlogin,username){
       let html_comment_image="";
       for (let i = 0; i < listcommentimage.length; i++) {
          const commentimage = listcommentimage[i];

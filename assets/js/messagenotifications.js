@@ -8,3 +8,16 @@ function messagenotification(message,status,event) {
     event.preventDefault();
 
 }
+
+function messagenotification_withoutevent(message,status) {
+    UIkit.notification({
+        message: message,
+        status: status,
+      
+        timeout: 2000
+    });
+  
+
+}
+
+

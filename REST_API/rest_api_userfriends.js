@@ -95,5 +95,29 @@ class APIRESTUserFriends
        let data = await response.json();
        return data;
        } 
+       static getPendingFriendsbyUserLoginUser=async(iduserlogin,usernamelogin)=>
+       {
+        let USERFRIENDURL=this.RESTAPIURL+`/userrelation/getsentpendingusersbyuser?iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
+
+        let headersList = {
+          "Accept": "*/*"
+         }
+         
+         var requestOptions = {
+          method: "GET",
+
+          headers: headersList
+         };
+ 
+        const response=await fetch(USERFRIENDURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       let data = await response.json();
+       return data;
+       } 
+       
        
 }
