@@ -21,6 +21,19 @@ class ProfileUserJS
    {
       document.getElementById("headersidebar_a_addfriendandmore").hidden=true;
    }
+   //EXIST FOLLOW
+   let existfollow=await APIRESTFollowers.existfollow
+   (sessionuser.iduser,iduser);
+   if (existfollow) {
+      ProfileUserJS.showUnfollow(iduser, sessionuser.iduser,sessionuser.userrname);
+   }
+   else{
+
+      ProfileUserJS.showAddFollow(iduser, sessionuser.iduser,sessionuser.userrname);
+
+   }
+
+
 
    //EXIST FRIEND BY USERLOGIN
    let existconfirmfriendloginusersender=await APIRESTUserFriends.existconfirmfriendloginusersender
@@ -78,7 +91,95 @@ this.showImageCoverProfile(image, coverphoto);
    }
  
    }
+
+   
+
+//#region USERFOLLOW
+
+static async addFollow(iduserfollowed,iduserlogin,userrname,event)
+{
+   try {
+      event.preventDefault();
+     
+      
+     const addFollow= await APIRESTFollowers.addFollow(iduserfollowed,iduserlogin,
+      userrname);
+     if (addFollow) {
+   
+       //messagenotification('The friend request has been confirmed','success',event);
+      ProfileUserJS.showUnfollow(iduserfollowed,iduserlogin,userrname);
+      }
+  }catch (error) {
+   alert(error);
+  }
+}
+
+static async deleteFollow(iduserfollowed,iduserlogin,userrname,event)
+{
+   try {
+      event.preventDefault();
+     
+      
+     const deleteFollow= await APIRESTFollowers.deleteFollow(iduserfollowed,iduserlogin,
+      userrname);
+     if (deleteFollow) {
+   
+       //messagenotification('The friend request has been confirmed','success',event);
+      ProfileUserJS.showAddFollow(iduserfollowed,iduserlogin,userrname);
+      }
+  }catch (error) {
+   alert(error);
+  }
+}
+
+
+//SHOW
+
+static showUnfollow(iduserfollowed,iduserlogin,userrname) {
+   document.getElementById("headsidebar_li_unfollow").hidden=false;
+   document.getElementById("headsidebar_li_unfollow").innerHTML=
+   `
+      <button 
+      onclick="ProfileUserJS.deleteFollow('${iduserfollowed}','${iduserlogin}','${userrname}',event); "
+      class="flex items-center px-3 py-2 text-gray-500 hover:bg-gray-50 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+      <ion-icon name="logo-rss" class="pr-2 text-xl"></ion-icon>
+        Unfollow 
+      </button>
+   `;
+
+   document.getElementById("headsidebar_li_follow").hidden=true;
+   document.getElementById("headsidebar_li_follow").innerHTML=
+   `
+         
+   `;
+}
+static showAddFollow(iduserfollowed,iduserlogin,userrname) {
+
+  
+
+
+   document.getElementById("headsidebar_li_unfollow").hidden = true;
+   document.getElementById("headsidebar_li_unfollow").innerHTML =
+      `
+   `;
+
+
+   document.getElementById("headsidebar_li_follow").hidden = false;
+   document.getElementById("headsidebar_li_follow").innerHTML =
+      `
+         <button 
+         onclick="ProfileUserJS.addFollow('${iduserfollowed}','${iduserlogin}','${userrname}',event); "
+         class="flex items-center px-3 py-2 hover:bg-gray-100 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
+         <ion-icon name="logo-rss" class="pr-2 text-xl"></ion-icon>
+         Follow
+      </button>
+   `;
+}
+
+//#endregion USERFOLLOW
+
 //#region USERFRIEND
+
    //USER FRIEND
 
    static async addFriend(iduserlogin,usernamelogin,idfriend,event)

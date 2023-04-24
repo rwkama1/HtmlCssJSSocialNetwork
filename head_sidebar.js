@@ -26,7 +26,11 @@ static  logout=async()=>
      let html_load_search="";
      for (let i = 0; i <  Math.min(getPhotoPostVideoSearch.length, 10); i++) {
       let { id , nameortitle , url, type  } = getPhotoPostVideoSearch[i];
+
       if (type==='U') {
+        if (url==="") {
+          url="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+        }
         html_load_search+=
         `
         <!-- USER -->

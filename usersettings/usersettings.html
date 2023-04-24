@@ -34,7 +34,7 @@
          <script src="https://unpkg.com/cloudinary-core@2.9.0/cloudinary-core-shrinkwrap.min.js"></script>
       <script type="module" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule="" src="https://unpkg.com/ionicons@6.0.3/dist/ionicons/ionicons.js"></script>
-   
+      <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
    </head>
    <body>
       <div id="wrapper">
@@ -83,7 +83,7 @@
                            stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                              <span>3</span>
+                            <span id="headersidebar_span_numberpendingfriends"></span>
                             </a>                  
                         <div uk-drop="mode: click" class="header_dropdown">
                            <div  class="dropdown_scrollbar" data-simplebar>
@@ -94,54 +94,11 @@
       
                               <div class="contact-list my-2 ml-1">
                                  <!-- FRIEND REQUESTS -->
-                              <ul>
-                                 <li>
-                                   
-      
-                                 
-                                    <a href="../profileuser/profileuser.html">
-                                      
-      
-                                       <div class="contact-avatar">
-                                          <img src="../assets/images/avatars/avatar-1.jpg" alt="">
-                                          <span class="user_status status_online"></span>
-                                       </div>
-                                       <div class="contact-username">
-                                           Dennis Han
-      
-                                       </div>
-                                    </a>
-                          
-                                
-      
-                                 </li>
-                              <li>
-                                 <a href="../profileuser/profileuser.html">
-                                    <div class="contact-avatar">
-                                       <img src="../assets/images/avatars/avatar-2.jpg" alt="">
-                                       <span class="user_status"></span>
-                                    </div>
-                                    <div class="contact-username"> Erica Jones</div>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href="../profileuser/profileuser.html">
-                                    <div class="contact-avatar">
-                                       <img src="../assets/images/avatars/avatar-7.jpg" alt="">
-                                    </div>
-                                    <div class="contact-username">Stella Johnson</div>
-                                 </a>
-                              </li>
-                                 <li>
-                                    <a href="../profileuser/profileuser.html">
-                                       <div class="contact-avatar">
-                                          <img src="../assets/images/avatars/avatar-4.jpg" alt="">
-                                       </div>
-                                       <div class="contact-username"> Alex Dolgove</div>
-                                    </a>
-                                 </li>
+                                 <ul id="headersidebar_ul_listpendingfriendrequest">
+
+                               
                        
-                              </ul>
+                                 </ul>
                               </div>
                            </div>
                         </div>
@@ -847,6 +804,7 @@
          
       </script>
       <script src="../assets/js/nightmode.js"></script>
+      <script src="../REST_API/rest_api_userfriends.js"></script>
       <script src="../assets/js/jquery-3.6.0.min.js"></script>
       <script src="../assets/js/tippy.all.min.js"></script>
       <script src="../assets/js/uikit.js"></script>
