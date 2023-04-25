@@ -118,11 +118,11 @@ static  load_headersidebar=async()=>
       messagenotification_withoutevent('You have received a friend request','success');
     }); 
     presenceChannel.subscribe(`friend-deleterequest${sessionuser.iduser}`, async function(message) {
-      // Update the list of pending friend requests 
-      //Call the `forPendingFriends` function  to update the list
+   
       await Head_SidebarJS.forPendingFriends(sessionuser);
     
     }); 
+    
     await Head_SidebarJS.forPendingFriends(sessionuser);
 
   

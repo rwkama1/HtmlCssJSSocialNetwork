@@ -48,7 +48,8 @@
       document.getElementById("profileloginuser_txtarea_updateabout").value= description;
 
 
-     
+       //LOAD CONFIRMED FRIENDS USER
+       await this.load_confirmedFriends(iduser);
 
 
        //TIMELINE
@@ -90,6 +91,8 @@
   
       await this.loadPostLoginUser();
       
+    
+
 
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
       buttonDeleteImage.addEventListener('click', Profile_Login_User.deleteImage);
@@ -156,6 +159,78 @@ static load_timeline=async(iduser,usernamelogin)=>
   
 }
 
+//LOAD CONFIRMED FRIENDS USER
+static  load_confirmedFriends=async(iduserlogin)=>
+{
+  let getConfirmedFriendByUser = await APIRESTUserFriends.getConfirmedFriendByUser(iduserlogin,iduserlogin);
+   document.getElementById("profileloginuser_span_countconfirmedfriends").innerHTML=getConfirmedFriendByUser.length;
+  let html_load_friends = '';
+  let html_load_friends_more = '';
+  for (let i = 0; i < getConfirmedFriendByUser.length; i++) {
+    let {iduser,name,image,numberfriends}=getConfirmedFriendByUser[i];
+      if(image==="")
+      {
+         image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+    
+      if (i >= 4) {
+     
+      html_load_friends_more+=` 
+
+      <div class="card p-2" hidden id="morefriend">
+      <a 
+         onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+         href="../profileuser/profileuser.html"
+      >
+      <img src="${image}" 
+      class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+     <div class="pt-3 px-1">
+        <a 
+        onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+        href="../profileuser/profileuser.html"
+        class="text-base font-semibold mb-0.5"> 
+        ${name} </a>
+        <p class="font-medium text-sm">${numberfriends} Friends </p>
+      
+     </div>
+      </div>
+   `;
+  
+
+    } else {
+   html_load_friends+=`
+
+   <div class="card p-2">
+   <a 
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+      href="../profileuser/profileuser.html"
+   >
+    <img src="${image}" 
+    class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+   <div class="pt-3 px-1">
+      <a 
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+      href="../profileuser/profileuser.html"
+       class="text-base font-semibold mb-0.5"> 
+      ${name}
+       </a>
+      <p class="font-medium text-sm">${numberfriends} Friends </p>
+   
+   </div>
+</div>
+
+   `
+    }
+  }
+  document.getElementById("profileloginuser_listconfirmedfriends").innerHTML= 
+  html_load_friends + 
+ 
+  html_load_friends_more  
+ ;
+
+ 
+  
+}
 
      static update_description_modal=async(event)=>
      {

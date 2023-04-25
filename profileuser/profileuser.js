@@ -19,7 +19,8 @@ class ProfileUserJS
 
    if(sessionuser.iduser===getuser.iduser)
    {
-      document.getElementById("headersidebar_a_addfriendandmore").hidden=true;
+      location.href = "../profile_login_user/profile_login_user.html";
+      //document.getElementById("headersidebar_a_addfriendandmore").hidden=true;
    }
    //EXIST FOLLOW
    let existfollow=await APIRESTFollowers.existfollow
@@ -82,12 +83,12 @@ this.showImageCoverProfile(image, coverphoto);
       await this.loadVideosUser(iduser);
       await this.loadImagesUser(sessionuser.iduser,iduser);
      await  this.loadPostUser(iduser);
+     await this.load_confirmedFriends(sessionuser.iduser,iduser);
 
    } catch (error) {
     //console.error(error);
    alert(error);
-   window.location.href="../index.html";
- 
+  
    }
  
    }
@@ -191,6 +192,9 @@ static showAddFollow(iduserfollowed,iduserlogin,userrname) {
          usernamelogin);
         if (addUserRelation===2) {
       
+
+
+         
           messagenotification('The friend request has been confirmed','success',event);
      
           this.showOptionsConfirmedFriend(iduserlogin,usernamelogin,idfriend);
@@ -212,6 +216,9 @@ static showAddFollow(iduserfollowed,iduserlogin,userrname) {
       alert(error);
      }
    }
+
+
+
    static async deleteUserRelation(iduserlogin,usernamelogin,idfriend,event)
    {
       try {
@@ -335,6 +342,80 @@ static showAddFollow(iduserfollowed,iduserlogin,userrname) {
 //#endregion USERFRIEND
 
 
+//LOAD CONFIRMED FRIENDS USER
+static  load_confirmedFriends=async(iduserlogin,piduser)=>
+{
+  let getConfirmedFriendByUser = await APIRESTUserFriends.getConfirmedFriendByUser(iduserlogin,piduser);
+   document.getElementById("profileuser_span_countconfirmedfriends").innerHTML=getConfirmedFriendByUser.length;
+  let html_load_friends = '';
+  let html_load_friends_more = '';
+  for (let i = 0; i < getConfirmedFriendByUser.length; i++) {
+    let {iduser,name,image,numberfriends}=getConfirmedFriendByUser[i];
+      if(image==="")
+      {
+         image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+    
+      if (i >= 4) {
+     
+      html_load_friends_more+=` 
+
+      <div class="card p-2" hidden id="morefriend">
+      <a 
+         onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+         href="../profileuser/profileuser.html"
+      >
+      <img src="${image}" 
+      class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+     <div class="pt-3 px-1">
+        <a 
+        onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+        href="../profileuser/profileuser.html"
+        class="text-base font-semibold mb-0.5"> 
+        ${name} </a>
+        <p class="font-medium text-sm">${numberfriends} Friends </p>
+      
+     </div>
+      </div>
+   `;
+  
+
+    } else {
+   html_load_friends+=`
+
+   <div class="card p-2">
+   <a 
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+      href="../profileuser/profileuser.html"
+   >
+    <img src="${image}" 
+    class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+   <div class="pt-3 px-1">
+      <a 
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+      href="../profileuser/profileuser.html"
+       class="text-base font-semibold mb-0.5"> 
+      ${name}
+       </a>
+      <p class="font-medium text-sm">${numberfriends} Friends </p>
+   
+   </div>
+</div>
+
+   `
+    }
+  }
+  document.getElementById("profileuser_listconfirmedfriends").innerHTML= 
+  html_load_friends + 
+ 
+  html_load_friends_more  
+ ;
+
+ 
+  
+}
+
+
    //GET VIDEOS  USER
 static async loadVideosUser(iduser) {
    let getVideosByUser = await APIRESTVideo.getVideosByUser(iduser);
@@ -359,7 +440,7 @@ static async loadVideosUser(iduser) {
  
                  </video>
                
-                 </a>
+          </a>
        
        </div>
     </div>
@@ -538,7 +619,6 @@ static async loadImagesUser(iduserLogin,iduser) {
    }
 
    //TIMELINE
-
 static  load_timeline=async(iduser,iduserlogin,usernamelogin)=>
 {
   let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser,iduserlogin);
@@ -585,7 +665,7 @@ static  load_timeline=async(iduser,iduserlogin,usernamelogin)=>
   
 }
 
- 
+
   //GET IMAGE COVER PROFILE
   static showImageCoverProfile(image, coverphoto) {
     if (image === "") {
@@ -1033,7 +1113,8 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
             <a 
             title="${namecommentuser}"
             onclick="Head_SidebarJS.passidtoUserProfile('${idcommentuser}');" 
-            href="../profileuser/profileuser.html">
+            href="../profileuser/profileuser.html"
+            >
                <img src="${imagecommentuser}" alt="" class="absolute h-full rounded-full w-full">
                </a>
                </div>

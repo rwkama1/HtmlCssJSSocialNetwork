@@ -70,8 +70,6 @@ class APIRESTUserFriends
        
        return true;
        } 
-
-
        static existconfirmfriendloginusersender=async(idfriend,iduserlogin,usernamelogin)=>
        {
         let USERFRIENDURL=this.RESTAPIURL+`/userrelation/existconfirmfriendloginusersender?pidfriend=${idfriend}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`
@@ -95,6 +93,7 @@ class APIRESTUserFriends
        let data = await response.json();
        return data;
        } 
+
        static getPendingFriendsbyUserLoginUser=async(iduserlogin,usernamelogin)=>
        {
         let USERFRIENDURL=this.RESTAPIURL+`/userrelation/getsentpendingusersbyuser?iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
@@ -118,6 +117,56 @@ class APIRESTUserFriends
        let data = await response.json();
        return data;
        } 
+       //PROFILE USER
+        static getConfirmedFriendByUser=async(iduserlogin,piduser)=>
+       {
+
+        let USERFRIENDURL=this.RESTAPIURL+`/userrelation/getconfirmedfriendbyuser?iduserlogin=${iduserlogin}&piduser=${piduser}`;
+
+        let headersList = {
+          "Accept": "*/*"
+         }
+         
+         var requestOptions = {
+          method: "GET",
+
+          headers: headersList
+         };
+ 
+        const response=await fetch(USERFRIENDURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       let data = await response.json();
+       return data;
+       } 
        
+       //CONFIRMED USERS SIDEBAR
+       static getConfirmedFriendByUserSideBar=async(iduserlogin)=>
+       {
+
+        let USERFRIENDURL=this.RESTAPIURL+`/userrelation/getConfirmedFriendsbyUserLoginUser?iduserlogin=${iduserlogin}`;
+
+        let headersList = {
+          "Accept": "*/*"
+         }
+         
+         var requestOptions = {
+          method: "GET",
+
+          headers: headersList
+         };
+ 
+        const response=await fetch(USERFRIENDURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       let data = await response.json();
+       return data;
+       } 
        
 }

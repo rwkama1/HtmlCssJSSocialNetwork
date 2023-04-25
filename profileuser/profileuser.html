@@ -414,7 +414,7 @@
                   <nav class="responsive-nav pl-3">
                      <ul uk-switcher="connect: #timeline-tab; animation: uk-animation-fade">
                         <li><a href="">Timeline</a></li>
-                        <li><a href="">Friend <span>3,243</span> </a></li>
+                        <li><a href="">Friend <span id="profileuser_span_countconfirmedfriends"></span> </a></li>
                         <li><a href="">Images <span id="profileuser_span_countimages"></span> </a></li>                    
                         <li><a href="">Videos <span id="profileuser_span_countvideos"></span> </a></li>
                         <li><a href="">Posts <span id="profileuser_span_countpost"></span> </a></li>
@@ -566,108 +566,9 @@
                <div class="card md:p-6 p-2 max-w-3xl mx-auto">
                   <h2 class="text-xl font-bold"> Friends</h2>
                
-                  <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <!-- <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                              Following
-                              </button> 
-                              
-                              -->
-                           <!-- Use ExistDuplicateFriendUser -->
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-4.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5">  Martin Gray  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-7.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5">  Alex Michael </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-5.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Jesse Stevens  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-6.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Erica Jones  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2" hidden id="morefriend">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-6.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Erica Jones  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2" hidden id="morefriend">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2" hidden id="morefriend">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
-                     <div class="card p-2" hidden id="morefriend">
-                        <a href="timeline.html"> <img src="../assets/images/avatars/avatar-3.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
-                        <div class="pt-3 px-1">
-                           <a href="timeline.html" class="text-base font-semibold mb-0.5"> Monroe Parker  </a>
-                           <p class="font-medium text-sm">843K Friends </p>
-                           <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1"> Add Friend </button>
-                        </div>
-                     </div>
+                  <div id="profileuser_listconfirmedfriends" class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
+                 
+                   
                   </div>
                   <div class="flex justify-center mt-6">
                      <a href="#" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white" uk-toggle="target: #morefriend; animation: uk-animation-fade">
