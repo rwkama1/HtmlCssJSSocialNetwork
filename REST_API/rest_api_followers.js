@@ -74,7 +74,7 @@ class APIRESTFollowers
        static existfollow=async(iduserfollower,iduserfollowed)=>
        {
         let USERFOLLOWURL=this.RESTAPIURL+`/followers/existfollow?iduserfollower=${iduserfollower}&iduserfollowed=${iduserfollowed}`
-        iduserfollower,iduserfollowed
+ 
         let headersList = {
           "Accept": "*/*"
          }
@@ -94,5 +94,50 @@ class APIRESTFollowers
        let data = await response.json();
        return data;
        } 
-       
+       static number_of_followers=async(iduser)=>
+       {
+        let USERFOLLOWURL=this.RESTAPIURL+`/followers/numberoffollowers?iduser=${iduser}`;
+ 
+        let headersList = {
+          "Accept": "*/*"
+         }
+         
+         var requestOptions = {
+          method: "GET",
+
+          headers: headersList
+         };
+ 
+        const response=await fetch(USERFOLLOWURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       let data = await response.json();
+       return data;
+       } 
+       static getFollowersByUser=async(piduser)=>
+       {
+        let USERFOLLOWURL=this.RESTAPIURL+`/followers/numberoffollowers?piduser=${piduser}`;
+ 
+        let headersList = {
+          "Accept": "*/*"
+         }
+         
+         var requestOptions = {
+          method: "GET",
+
+          headers: headersList
+         };
+ 
+        const response=await fetch(USERFOLLOWURL, requestOptions);
+       if(!response.ok)
+       {
+        const error=await response.text();
+        throw new Error(error);
+       }
+       let data = await response.json();
+       return data;
+       } 
 }

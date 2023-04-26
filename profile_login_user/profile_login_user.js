@@ -172,6 +172,9 @@ static  load_confirmedFriends=async(iduserlogin)=>
       {
          image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
       }
+
+
+      
     
       if (i >= 4) {
      

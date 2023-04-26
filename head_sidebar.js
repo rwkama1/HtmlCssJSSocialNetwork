@@ -142,6 +142,8 @@ static  load_headersidebar=async()=>
  
   document.getElementById('header_show_nameuser').innerHTML=getuser.name;
 
+
+  await Head_SidebarJS.loadConfirmedFriend_SideBar(sessionuser);
   } 
  catch (error) {
   alert(error);
@@ -205,6 +207,40 @@ static passidtoUserProfile=(iduser)=>
 
     }
     document.getElementById("headersidebar_ul_listpendingfriendrequest").innerHTML=html_friendrequest;
+
+  }
+
+  static async loadConfirmedFriend_SideBar(sessionuser) {
+
+  //  existloginuser
+
+    let html_confirmedfriend="";
+    let getConfirmedFriendByUserSideBar = await APIRESTUserFriends.getConfirmedFriendByUserSideBar(sessionuser.iduser);
+ 
+    for (let i = 0; i < getConfirmedFriendByUserSideBar.length; i++) {
+      let {iduser,image,name,existloginuser } = getConfirmedFriendByUserSideBar[i];
+      if (image==="") {
+        image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      let user_status_online="";
+      if (existloginuser) {
+        user_status_online=`<span class="user_status status_online"></span>`;
+      }
+      html_confirmedfriend+=`
+      <a 
+        onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+        href="../profileuser/profileuser.html"
+      >
+        <div class="contact-avatar"> 
+          <img src="${image}" alt="">
+            ${user_status_online}
+        </div>
+        <div class="contact-username">${name}</div>
+      </a>
+      `;
+
+    }
+    document.getElementById("headersidebar_friendconfirmedslist").innerHTML=html_confirmedfriend;
 
   }
 }
