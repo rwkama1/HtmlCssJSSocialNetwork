@@ -76,8 +76,9 @@ this.showImageCoverProfile(image, coverphoto);
  
     //SHOW COUNTRY , OCUPATION , URLS
 
+    let numberoffollowers=await APIRESTFollowers.number_of_followers(iduser)
     this.load_country_ocupation_urls(country,ocupattion,urlfacebook,
-      urlinstagram,urltwitter,urllinkedin);
+      urlinstagram,urltwitter,urllinkedin,numberoffollowers);
 
      await  this.load_timeline(iduser,sessionuser.iduser,sessionuser.userrname);
       await this.loadVideosUser(iduser);
@@ -587,8 +588,9 @@ static async loadImagesUser(iduserLogin,iduser) {
     //SHOW COUNTRY , OCUPATION , URLS
 
    static load_country_ocupation_urls=(country,ocupation,urlfacebook
-    ,urlinstagram,urltwitter,urllinkedin)=>
+    ,urlinstagram,urltwitter,urllinkedin,numberoffollowers)=>
    {
+    document.getElementById("profileuser_strong_followers").innerHTML=numberoffollowers+" People";
     document.getElementById("profileuser_strong_country").innerHTML=country;
 
    if (ocupation!=="") {

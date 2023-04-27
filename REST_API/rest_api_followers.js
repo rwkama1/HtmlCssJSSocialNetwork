@@ -119,7 +119,7 @@ class APIRESTFollowers
        } 
        static getFollowersByUser=async(piduser)=>
        {
-        let USERFOLLOWURL=this.RESTAPIURL+`/followers/numberoffollowers?piduser=${piduser}`;
+        let USERFOLLOWURL=this.RESTAPIURL+`/followers/getfollowersofuser?piduser=${piduser}`;
  
         let headersList = {
           "Accept": "*/*"
@@ -140,4 +140,5 @@ class APIRESTFollowers
        let data = await response.json();
        return data;
        } 
+       
 }

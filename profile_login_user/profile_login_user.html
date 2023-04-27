@@ -450,7 +450,7 @@
                      <ul uk-switcher="connect: #timeline-tab; animation: uk-animation-fade">
                         <li><a href="">Timeline</a></li>
                         <li><a href="">Friend <span id="profileloginuser_span_countconfirmedfriends"></span> </a></li>
-                        <li><a href="">Followers <span>3,243</span> </a></li>
+                        <li><a href="">Followers <span id="profileloginuser_span_followersuser"></span> </a></li>
                         <li><a href="">Images </a></li>              
                         <li><a href="">Videos</a></li>
                         <li><a href="">Posts</a></li>
@@ -574,18 +574,13 @@
                <div class="card md:p-6 p-2 max-w-3xl mx-auto">
                   <h2 class="text-xl font-bold"> Followers</h2>
                  
-                  <div class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
-                     <div class="card p-2">
+                  <div id="profileloginuser_listfollowers" class="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 mt-3">
+                     <!-- <div class="card p-2">
                         <a href="../profileuser/profileuser.html"> <img src="../assets/images/avatars/avatar-2.jpg" class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
                         <div class="pt-3 px-1">
                            <a href="timeline.html" class="text-base font-semibold mb-0.5">  James Lewis </a>
                            <p class="font-medium text-sm">843K Followers </p>
-                           <!-- <button class="bg-blue-100 w-full flex font-semibold h-8 items-center justify-center mt-3 px-3 rounded-md text-blue-600 text-sm mb-1">
-                              Following
-                              </button> 
-                              
-                              -->
-                           <!-- Use ExistDuplicateFriendUser -->
+                          
                         </div>
                      </div>
                      <div class="card p-2">
@@ -675,7 +670,7 @@
                            <p class="font-medium text-sm">843K Followers </p>
                          
                         </div>
-                     </div>
+                     </div> -->
                   </div>
                   <div class="flex justify-center mt-6">
                      <a href="#" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white" uk-toggle="target: #morefollowers; animation: uk-animation-fade">
@@ -2353,6 +2348,7 @@
 
   <script src="../utils/selectdata.js"></script>
   <script src="../REST_API/rest_api_userfriends.js"></script>
+  <script src="../REST_API/rest_api_followers.js"></script>
   <script src="../REST_API/rest_api_likes.js"></script>
   <script src="../REST_API/rest_api_videocomment.js"></script>
   <script src="../REST_API/rest_api_subcomments.js"></script>

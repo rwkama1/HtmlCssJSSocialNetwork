@@ -51,6 +51,9 @@
        //LOAD CONFIRMED FRIENDS USER
        await this.load_confirmedFriends(iduser);
 
+         //LOAD FOLLOWERS  USER
+         await this.load_followersbyUser(iduser);
+
 
        //TIMELINE
        await this.load_timeline(iduser,userrname);
@@ -156,6 +159,81 @@ static load_timeline=async(iduser,usernamelogin)=>
 
 
   
+  
+}
+
+//LOAD FOLLOWERS  USER
+static  load_followersbyUser=async(iduserlogin)=>
+{
+  let getFollowersByUser = await APIRESTFollowers.getFollowersByUser(iduserlogin);
+   document.getElementById("profileloginuser_span_followersuser").innerHTML=getFollowersByUser.length;
+  let html_load_followers = '';
+  let html_load_followers_more = '';
+  for (let i = 0; i < getFollowersByUser.length; i++) {
+    let {iduser,name,image,numberfollowers}=getFollowersByUser[i];
+      if(image==="")
+      {
+         image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+
+
+      
+    
+      if (i >= 4) {
+     
+         html_load_followers_more+=` 
+
+     <div class="card p-2" hidden id="morefollowers">
+      <a
+
+      onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+     href="../profileuser/profileuser.html"
+     > 
+     <img src="${image}" 
+     class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+     <div class="pt-3 px-1">
+        <a 
+        onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+       href="../profileuser/profileuser.html"
+        class="text-base font-semibold mb-0.5"> ${name}  </a>
+        <p class="font-medium text-sm">${numberfollowers} Followers </p>
+     
+     </div>
+      </div>
+   `;
+  
+
+    } else {
+      html_load_followers+=`
+
+      <div class="card p-2">
+      <a
+
+       onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+      href="../profileuser/profileuser.html"
+      > 
+      <img src="${image}" 
+      class="h-36 object-cover rounded-md shadow-sm w-full"> </a>
+      <div class="pt-3 px-1">
+         <a 
+         onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+        href="../profileuser/profileuser.html"
+         class="text-base font-semibold mb-0.5"> ${name}  </a>
+         <p class="font-medium text-sm">${numberfollowers} Followers </p>
+      
+      </div>
+   </div>
+
+   `
+    }
+  }
+  document.getElementById("profileloginuser_listfollowers").innerHTML= 
+  html_load_followers + 
+ 
+  html_load_followers_more  
+ ;
+
+ 
   
 }
 

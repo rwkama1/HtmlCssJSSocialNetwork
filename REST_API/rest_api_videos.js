@@ -273,6 +273,53 @@ class APIRESTVideo
             let data = await response.json();
             return data;
        }  
+       static getVideoFollowersofUser=async(iduserLogin)=>
+       {
+       
+             let URLVIDEOS=this.RESTAPIURL+`/video/getUserFollowerVideos?iduserlogin=${iduserLogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEOS, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+       static getVideoFriendsofUser=async(iduserLogin)=>
+       {
+       
+             let URLVIDEOS=this.RESTAPIURL+`/video/getUserFollowerVideos?iduserlogin=${iduserLogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLVIDEOS, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
+
 
        
   }     

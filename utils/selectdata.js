@@ -23,6 +23,7 @@ class SelectData
   static showcommentDeleteModal={};
 
   
+
   static showcommentDeleteModalVideo={};
 
   //GETS
