@@ -15,6 +15,10 @@ class ImageMainPageJS
      
        await  this.listImageMoreLike(sessionuser);
         await this.listImageMoreComment(sessionuser);
+
+         
+       await  this.listImagesFollowersUser(sessionuser);
+       await this.listImagesFriendsUser(sessionuser);
     
        
       } catch (error) {
@@ -34,7 +38,7 @@ class ImageMainPageJS
            let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(sessionuser.iduser,
             sessionuser.userrname,query);
            let html_load_searchimages="";
-           for (let i = 0; i <  Math.min(getSearchImagesExpresion.length, 10); i++) {
+           for (let i = 0; i <  Math.min(getSearchImagesExpresion.length, 30); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getSearchImagesExpresion[i];
              html_load_searchimages+=`
              <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
@@ -78,7 +82,7 @@ class ImageMainPageJS
             
          let getSearchImagesExpresion = await APIRESTImages.getSearchImagesExpresion(sessionuser.iduser,sessionuser.userrname,"");
          let html_load_seaarchimages="";
-         for (let i = 0; i < Math.min(getSearchImagesExpresion.length, 15); i++) {
+         for (let i = 0; i < Math.min(getSearchImagesExpresion.length, 30); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getSearchImagesExpresion[i];
             
             html_load_seaarchimages += `
@@ -118,7 +122,7 @@ class ImageMainPageJS
          {
          let getImagesOrderByLikes = await APIRESTImages.getImagesOrderByLikes(sessionuser.iduser,sessionuser.userrname);
          let html_load_imageslike="";
-         for (let i = 0; i < Math.min(getImagesOrderByLikes.length, 15); i++) {
+         for (let i = 0; i < Math.min(getImagesOrderByLikes.length, 20); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesOrderByLikes[i];
             
             html_load_imageslike += `
@@ -159,7 +163,7 @@ class ImageMainPageJS
          let getImagesOrderbyComments = await APIRESTImages.getImagesOrderbyComments(sessionuser.iduser,
             sessionuser.userrname);
          let html_load_commentsimages="";
-         for (let i = 0; i < Math.min(getImagesOrderbyComments.length, 15); i++) {
+         for (let i = 0; i < Math.min(getImagesOrderbyComments.length, 20); i++) {
             let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesOrderbyComments[i];
           
             html_load_commentsimages += `
@@ -193,6 +197,86 @@ class ImageMainPageJS
                `;
          }
          document.getElementById("imagemainpage_listmorecommentimage_div").innerHTML = html_load_commentsimages;
+         
+         }
+         static listImagesFollowersUser=async(sessionuser)=>
+         {
+         let getImagesFollowersUser = await APIRESTImages.getImagesFollowersUser(sessionuser.iduser);
+         let html_load_followeruserimages="";
+         for (let i = 0; i < Math.min(getImagesFollowersUser.length, 20); i++) {
+            let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesFollowersUser[i];
+          
+            html_load_followeruserimages += `
+            <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+            <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               >
+                  <img src="${urlimage}" 
+                  uk-responsive class="w-full h-full absolute object-cover inset-0">
+               </a>
+            </div>
+            <div class="flex-1 space-y-2">
+               <a href="image_watch.html" 
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+               <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
+               <a 
+               href="../profileuser/profileuser.html"
+               onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+               class="font-semibold block text-sm"> ${user.name}</a>
+               <div class="flex items-center justify-between">
+                  <div class="flex space-x-3 items-center text-sm md:pt-3">
+                  <div>${stringpostedago} </div>
+                  
+                  </div>
+               </div>
+            </div>
+            <!-- ----- -->
+         </div> 
+               `;
+         }
+         document.getElementById("imagemainpage_listfolloweruserimages_div").innerHTML = html_load_followeruserimages;
+         
+         }
+         static listImagesFriendsUser=async(sessionuser)=>
+         {
+         let getImagesFriendsUser = await APIRESTImages.getImagesFriendsUser(sessionuser.iduser);
+         let html_load_friendserimages="";
+         for (let i = 0; i < Math.min(getImagesFriendsUser.length, 20); i++) {
+            let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesFriendsUser[i];
+          
+            html_load_friendserimages += `
+            <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+            <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+               <a href="image_watch.html"
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               >
+                  <img src="${urlimage}" 
+                  uk-responsive class="w-full h-full absolute object-cover inset-0">
+               </a>
+            </div>
+            <div class="flex-1 space-y-2">
+               <a href="image_watch.html" 
+               onclick="ImageMainPageJS.passidtoImageWatch('${idphoto}');"
+               class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+               <p class="leading-6 pr-4 line-clamp-2 md:block hidden"> ${description} </p>
+               <a 
+               href="../profileuser/profileuser.html"
+               onclick="ImageMainPageJS.passidtoUserProfile('${user.iduser}');"
+               class="font-semibold block text-sm"> ${user.name}</a>
+               <div class="flex items-center justify-between">
+                  <div class="flex space-x-3 items-center text-sm md:pt-3">
+                  <div>${stringpostedago} </div>
+                  
+                  </div>
+               </div>
+            </div>
+            <!-- ----- -->
+         </div> 
+               `;
+         }
+         document.getElementById("imagemainpage_listfrienduserimages_div").innerHTML = html_load_friendserimages;
          
          }
             //ADD IMAGE

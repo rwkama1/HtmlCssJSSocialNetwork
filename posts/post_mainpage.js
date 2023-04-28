@@ -4,18 +4,19 @@ class PostMainPageJS
         //LOAD PAGE
         static loadPage=async()=>
         {
-          setTimeout(async () => {
+         
           try {
             let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
 
   
           //await this.loadAlbumImageUserModal();
         
-           await  this.listPostSearch(sessionuser),
-           await this.listPostMoreLikes(sessionuser),
-           await this.listPostMoreComments(sessionuser)
+           await  this.listPostSearch(sessionuser);
+           await this.listPostMoreLikes(sessionuser);
+           await this.listPostMoreComments(sessionuser);
            
-     
+           await this.listPostFriendsUser(sessionuser);
+           await this.listPostFollowerUser(sessionuser);
    
 
   
@@ -23,7 +24,7 @@ class PostMainPageJS
           // alert(error);
           // window.location.href="../index.html"; 
            }
-      },1000);
+    
   
         }
       //SEARCH
@@ -98,7 +99,7 @@ class PostMainPageJS
         let getSearchPostExpresion = await APIRESTPost.getSearchPostExpresion
         (sessionuser.iduser,"");
         let html_load_searchpost="";
-        for (let i = 0; i < Math.min(getSearchPostExpresion.length, 15); i++) {
+        for (let i = 0; i < Math.min(getSearchPostExpresion.length, 30); i++) {
           let {  description, stringpostedago, title,user,idpost } = getSearchPostExpresion[i];
           if(user.image==="")
           {
@@ -129,7 +130,7 @@ class PostMainPageJS
       static async listPostMoreLikes(sessionuser) {
               let getMoreLikePost = await APIRESTPost.getMoreLikePost(sessionuser.iduser,sessionuser.userrname);
               let html_load_searchpost="";
-              for (let i = 0; i < Math.min(getMoreLikePost.length, 15); i++) {
+              for (let i = 0; i < Math.min(getMoreLikePost.length, 30); i++) {
                 let {  description, stringpostedago, title,user,idpost } = getMoreLikePost[i];
                 if(user.image==="")
                 {
@@ -161,7 +162,7 @@ class PostMainPageJS
                     let getMoreCommentPosts = await APIRESTPost.getMoreCommentPosts(sessionuser.iduser,
                       sessionuser.userrname);
                     let html_load_searchpost="";
-                    for (let i = 0; i < Math.min(getMoreCommentPosts.length, 15); i++) {
+                    for (let i = 0; i < Math.min(getMoreCommentPosts.length, 30); i++) {
                       let {  description, stringpostedago, title,user,idpost } = getMoreCommentPosts[i];
                       if(user.image==="")
                       {
@@ -188,6 +189,68 @@ class PostMainPageJS
                    
                     document.getElementById("postmaingpage_listmorecommentposts_div").innerHTML = html_load_searchpost;
                     
+        }
+        static async listPostFollowerUser(sessionuser) {
+          let getPostFollowersUser = await APIRESTPost.getPostFollowersUser(sessionuser.iduser);
+          let html_load_followeruserpost="";
+          for (let i = 0; i < Math.min(getPostFollowersUser.length, 30); i++) {
+            let {  description, stringpostedago, title,user,idpost } = getPostFollowersUser[i];
+            if(user.image==="")
+            {
+              user.image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+            }
+          
+            html_load_followeruserpost += `
+                <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                    <div class="flex items-start space-x-5 p-7">
+                      <img src="${user.image}" alt="" class="w-12 h-12 rounded-full">
+                      <div class="flex-1">
+                          <a href="../posts/post_watch.html" 
+                          onclick="PostMainPageJS.passidtoPostWatch('${idpost}');"
+                          class="text-lg font-semibold line-clamp-1 mb-1">${title} </a>
+                          <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html"></span> ${stringpostedago} </p>
+                        <p class="leading-6 line-clamp-2 mt-3">${description}</p>
+                      </div>
+                    
+                    </div>
+                    <!-- ----- -->
+                </div>
+                `;
+          }
+         
+          document.getElementById("postmaingpage_listfolloweruserposts_div").innerHTML = html_load_followeruserpost;
+          
+        }
+        static async listPostFriendsUser(sessionuser) {
+          let getPostFriendUser = await APIRESTPost.getPostFriendUser(sessionuser.iduser);
+          let html_load_frienduserpost="";
+          for (let i = 0; i < Math.min(getPostFriendUser.length, 30); i++) {
+            let {  description, stringpostedago, title,user,idpost } = getPostFriendUser[i];
+            if(user.image==="")
+            {
+              user.image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+            }
+          
+            html_load_frienduserpost += `
+                <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                    <div class="flex items-start space-x-5 p-7">
+                      <img src="${user.image}" alt="" class="w-12 h-12 rounded-full">
+                      <div class="flex-1">
+                          <a href="../posts/post_watch.html" 
+                          onclick="PostMainPageJS.passidtoPostWatch('${idpost}');"
+                          class="text-lg font-semibold line-clamp-1 mb-1">${title} </a>
+                          <p class="text-sm text-gray-400 mb-2">  <span data-href="%40tag-dev.html"></span> ${stringpostedago} </p>
+                        <p class="leading-6 line-clamp-2 mt-3">${description}</p>
+                      </div>
+                    
+                    </div>
+                    <!-- ----- -->
+                </div>
+                `;
+          }
+         
+          document.getElementById("postmaingpage_listfriendsuserposts_div").innerHTML = html_load_frienduserpost;
+          
         }
         static passidtoPostWatch=(idpost)=>
         {

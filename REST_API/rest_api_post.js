@@ -249,5 +249,50 @@ const response=await fetch(PUTURLPOST, requestOptions);
             let data = await response.json();
             return data;
        }   
+       static getPostFollowersUser=async(iduserlogin)=>
+       {
+             let URLPOST=this.RESTAPIURL+`/post/getUserFollowerPost?iduserlogin=${iduserlogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
+   static getPostFriendUser=async(iduserlogin)=>
+       {
+             let URLPOST=this.RESTAPIURL+`/post/getPostbyFriendUser?iduserlogin=${iduserlogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
+
 
 }

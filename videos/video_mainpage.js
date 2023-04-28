@@ -4,7 +4,7 @@ class VideoMainPageJS
       static loadPage=async()=>
       {
       
-        setTimeout(async () => {
+      
         try {
           let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
        
@@ -32,11 +32,15 @@ class VideoMainPageJS
 
       await this.listVideosMoreComment(sessionuser);
 
+   await this.listVideoFollowersUser(sessionuser);
+
+   await this.listVideoFriendsUser(sessionuser);
+
       } catch (error) {
         // alert(error);
         // window.location.href="../index.html"; 
          }
-    },1000);
+ 
    
       }
         //SEARCH
@@ -49,7 +53,7 @@ class VideoMainPageJS
         const query = event.target.value;
         let getSearchVideosExpresion= await APIRESTVideo.getSearchVideosExpresion(sessionuser.iduser,query);
         let html_load_seaarchvideos="";
-        for (let i = 0; i <  Math.min(getSearchVideosExpresion.length, 10); i++) {
+        for (let i = 0; i <  Math.min(getSearchVideosExpresion.length, 20); i++) {
           let {urlvideo,description,stringpostedago,title,user,idvideo}=getSearchVideosExpresion[i];
           html_load_seaarchvideos+=`
               <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
@@ -94,7 +98,7 @@ class VideoMainPageJS
       static async listVideoSearch(iduser) {
     let getSearchVideosExpresion = await APIRESTVideo.getSearchVideosExpresion(iduser,"");
     let html_load_seaarchvideos="";
-    for (let i = 0; i < Math.min(getSearchVideosExpresion.length, 10); i++) {
+    for (let i = 0; i < Math.min(getSearchVideosExpresion.length, 20); i++) {
       let { urlvideo, description, stringpostedago, title,user,idvideo } = getSearchVideosExpresion[i];
      
       html_load_seaarchvideos += `
@@ -137,7 +141,7 @@ class VideoMainPageJS
             sessionuser.userrname);
         
           let html_load_videosmorelike="";
-          for (let i = 0; i < Math.min(getVideosOrderByLikes.length, 10); i++) {
+          for (let i = 0; i < Math.min(getVideosOrderByLikes.length, 20); i++) {
             let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideosOrderByLikes[i];
             html_load_videosmorelike += `
                     <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
@@ -182,7 +186,7 @@ class VideoMainPageJS
                 );
               
                 let html_load_videosmorecomments="";
-                for (let i = 0; i < Math.min(getVideosOrderbyComments.length, 10); i++) {
+                for (let i = 0; i < Math.min(getVideosOrderbyComments.length, 20); i++) {
                   let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideosOrderbyComments[i];
                   html_load_videosmorecomments += `
                           <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
@@ -220,7 +224,94 @@ class VideoMainPageJS
                 document.getElementById("videomaingpage_listmorecommentsvideos_div").innerHTML = html_load_videosmorecomments;  
                 
          }
+        static async listVideoFollowersUser(sessionuser) {
+          
+            let getFollowersByUser = await APIRESTVideo.getVideoFollowersofUser(
+              sessionuser.iduser);
+        
+            let html_load_followeruservideos="";
+            for (let i = 0; i < Math.min(getFollowersByUser.length, 20); i++) {
+              let { urlvideo, description, stringpostedago, title,user,idvideo } = getFollowersByUser[i];
+              html_load_followeruservideos += `
+                      <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                      <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                    
+                        <a href="./video_watch.html"
+                        onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                        >
+                        <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
+                        </a>
+                      </div>
+                      <div class="flex-1 space-y-2">
+                      
+                        <a href="./video_watch.html"
+                        onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
 
+                        class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                        <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
+                      
+                        <a 
+                        href="../profileuser/profileuser.html"
+                          onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
+                        class="font-semibold block text-sm"> ${user.name}</a>
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-3 items-center text-sm md:pt-3">
+                              <div>${stringpostedago} </div>
+                            
+                            </div>
+                        </div>
+                      </div>
+                  
+                  </div>
+                  `;
+            }
+            document.getElementById("videomaingpage_listfolloweruservideos_div").innerHTML = html_load_followeruservideos;  
+            
+        }
+        static async listVideoFriendsUser(sessionuser) {
+          
+          let getVideoFriendsofUser = await APIRESTVideo.getVideoFriendsofUser(
+            sessionuser.iduser);
+      
+          let html_load_friendsuservideos="";
+          for (let i = 0; i < Math.min(getVideoFriendsofUser.length, 20); i++) {
+            let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideoFriendsofUser[i];
+            html_load_friendsuservideos += `
+                    <div class="flex md:space-x-6 space-x-4 md:py-5 py-3 relative">
+                    <div class="md:w-64 md:h-40 w-36 h-24 overflow-hidden rounded-lg relative shadow-sm">
+                  
+                      <a href="./video_watch.html"
+                      onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+                      >
+                      <video src="${urlvideo}" autoplay loop muted playsinline uk-cover></video>
+                      </a>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                    
+                      <a href="./video_watch.html"
+                      onclick="VideoMainPageJS.passidtoVideoWatch('${idvideo}');"
+
+                      class="md:text-xl font-semibold line-clamp-2"> ${title} </a>
+                      <p class="leading-6 pr-4 line-clamp-2 md:block hidden">${description} </p>
+                    
+                      <a 
+                      href="../profileuser/profileuser.html"
+                        onclick="VideoMainPageJS.passidtoUserProfile('${user.iduser}');"
+                      class="font-semibold block text-sm"> ${user.name}</a>
+                      <div class="flex items-center justify-between">
+                          <div class="flex space-x-3 items-center text-sm md:pt-3">
+                            <div>${stringpostedago} </div>
+                          
+                          </div>
+                      </div>
+                    </div>
+                
+                </div>
+                `;
+          }
+          document.getElementById("videomaingpage_listfriendsuservideos_div").innerHTML = html_load_friendsuservideos;  
+          
+      }
          //ADD VIDEO
          static upload_video_modal=async(event)=>
          {

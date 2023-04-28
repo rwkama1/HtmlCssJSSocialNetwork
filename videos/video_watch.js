@@ -47,6 +47,8 @@ document.getElementById("videowatch_iduser").value=iduservideo;
 
   this.loadVideo(getVideo,getuser.image);
 
+  //GET SUGGESTED VIDEOS
+  this.listSuggestedVideos(sessionuser.iduser,sessionuser.userrname,iduservideo);
    
   //NUMBER COMMENT VIDEO
 
@@ -103,6 +105,41 @@ document.getElementById("videowatch_iduser").value=iduservideo;
     document.getElementById("idvideo_deletevideomodal_videowatch").setAttribute("value", idvideo);
 
    }
+// LOAD SUGGESTED VIDEOS
+   static async listSuggestedVideos(iduserlogin,usernamelogin,iduservideo) {
+          
+    let getVideoSuggestedUser = await APIRESTVideo.getVideoSuggestedUser
+    (iduserlogin,iduservideo,usernamelogin);
+
+    let html_load_listsuggestedvideo="";
+    for (let i = 0; i < Math.min(getVideoSuggestedUser.length, 15); i++) {
+      let { urlvideo, description, stringpostedago, title,user,idvideo } = getVideoSuggestedUser[i];
+      html_load_listsuggestedvideo += `
+       <div class="py-2 relative">
+                        
+      <div class="flex-1 pt-3 relative"> 
+      <div>
+            <a href="video-watch.html" 
+            class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+         <video src="${urlvideo}" autoplay loop muted playsinline uk-responsive></video>
+      </a>
+      </div>
+         <a href="video-watch.html" class="line-clamp-2 font-semibold">  
+        
+         ${description}
+              </a>
+         <div class="flex space-x-2 items-center text-sm pt-1">
+            <div> ${stringpostedago}</div>
+            <div>·</div>
+         
+         </div>
+      </div>
+   </div> 
+          `;
+    }
+    document.getElementById("videowatch_listsuggestedvideos").innerHTML = html_load_listsuggestedvideo;  
+    
+}
    //UPDATE VIDEO
    static updateVideo= async(event)=>
    {
