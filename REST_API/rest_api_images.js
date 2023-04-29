@@ -328,7 +328,29 @@ class APIRESTImages
             let data = await response.json();
             return data;
        }  
-       
+       static getImagesSuggestedUser=async(iduserLogin,iduser,usernamelogin)=>
+       {
+      
+             let URLIMAGE=this.RESTAPIURL+`/images/getImageSuggestedUser?iduserlogin=${iduserLogin}&piduser=${iduser}&usernamelogin=${usernamelogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
   }     
   
      

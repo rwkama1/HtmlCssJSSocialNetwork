@@ -332,7 +332,7 @@ class ImageMainPageJS
          static passidtoImageWatch=(idimage)=>
         {
           try {
-            sessionStorage.setItem("iduserwatch",null);
+            sessionStorage.setItem("idimagewatch",null);
             sessionStorage.setItem('idimagewatch', idimage);
 
          }catch (error) {

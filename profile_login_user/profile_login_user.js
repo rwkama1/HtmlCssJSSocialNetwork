@@ -94,7 +94,8 @@
   
       await this.loadPostLoginUser();
       
-    
+        //LOAD LIKES USER
+        await this.load_LikesPostImagesVideosUser(getuserlogin);
 
 
       const buttonDeleteImage = document.getElementById('button_deleteimagemodal_profileuser');
@@ -1102,6 +1103,241 @@ static async loadAlbumVideoUserModal() {
 
   document.getElementById("profileloginuser_select_albumvideos").innerHTML = load_albums_video;
 }
+
+//#region GET POSTIMAGESVIDEOS LIKES USER
+
+static load_LikesPostImagesVideosUser=async(sessionuser)=>
+{
+  let getPhotoPostVideoUserLike = await APIRESTImageVideoPost.getPhotoPostVideoUserLike
+  (sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
+   console.log(getPhotoPostVideoUserLike);
+  let html_load_postvideoimage = '';
+  let html_load_postvideoimage_more = '';
+  for (let i = 0; i <getPhotoPostVideoUserLike.length; i++) {
+    let getpostimagevideo=getPhotoPostVideoUserLike[i];
+ 
+    if (i >= 3) {
+     
+        if (getpostimagevideo.type==="P") {
+
+        
+         html_load_postvideoimage_more+= await this.html_Post_LikesUser(getpostimagevideo);
+         
+       } else if (getpostimagevideo.type==="I"){
+        html_load_postvideoimage_more+= await this.html_Image_LikesUer(getpostimagevideo);
+       }
+       else
+       {
+       html_load_postvideoimage_more+= await this.html_Video_LikesUser(getpostimagevideo);
+       }
+  
+
+    } else {
+      if (getpostimagevideo.type==="P") {
+        
+         html_load_postvideoimage+= await this.html_Post_LikesUser(getpostimagevideo);
+     
+      } else if (getpostimagevideo.type==="I"){
+       html_load_postvideoimage+= await this.html_Image_LikesUer(getpostimagevideo);
+      }
+      else
+      {
+        html_load_postvideoimage+= await this.html_Video_LikesUser(getpostimagevideo);
+      }
+    }
+  }
+  document.getElementById("profileloginuser_likesuser_div").innerHTML= html_load_postvideoimage + 
+  '<div id="profile_likes_user" hidden>' + 
+  html_load_postvideoimage_more + 
+  '</div>';
+
+
+  
+  
+}
+
+
+static async html_Post_LikesUser(getpost)
+{
+
+   //GET POST
+   let userImageProfile=getpost.user.image;
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
+   let idpost=getpost.id;
+   let likespost=getpost.likes;
+   let iduserlogin=getpost.user.iduser;
+   let userName=getpost.user.name;
+   let stringpostedago=getpost.stringpostedago;
+   let description=getpost.description;
+
+ 
+
+ 
+      //let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpost);
+   //let NumberOfCommentPost=getpost.numbercomments;
+
+  //SHOW EXISTLIKEPOST
+ //let existLikePost= this.exist_like_post(getpost.existlikeloginuser);
+  
+  let html_post=`
+  <div class="card lg:mx-0 uk-animation-slide-bottom-small">
+               
+  <div class="flex justify-between items-center lg:p-4 p-2.5">
+     <div class="flex flex-1 items-center space-x-4">
+        <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+        <div class="flex-1 font-semibold capitalize">
+           <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+           <div class="flex items-center space-x-2">
+           <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
+              <ion-icon name="people" role="img" class="md hydrated" aria-label="people"></ion-icon>
+           </div>
+        </div>
+     </div>
+    
+  </div>
+  <div class="p-5 pt-0 border-b dark:border-gray-700">
+    ${description}
+  </div>
+
+</div>
+<br>
+<br>
+  `;
+
+  return html_post;
+}
+  static async html_Image_LikesUer(getimage)
+{
+   let userImageProfile=getimage.user.image;
+   
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
+   let idimage=getimage.id;
+   let likeimage=getimage.likes;
+   let userName=getimage.user.name;
+   let iduserlogin=getimage.user.iduser;
+   let stringpostedago=getimage.stringpostedago;
+   let urlimage=getimage.url;
+
+//NUMBER COMMENT IMAGE
+ 
+//let NumberOfCommentImage=await  APIRESTImageComment.NumberOfCommentImage(idimage);
+
+//let NumberOfCommentImage=getimage.numbercomments;
+
+// let forCommentsPost=await this.forCommentsPost(listcommentpost,idpost,iduserlogin,usernamelogin) 
+//  ${forCommentsPost}
+
+ //SHOW EXISTLIKEIMAGE
+
+
+// let exist_like_image= this.exist_like_image(getimage.existlikeloginuser);
+
+
+ //let exist_like_image=getimage.existlikeloginuser;
+
+  let html_image=`
+  <div class="card lg:mx-0 uk-animation-slide-bottom-small">
+  
+  <div class="flex justify-between items-center lg:p-4 p-2.5">
+     <div class="flex flex-1 items-center space-x-4">
+        <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+        <div class="flex-1 font-semibold capitalize">
+           <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+           <div class="flex items-center space-x-2">
+           <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
+              <ion-icon name="people"></ion-icon>
+           </div>
+        </div>
+     </div>
+ 
+  </div>
+
+     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+       
+              <a href="../images/image_watch.html"
+              onclick="Profile_Login_User.passidtoImageWatch('${idimage}');"
+              >
+                 <img src="${urlimage}" alt="" uk-responsive>
+                 </a>
+      
+     </div>
+ 
+
+ 
+</div>
+<br>
+<br>
+  `;
+  return html_image
+  }
+  static async html_Video_LikesUser(getvideo)
+  {
+   let userImageProfile=getvideo.user.image;
+   if(userImageProfile==="")
+   {
+      userImageProfile=" https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+   }
+   let idvideo=getvideo.id;
+   let likevideo=getvideo.likes;
+   let userName=getvideo.user.name;
+   let iduserlogin=getvideo.user.iduser;
+   let stringpostedago=getvideo.stringpostedago;
+   let urlvideo=getvideo.url;
+
+  // NUMBER COMMENT VIDEO
+ 
+//let NumberOfCommentVideo=await  APIRESTVideoComment.NumberOfCommentVideo(idvideo);
+
+//let NumberOfCommentVideo=getvideo.numbercomments;
+
+ //SHOW EXISTLIKEVIDEO
+
+ //let exist_like_video=await this.exist_like_video(idvideo,iduserlogin,usernamelogin);
+ 
+ //let exist_like_video=getvideo.existlikeloginuser;
+
+ let html_video=`
+ <div  class="card lg:mx-0 uk-animation-slide-bottom-small">
+ <!-- post header-->
+ <div class="flex justify-between items-center lg:p-4 p-2.5">
+    <div class="flex flex-1 items-center space-x-4">
+       <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+       <div class="flex-1 font-semibold capitalize">
+          <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+          <div class="flex items-center space-x-2">
+            <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
+           <ion-icon name="people"></ion-icon>
+        </div>
+       </div>
+    </div>
+ </div>
+ <!-- VIDEO -->
+ <div class="w-full h-full">
+     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <a href="../videos/video_watch.html" onclick="Profile_Login_User.passidtoVideoWatch('${idvideo}');">
+             <video src="${urlvideo}" autoplay loop muted playsinline></video>
+         </a>
+     </div>
+ </div>
+</div>
+<br>
+<br>`;
+
+    return html_video
+ }
+
+//#endregion GET POSTIMAGESVIDEOS LIKES USER
+
+
+
+
+
 
  //#endregion LOAD PAGE
 

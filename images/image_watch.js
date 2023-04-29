@@ -24,14 +24,14 @@ class ImageWatchJS
                editDeleteDiv.setAttribute('hidden', true);
                }
 
- //SHOW EXISTLIKEIMAGE
- let existLikeImage=await APIRESTLikes.existLikeImage(idimagewatch,sessionuser.iduser,sessionuser.userrname);
+    //SHOW EXISTLIKEIMAGE
+    let existLikeImage=await APIRESTLikes.existLikeImage(idimagewatch,sessionuser.iduser,sessionuser.userrname);
 
-  
- if(existLikeImage)
- {
-   document.getElementById("svg_imagewatch_likeimage").setAttribute("fill","black");
- }
+      
+    if(existLikeImage)
+    {
+      document.getElementById("svg_imagewatch_likeimage").setAttribute("fill","black");
+    }
 
 
 
@@ -42,6 +42,8 @@ class ImageWatchJS
     //LOAD IMAGE
     this.loadImage(getImage,getuser.image);
 
+      //GET SUGGESTED IMAGES
+  await this.listSuggestedImages(sessionuser.iduser,sessionuser.userrname,iduserimage);
 
 
   //NUMBER COMMENT IMAGE
@@ -59,7 +61,7 @@ class ImageWatchJS
   }
 
   
-   static loadImage=async(getImage,userimage)=>
+  static loadImage=async(getImage,userimage)=>
   {
    
    
@@ -101,6 +103,48 @@ class ImageWatchJS
    document.getElementById("idphoto_deleteimagemodal_imagewatch").setAttribute("value", idphoto);
 
   } 
+
+// LOAD SUGGESTED IMAGES
+static async listSuggestedImages(iduserlogin,usernamelogin,iduserimage) {
+          
+  let getImagesSuggestedUser = await APIRESTImages.getImagesSuggestedUser
+  (iduserlogin,iduserimage,usernamelogin);
+
+  let html_load_listsuggestedimage="";
+  for (let i = 0; i < Math.min(getImagesSuggestedUser.length, 15); i++) {
+    let { urlimage, description, stringpostedago, title,user,idphoto } = getImagesSuggestedUser[i];
+    html_load_listsuggestedimage += `
+    <div class="py-2 relative">
+                        
+    <div class="flex-1 pt-3 relative"> 
+       <div>
+          <a 
+          href="image_watch.html" 
+          onclick="ImageWatchJS.passidtoImageWatch('${idphoto}');" 
+          class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
+             <img src="${urlimage}" uk-responsive >
+          </a>
+       </div>
+       <a 
+        href="image_watch.html" 
+        onclick="ImageWatchJS.passidtoImageWatch('${idphoto}');" 
+       class="line-clamp-2 font-semibold">  
+        ${description}
+          </a>
+       <div class="flex space-x-2 items-center text-sm pt-1">
+             <div> ${stringpostedago}</div>
+             <div>·</div>
+            
+       </div>
+    </div>
+  </div> 
+ 
+        `;
+  }
+  document.getElementById("imagewatch_listsuggestedimages").innerHTML = html_load_listsuggestedimage;  
+  
+}
+
      //UPDATE IMAGE
      static updateImage= async(event)=>
      {
@@ -170,6 +214,12 @@ class ImageWatchJS
           // alert(error);
           
          }
+          
+    }  
+    static passidtoImageWatch=(idimage)=>
+    {
+      sessionStorage.setItem('idimagewatch', null);
+      sessionStorage.setItem('idimagewatch', idimage); 
           
     }  
     static passidtoUserProfile_Comment=(idusercomment)=>
@@ -1188,8 +1238,8 @@ static show_edit_delete_subcomment=(existsubcomment)=>
  return hidden;
 } 
 }
-window.addEventListener("load",ImageWatchJS.loadPage);
 
+window.addEventListener("load",ImageWatchJS.loadPage);
 
 const updateimageform = document.getElementById('form_updateimage_imagewatch');
 updateimageform.addEventListener('submit', ImageWatchJS.updateImage);

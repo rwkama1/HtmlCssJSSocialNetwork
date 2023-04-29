@@ -47,7 +47,7 @@ class PostWatchJS
       //GET POST
        this.loadPost(getPost,getuser.image);
 
- 
+     await this.listSuggestedPost(sessionuser.iduser,sessionuser.userrname,iduserpost);
       //NUMBER COMMENT POSTS
       let NumberOfCommentPost=await  APIRESTPostComment.NumberOfCommentPost(idpostwatch);
       document.getElementById("postwatch_div_numbercomments").innerHTML=`Comments (${NumberOfCommentPost})`;
@@ -65,7 +65,6 @@ class PostWatchJS
        }
    
   }
-
   static loadPost=async(getPost,userimage)=>
   {
    
@@ -108,6 +107,49 @@ class PostWatchJS
    document.getElementById("idpost_deletepost_postwatch").setAttribute("value", idpost);
 
   } 
+
+// LOAD SUGGESTED POST
+static async listSuggestedPost(iduserlogin,usernamelogin,iduserpost) {
+          
+  let getPostSuggestedUser = await APIRESTPost.getPostSuggestedUser
+  (iduserlogin,iduserpost,usernamelogin);
+
+  let html_load_listsuggestedpost="";
+  for (let i = 0; i < Math.min(getPostSuggestedUser.length, 15); i++) {
+    let {  description, stringpostedago, title,user,idpost } = getPostSuggestedUser[i];
+    html_load_listsuggestedpost += `
+             <div class="py-2 relative">
+                        <div class="flex-1 pt-3 relative"> 
+                        
+                          <a 
+                          href="post_watch.html"
+                          onclick="PostWatchJS.passidtoPostWatch('${idpost}');" 
+                          >
+                        
+                          <h4 class="line-clamp-3 font-semibold whitespace-no-wrap overflow-hidden text-truncate">
+                         ${title}
+                         </h4>
+                          <br>
+                          <p class=" line-clamp-3 whitespace-no-wrap overflow-hidden text-truncate">
+                         ${description}
+                          </p>
+                        </a>
+                        <br>
+                          <div class="flex space-x-2 items-center text-sm pt-1">
+                           
+                            <div> ${stringpostedago}  ago</div>
+                            <div>·</div>
+                          
+                          </div>
+                        </div>
+             </div>
+ 
+        `;
+  }
+  document.getElementById("postwatch_listsuggestedpost").innerHTML = html_load_listsuggestedpost;  
+  
+}
+
      //UPDATE POST
      static updatePost= async(event)=>
      {
@@ -178,6 +220,12 @@ class PostWatchJS
           }
           
     }  
+    static passidtoPostWatch=(idpost)=>
+    {
+      sessionStorage.setItem('idpostwatch', null);
+      sessionStorage.setItem('idpostwatch', idpost); 
+          
+    }
     static passidtoUserProfile_Comment=(idusercomment)=>
     {
        try {

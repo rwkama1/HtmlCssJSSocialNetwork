@@ -293,6 +293,29 @@ const response=await fetch(PUTURLPOST, requestOptions);
             let data = await response.json();
             return data;
        } 
+       static getPostSuggestedUser=async(iduserLogin,iduser,usernamelogin)=>
+       {
+      
+             let URLPOST=this.RESTAPIURL+`/post/getPostSuggestedUser?iduserlogin=${iduserLogin}&iduser=${iduser}&usernamelogin=${usernamelogin}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLPOST, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       } 
 
 
 }

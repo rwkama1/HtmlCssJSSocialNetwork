@@ -119,12 +119,16 @@ document.getElementById("videowatch_iduser").value=iduservideo;
                         
       <div class="flex-1 pt-3 relative"> 
       <div>
-            <a href="video-watch.html" 
+            <a 
+            href="video_watch.html" 
+            onclick="VideoWatchJS.passidtoVideoWatch('${idvideo}');" 
             class="w-full h-32 overflow-hidden rounded-lg relative shadow-sm flex-shrink-0 block">
          <video src="${urlvideo}" autoplay loop muted playsinline uk-responsive></video>
       </a>
       </div>
-         <a href="video-watch.html" class="line-clamp-2 font-semibold">  
+         <a href="video_watch.html" 
+         onclick="VideoWatchJS.passidtoVideoWatch('${idvideo}');"
+         class="line-clamp-2 font-semibold">  
         
          ${description}
               </a>
@@ -213,6 +217,13 @@ document.getElementById("videowatch_iduser").value=iduservideo;
       }
        
  }  
+ static passidtoVideoWatch=(idvideo)=>
+ {
+   
+      sessionStorage.setItem('idvideowatch', null);
+     sessionStorage.setItem('idvideowatch', idvideo); 
+   
+} 
  static passidtoUserProfile_Comment=(idusercomment)=>
  {
     try {

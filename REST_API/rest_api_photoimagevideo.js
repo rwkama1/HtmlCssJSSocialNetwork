@@ -53,4 +53,28 @@ class APIRESTImageVideoPost
       let data = await response.json();
       return data;
  } 
+ static getPhotoPostVideoUserLike=async(iduserlogin,iduser,usernamelogin)=>
+ {
+  
+       let URLPOST=this.RESTAPIURL+`/postvideoimage/getPhotoPostVideoUserLikes?iduser=${iduser}&iduserlogin=${iduserlogin}&usernamelogin=${usernamelogin}`;
+
+       let headersList = {
+         "Accept": "*/*",
+        
+        }
+        
+        let response = await fetch(URLPOST, { 
+          method: "GET",
+          headers: headersList
+        });
+        
+      if(!response.ok)
+      {
+       const error=await response.text();
+       throw new Error(error);
+      }
+      let data = await response.json();
+      return data;
+ } 
+
 }
