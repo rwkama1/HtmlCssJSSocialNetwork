@@ -23,7 +23,7 @@ class FeedJS
 static  load_timeline=async(iduserlogin,usernamelogin)=>
 {
   let getPhotoPostVideoMainPage = await APIRESTImageVideoPost.getPhotoPostVideoMainPage(iduserlogin);
-console.log(getPhotoPostVideoMainPage);
+   console.log(getPhotoPostVideoMainPage);
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
   for (let i = 0; i < getPhotoPostVideoMainPage.length; i++) {
@@ -979,11 +979,11 @@ static updateCommentPost=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_updatecomment").value;
- let idpost=document.getElementById("profileuser_idpost_updatecomment").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_updatecomment").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_updatecomment").value;
-const textcomment = document.getElementById('profileuser_text_updatecomment').value;
+ let idcomment=document.getElementById("feed_idcomment_updatecomment").value;
+ let idpost=document.getElementById("feed_idpost_updatecomment").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_updatecomment").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_updatecomment").value;
+const textcomment = document.getElementById('feed_text_updatecomment').value;
 
 const editcommentPost= await APIRESTPostComment.editcommentPost(idcomment,idpost,
  textcomment,iduserlogin,usernamelogin);
@@ -995,10 +995,7 @@ this.showUpdatedCommentPost(idcomment,textcomment);
   
 
 
- //  setInterval(() => {
- //   location.reload();
- //  }, 1000);
-  document.getElementById('profileuser_text_updatecomment').value="";
+  document.getElementById('feed_text_updatecomment').value="";
  }
 }catch (error) {
 alert(error);
@@ -1008,11 +1005,11 @@ static updateCommentImage=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_updatecommentImage").value;
- let idimage=document.getElementById("profileuser_idimage_updatecommentImage").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_updatecommentImage").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_updatecommentImage").value;
-const textcomment = document.getElementById('profileuser_text_updatecommentImage').value;
+ let idcomment=document.getElementById("feed_idcomment_updatecommentImage").value;
+ let idimage=document.getElementById("feed_idimage_updatecommentImage").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_updatecommentImage").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_updatecommentImage").value;
+const textcomment = document.getElementById('feed_text_updatecommentImage').value;
 
 const editcommentImage= await APIRESTImageComment.editcommentImage(idcomment,idimage,
  textcomment,iduserlogin,usernamelogin);
@@ -1024,10 +1021,7 @@ this.showUpdatedCommentImage(idcomment,textcomment);
   
 
 
- //  setInterval(() => {
- //   location.reload();
- //  }, 1000);
-  document.getElementById('profileuser_text_updatecommentImage').value="";
+  document.getElementById('feed_text_updatecommentImage').value="";
  }
 }catch (error) {
 alert(error);
@@ -1037,11 +1031,11 @@ static updateCommentVideo=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_updatecommentVideo").value;
- let idvideo=document.getElementById("profileuser_idvideo_updatecommentVideo").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_updatecommentVideo").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_updatecommentVideo").value;
-const textcomment = document.getElementById('profileuser_text_updatecommentVideo').value;
+ let idcomment=document.getElementById("feed_idcomment_updatecommentVideo").value;
+ let idvideo=document.getElementById("feed_idvideo_updatecommentVideo").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_updatecommentVideo").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_updatecommentVideo").value;
+const textcomment = document.getElementById('feed_text_updatecommentVideo').value;
 
 const editcommentVideo= await APIRESTVideoComment.editcommentVideo(idcomment,idvideo,
  textcomment,iduserlogin,usernamelogin);
@@ -1056,7 +1050,7 @@ this.showUpdatedCommentVideo(idcomment,textcomment);
  //  setInterval(() => {
  //   location.reload();
  //  }, 1000);
-  document.getElementById('profileuser_text_updatecommentVideo').value="";
+  document.getElementById('feed_text_updatecommentVideo').value="";
  }
 }catch (error) {
 alert(error);
@@ -1070,10 +1064,10 @@ static deleteCommentPost=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_deletecommentmodal").value;
- let idpost=document.getElementById("profileuser_idpost_deletecommentmodal").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_deletecommentmodal").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_deletecommentmodal").value;
+ let idcomment=document.getElementById("feed_idcomment_deletecommentmodal").value;
+ let idpost=document.getElementById("feed_idpost_deletecommentmodal").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_deletecommentmodal").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_deletecommentmodal").value;
 
 
 const deletecommentPost= await APIRESTPostComment.deletecommentPost(idcomment,idpost,
@@ -1095,10 +1089,10 @@ static deleteCommentImage=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_deletecommentmodalImage").value;
- let idimage=document.getElementById("profileuser_idimage_deletecommentmodalImage").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_deletecommentmodalImage").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_deletecommentmodalImage").value;
+ let idcomment=document.getElementById("feed_idcomment_deletecommentmodalImage").value;
+ let idimage=document.getElementById("feed_idimage_deletecommentmodalImage").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_deletecommentmodalImage").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_deletecommentmodalImage").value;
 
 
 const deletecommentImage= await APIRESTImageComment.deletecommentImage(idcomment,idimage,
@@ -1120,10 +1114,10 @@ static deleteCommentVideo=async(event)=>
 {
 try {
  event.preventDefault();
- let idcomment=document.getElementById("profileuser_idcomment_deletecommentmodalVideo").value;
- let idvideo=document.getElementById("profileuser_idvideo_deletecommentmodalVideo").value;
- let iduserlogin=document.getElementById("profileuser_iduserlogin_deletecommentmodalVideo").value;
- let usernamelogin=document.getElementById("profileuser_usernamelogin_deletecommentmodalVideo").value;
+ let idcomment=document.getElementById("feed_idcomment_deletecommentmodalVideo").value;
+ let idvideo=document.getElementById("feed_idvideo_deletecommentmodalVideo").value;
+ let iduserlogin=document.getElementById("feed_iduserlogin_deletecommentmodalVideo").value;
+ let usernamelogin=document.getElementById("feed_usernamelogin_deletecommentmodalVideo").value;
 
 const deletecommentVideo= await APIRESTVideoComment.deletecommentVideo(idcomment,idvideo,
    iduserlogin,usernamelogin);
@@ -1594,10 +1588,10 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
 document.getElementById(`feed_p_textcommentpost${idcomment}`).innerHTML=textcomment;
 }
 static  showUpdatedCommentImage(idcomment,textcomment) {
-document.getElementById(`profileuser_p_textcommentimage${idcomment}`).innerHTML=textcomment;
+document.getElementById(`feed_p_textcommentimage${idcomment}`).innerHTML=textcomment;
 }
 static  showUpdatedCommentVideo(idcomment,textcomment) {
-document.getElementById(`profileuser_p_textcommentvideo${idcomment}`).innerHTML=textcomment;
+document.getElementById(`feed_p_textcommentvideo${idcomment}`).innerHTML=textcomment;
 }
 
 //SHOW COMMENT AFTER DELETE
@@ -1958,3 +1952,38 @@ static exist_like_subcomment=(existlikesubcomment)=>
 }
 
 window.addEventListener("load",FeedJS.loadPage);
+
+
+//UPDATE COMMENT
+
+const form_feed_updatecomment= document.getElementById('form_feed_updatecomment');
+form_feed_updatecomment.addEventListener('submit', FeedJS.updateCommentPost);
+
+// const form_profileuser_updatecommentImage= document.getElementById('form_profileuser_updatecommentImage');
+// form_profileuser_updatecommentImage.addEventListener('submit', ProfileUserJS.updateCommentImage);
+
+// const form_profileloginuser_updatecommentVideo= document.getElementById('form_profileuser_updatecommentVideo');
+// form_profileloginuser_updatecommentVideo.addEventListener('submit', ProfileUserJS.updateCommentVideo);
+
+
+//DELETE COMMENT
+
+const button_feed_deletecomment= document.getElementById('button_feed_deletecomment');
+button_feed_deletecomment.addEventListener('click', FeedJS.deleteCommentPost);
+
+// const button_profileuser_deletecommentImage= document.getElementById('button_profileuser_deletecommentImage');
+// button_profileuser_deletecommentImage.addEventListener('click', ProfileUserJS.deleteCommentImage);
+
+
+// const button_profileuser_deletecommentVideo= document.getElementById('button_profileuser_deletecommentVideo');
+// button_profileuser_deletecommentVideo.addEventListener('click', ProfileUserJS.deleteCommentVideo);
+
+// //UPDATE SUBCOMMENT
+
+
+// const form_profileuser_updatesubcomment = document.getElementById('form_profileuser_updatesubcomment');
+// form_profileuser_updatesubcomment.addEventListener('submit', ProfileUserJS.updateSubComment);
+
+// //DELETE SUBCOMMENT
+// const profileuser_button_deletesubcomment = document.getElementById('profileuser_button_deletesubcomment');
+// profileuser_button_deletesubcomment.addEventListener('click', ProfileUserJS.deleteSubComment);
