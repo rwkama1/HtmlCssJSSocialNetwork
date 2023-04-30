@@ -624,7 +624,7 @@ static async loadImagesUser(iduserLogin,iduser) {
 static  load_timeline=async(iduser,iduserlogin,usernamelogin)=>
 {
   let getPhotoPostVideoByUser = await APIRESTImageVideoPost.getPhotoPostVideoByLoginUser(iduser,iduserlogin);
-  // console.log(getPhotoPostVideoByUser);
+ 
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
   for (let i = 0; i < getPhotoPostVideoByUser.length; i++) {

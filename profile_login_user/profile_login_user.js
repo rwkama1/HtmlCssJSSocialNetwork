@@ -104,8 +104,8 @@
 
 
      } catch (error) {
-      console.error(error);
-   //   alert(error);
+       alert(error);
+   
    //   window.location.href="../index.html";
    
      }
@@ -1110,7 +1110,7 @@ static load_LikesPostImagesVideosUser=async(sessionuser)=>
 {
   let getPhotoPostVideoUserLike = await APIRESTImageVideoPost.getPhotoPostVideoUserLike
   (sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
-   console.log(getPhotoPostVideoUserLike);
+
   let html_load_postvideoimage = '';
   let html_load_postvideoimage_more = '';
   for (let i = 0; i <getPhotoPostVideoUserLike.length; i++) {
@@ -1168,7 +1168,7 @@ static async html_Post_LikesUser(getpost)
    }
    let idpost=getpost.id;
    let likespost=getpost.likes;
-   let iduserlogin=getpost.user.iduser;
+   let iduser=getpost.user.iduser;
    let userName=getpost.user.name;
    let stringpostedago=getpost.stringpostedago;
    let description=getpost.description;
@@ -1187,9 +1187,18 @@ static async html_Post_LikesUser(getpost)
                
   <div class="flex justify-between items-center lg:p-4 p-2.5">
      <div class="flex flex-1 items-center space-x-4">
-        <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+        <a 
+        href="../profileuser/profileuser.html"
+        onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"
+       
+        >
+         <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
         <div class="flex-1 font-semibold capitalize">
-           <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+           <a 
+           href="../profileuser/profileuser.html"
+            onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"  
+            class="text-black dark:text-gray-100"> ${userName}
+             </a>
            <div class="flex items-center space-x-2">
            <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
               <ion-icon name="people" role="img" class="md hydrated" aria-label="people"></ion-icon>
@@ -1199,7 +1208,12 @@ static async html_Post_LikesUser(getpost)
     
   </div>
   <div class="p-5 pt-0 border-b dark:border-gray-700">
+  <a 
+  href="../posts/post_watch.html"
+  onclick="Profile_Login_User.passidtoPostWatch('${idpost}');"  
+     >
     ${description}
+    </a>
   </div>
 
 </div>
@@ -1220,7 +1234,7 @@ static async html_Post_LikesUser(getpost)
    let idimage=getimage.id;
    let likeimage=getimage.likes;
    let userName=getimage.user.name;
-   let iduserlogin=getimage.user.iduser;
+   let iduser=getimage.user.iduser;
    let stringpostedago=getimage.stringpostedago;
    let urlimage=getimage.url;
 
@@ -1246,9 +1260,16 @@ static async html_Post_LikesUser(getpost)
   
   <div class="flex justify-between items-center lg:p-4 p-2.5">
      <div class="flex flex-1 items-center space-x-4">
-        <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+        <a 
+        href="../profileuser/profileuser.html"
+        onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"
+
+        > <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
         <div class="flex-1 font-semibold capitalize">
-           <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+           <a 
+           href="../profileuser/profileuser.html"
+           onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"
+            class="text-black dark:text-gray-100"> ${userName} </a>
            <div class="flex items-center space-x-2">
            <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
               <ion-icon name="people"></ion-icon>
@@ -1286,7 +1307,7 @@ static async html_Post_LikesUser(getpost)
    let idvideo=getvideo.id;
    let likevideo=getvideo.likes;
    let userName=getvideo.user.name;
-   let iduserlogin=getvideo.user.iduser;
+   let iduser=getvideo.user.iduser;
    let stringpostedago=getvideo.stringpostedago;
    let urlvideo=getvideo.url;
 
@@ -1307,9 +1328,15 @@ static async html_Post_LikesUser(getpost)
  <!-- post header-->
  <div class="flex justify-between items-center lg:p-4 p-2.5">
     <div class="flex flex-1 items-center space-x-4">
-       <a href="#"> <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
+       <a
+       href="../profileuser/profileuser.html"
+       onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"
+       > <img src="${userImageProfile}" class="bg-gray-200 border border-white rounded-full w-10 h-10"> </a>
        <div class="flex-1 font-semibold capitalize">
-          <a href="#" class="text-black dark:text-gray-100"> ${userName} </a>
+          <a 
+          href="../profileuser/profileuser.html"
+          onclick="Profile_Login_User.passidtoUserProfile('${iduser}');"
+          class="text-black dark:text-gray-100"> ${userName} </a>
           <div class="flex items-center space-x-2">
             <span class="text-gray-500 text-sm"> ${stringpostedago} </span>
            <ion-icon name="people"></ion-icon>
@@ -3739,14 +3766,9 @@ static exist_like_subcomment=(existlikesubcomment)=>
 
 static passidtoPostWatch=(idpost)=>
         {
-          try {
-            sessionStorage.setItem('idpostwatch', idpost);
-
-         }catch (error) {
-          // alert(error);
-          
-         }
-          
+    sessionStorage.setItem('idpostwatch', null);
+    sessionStorage.setItem('idpostwatch', idpost);
+       
 }
 static passidtoImageWatch=(idimage)=>
 {
