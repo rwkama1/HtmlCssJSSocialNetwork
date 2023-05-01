@@ -22,6 +22,15 @@ class ProfileUserJS
       location.href = "../profile_login_user/profile_login_user.html";
       //document.getElementById("headersidebar_a_addfriendandmore").hidden=true;
    }
+
+   //SHOW IMAGE COVER PROFILE
+
+this.showImageCoverProfile(image, coverphoto);
+ 
+//  //SHOW NAME DESCRIPTION PROFILE
+
+  this.loadNameDescriptionUser(description, name);
+
    //EXIST FOLLOW
    let existfollow=await APIRESTFollowers.existfollow
    (sessionuser.iduser,iduser);
@@ -64,14 +73,7 @@ class ProfileUserJS
       div_green_circle.setAttribute('hidden', true);
    }
 
- //SHOW IMAGE COVER PROFILE
-
-
-this.showImageCoverProfile(image, coverphoto);
  
- //  //SHOW NAME DESCRIPTION PROFILE
-
-   this.loadNameDescriptionUser(description, name);
 
  
     //SHOW COUNTRY , OCUPATION , URLS

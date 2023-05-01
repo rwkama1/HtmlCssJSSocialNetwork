@@ -714,7 +714,7 @@ static  showUpdatedCommentImage(idcomment,textcomment) {
   document.getElementById(`imagewatch_p_textcomment${idcomment}`).innerHTML=textcomment;
  
  }
- static  showRemoveCommentImage(idcomment) {
+static  showRemoveCommentImage(idcomment) {
   //ADD NUMBER COMMENTS HTML
   let textcontent_numbercomments= document.getElementById("imagewatch_div_numbercomments");
   let stringnumcomments = parseInt(textcontent_numbercomments.textContent.match(/\d+/)[0]);
