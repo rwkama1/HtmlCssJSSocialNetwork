@@ -125,7 +125,8 @@ static  load_headersidebar=async()=>
     
     await Head_SidebarJS.forPendingFriends(sessionuser);
 
-  
+    await Head_SidebarJS.forCommentsUser(sessionuser);
+
     let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
   // SHOW NAME AND IMAGE PROFILE
   //const getuser= await APIRESTLoginUser.getLoginUser();
@@ -209,7 +210,166 @@ static passidtoUserProfile=(iduser)=>
     document.getElementById("headersidebar_ul_listpendingfriendrequest").innerHTML=html_friendrequest;
 
   }
+  static async forCommentsUser(sessionuser) {
 
+    
+    let html_commentsuser="";
+    let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+   
+   document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+    for (let i = 0; i < getNotificationComments.length; i++) {
+      let {IdNotification ,ImageSender ,NameSender ,stringnotificationago,TitleImagePostVideo,Typee,Subcomment } = getNotificationComments[i];
+     
+      if (ImageSender==="") {
+        ImageSender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      if(Typee==='P')
+      {
+          if (Subcomment===1) {
+            html_commentsuser+=`
+            <li >
+            <a
+             href="#"
+      
+            >
+               <div class="drop_avatar status-online">
+                <img src="${ImageSender}" alt=""> 
+               </div>
+               <span class="drop_icon bg-gradient-primary">
+                  <i class="icon-feather-message-square"></i>
+                  </span>
+               <div class="drop_text">
+                  <p> <strong>${NameSender}</strong> Replay Your Comment in <span class="text-link">${TitleImagePostVideo}</span> </p>
+                  <time> ${stringnotificationago}</time>
+               </div>
+            </a>
+          </li>
+            `;
+          }
+         
+          
+          else {
+            html_commentsuser+=`
+            <li >
+            <a
+             href="#"
+      
+            >
+               <div class="drop_avatar status-online">
+                <img src="${ImageSender}" alt=""> 
+               </div>
+               <span class="drop_icon bg-gradient-primary">
+                  <i class="icon-feather-message-square"></i>
+                  </span>
+               <div class="drop_text">
+                  <p> <strong>${NameSender}</strong> Comment your Post <span class="text-link">${TitleImagePostVideo}</span> </p>
+                  <time> ${stringnotificationago}</time>
+               </div>
+            </a>
+          </li>
+            `;
+           }
+          }
+      else if(Typee==='I')
+      {
+        if (Subcomment===1) {
+          html_commentsuser+=`
+          <li >
+          <a
+           href="#"
+    
+          >
+             <div class="drop_avatar status-online">
+              <img src="${ImageSender}" alt=""> 
+             </div>
+             <span class="drop_icon bg-gradient-primary">
+                <i class="icon-feather-message-square"></i>
+                </span>
+             <div class="drop_text">
+                <p> <strong>${NameSender}</strong> Replay Your Comment in <span class="text-link">${TitleImagePostVideo}</span> </p>
+                <time> ${stringnotificationago}</time>
+             </div>
+          </a>
+        </li>
+          `;
+        }
+       
+        
+        else {
+          html_commentsuser+=`
+          <li >
+          <a
+           href="#"
+    
+          >
+             <div class="drop_avatar status-online">
+              <img src="${ImageSender}" alt=""> 
+             </div>
+             <span class="drop_icon bg-gradient-primary">
+                <i class="icon-feather-message-square"></i>
+                </span>
+             <div class="drop_text">
+                <p> <strong>${NameSender}</strong> Comment your Image <span class="text-link">${TitleImagePostVideo}</span> </p>
+                <time> ${stringnotificationago}</time>
+             </div>
+          </a>
+        </li>
+          `;
+         }
+      }
+      else 
+      {
+        if (Subcomment===1) {
+          html_commentsuser+=`
+          <li >
+          <a
+           href="#"
+    
+          >
+             <div class="drop_avatar status-online">
+              <img src="${ImageSender}" alt=""> 
+             </div>
+             <span class="drop_icon bg-gradient-primary">
+                <i class="icon-feather-message-square"></i>
+                </span>
+             <div class="drop_text">
+                <p> <strong>${NameSender}</strong> Replay Your Comment in <span class="text-link">${TitleImagePostVideo}</span> </p>
+                <time> ${stringnotificationago}</time>
+             </div>
+          </a>
+        </li>
+          `;
+        }
+       
+        
+        else {
+          html_commentsuser+=`
+          <li >
+          <a
+           href="#"
+    
+          >
+             <div class="drop_avatar status-online">
+              <img src="${ImageSender}" alt=""> 
+             </div>
+             <span class="drop_icon bg-gradient-primary">
+                <i class="icon-feather-message-square"></i>
+                </span>
+             <div class="drop_text">
+                <p> <strong>${NameSender}</strong> Comment your Video <span class="text-link">${TitleImagePostVideo}</span> </p>
+                <time> ${stringnotificationago}</time>
+             </div>
+          </a>
+        </li>
+          `;
+         }
+      }
+     
+
+    }
+    document.getElementById("headesidebar_ul_listcommentsusers").innerHTML=html_commentsuser;
+
+  }
   static async loadConfirmedFriend_SideBar(sessionuser) {
 
   //  existloginuser

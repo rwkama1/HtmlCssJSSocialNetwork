@@ -222,7 +222,7 @@ static  load_timeline=async(iduserlogin,usernamelogin)=>
   
 }
 
-static  async html_Post_TimeLine(getpost,iduserlogin,usernamelogin)
+static async html_Post_TimeLine(getpost,iduserlogin,usernamelogin)
 {
    //GET POST
    let userImageProfile=getpost.user.image;
