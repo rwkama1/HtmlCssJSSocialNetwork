@@ -33,8 +33,8 @@
    </head>
    <body>
       <div id="wrapper">
-       <!-- Header -->
-       <header>
+      <!-- Header -->
+      <header>
       
       
          <div class="header_wrap">
@@ -55,14 +55,14 @@
                <div class="header_search">
                   <i class="uil-search-alt"></i>
                   <input id="headersidebar_search_text" type="text" class="form-control" placeholder="Search for Users , Posts and more ..." autocomplete="off">
-                     <div id="headersidebar_div_showsearch" uk-drop="mode: click" class="header_search_dropdown">
-      
-                        <ul id="headsidebar_ul_search">
-                          
-                         
-                         
-                        </ul>
-                     </div>
+                  <div id="headersidebar_div_showsearch" uk-drop="mode: click" class="header_search_dropdown">
+   
+                     <ul id="headsidebar_ul_search">
+                       
+                      
+                      
+                     </ul>
+                  </div>
                </div>
      
                <div class="right_side">
@@ -78,7 +78,7 @@
                         stroke="currentColor" stroke-width="2"
                          stroke-linecap="round" stroke-linejoin="round">
                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                         <span id="headersidebar_span_numberpendingfriends"></span>
+                           <span id="headersidebar_span_numberpendingfriends"></span>
                          </a>                  
                      <div uk-drop="mode: click" class="header_dropdown">
                         <div  class="dropdown_scrollbar" data-simplebar>
@@ -89,11 +89,11 @@
    
                            <div class="contact-list my-2 ml-1">
                               <!-- FRIEND REQUESTS -->
-                              <ul id="headersidebar_ul_listpendingfriendrequest">
+                           <ul id="headersidebar_ul_listpendingfriendrequest">
 
-                               
-                       
-                              </ul>
+                            
+                    
+                           </ul>
                            </div>
                         </div>
                      </div>
@@ -104,7 +104,7 @@
                         <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
                         </svg>
-                        <span>3</span> 
+                        <span id="headersidebar_span_numbernoticomments"></span>
                      </a>
                      <div uk-drop="mode: click" class="header_dropdown">
                         <div class="dropdown_scrollbar" data-simplebar>
@@ -114,9 +114,9 @@
                                  <ion-icon name="trash-outline"></ion-icon>
                              </a>
                            </div>
-                           <ul>
-                       
-                              <li class="not-read">
+                           <ul id="headesidebar_ul_listcommentsusers">
+                              <!-- class="not-read" -->
+                              <li >
                                  <a href="#">
                                     <div class="drop_avatar status-online"> <img src="../assets/images/avatars/avatar-2.jpg" alt=""> 
                                     </div>
@@ -904,6 +904,7 @@
          ================================================== -->
          <script src="../utils/selectdata.js"></script>
          <script src="../REST_API/rest_api_userfriends.js"></script>
+         <script src="../REST_API/rest_api_notifications.js"></script>
          <script src="../REST_API/rest_api_likes.js"></script>
          <script src="../REST_API/rest_api_subcomments.js"></script>
          <script src="../REST_API/rest_api_photoimagevideo.js"></script>

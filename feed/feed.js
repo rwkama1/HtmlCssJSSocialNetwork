@@ -1098,10 +1098,17 @@ static addCommentPost=async(idpost,iduserlogin,usernamelogin,event)=>
       textcomment,iduserlogin,usernamelogin);
        if (commentPost) {
 
-       messagenotification('Comment Added','success',event);
+           //#region REAL TIME NOTIFICATION
 
-      await this.showAddedCommentPost(idpost,iduserlogin,usernamelogin);
-      
+           var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+           const commentsnotificationChannelName = `comments_user_notificationsP`;
+           const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+           const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageP` };
+           commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+           
+           //#endregion REAL TIME NOTIFICATION 
+         messagenotification('Comment Added','success',event);
+         await this.showAddedCommentPost(idpost,iduserlogin,usernamelogin);
        document.getElementById(`feed_textcommentpost${idpost}`).value="";
       }
   }catch (error) {
@@ -1117,6 +1124,16 @@ static addCommentPost=async(idpost,iduserlogin,usernamelogin,event)=>
      const commmentImage= await APIRESTImageComment.commmentImage(idimage,
       textcomment,iduserlogin,usernamelogin);
        if (commmentImage) {
+
+          //#region REAL TIME NOTIFICATION 
+
+          var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+          const commentsnotificationChannelName = `comments_user_notificationsI`;
+          const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+          const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageI` };
+          commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+         
+          //#endregion REAL TIME NOTIFICATION 
 
        messagenotification('Comment Added','success',event);
 
@@ -1138,11 +1155,20 @@ static addCommentPost=async(idpost,iduserlogin,usernamelogin,event)=>
       textcomment,iduserlogin,usernamelogin);
        if (commmentVideo) {
 
-       messagenotification('Comment Added','success',event);
+             //#region REAL TIME NOTIFICATION
 
-      await this.showAddedCommentVideo(idvideo,iduserlogin,usernamelogin);
-      
-       document.getElementById(`feed_textcommentvideo${idvideo}`).value="";
+             var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+             const commentsnotificationChannelName = `comments_user_notificationsV`;
+             const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+             const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageV` };
+             commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+             
+             //#endregion REAL TIME NOTIFICATION 
+         messagenotification('Comment Added','success',event);
+
+         await this.showAddedCommentVideo(idvideo,iduserlogin,usernamelogin);
+         
+         document.getElementById(`feed_textcommentvideo${idvideo}`).value="";
       }
   }
   catch (error) {
@@ -1986,6 +2012,17 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
         textsubcomment,iduserlogin,usernamelogin);
       if (addSubComment) {
     
+
+            //#region REAL TIME NOTIFICATION
+
+            var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+            const commentsnotificationChannelName = `comments_user_notificationsSubComment`;
+            const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+            const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageSubComment` };
+            commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+            
+            //#endregion REAL TIME NOTIFICATION 
+
         messagenotification('Added comment answer','success',event);
   
         await this.showAddedSubComment(idcomment,iduserlogin,usernamelogin);

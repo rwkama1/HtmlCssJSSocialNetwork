@@ -125,10 +125,11 @@ static  load_headersidebar=async()=>
     
     await Head_SidebarJS.forPendingFriends(sessionuser);
 
-    await Head_SidebarJS.forCommentsUser(sessionuser);
+    await Head_SidebarJS.loadNotificationsCommentsUser(sessionuser);
 
     let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
-  // SHOW NAME AND IMAGE PROFILE
+ 
+    // SHOW NAME AND IMAGE PROFILE
   //const getuser= await APIRESTLoginUser.getLoginUser();
  
   if(getuser.image==="")
@@ -153,9 +154,10 @@ static  load_headersidebar=async()=>
 }
 
 //  REDIRECT TO IMAGE POST VIDEO WATCH AND USER
+
 static passidtoVideoWatch=(idvideo)=>
     {
-      sessionStorage.setItem('idvideowatch', null);
+sessionStorage.setItem('idvideowatch', null);
 sessionStorage.setItem('idvideowatch', idvideo);
                  
   }    
@@ -176,6 +178,36 @@ static passidtoUserProfile=(iduser)=>
   sessionStorage.setItem('iduserwatch', null);
   sessionStorage.setItem('iduserwatch', iduser);
 }
+
+
+static passidtoVideoWatchCommentUser= async (idvideo,iduserlogin,usernamelogin,idnotification)=>
+    {
+
+      let updateNotificationCommentVideo=await APIRESTNotifications.updateSeenNotificationCommentVideo
+      (iduserlogin,usernamelogin,idnotification);   
+      if(updateNotificationCommentVideo)
+      {
+        sessionStorage.setItem('idvideowatch', null);
+        sessionStorage.setItem('idvideowatch', idvideo);
+      }
+
+  }    
+static passidtoImageWatchCommentUser=(idimage)=>
+{
+  sessionStorage.setItem('idimagewatch', null);
+    sessionStorage.setItem('idimagewatch', idimage);
+  
+}
+static passidtoPostWatchCommentUser=(idpost)=>
+{
+  sessionStorage.setItem('idpostwatch', null);
+    sessionStorage.setItem('idpostwatch', idpost);
+  
+}
+//NOTIFICATIONS COMMENT USERS PASS
+
+
+
 
   static async forPendingFriends(sessionuser) {
 
@@ -210,26 +242,24 @@ static passidtoUserProfile=(iduser)=>
     document.getElementById("headersidebar_ul_listpendingfriendrequest").innerHTML=html_friendrequest;
 
   }
-  static async forCommentsUser(sessionuser) {
-
-    
+  static async forCommentUsersNotification(getNotificationComments,sessionuser) {
     let html_commentsuser="";
-    let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
-   
-   document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
     for (let i = 0; i < getNotificationComments.length; i++) {
-      let {IdNotification ,ImageSender ,NameSender ,stringnotificationago,TitleImagePostVideo,Typee,Subcomment } = getNotificationComments[i];
+      let {IdNotification , IdImagePostVideo ,IdUserSender ,ImageSender ,NameSender ,stringnotificationago,TitleImagePostVideo,Typee,Subcomment } = getNotificationComments[i];
      
       if (ImageSender==="") {
         ImageSender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
       }
       if(Typee==='P')
       {
+
+     
           if (Subcomment===1) {
             html_commentsuser+=`
             <li >
             <a
-             href="#"
+              href="../posts/post_watch.html"
+             onclick="Head_SidebarJS.passidtoPostWatch('${IdImagePostVideo}');" 
       
             >
                <div class="drop_avatar status-online">
@@ -245,15 +275,13 @@ static passidtoUserProfile=(iduser)=>
             </a>
           </li>
             `;
-          }
-         
-          
+          }        
           else {
             html_commentsuser+=`
             <li >
             <a
-             href="#"
-      
+            href="../posts/post_watch.html"
+            onclick="Head_SidebarJS.passidtoPostWatch('${IdImagePostVideo}');"       
             >
                <div class="drop_avatar status-online">
                 <img src="${ImageSender}" alt=""> 
@@ -272,11 +300,15 @@ static passidtoUserProfile=(iduser)=>
           }
       else if(Typee==='I')
       {
+
+      
+
         if (Subcomment===1) {
           html_commentsuser+=`
           <li >
           <a
-           href="#"
+          href="../images/image_watch.html"
+           onclick="Head_SidebarJS.passidtoImageWatch('${IdImagePostVideo}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -299,7 +331,8 @@ static passidtoUserProfile=(iduser)=>
           html_commentsuser+=`
           <li >
           <a
-           href="#"
+          href="../images/image_watch.html"
+          onclick="Head_SidebarJS.passidtoImageWatch('${IdImagePostVideo}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -319,11 +352,14 @@ static passidtoUserProfile=(iduser)=>
       }
       else 
       {
+        
         if (Subcomment===1) {
           html_commentsuser+=`
           <li >
           <a
-           href="#"
+
+          href=""
+          onclick="Head_SidebarJS.passidtoVideoWatchCommentUser('${IdImagePostVideo}',${sessionuser.iduser}','${sessionuser.userrname}','${IdNotification}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -339,14 +375,13 @@ static passidtoUserProfile=(iduser)=>
           </a>
         </li>
           `;
-        }
-       
-        
+        }       
         else {
           html_commentsuser+=`
           <li >
           <a
-           href="#"
+          href="../videos/video_watch.html"
+          onclick="Head_SidebarJS.passidtoVideoWatchCommentUser('${IdImagePostVideo}',${sessionuser.iduser}','${sessionuser.userrname}','${IdNotification}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -368,6 +403,77 @@ static passidtoUserProfile=(iduser)=>
 
     }
     document.getElementById("headesidebar_ul_listcommentsusers").innerHTML=html_commentsuser;
+   
+
+  }
+  static async loadNotificationsCommentsUser(sessionuser) {
+
+   
+
+     const ably = new Ably.Realtime(`rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A`);
+   
+     //************************************************* */
+
+     // REAL TIME NOTIFICATION  COMMENT POST
+
+     const presenceChannel = ably.channels.get(`comments_user_notificationsP`);
+     
+   // Listen for channel events
+     presenceChannel.subscribe(`comments_user_notifications_messageP`, async function(message) {
+       
+       let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+  
+       document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+      await Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+     });  
+
+     //******************************************** */
+
+      // REAL TIME NOTIFICATION  COMMENT IMAGE
+
+     const presenceChannel2 = ably.channels.get(`comments_user_notificationsI`);
+     
+     // Listen for channel events
+     presenceChannel2.subscribe(`comments_user_notifications_messageI`, async function(message) {
+         
+         let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+    
+         document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+       });  
+
+       //**************************************************** */
+
+    // REAL TIME NOTIFICATION  COMMENT VIDEO
+
+       const presenceChannel3 = ably.channels.get(`comments_user_notificationsV`);
+     
+       // Listen for channel events
+       presenceChannel3.subscribe(`comments_user_notifications_messageV`, async function(message) {
+           
+           let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+      
+           document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+           await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+         });  
+     //********************************************************* */
+     // REAL TIME NOTIFICATION SUBCOMMENT
+
+     const presenceChannel4 = ably.channels.get(`comments_user_notificationsSubComment`);
+     
+     // Listen for channel events
+     presenceChannel4.subscribe(`comments_user_notifications_messageSubComment`, async function(message) {
+         
+         let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+    
+         document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+       });  
+
+   //********************************************************* */
+      let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
+        document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
+        await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
 
   }
   static async loadConfirmedFriend_SideBar(sessionuser) {

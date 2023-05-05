@@ -68,8 +68,8 @@ class APIRESTNotifications
           const error=await response.text();
           throw new Error(error);
          }
-         let data = await response.json();
-         return data;
+        
+         return true;
     } 
     static updateSeenNotificationCommentPost=async(iduserLogin,usernamelogin,idnotification)=>
     {
