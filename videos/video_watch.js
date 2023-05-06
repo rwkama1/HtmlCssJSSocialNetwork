@@ -460,11 +460,17 @@ static async show_comment_video()
     const commmentVideo= await APIRESTVideoComment.commmentVideo(idvideowatch,
      textcomment,iduser,userrname);
     if (commmentVideo) {
-     // let data={
-     //   idpostwatch,textcomment,iduser,userrname
 
-     // }
-     // console.log(data);
+     //#region REAL TIME NOTIFICATION
+
+     var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+     const commentsnotificationChannelName = `comments_user_notificationsV`;
+     const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+     const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageV` };
+     commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+     
+     //#endregion REAL TIME NOTIFICATION 
+
       messagenotification('Comment Added','success',event);
 
      await this.showAddedCommentVideo(idvideowatch,iduser,userrname);
@@ -744,17 +750,22 @@ static addSubCommentVideo=async(idcomment,event)=>
      textsubcomment,sessionuser.iduser,sessionuser.userrname);
    if (addSubComment) {
  
+
+          //#region REAL TIME NOTIFICATION
+
+      var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+      const commentsnotificationChannelName = `comments_user_notificationsSubComment`;
+      const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+      const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageSubComment` };
+      commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+      
+      //#endregion REAL TIME NOTIFICATION 
+
      messagenotification('Added comment answer','success',event);
 
      await this.showAddedSubComment(idcomment,sessionuser.iduser,sessionuser.userrname);
      
-    //await this.loadSubCommentPost(idcomment,sessionuser.iduser);
-     
- 
-
-    //  setInterval(() => {
-    //   location.reload();
-    //  }, 1000);
+   
      document.getElementById(`videowatch_textsubcomment${idcomment}`).value="";
     }
 }catch (error) {

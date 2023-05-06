@@ -94,4 +94,27 @@ class APIRESTNotifications
          let data = await response.json();
          return data;
     } 
+    static updateSeenNotificationSubComment=async(iduserLogin,usernamelogin,idnotification)=>
+    {
+       
+          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/updateSeenNotificationSubComment?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}&idnotification=${idnotification}`;
+
+          let headersList = {
+            "Accept": "*/*",
+           
+           }
+           
+           let response = await fetch(URLNOTIFICATION, { 
+             method: "PUT",
+             headers: headersList
+           });
+           
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         let data = await response.json();
+         return data;
+    } 
 }

@@ -387,7 +387,7 @@ let NumberOfCommentImage=getimage.numbercomments;
      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
        
               <a href="../images/image_watch.html"
-              onclick="FeedJS.passidtoImageWatch('${idimage}');"
+              onclick="Head_SidebarJS.passidtoImageWatch('${idimage}');"
               >
                  <img src="${urlimage}" alt="" uk-responsive>
                  </a>
@@ -511,7 +511,7 @@ let exist_like_video= this.exist_like_video(getvideo.existlikeloginuser);
          
                <a 
                href="../videos/video_watch.html"
-               onclick="FeedJS.passidtoVideoWatch('${idvideo}');"
+               onclick="Head_SidebarJS.passidtoVideoWatch('${idvideo}');"
                >
                 <video src="${urlvideo}" autoplay loop muted playsinline >
 
@@ -1107,6 +1107,7 @@ static addCommentPost=async(idpost,iduserlogin,usernamelogin,event)=>
            commentsnotificationChannel.publish(commentsnotificationRequestMessage);
            
            //#endregion REAL TIME NOTIFICATION 
+
          messagenotification('Comment Added','success',event);
          await this.showAddedCommentPost(idpost,iduserlogin,usernamelogin);
        document.getElementById(`feed_textcommentpost${idpost}`).value="";

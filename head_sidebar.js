@@ -179,6 +179,7 @@ static passidtoUserProfile=(iduser)=>
   sessionStorage.setItem('iduserwatch', iduser);
 }
 
+//NOTIFICATIONS COMMENT USERS PASS
 
 static passidtoVideoWatchCommentUser= async (idvideo,iduserlogin,usernamelogin,idnotification)=>
     {
@@ -189,22 +190,63 @@ static passidtoVideoWatchCommentUser= async (idvideo,iduserlogin,usernamelogin,i
       {
         sessionStorage.setItem('idvideowatch', null);
         sessionStorage.setItem('idvideowatch', idvideo);
+        window.location.href="../videos/video_watch.html";
       }
 
   }    
-static passidtoImageWatchCommentUser=(idimage)=>
+static passidtoImageWatchCommentUser=async (idimage,iduserlogin,usernamelogin,idnotification)=>
 {
-  sessionStorage.setItem('idimagewatch', null);
+  let updateSeenNotificationCommentImage=await APIRESTNotifications.updateSeenNotificationCommentImage
+  (iduserlogin,usernamelogin,idnotification);
+  if(updateSeenNotificationCommentImage)
+  {
+    sessionStorage.setItem('idimagewatch', null);
     sessionStorage.setItem('idimagewatch', idimage);
+    window.location.href="../images/image_watch.html";
+  }
   
 }
-static passidtoPostWatchCommentUser=(idpost)=>
+static passidtoPostWatchCommentUser=async(idpost,iduserlogin,usernamelogin,idnotification)=>
 {
-  sessionStorage.setItem('idpostwatch', null);
+  let updateSeenNotificationCommentPost=await APIRESTNotifications.updateSeenNotificationCommentPost
+  (iduserlogin,usernamelogin,idnotification);
+  if(updateSeenNotificationCommentPost)
+  {
+   sessionStorage.setItem('idpostwatch', null);
     sessionStorage.setItem('idpostwatch', idpost);
+    window.location.href="../posts/post_watch.html";
+  }
   
 }
-//NOTIFICATIONS COMMENT USERS PASS
+static passidWatchSubCommentUser=async(type,idpostimagevideo,iduserlogin,usernamelogin,idnotification)=>
+{
+  let updateSeenNotificationCommentPost=await APIRESTNotifications.updateSeenNotificationSubComment
+  (iduserlogin,usernamelogin,idnotification);
+  if(updateSeenNotificationCommentPost)
+  {
+    if(type==='P')
+    {
+      sessionStorage.setItem('idpostwatch', null);
+      sessionStorage.setItem('idpostwatch', idpostimagevideo);
+      window.location.href="../posts/post_watch.html";
+    }
+    else if(type==='I')
+    {
+      sessionStorage.setItem('idimagewatch', null);
+      sessionStorage.setItem('idimagewatch', idpostimagevideo);
+      window.location.href="../images/image_watch.html";
+    }
+    else 
+        {
+      sessionStorage.setItem('idvideowatch', null);
+      sessionStorage.setItem('idvideowatch', idpostimagevideo);
+      window.location.href="../videos/video_watch.html";
+    }
+  
+  }
+  
+}
+
 
 
 
@@ -242,7 +284,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
     document.getElementById("headersidebar_ul_listpendingfriendrequest").innerHTML=html_friendrequest;
 
   }
-  static async forCommentUsersNotification(getNotificationComments,sessionuser) {
+  static async forCommentUsersNotification(getNotificationComments,iduserlogin,usernamelogin) {
     let html_commentsuser="";
     for (let i = 0; i < getNotificationComments.length; i++) {
       let {IdNotification , IdImagePostVideo ,IdUserSender ,ImageSender ,NameSender ,stringnotificationago,TitleImagePostVideo,Typee,Subcomment } = getNotificationComments[i];
@@ -258,8 +300,8 @@ static passidtoPostWatchCommentUser=(idpost)=>
             html_commentsuser+=`
             <li >
             <a
-              href="../posts/post_watch.html"
-             onclick="Head_SidebarJS.passidtoPostWatch('${IdImagePostVideo}');" 
+              
+             onclick="Head_SidebarJS.passidWatchSubCommentUser('P','${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');" 
       
             >
                <div class="drop_avatar status-online">
@@ -280,8 +322,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
             html_commentsuser+=`
             <li >
             <a
-            href="../posts/post_watch.html"
-            onclick="Head_SidebarJS.passidtoPostWatch('${IdImagePostVideo}');"       
+            onclick="Head_SidebarJS.passidtoPostWatchCommentUser('${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');"           
             >
                <div class="drop_avatar status-online">
                 <img src="${ImageSender}" alt=""> 
@@ -307,8 +348,8 @@ static passidtoPostWatchCommentUser=(idpost)=>
           html_commentsuser+=`
           <li >
           <a
-          href="../images/image_watch.html"
-           onclick="Head_SidebarJS.passidtoImageWatch('${IdImagePostVideo}');"    
+       
+           onclick="Head_SidebarJS.passidWatchSubCommentUser('I','${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -331,8 +372,8 @@ static passidtoPostWatchCommentUser=(idpost)=>
           html_commentsuser+=`
           <li >
           <a
-          href="../images/image_watch.html"
-          onclick="Head_SidebarJS.passidtoImageWatch('${IdImagePostVideo}');"    
+      
+          onclick="Head_SidebarJS.passidtoImageWatchCommentUser('${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');"    
     
           >
              <div class="drop_avatar status-online">
@@ -357,10 +398,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
           html_commentsuser+=`
           <li >
           <a
-
-          href=""
-          onclick="Head_SidebarJS.passidtoVideoWatchCommentUser('${IdImagePostVideo}',${sessionuser.iduser}','${sessionuser.userrname}','${IdNotification}');"    
-    
+          onclick="Head_SidebarJS.passidWatchSubCommentUser('V','${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');"    
           >
              <div class="drop_avatar status-online">
               <img src="${ImageSender}" alt=""> 
@@ -380,9 +418,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
           html_commentsuser+=`
           <li >
           <a
-          href="../videos/video_watch.html"
-          onclick="Head_SidebarJS.passidtoVideoWatchCommentUser('${IdImagePostVideo}',${sessionuser.iduser}','${sessionuser.userrname}','${IdNotification}');"    
-    
+          onclick="Head_SidebarJS.passidtoVideoWatchCommentUser('${IdImagePostVideo}','${iduserlogin}','${usernamelogin}','${IdNotification}');"    
           >
              <div class="drop_avatar status-online">
               <img src="${ImageSender}" alt=""> 
@@ -408,8 +444,6 @@ static passidtoPostWatchCommentUser=(idpost)=>
   }
   static async loadNotificationsCommentsUser(sessionuser) {
 
-   
-
      const ably = new Ably.Realtime(`rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A`);
    
      //************************************************* */
@@ -424,7 +458,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
        let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
   
        document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
-      await Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+      await Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser.iduser,sessionuser.userrname);
      });  
 
      //******************************************** */
@@ -439,7 +473,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
          let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
     
          document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
-         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser.iduser,sessionuser.userrname);
        });  
 
        //**************************************************** */
@@ -454,7 +488,7 @@ static passidtoPostWatchCommentUser=(idpost)=>
            let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
       
            document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
-           await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+           await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser.iduser,sessionuser.userrname);
          });  
      //********************************************************* */
      // REAL TIME NOTIFICATION SUBCOMMENT
@@ -467,13 +501,13 @@ static passidtoPostWatchCommentUser=(idpost)=>
          let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
     
          document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
-         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+         await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser.iduser,sessionuser.userrname);
        });  
 
    //********************************************************* */
       let getNotificationComments = await APIRESTNotifications.getNotificationComments(sessionuser.iduser, sessionuser.userrname);
         document.getElementById("headersidebar_span_numbernoticomments").innerHTML=getNotificationComments.length;
-        await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser);
+        await  Head_SidebarJS.forCommentUsersNotification(getNotificationComments,sessionuser.iduser,sessionuser.userrname);
 
   }
   static async loadConfirmedFriend_SideBar(sessionuser) {

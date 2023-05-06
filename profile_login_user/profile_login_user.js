@@ -2413,7 +2413,6 @@ static async forCommentsPost(listcommentpost,idpost,iduserlogin,username){
         const commmentVideo= await APIRESTVideoComment.commmentVideo(idvideo,
          textcomment,iduserlogin,usernamelogin);
           if (commmentVideo) {
-   
           messagenotification('Comment Added','success',event);
    
          await this.showAddedCommentVideo(idvideo,iduserlogin,usernamelogin);
@@ -3273,6 +3272,16 @@ static forSubCommentPost=async(listsubcommentpost,idcomment,iduser,userrname)=>
       textsubcomment,iduserlogin,usernamelogin);
     if (addSubComment) {
   
+      //#region REAL TIME NOTIFICATION
+
+      var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+      const commentsnotificationChannelName = `comments_user_notificationsSubComment`;
+      const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+      const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageSubComment` };
+      commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+
+      //#endregion REAL TIME NOTIFICATION 
+
       messagenotification('Added comment answer','success',event);
 
       await this.showAddedSubComment(idcomment,iduserlogin,usernamelogin);

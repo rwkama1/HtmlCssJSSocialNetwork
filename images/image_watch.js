@@ -452,11 +452,17 @@ static async show_comment_images()
      const commentImage= await APIRESTImageComment.commmentImage(idimagewatch,
       textcomment,iduser,userrname);
      if (commentImage) {
-      // let data={
-      //   idpostwatch,textcomment,iduser,userrname
 
-      // }
-      // console.log(data);
+       //#region REAL TIME NOTIFICATION 
+
+       var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+       const commentsnotificationChannelName = `comments_user_notificationsI`;
+       const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+       const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageI` };
+       commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+      
+       //#endregion REAL TIME NOTIFICATION 
+
        messagenotification('Comment Added','success',event);
 
       await this.showAddedCommentImage(idimagewatch,iduser,userrname);
@@ -752,17 +758,21 @@ static  showRemoveCommentImage(idcomment) {
       textsubcomment,sessionuser.iduser,sessionuser.userrname);
     if (addSubComment) {
   
+  //#region REAL TIME NOTIFICATION
+
+  var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+  const commentsnotificationChannelName = `comments_user_notificationsSubComment`;
+  const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+  const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageSubComment` };
+  commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+  
+  //#endregion REAL TIME NOTIFICATION 
+
       messagenotification('Added comment answer','success',event);
 
       await this.showAddedSubComment(idcomment,sessionuser.iduser,sessionuser.userrname);
       
-     //await this.loadSubCommentPost(idcomment,sessionuser.iduser);
-      
-  
-
-     //  setInterval(() => {
-     //   location.reload();
-     //  }, 1000);
+   
       document.getElementById(`imagewatch_textsubcomment${idcomment}`).value="";
      }
  }catch (error) {

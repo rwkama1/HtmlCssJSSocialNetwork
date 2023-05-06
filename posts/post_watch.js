@@ -457,20 +457,21 @@ static async show_comment_post()
      const commentPost= await APIRESTPostComment.commentPost(idpostwatch,
       textcomment,iduser,userrname);
      if (commentPost) {
-      // let data={
-      //   idpostwatch,textcomment,iduser,userrname
 
-      // }
-      // console.log(data);
+         //#region REAL TIME NOTIFICATION
+
+         var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+         const commentsnotificationChannelName = `comments_user_notificationsP`;
+         const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+         const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageP` };
+         commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+         
+         //#endregion REAL TIME NOTIFICATION 
+
        messagenotification('Comment Added','success',event);
 
       await this.showAddedCommentPost(idpostwatch,iduser,userrname);
        
-   
-
-      //  setInterval(() => {
-      //   location.reload();
-      //  }, 1000);
        document.getElementById('postwatch_textcomment').value="";
       }
   }catch (error) {
@@ -752,17 +753,23 @@ static  showUpdatedCommentPost(idcomment,textcomment) {
       textsubcomment,sessionuser.iduser,sessionuser.userrname);
     if (addSubComment) {
   
+        
+            //#region REAL TIME NOTIFICATION
+
+            var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+            const commentsnotificationChannelName = `comments_user_notificationsSubComment`;
+            const commentsnotificationChannel = ably.channels.get(commentsnotificationChannelName);
+            const commentsnotificationRequestMessage = { name: `comments_user_notifications_messageSubComment` };
+            commentsnotificationChannel.publish(commentsnotificationRequestMessage);
+            
+            //#endregion REAL TIME NOTIFICATION 
+
+
       messagenotification('Added comment answer','success',event);
 
       await this.showAddedSubComment(idcomment,sessionuser.iduser,sessionuser.userrname);
       
-     //await this.loadSubCommentPost(idcomment,sessionuser.iduser);
-      
   
-
-     //  setInterval(() => {
-     //   location.reload();
-     //  }, 1000);
       document.getElementById(`postwatch_textsubcomment${idcomment}`).value="";
      }
  }catch (error) {
