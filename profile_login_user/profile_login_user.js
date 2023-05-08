@@ -65,15 +65,16 @@
 
 
      // LOAD ALBUM VIDEOS LOGIN USER
-     await this.loadAlbumVideosLoginUser();
+   //   await this.loadAlbumVideosLoginUser();
 
+      //LOAD ALBUM VIDEOS LOGIN USER
+  
+      await this.loadAlbumVideosWithVideosLoginUser(getuserlogin);
 
          // LOAD ALBUM VIDEOS MODAL ADD VIDEOS
       await this.loadAlbumVideoUserModal();
 
-    
-
-
+   
       //LOAD ALBUM IMAGES MODAL ADD IMAGE
 
       await this.loadAlbumImagesUserModal();
@@ -82,7 +83,11 @@
 
       //LOAD ALBUMIMAGES LOGIN USER
   
-          await this.loadAlbumImagesLoginUser();
+        //  await this.loadAlbumImagesLoginUser();
+
+          //LOAD ALBUMIMAGES LOGIN USER
+  
+          await this.loadAlbumImagesWithImagesLoginUser(getuserlogin);
    
       //LOAD IMAGES LOGIN USER
   
@@ -821,6 +826,56 @@ if(getImagesByAlbum.length!==0)
 
   document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
 }
+//GET ALBUM IMAGES WITH IMAGES LOGIN USER
+static async loadAlbumImagesWithImagesLoginUser(getuser) {
+   
+  let getAlbumImageWithImagesByLoginUser = await APIRESTAlbumImage.getAlbumImageWithImagesByLoginUser(getuser.iduser,getuser.userrname);
+  let albumwitharrayimages=Profile_Login_User.convertArrayImagesinAlbumImages(getAlbumImageWithImagesByLoginUser);
+  
+  let html_load_albumimage = '';
+
+  for (let i = 0; i < albumwitharrayimages.length; i++) {
+     let {images}  = albumwitharrayimages[i] ;
+ 
+
+    if (i >= 3) {
+      html_load_albumimage += 
+      `
+      <div hidden id="morealbumimage" >
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+            ${this.forAddImagesFromAlbum(images)}
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+    </div>
+        `;
+    } 
+    else {
+      html_load_albumimage += 
+      `
+      <div>
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+             ${this.forAddImagesFromAlbum(images)}
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+     
+   </div>
+        `;
+    }
+    
+//   }
+}
+
+
+  document.getElementById("profileloginuser_listalbumimages_div").innerHTML = html_load_albumimage;
+}
+
+
 //GET IMAGES LOGIN USER
 static async loadImagesLoginUser(iduser) {
   let getimagesuser = await APIRESTImages.getImagesByLoginUser(iduser,iduser);
@@ -1004,6 +1059,49 @@ static async loadAlbumVideosLoginUser() {
     }
     
   }
+}
+
+
+  document.getElementById("profileloginuser_listalbumvideo_div").innerHTML = html_load_albumvideo;
+}
+//GET ALBUM VIDEOS WITH VIDEOS LOGIN USER
+static async loadAlbumVideosWithVideosLoginUser(getuser) {
+   
+  let getAlbumVideoseByLoginUser = await APIRESTAlbumVideo.getAlbumVideobyUserWithVideos(getuser.iduser,getuser.userrname);
+  let albumwitharrayvideos=Profile_Login_User.convertArrayVideosinAlbumVideos(getAlbumVideoseByLoginUser);
+  let html_load_albumvideo = '';
+
+  for (let i = 0; i < albumwitharrayvideos.length; i++) {
+   let {videos}  = albumwitharrayvideos[i] ;
+
+    if (i >= 3) {
+      html_load_albumvideo += `
+      <div hidden id="morealbumvideo" >
+      <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+         <ul class="uk-slideshow-items">
+         ${this.forAddVideoFromAlbum(videos)} 
+         </ul>
+         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+         <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+      </div>
+   </div>
+        `;
+    } else {
+      html_load_albumvideo += `
+      <div>
+          <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: pull">
+                    <ul class="uk-slideshow-items">
+                    ${this.forAddVideoFromAlbum(videos)}        
+                    </ul>
+                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+              </div>
+                             
+         </div>
+        `;
+    }
+    
+  
 }
 
 
@@ -1370,6 +1468,63 @@ static async html_Post_LikesUser(getpost)
 
 //OTHERS
 
+//CONVERT ARRAY IMAGES IN ALBUM IMAGES
+static  convertArrayImagesinAlbumImages(getAlbumImageWithImagesByLoginUser) {
+   let albums=getAlbumImageWithImagesByLoginUser;
+  // let {idalbumphoto,idimage,titleimage,urlimage,title}  = getAlbumImageWithImagesByLoginUser[i] ;
+   const albumsWithImages = [];
+
+   for (let i = 0; i < albums.length; i++) {
+     const album = albums[i];
+     let albumFound = false;
+   
+     for (let j = 0; j < albumsWithImages.length; j++) {
+       if (albumsWithImages[j].idalbumphoto === album.idalbumphoto) {
+         albumsWithImages[j].images.push({ idphoto: album.idimage, urlimage: album.urlimage });
+         albumFound = true;
+         break;
+       }
+     }
+   
+     if (!albumFound) {
+       albumsWithImages.push({
+         idalbumphoto: album.idalbumphoto,
+         title: album.title,
+         images: [{ idphoto: album.idimage, urlimage: album.urlimage }]
+       });
+     }
+   }
+   return albumsWithImages;
+}
+//CONVERT ARRAY VIDEOS IN ALBUM VIDEOS
+static  convertArrayVideosinAlbumVideos(getAlbumVideoswithVideosByLoginUser) {
+   let albums=getAlbumVideoswithVideosByLoginUser;
+  // let {idalbumphoto,idimage,titleimage,urlimage,title}  = getAlbumImageWithImagesByLoginUser[i] ;
+   const albumsWithVideos= [];
+
+   for (let i = 0; i < albums.length; i++) {
+     const album = albums[i];
+     let albumFound = false;
+   
+     for (let j = 0; j < albumsWithVideos.length; j++) {
+       if (albumsWithVideos[j].idalbumvideo  === album.idalbumvideo ) {
+         albumsWithVideos[j].videos.push({ idvideo: album.idvideo , urlvideo : album.urlvideo  });
+         albumFound = true;
+         break;
+       }
+     }
+   
+     if (!albumFound) {
+      albumsWithVideos.push({
+         idalbumvideo: album.idalbumvideo,
+         title: album.title,
+         videos: [{ idvideo: album.idvideo, urlvideo : album.urlvideo  }]
+       });
+     }
+   }
+   return albumsWithVideos;
+}
+
 static forAddImagesFromAlbum(images)
    {
     let html_images="";
@@ -1414,6 +1569,7 @@ static forAddImagesFromAlbum(images)
    }
 //******************************************************** */
 // SHOW POST VIDEO IMAGE HTML
+
   static async html_Post_TimeLine(getpost,usernamelogin)
 {
 

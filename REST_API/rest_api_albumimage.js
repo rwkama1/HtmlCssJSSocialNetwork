@@ -62,8 +62,30 @@ class APIRESTAlbumImage
             let data = await response.json();
             return data;
        }  
-       
 
+       static getAlbumImageWithImagesByLoginUser=async(iduserlogin,username)=>
+       {
+        
+             let URLALBUMIMAGE=this.RESTAPIURL+`/albumimage/getAlbumImagebyUserWithImages?iduserlogin=${iduserlogin}&usernamelogin=${username}`;
+ 
+             let headersList = {
+               "Accept": "*/*",
+              
+              }
+              
+              let response = await fetch(URLALBUMIMAGE, { 
+                method: "GET",
+                headers: headersList
+              });
+              
+            if(!response.ok)
+            {
+             const error=await response.text();
+             throw new Error(error);
+            }
+            let data = await response.json();
+            return data;
+       }  
  
   }     
   
