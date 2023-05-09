@@ -248,7 +248,21 @@ static passidWatchSubCommentUser=async(type,idpostimagevideo,iduserlogin,usernam
 }
 
 
+//DELETE COMMENT NOTIFICATIONS
 
+static deleteCommentNotifications=()=>
+{
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let deleteNotiCommentsByUser= APIRESTNotifications.deleteNotiCommentsByUser(sessionuser.iduser,sessionuser.userrname);
+  if(deleteNotiCommentsByUser)
+  {
+    
+    document.getElementById("headersidebar_span_numbernoticomments").innerHTML=0;
+    document.getElementById("headesidebar_ul_listcommentsusers").innerHTML="";
+  }
+ 
+
+}
 
 
   static async forPendingFriends(sessionuser) {
@@ -543,6 +557,42 @@ static passidWatchSubCommentUser=async(type,idpostimagevideo,iduserlogin,usernam
     document.getElementById("headersidebar_friendconfirmedslist").innerHTML=html_confirmedfriend;
 
   }
+  //LOAD CHAT USERS BY LOGIN USER
+
+  static async loadChatUsersByLoginUser(sessionuser) {
+
+    //  existloginuser
+  
+      let html_confirmedfriend="";
+      let getConfirmedFriendByUserSideBar = await APIRESTChat.getConfirmedFriendByUserSideBar(sessionuser.iduser);
+   
+      for (let i = 0; i < getConfirmedFriendByUserSideBar.length; i++) {
+        let {iduser,image,name,existloginuser } = getConfirmedFriendByUserSideBar[i];
+        if (image==="") {
+          image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+        }
+        let user_status_online="";
+        if (existloginuser) {
+          user_status_online=`<span class="user_status status_online"></span>`;
+        }
+        html_confirmedfriend+=`
+        <a 
+          onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
+          href="../profileuser/profileuser.html"
+        >
+          <div class="contact-avatar"> 
+            <img src="${image}" alt="">
+              ${user_status_online}
+          </div>
+          <div class="contact-username">${name}</div>
+        </a>
+        `;
+  
+      }
+      document.getElementById("headersidebar_friendconfirmedslist").innerHTML=html_confirmedfriend;
+  
+    }
+
 }
 window.addEventListener("load",Head_SidebarJS.load_headersidebar);
 
@@ -552,6 +602,10 @@ window.addEventListener("load",Head_SidebarJS.load_headersidebar);
 const headersidebar_search_text = document.getElementById("headersidebar_search_text");
 headersidebar_search_text.addEventListener("input",Head_SidebarJS.searchText);
 
+//DELETE COMMENT NOTIFICATIONS
+
+const headersidebar_button_deletenotifications = document.getElementById("headersidebar_button_deletenotifications");
+headersidebar_button_deletenotifications.addEventListener("click",Head_SidebarJS.deleteCommentNotifications);
 
 const a_logout = document.getElementById('usersettings_link_logout');
 a_logout.addEventListener('click', Head_SidebarJS.logout);

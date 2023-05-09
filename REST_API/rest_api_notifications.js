@@ -117,4 +117,26 @@ class APIRESTNotifications
          let data = await response.json();
          return data;
     } 
+    static deleteNotiCommentsByUser=async(iduserLogin,usernamelogin)=>
+    {
+       
+          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/notificationcomment?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
+
+          let headersList = {
+            "Accept": "*/*",
+           
+           }
+           
+           let response = await fetch(URLNOTIFICATION, { 
+             method: "DELETE",
+             headers: headersList
+           });
+           
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         return true
+    } 
 }
