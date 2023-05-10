@@ -53,7 +53,30 @@ class APIRESTChat
      let data = await response.json();
      return data;
     }
+    static getChatRoomsMessagesByUser=async(iduserLogin,usernamelogin)=>
+    {
+       
+      let URLCHATROOM=this.RESTAPIURL+`/chatroom/chatroom?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
+ 
+      let headersList = {
+        "Accept": "*/*"
+       }
+       
+       var requestOptions = {
+        method: "GET",
 
+        headers: headersList
+       };
+
+      const response=await fetch(URLCHATROOM, requestOptions);
+     if(!response.ok)
+     {
+      const error=await response.text();
+      throw new Error(error);
+     }
+     let data = await response.json();
+     return data;
+    }
 
     // static updateSeenNotificationCommentImage=async(iduserLogin,usernamelogin,idnotification)=>
     // {
