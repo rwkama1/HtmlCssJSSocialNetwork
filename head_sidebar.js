@@ -146,6 +146,8 @@ static  load_headersidebar=async()=>
 
 
   await Head_SidebarJS.loadConfirmedFriend_SideBar(sessionuser);
+
+  await Head_SidebarJS.loadChatUsersByLoginUser(sessionuser);
   } 
  catch (error) {
   alert(error);
@@ -561,35 +563,29 @@ static deleteCommentNotifications=()=>
 
   static async loadChatUsersByLoginUser(sessionuser) {
 
-    //  existloginuser
-  
-      let html_confirmedfriend="";
-      let getConfirmedFriendByUserSideBar = await APIRESTChat.getConfirmedFriendByUserSideBar(sessionuser.iduser);
    
-      for (let i = 0; i < getConfirmedFriendByUserSideBar.length; i++) {
-        let {iduser,image,name,existloginuser } = getConfirmedFriendByUserSideBar[i];
-        if (image==="") {
-          image="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+  
+      let html_chatusers="";
+      let getUsersChatRoomsByUser = await APIRESTChat.getUsersChatRoomsByUser(sessionuser.iduser,sessionuser.userrname);
+  
+      for (let i = 0; i < getUsersChatRoomsByUser.length; i++) {
+        let {idchatroom ,iduser2,nameuser2,profileimage2 } = getUsersChatRoomsByUser[i];
+        if (profileimage2==="") {
+          profileimage2="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
         }
-        let user_status_online="";
-        if (existloginuser) {
-          user_status_online=`<span class="user_status status_online"></span>`;
-        }
-        html_confirmedfriend+=`
-        <a 
-          onclick="Head_SidebarJS.passidtoUserProfile('${iduser}');" 
-          href="../profileuser/profileuser.html"
-        >
-          <div class="contact-avatar"> 
-            <img src="${image}" alt="">
-              ${user_status_online}
-          </div>
-          <div class="contact-username">${name}</div>
-        </a>
+       
+        html_chatusers+=`
+        <a href="../chat/chat.html">
+              <div class="contact-avatar">
+                    <img src="${profileimage2}" alt="">
+                         
+               </div>
+             <div class="contact-username">${nameuser2}</div>
+         </a>
         `;
   
       }
-      document.getElementById("headersidebar_friendconfirmedslist").innerHTML=html_confirmedfriend;
+      document.getElementById("headersidebar_div_chatusers").innerHTML=html_chatusers;
   
     }
 
