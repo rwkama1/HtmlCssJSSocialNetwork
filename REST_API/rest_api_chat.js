@@ -78,6 +78,31 @@ class APIRESTChat
      return data;
     }
 
+    //MESSAGES
+
+    static getMessagesChatRoom=async(iduser2,iduserLogin,usernamelogin)=>
+    {
+       
+      let URLCHATROOM=this.RESTAPIURL+`/message/message?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}&iduser2=${iduser2}`;
+      let headersList = {
+        "Accept": "*/*"
+       }
+       
+       var requestOptions = {
+        method: "GET",
+        headers: headersList
+       };
+
+      const response=await fetch(URLCHATROOM, requestOptions);
+     if(!response.ok)
+     {
+      const error=await response.text();
+      throw new Error(error);
+     }
+     let data = await response.json();
+     return data;
+    }
+
     // static updateSeenNotificationCommentImage=async(iduserLogin,usernamelogin,idnotification)=>
     // {
        

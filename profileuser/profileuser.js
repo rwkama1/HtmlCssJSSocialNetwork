@@ -96,7 +96,18 @@ this.showImageCoverProfile(image, coverphoto);
  
    }
 
+   //SEND MESSAGE TO USER
+   static async sendMessage()
+   { 
+      let iduserwatch=await sessionStorage.getItem('iduserwatch');
+      let addchatroom=await APIRESTChat.addChatRoom(iduserwatch,sessionuser.iduser,sessionuser.userrname);
+      if(addchatroom)
+      { 
+         sessionStorage.setItem('iduserchat', iduserwatch);
+         window.location.href="../chat/chat.html";
+      }
    
+   }
 
 //#region USERFOLLOW
 
@@ -3025,11 +3036,12 @@ static passidtoPostWatch=(idpost)=>
  }
   
 } 
+
+
 }
 
+
 window.addEventListener("load",ProfileUserJS.loadPage);
-
-
 
 
 //DELETE FRIEND
@@ -3070,3 +3082,9 @@ form_profileuser_updatesubcomment.addEventListener('submit', ProfileUserJS.updat
 //DELETE SUBCOMMENT
 const profileuser_button_deletesubcomment = document.getElementById('profileuser_button_deletesubcomment');
 profileuser_button_deletesubcomment.addEventListener('click', ProfileUserJS.deleteSubComment);
+
+
+//SEND MESSAGE
+const profileuser_a_sendmessage = document.getElementById('profileuser_a_sendmessage');
+profileuser_a_sendmessage.addEventListener('click', ProfileUserJS.sendMessage);
+
