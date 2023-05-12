@@ -6,7 +6,10 @@ class APIRESTChat
     {
         // const {iduserreceived,iduserlogin,c} = req.body;
           let URLCHATROOM=this.RESTAPIURL+`/chatroom/chatroom`;
-
+          let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+           }
           let bodyContent = JSON.stringify({
             "iduserreceived": iduserreceived ,
             "iduserlogin": iduserlogin ,
@@ -79,7 +82,36 @@ class APIRESTChat
     }
 
     //MESSAGES
-
+    static addMessage=async(iduserreceived,text,iduserlogin,usernamelogin)=>
+    {
+          let URLMESSAGE=this.RESTAPIURL+`/message/message`;
+          let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+           }
+          let bodyContent = JSON.stringify({
+            "iduserreceived": iduserreceived ,
+            "text": text ,
+            "iduserlogin": iduserlogin ,
+            "usernamelogin": usernamelogin 
+            
+           
+          });
+   
+           var requestOptions = {
+            method: "POST",
+            body: bodyContent,
+            headers: headersList
+           };
+   
+        const response=await fetch(URLMESSAGE, requestOptions);
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         return true;
+    } 
     static getMessagesChatRoom=async(iduser2,iduserLogin,usernamelogin)=>
     {
        

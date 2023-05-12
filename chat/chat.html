@@ -440,8 +440,10 @@
                         <div class="message-content-scrolbar" data-simplebar>
 
                             <!-- Message Content Inner -->
-                            <div class="message-content-inner">
-                                    
+                            <div  class="message-content-inner">
+                                    <div id="chat_div_listmessagesusers">
+
+                                   
                                     <!-- Time Sign -->
                                     <div class="message-time-sign">
                                         <span>28 June, 2020</span>
@@ -499,7 +501,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-    
+                                 </div>
                                     <div class="message-bubble">
                                         <div class="message-bubble-inner">
                                             <div class="message-avatar"><img src="../assets/images/avatars/avatar-2.jpg" alt=""></div>
@@ -519,8 +521,8 @@
                             
                             <!-- Reply Area -->
                             <div class="message-reply">
-                                <textarea cols="1" rows="1" placeholder="Your Message"></textarea>
-                                <button class="button ripple-effect">Send</button>
+                                <textarea id="chat_textarea_sendmessage" cols="1" rows="1" placeholder="Your Message"></textarea>
+                                <button id="chat_button_sendmessage" class="button ripple-effect">Send</button>
                             </div>
 
                         </div>

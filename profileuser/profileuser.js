@@ -100,6 +100,7 @@ this.showImageCoverProfile(image, coverphoto);
    static async sendMessage()
    { 
       let iduserwatch=await sessionStorage.getItem('iduserwatch');
+      let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
       let addchatroom=await APIRESTChat.addChatRoom(iduserwatch,sessionuser.iduser,sessionuser.userrname);
       if(addchatroom)
       { 
