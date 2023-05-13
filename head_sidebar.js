@@ -180,6 +180,12 @@ static passidtoUserProfile=(iduser)=>
   sessionStorage.setItem('iduserwatch', null);
   sessionStorage.setItem('iduserwatch', iduser);
 }
+static passidtoChatUser=(iduser)=>
+{
+  sessionStorage.setItem('iduserchat', null);
+  sessionStorage.setItem('iduserchat', iduser);
+  window.location.href="../chat/chat.html";
+}
 
 //NOTIFICATIONS COMMENT USERS PASS
 
@@ -566,23 +572,34 @@ static deleteCommentNotifications=()=>
    
   
       let html_chatusers="";
-      let getUsersChatRoomsByUser = await APIRESTChat.getUsersChatRoomsByUser(sessionuser.iduser,sessionuser.userrname);
+      let getChatRoomsMessagesByUser=await APIRESTChat.getChatRoomsMessagesByUser(sessionuser.iduser,sessionuser.userrname);
   
-      for (let i = 0; i < getUsersChatRoomsByUser.length; i++) {
-        let {idchatroom ,iduser2,nameuser2,profileimage2 } = getUsersChatRoomsByUser[i];
+      for (let i = 0; i < getChatRoomsMessagesByUser.length; i++) {
+        let {idchatroom ,iduser2,nameuser2,profileimage2 } = getChatRoomsMessagesByUser[i];
         if (profileimage2==="") {
           profileimage2="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
         }
-       
-        html_chatusers+=`
-        <a href="../chat/chat.html">
-              <div class="contact-avatar">
-                    <img src="${profileimage2}" alt="">
-                         
-               </div>
-             <div class="contact-username">${nameuser2}</div>
-         </a>
-        `;
+        if(sessionuser.iduser===iduser2){
+ 
+          html_chatusers+=`
+          
+          `;
+        }
+        else
+        {
+          html_chatusers+=`
+          <a 
+          onclick="Head_SidebarJS.passidtoChatUser('${iduser2}');" 
+          >
+                <div class="contact-avatar">
+                      <img src="${profileimage2}" alt="">
+                           
+                 </div>
+               <div class="contact-username">${nameuser2}</div>
+           </a>
+          `;
+        }
+      
   
       }
       document.getElementById("headersidebar_div_chatusers").innerHTML=html_chatusers;

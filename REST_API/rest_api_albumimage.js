@@ -34,9 +34,7 @@ class APIRESTAlbumImage
           throw new Error(error);
          }
          return true;
-        }
-
-        
+        }    
        //GETS
        static getAlbumImageByLoginUser=async(iduserlogin,username)=>
        {
