@@ -8,8 +8,38 @@ class ChatJS
     try {
         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         let iduserchat=sessionStorage.getItem('iduserchat');
+     
         await ChatJS.listChatRoomMessageLoginUser(sessionuser);
+
+        //I CREATE 2 INSTANCES OF ABLY, SINCE THE 2 USERS MUST RECEIVE THE MESSAGES.
+         
+        // REAL TIME MESSAGES RECEIVED
+
+          const ably = new Ably.Realtime(`rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A`);
+          const presenceChannel = ably.channels.get(`sendmessagechanel${sessionuser.iduser}${iduserchat}`);
+          // Listen for channel events
+          presenceChannel.subscribe(`sendmessage${sessionuser.iduser}${iduserchat}`, async function(message) {
+        
+            await ChatJS.loadMessagesInChatByUsers(iduserchat,sessionuser.iduser,sessionuser.userrname);
+
+          });
+
+    //********************************************************* */
+
+       // REAL TIME MESSAGES RECEIVED
+
+         
+          const presenceChannel2 = ably.channels.get(`sendmessagechanel${iduserchat}${sessionuser.iduser}`);
+           // Listen for channel events
+           presenceChannel2.subscribe(`sendmessage${iduserchat}${sessionuser.iduser}`, async function(message) {
+         
+            await ChatJS.loadMessagesInChatByUsers(iduserchat,sessionuser.iduser,sessionuser.userrname);
+      
+       }); 
+
         await ChatJS.loadMessagesInChatByUsers(iduserchat,sessionuser.iduser,sessionuser.userrname);
+
+       
     } 
     catch (error) {
     
@@ -72,56 +102,73 @@ class ChatJS
   //LOAD MESSAGES CLICK USERS CHAT ROOM
   static async showMessagesInChatByUsers(iduser2,iduserlogin,usernamelogin)
   {
-    document.getElementById("chat_div_listmessagesusers").innerHTML="";
-    sessionStorage.setItem("iduserchat",null);
-    sessionStorage.setItem("iduserchat",iduser2);
-    let html_messages="";
-   
-    let getMessagesChatRoom=await APIRESTChat.getMessagesChatRoom(iduser2,iduserlogin,usernamelogin);
+    sessionStorage.setItem("iduserchat", null);
+    sessionStorage.setItem("iduserchat", iduser2);
+  
+    const messagesByDate = {};
+  
+    const getMessagesChatRoom = await APIRESTChat.getMessagesChatRoom(iduser2, iduserlogin, usernamelogin);
   
     for (let i = 0; i < getMessagesChatRoom.length; i++) {
-      let {idusersender,nameusersender,imageusersender,textt,
-        dateetime
-      }=getMessagesChatRoom[i];
-      if(imageusersender==="")
-      {
-        imageusersender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
-      }
-     
-      if (Number(iduserlogin)===Number(idusersender)) 
-      {
-        html_messages+=`
-        <div class="message-time-sign">
-        <span>${dateetime}</span>
-         </div>
-        <div class="message-bubble me">
-          <div class="message-bubble-inner">
-              <div class="message-avatar"><img src="${imageusersender}" alt=""></div>
-              <div class="message-text"><p>${textt}</p></div>
-          </div>
-          <div class="clearfix"></div>
-  
-         </div>
-        `;
-      }
-       else {
-        html_messages+=`
-        <div class="message-time-sign">
-        <span>${dateetime}</span>
-         </div>
-        <div class="message-bubble">
-          <div class="message-bubble-inner">
-              <div class="message-avatar">
-              <img src="${imageusersender}" alt=""></div>
-              <div class="message-text"><p> ${textt}</p></div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-    `;
-      }
+      let { idusersender, nameusersender, imageusersender, textt, dateetime } = getMessagesChatRoom[i];
    
+      const messageDate = new Date(dateetime);
+    
+      const messageDateWithoutTime = messageDate.toDateString();
+      if (imageusersender === "") {
+        imageusersender = "https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      if (!messagesByDate[messageDateWithoutTime]) {
+        messagesByDate[messageDateWithoutTime] = [];
+      }
+      messagesByDate[messageDateWithoutTime].push({
+        idusersender,
+        nameusersender,
+        imageusersender,
+        textt,
+        dateetime
+      });
     }
-    document.getElementById("chat_div_listmessagesusers").innerHTML=html_messages;
+  
+    let html_messages = "";
+    for (const date in messagesByDate) {
+      
+     const datetext=ChatJS.DiffDateMessageDateNow(date) ;     
+      html_messages += `
+        <div class="message-time-sign">
+          <span>${datetext}</span>
+        </div>
+      `;
+      const messages = messagesByDate[date];
+      for (const message of messages) {
+        let { idusersender, nameusersender, imageusersender, textt, dateetime } = message;
+        if (Number(iduserlogin) === Number(idusersender)) {
+          html_messages += `
+            <div class="message-bubble me">
+              <div class="message-bubble-inner">
+                <div class  ="message-avatar"><img src="${imageusersender}" alt=""></div>
+                <div class="message-text"><p>${textt}</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          `;
+        } else {
+          html_messages += `
+            <div class="message-bubble">
+              <div class="message-bubble-inner">
+                <div class="message-avatar">
+                  <img src="${imageusersender}" alt="">
+                </div>
+                <div class="message-text"><p>${textt}</p></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    document.getElementById("chat_div_listmessagesusers").innerHTML = html_messages;    
 }
   //LIST MESSAGES CHAT ROOM
 static async loadMessagesInChatByUsers(iduser2,iduserlogin,usernamelogin){
@@ -156,7 +203,7 @@ static async loadMessagesInChatByUsers(iduser2,iduserlogin,usernamelogin){
   
     let html_messages = "";
     for (const date in messagesByDate) {
-      console.log(date);
+    
      const datetext=ChatJS.DiffDateMessageDateNow(date) ;     
       html_messages += `
         <div class="message-time-sign">
@@ -195,58 +242,7 @@ static async loadMessagesInChatByUsers(iduser2,iduserlogin,usernamelogin){
     document.getElementById("chat_div_listmessagesusers").innerHTML = html_messages;      
 
 }
-static async loadMessagesInChatByUsers2(iduser2,iduserlogin,usernamelogin){
-  sessionStorage.setItem("iduserchat",null);
-  sessionStorage.setItem("iduserchat",iduser2);
-  let html_messages="";
-  let getMessagesChatRoom=await APIRESTChat.getMessagesChatRoom(iduser2,iduserlogin,usernamelogin);
 
-
-  for (let i = 0; i < getMessagesChatRoom.length; i++) {
-    let {idusersender,nameusersender,imageusersender,textt,
-      dateetime //DATEFORMAT: 2023-02-11T02:06:09.787Z
-    }=getMessagesChatRoom[i];
- 
-
-    if(imageusersender==="")
-    {
-      imageusersender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
-    }
-    if (Number(iduserlogin)===Number(idusersender)) 
-    {
-      html_messages+=`
-      <div class="message-time-sign">
-      <span>${dateText}</span>
-       </div>
-      <div class="message-bubble me">
-        <div class="message-bubble-inner">
-            <div class="message-avatar"><img src="${imageusersender}" alt=""></div>
-            <div class="message-text"><p>${textt}</p></div>
-        </div>
-        <div class="clearfix"></div>
-
-       </div>
-      `;
-    }
-     else {
-      html_messages+=`
-      <div class="message-time-sign">
-      <span>${dateetime}</span>
-       </div>
-      <div class="message-bubble">
-        <div class="message-bubble-inner">
-            <div class="message-avatar">
-            <img src="${imageusersender}" alt=""></div>
-            <div class="message-text"><p> ${textt}</p></div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-  `;
-    }
- 
-  }
-  document.getElementById("chat_div_listmessagesusers").innerHTML=html_messages;
-}
 //SEND MESSAGE
 static async sendMessage()
 {
@@ -264,24 +260,52 @@ static async sendMessage()
   }
  let addMessage=await APIRESTChat.addMessage(iduserchat,textmessage,sessionuser.iduser,sessionuser.userrname);
  if (addMessage) {
-  let html_addedmessage=`
-  <div class="message-bubble me">
-  <div class="message-bubble-inner">
-      <div class="message-avatar"><img src="${sessionuser.image}" alt=""></div>
-      <div class="message-text"><p>${textmessage}</p></div>
-  </div>
-  <div class="clearfix"></div>
-</div>
 
-  `;
+    //#region REAL TIME MESSAGE 
+
+    var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+    const sendmessageChannelName = `sendmessagechanel${sessionuser.iduser}${iduserchat}`;
+    const sendmessageChannel = ably.channels.get(sendmessageChannelName);
+    const sendmessageRequestMessage = { name: `sendmessage${sessionuser.iduser}${iduserchat}` };
+    sendmessageChannel.publish(sendmessageRequestMessage);
+   
+    //#endregion REAL TIME MESSAGE 
+
+//   let html_addedmessage=`
+//   <div class="message-bubble me">
+//   <div class="message-bubble-inner">
+//       <div class="message-avatar"><img src="${sessionuser.image}" alt=""></div>
+//       <div class="message-text"><p>${textmessage}</p></div>
+//   </div>
+//   <div class="clearfix"></div>
+// </div>
+
+//   `;
   document.getElementById("chat_textarea_sendmessage").value="";
-  let chat_div_listmessagesusers= document.getElementById("chat_div_listmessagesusers");
-  chat_div_listmessagesusers.parentNode.insertAdjacentHTML("beforeend", html_addedmessage);
+  // let chat_div_listmessagesusers= document.getElementById("chat_div_listmessagesusers");
+  // chat_div_listmessagesusers.parentNode.insertAdjacentHTML("beforeend", html_addedmessage);
  }
+}
+
+//TYPING INDICATOR SEND MESSAGE
+static typingindicator_sendMessage()
+{
+  let iduserchat=sessionStorage.getItem('iduserchat');
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  
+  //#region REAL TIME TYPING MESSAGE 
+
+  var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+  const typingsendmessageChannelName = `typingsendmessagechanel${sessionuser.iduser}${iduserchat}`;
+  const typingsendmessageChannel = ably.channels.get(typingsendmessageChannelName);
+  const typingsendmessageRequestMessage = { name: `typingsendmessage${sessionuser.iduser}${iduserchat}` };
+  typingsendmessageChannel.publish(typingsendmessageRequestMessage);
+ 
+  //#endregion REAL TIME TYPING MESSAGE 
 }
 //OTHERS
 static DiffDateMessageDateNow(datetimemessage) {
-  console.log(datetimemessage);
+
   let stringmessagedago = "";
   let localdate = new Date(datetimemessage);
 
@@ -345,3 +369,7 @@ window.addEventListener("load",ChatJS.loadPage);
 //SEND MESSAGE
 const chat_button_sendmessage = document.getElementById('chat_button_sendmessage');
 chat_button_sendmessage.addEventListener('click', ChatJS.sendMessage);
+
+//TYPING SEND MESSAGE
+const chat_textarea_sendmessage = document.getElementById('chat_textarea_sendmessage');
+chat_textarea_sendmessage.addEventListener('keydown', ChatJS.typingindicator_sendMessage);

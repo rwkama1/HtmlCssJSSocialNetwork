@@ -314,10 +314,14 @@ static deleteCommentNotifications=()=>
       if (ImageSender==="") {
         ImageSender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
       }
+      if(Number(iduserlogin)===Number(IdUserSender))
+      {
+        html_commentsuser=``;
+      }
       if(Typee==='P')
       {
 
-     
+
           if (Subcomment===1) {
             html_commentsuser+=`
             <li >
