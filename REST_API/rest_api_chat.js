@@ -80,6 +80,36 @@ class APIRESTChat
      let data = await response.json();
      return data;
     }
+    static deleteChatRoom=async(iduserreceived,iduserlogin,usernamelogin)=>
+    {
+        
+          let URLCHATROOM=this.RESTAPIURL+`/chatroom/chatroom`;
+          let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+           }
+          let bodyContent = JSON.stringify({
+            "iduserreceived": iduserreceived ,
+            "iduserlogin": iduserlogin ,
+            "usernamelogin": usernamelogin 
+            
+           
+          });
+   
+           var requestOptions = {
+            method: "DELETE",
+            body: bodyContent,
+            headers: headersList
+           };
+   
+        const response=await fetch(URLCHATROOM, requestOptions);
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         return true;
+    } 
 
     //MESSAGES
     static addMessage=async(iduserreceived,text,iduserlogin,usernamelogin)=>

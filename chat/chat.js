@@ -8,7 +8,11 @@ class ChatJS
     try {
         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         let iduserchat=sessionStorage.getItem('iduserchat');
-     
+        let getuser=await APIRESTUser.getUser(iduserchat
+      ,sessionuser.iduser,sessionuser.userrname);
+
+      document.getElementById("chat_h4_nameuserconversation").innerHTML=`${getuser.name}`;
+      
         await ChatJS.listChatRoomMessageLoginUser(sessionuser);
 
         //I CREATE 2 INSTANCES OF ABLY, SINCE THE 2 USERS MUST RECEIVE THE MESSAGES.
@@ -246,6 +250,8 @@ static async loadMessagesInChatByUsers(iduser2,iduserlogin,usernamelogin){
 //SEND MESSAGE
 static async sendMessage()
 {
+  try {
+   
   let iduserchat=sessionStorage.getItem('iduserchat');
   let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
   const textmessage= document.getElementById("chat_textarea_sendmessage").value;
@@ -284,25 +290,42 @@ static async sendMessage()
   document.getElementById("chat_textarea_sendmessage").value="";
   // let chat_div_listmessagesusers= document.getElementById("chat_div_listmessagesusers");
   // chat_div_listmessagesusers.parentNode.insertAdjacentHTML("beforeend", html_addedmessage);
- }
+} 
+} 
+catch (error) {
+    alert(error);
+  }
+ 
 }
-
 //TYPING INDICATOR SEND MESSAGE
-static typingindicator_sendMessage()
+// static typingindicator_sendMessage()
+// {
+//   let iduserchat=sessionStorage.getItem('iduserchat');
+//   let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  
+//   //#region REAL TIME TYPING MESSAGE 
+
+//   var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+//   const typingsendmessageChannelName = `typingsendmessagechanel${sessionuser.iduser}${iduserchat}`;
+//   const typingsendmessageChannel = ably.channels.get(typingsendmessageChannelName);
+//   const typingsendmessageRequestMessage = { name: `typingsendmessage${sessionuser.iduser}${iduserchat}` };
+//   typingsendmessageChannel.publish(typingsendmessageRequestMessage);
+ 
+//   //#endregion REAL TIME TYPING MESSAGE 
+// }
+//DELETE CHATROOM 
+static async deleteChatRoom()
 {
   let iduserchat=sessionStorage.getItem('iduserchat');
   let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
-  
-  //#region REAL TIME TYPING MESSAGE 
-
-  var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
-  const typingsendmessageChannelName = `typingsendmessagechanel${sessionuser.iduser}${iduserchat}`;
-  const typingsendmessageChannel = ably.channels.get(typingsendmessageChannelName);
-  const typingsendmessageRequestMessage = { name: `typingsendmessage${sessionuser.iduser}${iduserchat}` };
-  typingsendmessageChannel.publish(typingsendmessageRequestMessage);
- 
-  //#endregion REAL TIME TYPING MESSAGE 
+  let deleteChatRoom=await  APIRESTChat.deleteChatRoom(iduserchat,sessionuser.iduser,sessionuser.userrname);
+  if(deleteChatRoom)
+  {
+    messagenotification_withoutevent('Chat Room Deleted','success');
+    setInterval(location.reload(),1000);
+  }
 }
+
 //OTHERS
 static DiffDateMessageDateNow(datetimemessage) {
 
@@ -371,5 +394,10 @@ const chat_button_sendmessage = document.getElementById('chat_button_sendmessage
 chat_button_sendmessage.addEventListener('click', ChatJS.sendMessage);
 
 //TYPING SEND MESSAGE
-const chat_textarea_sendmessage = document.getElementById('chat_textarea_sendmessage');
-chat_textarea_sendmessage.addEventListener('keydown', ChatJS.typingindicator_sendMessage);
+// const chat_textarea_sendmessage = document.getElementById('chat_textarea_sendmessage');
+// chat_textarea_sendmessage.addEventListener('keydown', ChatJS.typingindicator_sendMessage);
+
+
+//DELETE CHAT ROOM
+const chat_button_deleteconversation = document.getElementById('chat_button_deleteconversation');
+chat_button_deleteconversation.addEventListener('click', ChatJS.deleteChatRoom);
