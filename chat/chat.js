@@ -269,13 +269,23 @@ static async sendMessage()
 
     //#region REAL TIME MESSAGE 
 
-    var ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
+    let ably = new Ably.Realtime('rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A');
     const sendmessageChannelName = `sendmessagechanel${sessionuser.iduser}${iduserchat}`;
     const sendmessageChannel = ably.channels.get(sendmessageChannelName);
     const sendmessageRequestMessage = { name: `sendmessage${sessionuser.iduser}${iduserchat}` };
     sendmessageChannel.publish(sendmessageRequestMessage);
    
     //#endregion REAL TIME MESSAGE 
+
+     //#region REAL TIME NOTI MESSAGE 
+
+    
+     const sendmessageChannelName2 = `sendnotimessagechanel${iduserchat}`;
+     const sendmessageChannel2 = ably.channels.get(sendmessageChannelName2);
+     const sendmessageRequestMessage2 = { name: `sendnotimessage${iduserchat}` };
+     sendmessageChannel2.publish(sendmessageRequestMessage2);
+    
+     //#endregion REAL TIME NOTI MESSAGE 
 
 //   let html_addedmessage=`
 //   <div class="message-bubble me">

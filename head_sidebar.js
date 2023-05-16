@@ -127,6 +127,8 @@ static  load_headersidebar=async()=>
 
     await Head_SidebarJS.loadNotificationsCommentsUser(sessionuser);
 
+    await Head_SidebarJS.loadNotificationsMessageUser(sessionuser);
+
     let getuser= await APIRESTUser.getUser(sessionuser.iduser,sessionuser.iduser,sessionuser.userrname);
  
     // SHOW NAME AND IMAGE PROFILE
@@ -150,6 +152,7 @@ static  load_headersidebar=async()=>
   await Head_SidebarJS.loadChatUsersByLoginUser(sessionuser);
   } 
  catch (error) {
+ 
   alert(error);
   window.location.href="../index.html";
  }
@@ -180,11 +183,12 @@ static passidtoUserProfile=(iduser)=>
   sessionStorage.setItem('iduserwatch', null);
   sessionStorage.setItem('iduserwatch', iduser);
 }
-static passidtoChatUser=(iduser)=>
+static passidtoChatUser=async(iduserconversation)=>
 {
-  sessionStorage.setItem('iduserchat', null);
-  sessionStorage.setItem('iduserchat', iduser);
-  window.location.href="../chat/chat.html";
+    sessionStorage.setItem('iduserchat', null);
+    sessionStorage.setItem('iduserchat', iduserconversation);
+    window.location.href="../chat/chat.html";
+  
 }
 
 //NOTIFICATIONS COMMENT USERS PASS
@@ -609,6 +613,73 @@ static deleteCommentNotifications=()=>
       document.getElementById("headersidebar_div_chatusers").innerHTML=html_chatusers;
   
     }
+
+
+    //NOTIFICATION MESSAGES
+
+    static async loadNotificationsMessageUser(sessionuser) {
+
+      const ably = new Ably.Realtime(`rjPGqw.P14V_A:-ZG1cx0oPtx7dmkwnZz1rHYgTPg9C86Ap1Tn4bP_y6A`);
+    
+      //************************************************* */
+ 
+      // REAL TIME NOTIFICATION  MESSAGE 
+ 
+      const presenceChannel = ably.channels.get(`sendnotimessagechanel${sessionuser.iduser}`);
+      
+   
+      presenceChannel.subscribe(`sendnotimessage${sessionuser.iduser}`, async function(message) {
+        
+        let getNotificationMessages = await APIRESTNotifications.getNotificationMessages(sessionuser.iduser, sessionuser.userrname);
+        document.getElementById("headersidebar_span_numbernotimessages").innerHTML=getNotificationMessages.length;
+       await Head_SidebarJS.forMessageUsersNotification(getNotificationMessages,sessionuser.iduser,sessionuser.userrname);
+      });  
+ 
+      //******************************************** */
+
+       let getNotificationMessages = await APIRESTNotifications.getNotificationMessages(sessionuser.iduser, sessionuser.userrname);
+         document.getElementById("headersidebar_span_numbernotimessages").innerHTML=getNotificationMessages.length;
+         await  Head_SidebarJS.forMessageUsersNotification(getNotificationMessages,sessionuser.iduser,sessionuser.userrname);
+ 
+   }
+   static async forMessageUsersNotification(getNotificationMessage,iduserlogin,usernamelogin) {
+    let html_messageuser="";
+   
+    for (let i = 0; i < getNotificationMessage.length; i++) {
+      let {IdNotification  ,IdUserSender ,ImageSender ,NameSender ,Message, DateeTime,stringnotificationago} = getNotificationMessage[i];
+     
+      if (ImageSender==="") {
+        ImageSender="https://res.cloudinary.com/rwkama27/image/upload/v1676421046/socialnetworkk/public/avatars/nouser_mzezf8.jpg";
+      }
+      if(Number(iduserlogin)===Number(IdUserSender))
+      {
+        html_messageuser=``;
+      }
+      else
+      {
+        html_messageuser+=`
+        <li >
+        <a 
+         onclick="Head_SidebarJS.passidtoChatUser(${IdUserSender});" 
+        >
+           <div class="drop_avatar">
+               <img src="${ImageSender}" alt=""> </div>
+           <div class="drop_text">
+              <strong> ${NameSender} </strong>
+              <time>${stringnotificationago}</time>
+              <p> ${Message} </p>
+           </div>
+        </a>
+        </li>
+        
+        `;
+       }
+
+    }
+    document.getElementById("headesidebar_ul_listnotimessages").innerHTML=html_messageuser;
+   
+
+  }
 
 }
 window.addEventListener("load",Head_SidebarJS.load_headersidebar);

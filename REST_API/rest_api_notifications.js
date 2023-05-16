@@ -2,6 +2,7 @@ class APIRESTNotifications
 {
     static RESTAPIURL ="https://api-next-social-network-private.vercel.app/api";
 
+    //COMMENT NOTIFICATIONS
     static getNotificationComments=async(iduserLogin,usernamelogin)=>
     {
        
@@ -139,4 +140,54 @@ class APIRESTNotifications
          }
          return true
     } 
+
+    //MESSAGES NOTIFICATIONS
+    
+    static getNotificationMessages=async(iduserLogin,usernamelogin)=>
+    {
+       
+          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/getNotificationMessagesByUser?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
+
+          let headersList = {
+            "Accept": "*/*",
+           
+           }
+           
+           let response = await fetch(URLNOTIFICATION, { 
+             method: "GET",
+             headers: headersList
+           });
+           
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         let data = await response.json();
+         return data;
+    } 
+    static deleteNotiMessageByUser=async(iduserLogin,usernamelogin)=>
+    {
+       
+          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/notificationcomment?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
+
+          let headersList = {
+            "Accept": "*/*",
+           
+           }
+           
+           let response = await fetch(URLNOTIFICATION, { 
+             method: "DELETE",
+             headers: headersList
+           });
+           
+         if(!response.ok)
+         {
+          const error=await response.text();
+          throw new Error(error);
+         }
+         return true
+    } 
+
+
 }

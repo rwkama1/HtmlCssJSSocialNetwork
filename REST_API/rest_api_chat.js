@@ -110,7 +110,6 @@ class APIRESTChat
          }
          return true;
     } 
-
     //MESSAGES
     static addMessage=async(iduserreceived,text,iduserlogin,usernamelogin)=>
     {
@@ -164,7 +163,6 @@ class APIRESTChat
      let data = await response.json();
      return data;
     }
-
     // static updateSeenNotificationCommentImage=async(iduserLogin,usernamelogin,idnotification)=>
     // {
        
