@@ -1,7 +1,7 @@
 (function (window, document, undefined) {
     'use strict';
-    if (!('localStorage' in window)) return;
-    var nightMode = localStorage.getItem('gmtNightMode');
+    if (!('sessionStorage' in window)) return;
+    var nightMode = sessionStorage.getItem('gmtNightMode');
     if (nightMode) {
         document.documentElement.className += ' night-mode';
     }
@@ -12,7 +12,7 @@
     'use strict';
 
     // Feature test
-    if (!('localStorage' in window)) return;
+    if (!('sessionStorage' in window)) return;
 
     // Get our newly insert toggle
     var nightMode = document.querySelector('#night-mode');
@@ -23,10 +23,10 @@
         event.preventDefault();
         document.documentElement.classList.toggle('dark');
         if (document.documentElement.classList.contains('dark')) {
-            localStorage.setItem('gmtNightMode', true);
+            sessionStorage.setItem('gmtNightMode', true);
             return;
         }
-        localStorage.removeItem('gmtNightMode');
+        sessionStorage.removeItem('gmtNightMode');
     }, false);
 
 })(window, document);

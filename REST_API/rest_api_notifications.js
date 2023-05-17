@@ -169,7 +169,7 @@ class APIRESTNotifications
     static deleteNotiMessageByUser=async(iduserLogin,usernamelogin)=>
     {
        
-          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/notificationcomment?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
+          let URLNOTIFICATION=this.RESTAPIURL+`/notifications/notificationsmessage?iduserlogin=${iduserLogin}&usernamelogin=${usernamelogin}`;
 
           let headersList = {
             "Accept": "*/*",

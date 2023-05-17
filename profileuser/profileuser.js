@@ -3038,6 +3038,28 @@ static passidtoPostWatch=(idpost)=>
   
 } 
 
+//BLOCK USER
+
+static async blockUser()
+{
+   let messageblock=document.getElementById("profileuser_textarea_blockuser").value;
+   let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+   let iduserblock=sessionStorage.getItem('iduserwatch');
+   if(messageblock==="")
+   {
+     document.getElementById("profileuser_textarea_blockuser").setCustomValidity("Please enter a message");
+     document.getElementById("profileuser_textarea_blockuser").reportValidity();
+     return;
+   }
+   let blockuser=await APIRESTUser.blockUser(sessionuser.iduser,iduserblock,messageblock,sessionuser.userrname);
+   if (blockuser) {
+      messagenotification_withoutevent('User blocked','success');
+      setInterval(
+         window.location.href="../feed/feed.html"
+         ,2000);
+    
+   }
+}
 
 }
 
@@ -3088,4 +3110,9 @@ profileuser_button_deletesubcomment.addEventListener('click', ProfileUserJS.dele
 //SEND MESSAGE
 const profileuser_a_sendmessage = document.getElementById('profileuser_a_sendmessage');
 profileuser_a_sendmessage.addEventListener('click', ProfileUserJS.sendMessage);
+
+
+//BLOCK USER 
+const profileuser_button_blockuser = document.getElementById('profileuser_button_blockuser');
+profileuser_button_blockuser.addEventListener('click', ProfileUserJS.blockUser);
 

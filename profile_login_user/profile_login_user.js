@@ -329,7 +329,13 @@ static  load_confirmedFriends=async(iduserlogin)=>
          let getuserlogin=await this.sessionLoginUser();
           const response_update= await APIRESTUser.updateDescription(description,getuserlogin.iduser,getuserlogin.userrname);
           if (response_update) {
-        
+
+            document.getElementById("profileloginuser_p_description").innerHTML=
+            `
+            ${description} <a href=""
+            uk-toggle="target: #update-about-modal">  Edit </a> 
+            `;
+            
             messagenotification('Description Updated','success',event)
           
           }

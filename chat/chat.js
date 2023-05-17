@@ -108,7 +108,10 @@ class ChatJS
   {
     sessionStorage.setItem("iduserchat", null);
     sessionStorage.setItem("iduserchat", iduser2);
-  
+    let getuser=await APIRESTUser.getUser(iduser2
+      ,iduserlogin,usernamelogin);
+      document.getElementById("chat_h4_nameuserconversation").innerHTML=`${getuser.name}`;
+
     const messagesByDate = {};
   
     const getMessagesChatRoom = await APIRESTChat.getMessagesChatRoom(iduser2, iduserlogin, usernamelogin);

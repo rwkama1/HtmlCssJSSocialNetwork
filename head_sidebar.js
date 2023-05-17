@@ -680,6 +680,20 @@ static deleteCommentNotifications=()=>
    
 
   }
+  static deleteNotificationMessage=()=>
+{
+  let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
+  let deleteNotiMessageByUser= APIRESTNotifications.deleteNotiMessageByUser(sessionuser.iduser,sessionuser.userrname);
+  if(deleteNotiMessageByUser)
+  {
+    
+    document.getElementById("headersidebar_span_numbernotimessages").innerHTML=0;
+    document.getElementById("headesidebar_ul_listnotimessages").innerHTML="";
+  }
+ 
+
+  }
+
 
 }
 window.addEventListener("load",Head_SidebarJS.load_headersidebar);
@@ -694,6 +708,12 @@ headersidebar_search_text.addEventListener("input",Head_SidebarJS.searchText);
 
 const headersidebar_button_deletenotifications = document.getElementById("headersidebar_button_deletenotifications");
 headersidebar_button_deletenotifications.addEventListener("click",Head_SidebarJS.deleteCommentNotifications);
+
+
+//DELETE MESSAGE NOTIFICATIONS
+
+const headersidebar_button_deletenotimessages = document.getElementById("headersidebar_button_deletenotimessages");
+headersidebar_button_deletenotimessages.addEventListener("click",Head_SidebarJS.deleteNotificationMessage);
 
 const a_logout = document.getElementById('usersettings_link_logout');
 a_logout.addEventListener('click', Head_SidebarJS.logout);
