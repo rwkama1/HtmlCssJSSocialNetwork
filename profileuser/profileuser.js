@@ -7,6 +7,13 @@ class ProfileUserJS
   {
     
     try {
+
+         //DARK MODE
+         var nightMode = sessionStorage.getItem('gmtNightMode');
+         if (nightMode) {
+         document.documentElement.classList.add('dark');
+         }
+
       let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
       let getuser=await APIRESTUser.getUser(sessionStorage.getItem('iduserwatch')
       ,sessionuser.iduser,sessionuser.userrname);

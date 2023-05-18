@@ -13,8 +13,13 @@
     static showdata_getLoginUser=async()=>
     {
      
+
       try {
-      
+         //DARK MODE
+         var nightMode = sessionStorage.getItem('gmtNightMode');
+         if (nightMode) {
+            document.documentElement.classList.add('dark');
+         }
       let getuserlogin=await this.sessionLoginUser();
       
        let {iduser,name,email,ocupattion,urlfacebook,country
@@ -22,6 +27,7 @@
          userrname,image,coverphoto
        }=getuserlogin;
 
+     
 
   
 

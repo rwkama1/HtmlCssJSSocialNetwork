@@ -5,6 +5,13 @@ class PostWatchJS
   {
 
     try {
+
+      //DARK MODE
+      var nightMode = sessionStorage.getItem('gmtNightMode');
+      if (nightMode) {
+        document.documentElement.classList.add('dark');
+      }
+
       let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
       let {iduser,userrname}=sessionuser;
         let idpostwatch = sessionStorage.getItem('idpostwatch');

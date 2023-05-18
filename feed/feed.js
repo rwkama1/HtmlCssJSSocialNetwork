@@ -6,6 +6,13 @@ static loadPage=async()=>
   {
     
     try {
+
+     //DARK MODE
+      var nightMode = sessionStorage.getItem('gmtNightMode');
+      if (nightMode) {
+        document.documentElement.classList.add('dark');
+      }
+
       let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
 
       // SHOW  IMAGE PROFILE TIMELINE ADD POST IMAGE VIDEO

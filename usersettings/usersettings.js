@@ -12,6 +12,12 @@ class UserSettingsJS
  {
    try {
    
+         //DARK MODE
+         var nightMode = sessionStorage.getItem('gmtNightMode');
+         if (nightMode) {
+         document.documentElement.classList.add('dark');
+         }
+
     let getuser = await this.sessionLoginUser();
    
     const {name,email,ocupattion,urlfacebook,country

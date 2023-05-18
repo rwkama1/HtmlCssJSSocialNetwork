@@ -6,6 +6,15 @@ class ChatJS
   {
  
     try {
+
+
+          //DARK MODE
+          var nightMode = sessionStorage.getItem('gmtNightMode');
+          if (nightMode) {
+            document.documentElement.classList.add('dark');
+          }
+
+
         let sessionuser = JSON.parse(sessionStorage.getItem('user_login'));
         let iduserchat=sessionStorage.getItem('iduserchat');
         let getuser=await APIRESTUser.getUser(iduserchat
@@ -13,6 +22,9 @@ class ChatJS
 
       document.getElementById("chat_h4_nameuserconversation").innerHTML=`${getuser.name}`;
       
+
+
+
         await ChatJS.listChatRoomMessageLoginUser(sessionuser);
 
         //I CREATE 2 INSTANCES OF ABLY, SINCE THE 2 USERS MUST RECEIVE THE MESSAGES.

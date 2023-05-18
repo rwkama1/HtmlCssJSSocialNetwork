@@ -64,6 +64,12 @@ class ImageWatchJS
   static loadImage=async(getImage,userimage)=>
   {
    
+   //DARK MODE
+   var nightMode = sessionStorage.getItem('gmtNightMode');
+   if (nightMode) {
+     document.documentElement.classList.add('dark');
+   }
+
    
    let { urlimage, likes,description, DateTimePublish, title,user,idphoto,visibility} = getImage;
  
