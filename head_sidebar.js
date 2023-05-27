@@ -153,7 +153,7 @@ static  load_headersidebar=async()=>
   } 
  catch (error) {
  
-  alert(error);
+ // alert(error);
   window.location.href="../index.html";
  }
 }
