@@ -37,7 +37,7 @@ static loadPage=async()=>
 
    } catch (error) {
   
-   alert(error);
+  // alert(error);
   
    }
  

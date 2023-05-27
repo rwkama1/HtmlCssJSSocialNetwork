@@ -97,7 +97,7 @@ this.showImageCoverProfile(image, coverphoto);
 
    } catch (error) {
     //console.error(error);
-   alert(error);
+   //alert(error);
   
    }
  

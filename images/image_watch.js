@@ -54,7 +54,7 @@ class ImageWatchJS
   //await this.loadCommentImage(listcommentIMAGE,idimagewatch,sessionuser.iduser,sessionuser.userrname);
 
   } catch (error) {
-    alert(error);
+   // alert(error);
     //window.location.href="../index.html"; 
        }
   

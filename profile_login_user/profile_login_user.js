@@ -115,7 +115,7 @@
 
 
      } catch (error) {
-       alert(error);
+      // alert(error);
    
    //   window.location.href="../index.html";
    
